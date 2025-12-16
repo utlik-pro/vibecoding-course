@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Панель управления</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 3rem;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-icon {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .login-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .login-subtitle {
+      color: #a0aec0;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .password-input {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      font-size: 1.1rem;
+      color: #fff;
+      text-align: center;
+      letter-spacing: 0.2em;
+      transition: all 0.3s ease;
+    }
+
+    .password-input::placeholder {
+      color: #6b7280;
+      letter-spacing: normal;
+    }
+
+    .password-input:focus {
+      outline: none;
+      border-color: #667eea;
+      background: rgba(102, 126, 234, 0.1);
+    }
+
+    .password-input.error {
+      border-color: #ef4444;
+      animation: shake 0.5s ease;
+    }
+
+    .login-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 12px;
+      padding: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .error-message {
+      color: #ef4444;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    /* Admin Panel (после входа) */
+    .admin-panel {
+      display: none;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    .admin-panel.show {
+      display: block;
+    }
+
+    .admin-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .admin-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .logout-btn {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid #ef4444;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      color: #ef4444;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    .admin-section {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .admin-section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .lesson-list {
+      list-style: none;
+    }
+
+    .lesson-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      transition: all 0.3s ease;
+    }
+
+    .lesson-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .lesson-name {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .lesson-number {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .lesson-status {
+      font-size: 1.25rem;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 0.875rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .action-btn.primary {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+    }
+
+    .action-btn.primary:hover {
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .action-btn.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .action-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .go-to-course {
+      display: block;
+      margin-top: 1.5rem;
+      text-align: center;
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .go-to-course:hover {
+      color: #a5b4fc;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #10b981;
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-weight: 500;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Form -->
+  <div class="login-container" id="loginContainer">
+    <div class="login-icon">🔐</div>
+    <h1 class="login-title">Панель управления</h1>
+    <p class="login-subtitle">Введите пароль для доступа</p>
+
+    <form class="login-form" id="loginForm">
+      <input
+        type="password"
+        class="password-input"
+        id="passwordInput"
+        placeholder="••••••"
+        autocomplete="off"
+        autofocus
+      >
+      <button type="submit" class="login-btn">Войти</button>
+      <div class="error-message" id="errorMessage">Неверный пароль</div>
+    </form>
+  </div>
+
+  <!-- Admin Panel -->
+  <div class="admin-panel" id="adminPanel">
+    <div class="admin-header">
+      <div class="admin-title">
+        <span>👑</span>
+        <span>Панель управления</span>
+      </div>
+      <button class="logout-btn" id="logoutBtn">Выйти</button>
+    </div>
+
+    <div class="admin-section">
+      <div class="admin-section-title">
+        <span>📚</span>
+        <span>Модуль 4: Технологический стек</span>
+      </div>
+      <ul class="lesson-list" id="lessonList">
+        <!-- Заполняется JS -->
+      </ul>
+    </div>
+
+    <div class="action-buttons">
+      <button class="action-btn primary" id="unlockAllBtn">🔓 Открыть все уроки</button>
+      <button class="action-btn secondary" id="resetProgressBtn">↺ Сбросить прогресс</button>
+    </div>
+
+    <a href="04-tech-stack-overview/presentation/index.html" class="go-to-course">
+      → Перейти к модулю 4
+    </a>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const ADMIN_PASSWORD = '609285';
+    const LESSONS = [
+      { id: 1, name: 'Регистрация аккаунтов' },
+      { id: 2, name: 'Архитектура приложений' },
+      { id: 3, name: 'Технологии фронтенда' },
+      { id: 4, name: 'Базы данных' },
+      { id: 5, name: 'Облачные платформы' },
+      { id: 6, name: 'Сторонние сервисы' },
+      { id: 7, name: 'Инструменты разработчика' },
+      { id: 8, name: 'Итоговый проект' }
+    ];
+
+    // Elements
+    const loginContainer = document.getElementById('loginContainer');
+    const adminPanel = document.getElementById('adminPanel');
+    const loginForm = document.getElementById('loginForm');
+    const passwordInput = document.getElementById('passwordInput');
+    const errorMessage = document.getElementById('errorMessage');
+    const lessonList = document.getElementById('lessonList');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const unlockAllBtn = document.getElementById('unlockAllBtn');
+    const resetProgressBtn = document.getElementById('resetProgressBtn');
+    const toast = document.getElementById('toast');
+
+    // Check if already logged in
+    function checkAuth() {
+      if (localStorage.getItem('isAdmin') === 'true') {
+        showAdminPanel();
+      }
+    }
+
+    // Login
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const password = passwordInput.value;
+
+      if (password === ADMIN_PASSWORD) {
+        localStorage.setItem('isAdmin', 'true');
+        showAdminPanel();
+      } else {
+        passwordInput.classList.add('error');
+        errorMessage.classList.add('show');
+        passwordInput.value = '';
+
+        setTimeout(() => {
+          passwordInput.classList.remove('error');
+          errorMessage.classList.remove('show');
+        }, 2000);
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('isAdmin');
+      loginContainer.style.display = 'block';
+      adminPanel.classList.remove('show');
+      passwordInput.value = '';
+    });
+
+    // Show admin panel
+    function showAdminPanel() {
+      loginContainer.style.display = 'none';
+      adminPanel.classList.add('show');
+      renderLessons();
+    }
+
+    // Render lessons
+    function renderLessons() {
+      const completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+
+      lessonList.innerHTML = LESSONS.map(lesson => {
+        const isCompleted = completed.includes(String(lesson.id));
+        const isUnlocked = lesson.id === 1 || completed.some(id => parseInt(id) === lesson.id - 1);
+
+        let status = '🔒';
+        if (isCompleted) status = '✅';
+        else if (isUnlocked) status = '🔓';
+
+        return `
+          <li class="lesson-item">
+            <div class="lesson-name">
+              <div class="lesson-number">${lesson.id}</div>
+              <span>${lesson.name}</span>
+            </div>
+            <span class="lesson-status">${status}</span>
+          </li>
+        `;
+      }).join('');
+    }
+
+    // Unlock all lessons
+    unlockAllBtn.addEventListener('click', () => {
+      const allLessons = LESSONS.map(l => String(l.id));
+      localStorage.setItem('completedLessons', JSON.stringify(allLessons));
+      renderLessons();
+      showToast('✅ Все уроки открыты!');
+    });
+
+    // Reset progress
+    resetProgressBtn.addEventListener('click', () => {
+      if (confirm('Сбросить весь прогресс модуля 4?')) {
+        localStorage.removeItem('completedLessons');
+        renderLessons();
+        showToast('↺ Прогресс сброшен');
+      }
+    });
+
+    // Toast notification
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    // Init
+    checkAuth();
+  </script>
+</body>
+</html>
