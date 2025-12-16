@@ -1,42 +1,31 @@
 /**
  * Admin Access System
- * Белый список email для доступа ко всем урокам
+ * Вход по паролю для доступа ко всем урокам
  */
 
 // ==========================================
-// БЕЛЫЙ СПИСОК АДМИНИСТРАТОРОВ
+// ПАРОЛЬ АДМИНИСТРАТОРА
 // ==========================================
-// Добавьте email-адреса, которые имеют доступ ко всем урокам
-const ADMIN_EMAILS = [
-  'admin@example.com',
-  'teacher@vibecoding.ru',
-  // Добавьте свои email-адреса здесь
-];
+const ADMIN_PASSWORD = '609285';
 
 // ==========================================
 // ADMIN FUNCTIONS
 // ==========================================
 
 function isAdmin() {
-  const adminEmail = localStorage.getItem('adminEmail');
-  return adminEmail && ADMIN_EMAILS.includes(adminEmail.toLowerCase());
+  return localStorage.getItem('isAdmin') === 'true';
 }
 
-function getAdminEmail() {
-  return localStorage.getItem('adminEmail');
-}
-
-function adminLogin(email) {
-  const normalizedEmail = email.toLowerCase().trim();
-  if (ADMIN_EMAILS.includes(normalizedEmail)) {
-    localStorage.setItem('adminEmail', normalizedEmail);
+function adminLogin(password) {
+  if (password === ADMIN_PASSWORD) {
+    localStorage.setItem('isAdmin', 'true');
     return true;
   }
   return false;
 }
 
 function adminLogout() {
-  localStorage.removeItem('adminEmail');
+  localStorage.removeItem('isAdmin');
   window.location.reload();
 }
 
@@ -52,7 +41,7 @@ function initAdminPanel() {
   const adminBtn = document.createElement('div');
   adminBtn.className = 'admin-btn';
   adminBtn.innerHTML = isAdmin()
-    ? `<span class="admin-badge">👑 ${getAdminEmail()}</span><button class="admin-logout-btn" title="Выйти">✕</button>`
+    ? `<span class="admin-badge">👑 Админ</span><button class="admin-logout-btn" title="Выйти">✕</button>`
     : `<button class="admin-login-btn" title="Вход для преподавателей">🔑</button>`;
 
   headerActions.insertBefore(adminBtn, headerActions.firstChild);
@@ -84,9 +73,9 @@ function showLoginModal() {
     <div class="admin-modal-content">
       <button class="admin-modal-close">✕</button>
       <h3>🔑 Вход для преподавателей</h3>
-      <p>Введите email из белого списка</p>
+      <p>Введите пароль администратора</p>
       <form class="admin-login-form">
-        <input type="email" class="admin-email-input" placeholder="your@email.com" required>
+        <input type="password" class="admin-password-input" placeholder="Пароль" required>
         <button type="submit" class="btn btn-primary">Войти</button>
       </form>
       <div class="admin-login-error"></div>
@@ -96,7 +85,7 @@ function showLoginModal() {
   document.body.appendChild(modal);
 
   // Focus on input
-  const input = modal.querySelector('.admin-email-input');
+  const input = modal.querySelector('.admin-password-input');
   setTimeout(() => input.focus(), 100);
 
   // Close button
@@ -110,17 +99,18 @@ function showLoginModal() {
   // Form submit
   modal.querySelector('.admin-login-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = input.value;
+    const password = input.value;
     const errorDiv = modal.querySelector('.admin-login-error');
 
-    if (adminLogin(email)) {
+    if (adminLogin(password)) {
       modal.remove();
       showAdminWelcome();
       window.location.reload();
     } else {
-      errorDiv.textContent = '❌ Email не найден в белом списке';
+      errorDiv.textContent = '❌ Неверный пароль';
       errorDiv.style.display = 'block';
       input.classList.add('error');
+      input.value = '';
     }
   });
 
@@ -259,20 +249,21 @@ function addAdminStyles() {
       gap: 1rem;
     }
 
-    .admin-email-input {
+    .admin-password-input {
       padding: 0.75rem 1rem;
       border: 2px solid var(--border);
       border-radius: var(--radius);
       font-size: 1rem;
       transition: var(--transition);
+      width: 100%;
     }
 
-    .admin-email-input:focus {
+    .admin-password-input:focus {
       outline: none;
       border-color: var(--primary);
     }
 
-    .admin-email-input.error {
+    .admin-password-input.error {
       border-color: var(--danger);
     }
 
@@ -345,7 +336,6 @@ function addAdminStyles() {
 // Export for use in app.js
 window.AdminPanel = {
   isAdmin,
-  getAdminEmail,
   adminLogin,
   adminLogout,
   initAdminPanel
