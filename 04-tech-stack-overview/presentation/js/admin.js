@@ -34,32 +34,44 @@ function adminLogout() {
 // ==========================================
 
 function initAdminPanel() {
-  // Добавляем кнопку админки в header
-  const headerActions = document.querySelector('.header-actions');
-  if (!headerActions) return;
-
-  const adminBtn = document.createElement('div');
-  adminBtn.className = 'admin-btn';
-  adminBtn.innerHTML = isAdmin()
-    ? `<span class="admin-badge">👑 Админ</span><button class="admin-logout-btn" title="Выйти">✕</button>`
-    : `<button class="admin-login-btn" title="Вход для преподавателей">🔑</button>`;
-
-  headerActions.insertBefore(adminBtn, headerActions.firstChild);
-
-  // Event listeners
-  const loginBtn = adminBtn.querySelector('.admin-login-btn');
-  const logoutBtn = adminBtn.querySelector('.admin-logout-btn');
-
-  if (loginBtn) {
-    loginBtn.addEventListener('click', showLoginModal);
-  }
-
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', adminLogout);
-  }
-
-  // Добавляем стили
   addAdminStyles();
+
+  // Секретный вход: 5 кликов по логотипу VibeCoding
+  const logo = document.querySelector('.sidebar-logo');
+  if (logo) {
+    let clickCount = 0;
+    let clickTimer = null;
+
+    logo.addEventListener('click', () => {
+      clickCount++;
+      clearTimeout(clickTimer);
+
+      if (clickCount >= 5) {
+        clickCount = 0;
+        if (isAdmin()) {
+          adminLogout();
+        } else {
+          showLoginModal();
+        }
+      }
+
+      clickTimer = setTimeout(() => {
+        clickCount = 0;
+      }, 2000); // Сброс через 2 сек
+    });
+  }
+
+  // Альтернатива: Ctrl+Shift+A
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+      e.preventDefault();
+      if (isAdmin()) {
+        adminLogout();
+      } else {
+        showLoginModal();
+      }
+    }
+  });
 }
 
 function showLoginModal() {
@@ -147,49 +159,9 @@ function addAdminStyles() {
   const styles = document.createElement('style');
   styles.id = 'admin-styles';
   styles.textContent = `
-    .admin-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-right: 1rem;
-    }
-
-    .admin-login-btn {
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 0.5rem 0.75rem;
+    .sidebar-logo {
       cursor: pointer;
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-
-    .admin-login-btn:hover {
-      background: var(--bg-main);
-      border-color: var(--primary);
-    }
-
-    .admin-badge {
-      background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
-      color: white;
-      padding: 0.35rem 0.75rem;
-      border-radius: var(--radius);
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-
-    .admin-logout-btn {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      padding: 0.25rem;
-      font-size: 0.9rem;
-      transition: var(--transition);
-    }
-
-    .admin-logout-btn:hover {
-      color: var(--danger);
+      user-select: none;
     }
 
     .admin-modal {
@@ -319,15 +291,6 @@ function addAdminStyles() {
       }
     }
 
-    @media (max-width: 768px) {
-      .admin-badge {
-        display: none;
-      }
-
-      .admin-btn {
-        margin-right: 0.5rem;
-      }
-    }
   `;
 
   document.head.appendChild(styles);
