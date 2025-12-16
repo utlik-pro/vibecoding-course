@@ -5,7 +5,7 @@
 
 const COURSE_CONFIG = {
   // Какие модули открыты (номера 1-12)
-  unlockedModules: [3, 4],
+  unlockedModules: [4],
 
   // Белый список email
   whitelist: [
