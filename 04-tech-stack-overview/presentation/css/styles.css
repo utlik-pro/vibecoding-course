@@ -167,6 +167,31 @@ a:hover {
   color: white;
 }
 
+/* Exit Button */
+.nav-item.exit-btn {
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  margin-top: 1rem;
+  color: var(--danger);
+}
+
+.nav-item.exit-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+}
+
+.nav-item.exit-btn .nav-item-number {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 /* Main Content */
 .main-content {
   flex: 1;
