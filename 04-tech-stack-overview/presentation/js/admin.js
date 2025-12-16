@@ -42,9 +42,17 @@ function initAdminPanel() {
     let clickCount = 0;
     let clickTimer = null;
 
-    logo.addEventListener('click', () => {
+    logo.style.cursor = 'pointer';
+    logo.style.userSelect = 'none';
+
+    logo.addEventListener('click', (e) => {
+      e.preventDefault();
       clickCount++;
       clearTimeout(clickTimer);
+
+      // Визуальная индикация
+      logo.style.transform = 'scale(0.95)';
+      setTimeout(() => logo.style.transform = '', 100);
 
       if (clickCount >= 5) {
         clickCount = 0;
@@ -61,9 +69,9 @@ function initAdminPanel() {
     });
   }
 
-  // Альтернатива: Ctrl+Shift+A
+  // Альтернатива: Ctrl+Shift+A (или Cmd+Shift+A на Mac)
   document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a' || e.key === 'Ф' || e.key === 'ф')) {
       e.preventDefault();
       if (isAdmin()) {
         adminLogout();
