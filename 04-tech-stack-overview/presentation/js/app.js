@@ -7,8 +7,13 @@
 // LESSON ACCESS CONFIGURATION
 // ==========================================
 // Уроки разблокируются последовательно при прохождении
-// Первый урок всегда открыт, остальные открываются после завершения предыдущего
+// Админы (из белого списка) видят все уроки
 function getUnlockedLessons() {
+  // Если админ — все уроки открыты
+  if (typeof AdminPanel !== 'undefined' && AdminPanel.isAdmin()) {
+    return [1, 2, 3, 4, 5, 6, 7, 8];
+  }
+
   const completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
   // Урок 1 всегда открыт, + все пройденные, + следующий после последнего пройденного
   const unlocked = [1];
@@ -25,6 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initApp() {
+  // Инициализируем админ-панель (если скрипт загружен)
+  if (typeof AdminPanel !== 'undefined') {
+    AdminPanel.initAdminPanel();
+  }
   initLessonLocks();
   initSidebar();
   initTeacherMode();
