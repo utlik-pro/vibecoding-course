@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Программа курса "Vibecoding с нуля"</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            margin: 2cm;
+            color: #000;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24pt;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+        h2 {
+            font-size: 18pt;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+        h3 {
+            font-size: 14pt;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        h4 {
+            font-size: 12pt;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+        .header-info {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 12pt;
+        }
+        .module {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+        .lesson {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        .duration {
+            font-weight: bold;
+            color: #666;
+        }
+        .objectives {
+            background-color: #e8f4fd;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #2196F3;
+        }
+        .tech-stack {
+            background-color: #fff3cd;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #ffc107;
+        }
+        .project {
+            background-color: #d4edda;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #28a745;
+        }
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 10pt;
+            color: #666;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-info">
+        <h1>Программа курса<br>"Vibecoding с нуля"</h1>
+        <p><strong>Создание SaaS-приложений с помощью ИИ-инструментов</strong></p>
+        <p>Продолжительность: 6-7 недель (42-49 дней)</p>
+        <p>Формат: Практический интенсив</p>
+        <p>Уровень: От новичка до продвинутого</p>
+    </div>
+
+    <h2>Описание курса</h2>
+    
+    <p><strong>Vibecoding</strong> — это революционный подход к программированию, который использует силу ИИ-инструментов для создания качественного кода быстро и эффективно. Вместо написания каждой строчки кода вручную, студенты научатся "кодить через вайб" - описывать желаемый результат, а ИИ поможет его реализовать.</p>
+
+    <div class="objectives">
+        <h3>Цели курса:</h3>
+        <ul>
+            <li>Освоить современный подход к разработке с использованием ИИ</li>
+            <li>Создать полноценное SaaS-приложение от идеи до деплоя</li>
+            <li>Изучить весь современный технологический стек веб-разработки</li>
+            <li>Автоматизировать рутинные задачи разработки</li>
+            <li>Подготовиться к работе программистом в эпоху ИИ</li>
+        </ul>
+    </div>
+
+    <div class="tech-stack">
+        <h3>Технологический стек:</h3>
+        <ul>
+            <li><strong>Frontend:</strong> Next.js, React, TypeScript, Tailwind CSS, shadcn/ui</li>
+            <li><strong>Backend:</strong> Next.js API Routes, Drizzle ORM</li>
+            <li><strong>Database:</strong> Supabase/PostgreSQL</li>
+            <li><strong>Authentication:</strong> Clerk</li>
+            <li><strong>Payments:</strong> Stripe</li>
+            <li><strong>Deployment:</strong> Vercel</li>
+            <li><strong>AI Tools:</strong> Cursor, Claude Code, OpenAI API</li>
+        </ul>
+    </div>
+
+    <div class="project">
+        <h3>Итоговый результат:</h3>
+        <p>Полноценное SaaS-приложение с лендингом, аутентификацией, базой данных, API, платежной системой и деплоем в production.</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>Подробная программа обучения</h2>
+
+    <div class="module">
+        <h3>Модуль 1: Введение в Vibecoding</h3>
+        <p class="duration">Продолжительность: 4 дня</p>
+        
+        <div class="lesson">
+            <h4>Урок 1.1: Что такое Vibecoding? (1 час)</h4>
+            <ul>
+                <li>Философия "кодить через вайб"</li>
+                <li>Отличия от классического программирования</li>
+                <li>Роль интуиции и креативности</li>
+                <li>Человек как архитектор, ИИ как исполнитель</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 1.2: 10 лучших AI-инструментов (1.5 часа)</h4>
+            <ul>
+                <li>Cursor, Claude Code, GitHub Copilot</li>
+                <li>v0.dev, Lovable, Bolt, Replit AI</li>
+                <li>Windsurf, TabNine, Codeium</li>
+                <li>Сравнение и выбор инструментов</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 1.3: Первое приложение за 10 минут (1 час)</h4>
+            <ul>
+                <li>Демонстрация силы ИИ-подхода</li>
+                <li>Создание Todo-приложения</li>
+                <li>Анализ сгенерированного кода</li>
+                <li>Итерации и улучшения</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 1.4: GitHub для Vibecoding (1 час)</h4>
+            <ul>
+                <li>Основы Git и GitHub</li>
+                <li>Workflow для ИИ-разработки</li>
+                <li>Частые коммиты и осмысленные сообщения</li>
+                <li>Версионирование экспериментов</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="module">
+        <h3>Модуль 2: Cursor тренинг</h3>
+        <p class="duration">Продолжительность: 5 дней</p>
+        
+        <div class="lesson">
+            <h4>Урок 2.1: Первое знакомство с Cursor (1.5 часа)</h4>
+            <ul>
+                <li>Установка и настройка</li>
+                <li>Обзор интерфейса</li>
+                <li>Отличия от VS Code</li>
+                <li>Первые эксперименты</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 2.2: Базовые настройки и интеграции (1.5 часа)</h4>
+            <ul>
+                <li>Интеграция с GitHub и OpenAI</li>
+                <li>Настройка ИИ-моделей</li>
+                <li>Расширения и плагины</li>
+                <li>Workspace settings</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 2.3: Сетап проекта с Cursor (1 час)</h4>
+            <ul>
+                <li>Создание проекта с нуля</li>
+                <li>Автоматическая настройка окружения</li>
+                <li>Шаблоны проектов</li>
+                <li>Конфигурационные файлы</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 2.4: Базовая структура и навигация (1 час)</h4>
+            <ul>
+                <li>Файловый explorer</li>
+                <li>Система вкладок</li>
+                <li>Панели и workspace</li>
+                <li>Горячие клавиши</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 2.5: Chat с ИИ (1.5 часа)</h4>
+            <ul>
+                <li>Интерфейс чата</li>
+                <li>Типы запросов</li>
+                <li>Эффективное общение с ИИ</li>
+                <li>Работа с контекстом</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 2.6: Tab автодополнение (1 час)</h4>
+            <ul>
+                <li>Как работает автодополнение</li>
+                <li>Типы предложений</li>
+                <li>Управление автодополнением</li>
+                <li>Практические применения</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 2.7: Cmd+K палитра команд (45 минут)</h4>
+            <ul>
+                <li>Основы палитры команд</li>
+                <li>ИИ-команды через Cmd+K</li>
+                <li>Быстрая генерация и рефакторинг</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 2.8: Composer для генерации кода (1.5 часа)</h4>
+            <ul>
+                <li>Введение в Composer</li>
+                <li>Многофайловая генерация</li>
+                <li>Сложные архитектурные паттерны</li>
+                <li>Практические примеры</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 2.9: .cursorrules и продвинутые фичи (1.5 часа)</h4>
+            <ul>
+                <li>Создание персональных правил</li>
+                <li>Автоматизация стиля кодирования</li>
+                <li>Кастомные сниппеты</li>
+                <li>Collaborative features</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="module">
+        <h3>Модуль 3: Claude Code</h3>
+        <p class="duration">Продолжительность: 2 дня</p>
+        
+        <div class="lesson">
+            <h4>Урок 3.1: Введение в Claude Code (1 час)</h4>
+            <ul>
+                <li>Claude как альтернатива Cursor</li>
+                <li>Веб-интерфейс разработки</li>
+                <li>Artifacts и интерактивные компоненты</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 3.2: Сравнение с Cursor (1 час)</h4>
+            <ul>
+                <li>Когда использовать каждый инструмент</li>
+                <li>Преимущества и недостатки</li>
+                <li>Гибридный подход</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 3.3: Практика с Claude Code (2 часа)</h4>
+            <ul>
+                <li>Генерация API-эндпоинта</li>
+                <li>Создание схемы базы данных</li>
+                <li>Написание тестов</li>
+                <li>Рефакторинг и оптимизация</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="module">
+        <h3>Модуль 4: Обзор технологического стека</h3>
+        <p class="duration">Продолжительность: 3 дня</p>
+        
+        <div class="lesson">
+            <h4>Урок 4.1: Регистрация аккаунтов (1 час)</h4>
+            <ul>
+                <li>Vercel, Supabase, Clerk</li>
+                <li>OpenAI, Stripe</li>
+                <li>Настройка API ключей</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 4.2: Архитектура веб-приложений (1.5 часа)</h4>
+            <ul>
+                <li>Эволюция веб-архитектуры</li>
+                <li>Современные паттерны</li>
+                <li>Взаимодействие слоев</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 4.3: JavaScript/TypeScript экосистема (1.5 часа)</h4>
+            <ul>
+                <li>ES6+ features</li>
+                <li>TypeScript преимущества</li>
+                <li>React и Next.js</li>
+                <li>Инструменты разработки</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 4.4: Базы данных и SQL (1.5 часа)</h4>
+            <ul>
+                <li>PostgreSQL основы</li>
+                <li>SQL для CRUD операций</li>
+                <li>ORM и Drizzle</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 4.5: Облачные платформы (1 час)</h4>
+            <ul>
+                <li>Vercel для фронтенда</li>
+                <li>Supabase как BaaS</li>
+                <li>Serverless архитектура</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 4.6: Сторонние сервисы (1 час)</h4>
+            <ul>
+                <li>Clerk для аутентификации</li>
+                <li>Stripe для платежей</li>
+                <li>API интеграции</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="module">
+        <h3>Модуль 5: Настройка технологического стека</h3>
+        <p class="duration">Продолжительность: 2 дня</p>
+        
+        <div class="lesson">
+            <h4>Урок 5.1: Next.js и Vercel (1.5 часа)</h4>
+            <ul>
+                <li>Создание Next.js проекта</li>
+                <li>Настройка Vercel деплоя</li>
+                <li>Environment variables</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 5.2: Интеграция всех сервисов (1.5 часа)</h4>
+            <ul>
+                <li>Подключение Supabase</li>
+                <li>Настройка Clerk</li>
+                <li>Интеграция OpenAI и Stripe</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="module">
+        <h3>Модуль 6: Бекенд</h3>
+        <p class="duration">Продолжительность: 3 дня</p>
+        
+        <div class="lesson">
+            <h4>Урок 6.1: Введение в бекенд (1 час)</h4>
+            <ul>
+                <li>Роль бекенда в приложении</li>
+                <li>API Routes в Next.js</li>
+                <li>Первый API endpoint</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 6.2: Настройка Drizzle ORM (1.5 часа)</h4>
+            <ul>
+                <li>Установка и конфигурация</li>
+                <li>Подключение к базе данных</li>
+                <li>Миграции</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 6.3: Schema и типы (1.5 часа)</h4>
+            <ul>
+                <li>Проектирование схемы БД</li>
+                <li>Создание таблиц</li>
+                <li>Отношения между сущностями</li>
+                <li>TypeScript типы</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 6.4: Queries и Actions (1.5 часа)</h4>
+            <ul>
+                <li>CRUD операции</li>
+                <li>Сложные запросы</li>
+                <li>Бизнес-логика</li>
+                <li>Error handling</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="module">
+        <h3>Модуль 7: Аутентификация</h3>
+        <p class="duration">Продолжительность: 2 дня</p>
+        
+        <div class="lesson">
+            <h4>Урок 7.1: Настройка Clerk (1.5 часа)</h4>
+            <ul>
+                <li>Создание приложения в Clerk</li>
+                <li>Типы аутентификации</li>
+                <li>Настройка провайдеров</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 7.2: Интеграция с приложением (1.5 часа)</h4>
+            <ul>
+                <li>Middleware настройка</li>
+                <li>Защищенные роуты</li>
+                <li>Пользовательские данные</li>
+                <li>Webhooks синхронизация</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="module">
+        <h3>Модуль 8: База данных</h3>
+        <p class="duration">Продолжительность: 3 дня</p>
+        
+        <div class="lesson">
+            <h4>Урок 8.1: Глубокое погружение в Supabase (1.5 часа)</h4>
+            <ul>
+                <li>Dashboard и возможности</li>
+                <li>Real-time subscriptions</li>
+                <li>Row Level Security</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 8.2: Создание и управление таблицами (1.5 часа)</h4>
+            <ul>
+                <li>SQL Editor</li>
+                <li>Table Editor</li>
+                <li>Связи и ограничения</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 8.3: API и миграции (1.5 часа)</h4>
+            <ul>
+                <li>Auto-generated API</li>
+                <li>Миграции схемы</li>
+                <li>Backup и восстановление</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="module">
+        <h3>Модуль 9: Фронтенд (лендинг-пейдж)</h3>
+        <p class="duration">Продолжительность: 5 дней</p>
+        
+        <div class="lesson">
+            <h4>Урок 9.1: Роутинг в Next.js (1 час)</h4>
+            <ul>
+                <li>App Router vs Pages Router</li>
+                <li>Создание страниц</li>
+                <li>Динамические роуты</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 9.2: Проектирование архитектуры (1.5 часа)</h4>
+            <ul>
+                <li>Планирование с помощью ИИ</li>
+                <li>Структура компонентов</li>
+                <li>State management</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 9.3: Hero блок и структура (1.5 часа)</h4>
+            <ul>
+                <li>Главный экран</li>
+                <li>Навигация</li>
+                <li>Responsive design</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 9.4: Features и функциональность (1.5 часа)</h4>
+            <ul>
+                <li>Блоки возможностей</li>
+                <li>Интерактивные элементы</li>
+                <li>Анимации</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 9.5: Цены и планы (1 час)</h4>
+            <ul>
+                <li>Pricing таблицы</li>
+                <li>Интеграция с Stripe</li>
+                <li>Call-to-action элементы</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 9.6: FAQ и дополнительные разделы (1 час)</h4>
+            <ul>
+                <li>Accordion компоненты</li>
+                <li>Testimonials</li>
+                <li>Contact формы</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 9.7: Header и Footer (1 час)</h4>
+            <ul>
+                <li>Навигационное меню</li>
+                <li>Mobile menu</li>
+                <li>Футер со ссылками</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="module">
+        <h3>Модуль 10: API и платежи</h3>
+        <p class="duration">Продолжительность: 3 дня</p>
+        
+        <div class="lesson">
+            <h4>Урок 10.1: Интернет-протоколы и API (1.5 часа)</h4>
+            <ul>
+                <li>HTTP/HTTPS протоколы</li>
+                <li>RESTful API принципы</li>
+                <li>Webhooks</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 10.2: Интеграция API (1.5 часа)</h4>
+            <ul>
+                <li>Frontend и backend связка</li>
+                <li>Error handling</li>
+                <li>Loading states</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 10.3: Stripe интеграция (2 часа)</h4>
+            <ul>
+                <li>Настройка Stripe</li>
+                <li>Payment Intents</li>
+                <li>Подписки</li>
+                <li>Webhooks обработка</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="module">
+        <h3>Модуль 11: Интеграция</h3>
+        <p class="duration">Продолжительность: 2 дня</p>
+        
+        <div class="lesson">
+            <h4>Урок 11.1: Автоматизированное создание (1.5 часа)</h4>
+            <ul>
+                <li>Schema, queries, actions с помощью ИИ</li>
+                <li>Оптимизация кода</li>
+                <li>Автотесты</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 11.2: Стриминг OpenAI (1 час)</h4>
+            <ul>
+                <li>Real-time ИИ функции</li>
+                <li>Streaming responses</li>
+                <li>WebSocket интеграция</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 11.3: Финальная сборка (1.5 часа)</h4>
+            <ul>
+                <li>Связка всех компонентов</li>
+                <li>Тестирование приложения</li>
+                <li>Performance optimization</li>
+                <li>Production деплой</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="module">
+        <h3>Модуль 12: MCP и Агенты (Продвинутый уровень)</h3>
+        <p class="duration">Продолжительность: 5 дней</p>
+        
+        <div class="lesson">
+            <h4>Урок 12.1: Model Context Protocol (1.5 часа)</h4>
+            <ul>
+                <li>Введение в MCP</li>
+                <li>Архитектура и принципы</li>
+                <li>Настройка первого соединения</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 12.2: Кастомные MCP серверы (2 часа)</h4>
+            <ul>
+                <li>Создание собственного сервера</li>
+                <li>Интеграция с API и БД</li>
+                <li>Тестирование и отладка</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 12.3: ИИ-агенты и сабагенты (2 часа)</h4>
+            <ul>
+                <li>Теория агентов</li>
+                <li>Архитектура системы</li>
+                <li>Специализированные агенты</li>
+                <li>Коммуникация между агентами</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 12.4: Taskmaster (1.5 часа)</h4>
+            <ul>
+                <li>Система управления задачами</li>
+                <li>Автоматизированный workflow</li>
+                <li>Интеграция с разработкой</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 12.5: SuperCode (1.5 часа)</h4>
+            <ul>
+                <li>Автоматическая генерация решений</li>
+                <li>От идеи до готового кода</li>
+                <li>Self-healing системы</li>
+            </ul>
+        </div>
+
+        <div class="lesson">
+            <h4>Урок 12.6: Связка MCP + .cursorrules (2 часа)</h4>
+            <ul>
+                <li>Интегрированная система агентов</li>
+                <li>Продвинутые .cursorrules</li>
+                <li>Автоматизированный workflow</li>
+                <li>Полный pipeline разработки</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>Практические проекты и задания</h2>
+
+    <table>
+        <tr>
+            <th>Модуль</th>
+            <th>Практическое задание</th>
+            <th>Время</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Создание простого веб-приложения (калькулятор/конвертер)</td>
+            <td>2 часа</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Продвинутое Todo-приложение с использованием всех функций Cursor</td>
+            <td>4 часа</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Планирование архитектуры SaaS "Task Manager" в Claude Code</td>
+            <td>6 часов</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Техническая спецификация выбранного SaaS приложения</td>
+            <td>8 часов</td>
+        </tr>
+        <tr>
+            <td>5-11</td>
+            <td>Пошаговое создание полного SaaS-приложения</td>
+            <td>40 часов</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>Система агентов для автоматизации разработки</td>
+            <td>8 часов</td>
+        </tr>
+    </table>
+
+    <h2>Система оценивания</h2>
+
+    <h3>Критерии оценки проектов:</h3>
+    <ul>
+        <li><strong>Функциональность</strong> (40%) - Работает ли как задумано?</li>
+        <li><strong>Качество кода</strong> (30%) - Читаемость, структура, best practices</li>
+        <li><strong>UI/UX</strong> (20%) - Пользовательский опыт</li>
+        <li><strong>Использование ИИ</strong> (10%) - Эффективность работы с ИИ-инструментами</li>
+    </ul>
+
+    <h3>Уровни оценки:</h3>
+    <ul>
+        <li><strong>Отлично</strong> (90-100%) - Превосходит ожидания</li>
+        <li><strong>Хорошо</strong> (80-89%) - Соответствует всем требованиям</li>
+        <li><strong>Удовлетворительно</strong> (70-79%) - Основные требования выполнены</li>
+        <li><strong>Нуждается в доработке</strong> (&lt;70%) - Не все требования выполнены</li>
+    </ul>
+
+    <h2>Ресурсы и материалы</h2>
+
+    <h3>Обязательные инструменты:</h3>
+    <ul>
+        <li>Cursor IDE</li>
+        <li>Claude Code (claude.ai)</li>
+        <li>GitHub аккаунт</li>
+        <li>Vercel аккаунт</li>
+        <li>Supabase аккаунт</li>
+        <li>Clerk аккаунт</li>
+        <li>OpenAI API ключ</li>
+        <li>Stripe аккаунт</li>
+    </ul>
+
+    <h3>Дополнительные материалы:</h3>
+    <ul>
+        <li>Документация по всем технологиям</li>
+        <li>Шпаргалки и справочники</li>
+        <li>Примеры кода и шаблоны</li>
+        <li>Community поддержка</li>
+    </ul>
+
+    <h2>Сертификация</h2>
+
+    <p>По успешному завершению курса студенты получают:</p>
+    <ul>
+        <li><strong>Сертификат о прохождении</strong> курса "Vibecoding с нуля"</li>
+        <li><strong>Portfolio</strong> с 8-10 проектами на GitHub</li>
+        <li><strong>Готовое SaaS-приложение</strong> в production</li>
+        <li><strong>Рекомендации</strong> для трудоустройства</li>
+    </ul>
+
+    <h2>Перспективы трудоустройства</h2>
+
+    <p>После курса выпускники готовы к позициям:</p>
+    <ul>
+        <li>Frontend Developer (Middle level)</li>
+        <li>Full-stack Developer (Junior/Middle level)</li>
+        <li>ИИ-ассистированный разработчик</li>
+        <li>Product Builder</li>
+        <li>Indie Hacker / Solopreneur</li>
+    </ul>
+
+    <div class="footer">
+        <p>Программа курса "Vibecoding с нуля" | Версия 1.0 | 2024</p>
+        <p>Подготовлено с использованием ИИ-инструментов в духе vibecoding подхода</p>
+    </div>
+</body>
+</html>

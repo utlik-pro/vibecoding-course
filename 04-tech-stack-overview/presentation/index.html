@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 4: Обзор технологического стека | VibeCoding</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 8 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 4</div>
+
+        <a href="index.html" class="nav-item active">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <a href="lesson-1.html" class="nav-item" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Регистрация аккаунтов
+        </a>
+
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          Архитектура приложений
+        </a>
+
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          JS, TS, React
+        </a>
+
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Базы данных и SQL
+        </a>
+
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Облачные платформы
+        </a>
+
+        <a href="lesson-6.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">6</span>
+          Сторонние сервисы
+        </a>
+
+        <a href="lesson-7.html" class="nav-item" data-lesson="7">
+          <span class="nav-item-number">7</span>
+          Инструменты разработчика
+        </a>
+
+        <a href="project.html" class="nav-item" data-lesson="8">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 4</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Главная</span>
+        </div>
+
+        <div class="header-actions">
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Hero Section -->
+        <section class="hero">
+          <h1 class="hero-title">Обзор технологического стека</h1>
+          <p class="hero-subtitle">
+            Изучите инструменты и технологии современной веб-разработки.<br>
+            От регистрации в сервисах до архитектуры приложений.
+          </p>
+        </section>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Общая продолжительность модуля:</strong> ~8 часов</p>
+            <p><strong>Рекомендация:</strong> Перед началом убедитесь, что все студенты имеют стабильное интернет-соединение и аккаунт GitHub. Рекомендуется заранее создать демо-проект в Vercel для показа процесса деплоя.</p>
+            <p><strong>Ключевая цель:</strong> К концу модуля студенты должны иметь все необходимые аккаунты и понимать, как работает современный стек веб-разработки.</p>
+          </div>
+        </div>
+
+        <!-- Info Alert -->
+        <div class="alert alert-info">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 16v-4"/>
+            <path d="M12 8h.01"/>
+          </svg>
+          <div>
+            <strong>Что вы изучите в этом модуле:</strong>
+            <ul style="margin: 0.5rem 0 0 1rem;">
+              <li>Регистрация и настройка всех необходимых сервисов</li>
+              <li>Архитектура современных веб-приложений</li>
+              <li>Основы JavaScript, TypeScript и React</li>
+              <li>Работа с базами данных и SQL</li>
+              <li>Облачные платформы и деплоймент</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Lesson Cards -->
+        <h2 style="margin: 2rem 0 1rem;">Уроки модуля</h2>
+
+        <div class="lesson-cards">
+          <!-- Lesson 1 -->
+          <a href="lesson-1.html" class="lesson-card">
+            <div class="lesson-card-number">1</div>
+            <h3 class="lesson-card-title">Регистрация аккаунтов</h3>
+            <p class="lesson-card-desc">
+              Регистрация во всех необходимых сервисах: Vercel, Supabase, Clerk, OpenAI, Stripe.
+            </p>
+            <div class="lesson-card-meta">
+              <span>⏱ 1 час</span>
+              <span>•</span>
+              <span>6 сервисов</span>
+            </div>
+          </a>
+
+          <!-- Lesson 2 -->
+          <a href="lesson-2.html" class="lesson-card">
+            <div class="lesson-card-number">2</div>
+            <h3 class="lesson-card-title">Архитектура приложений</h3>
+            <p class="lesson-card-desc">
+              Эволюция веб-разработки, современная архитектура и взаимодействие компонентов.
+            </p>
+            <div class="lesson-card-meta">
+              <span>⏱ 1.5 часа</span>
+              <span>•</span>
+              <span>Схемы и диаграммы</span>
+            </div>
+          </a>
+
+          <!-- Lesson 3 -->
+          <a href="lesson-3.html" class="lesson-card">
+            <div class="lesson-card-number">3</div>
+            <h3 class="lesson-card-title">JS, TypeScript, React</h3>
+            <p class="lesson-card-desc">
+              JavaScript экосистема, TypeScript типизация, React компоненты и Next.js.
+            </p>
+            <div class="lesson-card-meta">
+              <span>⏱ 1.5 часа</span>
+              <span>•</span>
+              <span>Примеры кода</span>
+            </div>
+          </a>
+
+          <!-- Lesson 4 -->
+          <a href="lesson-4.html" class="lesson-card">
+            <div class="lesson-card-number">4</div>
+            <h3 class="lesson-card-title">Базы данных и SQL</h3>
+            <p class="lesson-card-desc">
+              Основы реляционных баз данных, PostgreSQL, SQL запросы и ORM.
+            </p>
+            <div class="lesson-card-meta">
+              <span>⏱ 1.5 часа</span>
+              <span>•</span>
+              <span>Практика SQL</span>
+            </div>
+          </a>
+
+          <!-- Lesson 5 -->
+          <a href="lesson-5.html" class="lesson-card">
+            <div class="lesson-card-number">5</div>
+            <h3 class="lesson-card-title">Облачные платформы</h3>
+            <p class="lesson-card-desc">
+              Vercel, Supabase, serverless архитектура и принципы облачной разработки.
+            </p>
+            <div class="lesson-card-meta">
+              <span>⏱ 1 час</span>
+              <span>•</span>
+              <span>PaaS/BaaS/FaaS</span>
+            </div>
+          </a>
+
+          <!-- Lesson 6 -->
+          <a href="lesson-6.html" class="lesson-card">
+            <div class="lesson-card-number">6</div>
+            <h3 class="lesson-card-title">Сторонние сервисы</h3>
+            <p class="lesson-card-desc">
+              Clerk для аутентификации, Stripe для платежей, интеграции и webhooks.
+            </p>
+            <div class="lesson-card-meta">
+              <span>⏱ 1 час</span>
+              <span>•</span>
+              <span>API интеграции</span>
+            </div>
+          </a>
+
+          <!-- Lesson 7 -->
+          <a href="lesson-7.html" class="lesson-card">
+            <div class="lesson-card-number">7</div>
+            <h3 class="lesson-card-title">Инструменты разработчика</h3>
+            <p class="lesson-card-desc">
+              VS Code, Git, DevTools, CLI утилиты и настройка рабочего окружения.
+            </p>
+            <div class="lesson-card-meta">
+              <span>⏱ 45 минут</span>
+              <span>•</span>
+              <span>Настройка IDE</span>
+            </div>
+          </a>
+
+          <!-- Final Project -->
+          <a href="project.html" class="lesson-card" style="border-color: var(--primary); border-width: 2px;">
+            <div class="lesson-card-number" style="background: var(--accent);">P</div>
+            <h3 class="lesson-card-title">Итоговый проект</h3>
+            <p class="lesson-card-desc">
+              Создание технического задания и плана для SaaS приложения.
+            </p>
+            <div class="lesson-card-meta">
+              <span>Финальное задание</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Quick Start -->
+        <div class="card" style="margin-top: 2rem;">
+          <div class="card-header">Быстрый старт</div>
+          <div class="card-body">
+            <p>Для успешного прохождения модуля вам понадобится:</p>
+
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="start-github"></span>
+                <span class="checklist-text">Аккаунт GitHub (для версионирования кода)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="start-email"></span>
+                <span class="checklist-text">Рабочий email для регистраций</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="start-browser"></span>
+                <span class="checklist-text">Современный браузер (Chrome, Firefox, Edge)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="start-vscode"></span>
+                <span class="checklist-text">VS Code или Cursor IDE</span>
+              </li>
+            </ul>
+
+            <div style="margin-top: 1rem;">
+              <a href="lesson-1.html" class="btn btn-primary">Начать обучение →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resources -->
+        <div class="card">
+          <div class="card-header">Полезные ресурсы</div>
+          <div class="card-body">
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">📚</div>
+                <h4 class="service-card-title">The Twelve-Factor App</h4>
+                <p class="service-card-desc">Принципы построения современных SaaS приложений</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🏗️</div>
+                <h4 class="service-card-title">AWS Well-Architected</h4>
+                <p class="service-card-desc">Архитектурные принципы от Amazon</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">✅</div>
+                <h4 class="service-card-title">Frontend Checklist</h4>
+                <p class="service-card-desc">Чек-лист для фронтенд разработки</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🔒</div>
+                <h4 class="service-card-title">API Security Checklist</h4>
+                <p class="service-card-desc">Безопасность API и backend</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>
