@@ -402,6 +402,25 @@
         </footer>
     </div>
 
+    <!-- Email Login Modal -->
+    <div id="emailModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2.5rem; max-width: 400px; width: 90%; text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">👋</div>
+            <h2 style="margin-bottom: 0.5rem;">Добро пожаловать!</h2>
+            <p style="color: #a0aec0; margin-bottom: 1.5rem;">Введите email для доступа к курсу</p>
+            <input type="email" id="emailInput" placeholder="your@email.com" style="width: 100%; padding: 1rem; border: 2px solid rgba(255,255,255,0.2); border-radius: 12px; background: rgba(255,255,255,0.1); color: #fff; font-size: 1rem; margin-bottom: 1rem;">
+            <button id="emailSubmit" style="width: 100%; padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; border-radius: 12px; color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer;">Войти</button>
+            <p id="emailStatus" style="margin-top: 1rem; font-size: 0.9rem; color: #a0aec0;"></p>
+        </div>
+    </div>
+
+    <!-- User Badge -->
+    <div id="userBadge" style="display: none; position: fixed; top: 1rem; right: 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 30px; padding: 0.5rem 1rem; font-size: 0.85rem; z-index: 100;">
+        <span id="userEmail"></span>
+        <button id="logoutBtn" style="background: none; border: none; color: #ef4444; cursor: pointer; margin-left: 0.5rem;">✕</button>
+    </div>
+
+    <script src="js/config.js"></script>
     <script>
         // Course lessons data
         const lessons = [
@@ -519,11 +538,17 @@
         let completedLessons = JSON.parse(localStorage.getItem('completedLessons')) || [];
         let currentLesson = parseInt(localStorage.getItem('currentLesson')) || 1;
 
-        // Только указанные уроки открыты
-        const UNLOCKED_LESSONS = [4]; // Только 4-й модуль открыт
-
+        // Проверка доступа через config
         function isUnlocked(lessonId) {
-            return UNLOCKED_LESSONS.includes(lessonId) || completedLessons.includes(lessonId - 1);
+            const userEmail = localStorage.getItem('userEmail');
+
+            // Если email в белом списке — все открыто
+            if (userEmail && COURSE_CONFIG.whitelist.includes(userEmail.toLowerCase())) {
+                return true;
+            }
+
+            // Иначе только открытые модули
+            return COURSE_CONFIG.unlockedModules.includes(lessonId) || completedLessons.includes(lessonId - 1);
         }
 
         function isCompleted(lessonId) {
@@ -648,8 +673,64 @@
         window.resetProgress = resetProgress;
         window.demoUnlockNext = demoUnlockNext;
 
+        // Email login logic
+        const emailModal = document.getElementById('emailModal');
+        const emailInputEl = document.getElementById('emailInput');
+        const emailSubmit = document.getElementById('emailSubmit');
+        const emailStatus = document.getElementById('emailStatus');
+        const userBadge = document.getElementById('userBadge');
+        const userEmailSpan = document.getElementById('userEmail');
+        const logoutBtnEl = document.getElementById('logoutBtn');
+
+        function checkUserEmail() {
+            const savedEmail = localStorage.getItem('userEmail');
+            if (savedEmail) {
+                showUserBadge(savedEmail);
+                renderLessons();
+            } else {
+                emailModal.style.display = 'flex';
+            }
+        }
+
+        function showUserBadge(email) {
+            const isWhitelisted = COURSE_CONFIG.whitelist.includes(email.toLowerCase());
+            userEmailSpan.textContent = isWhitelisted ? `👑 ${email}` : `📧 ${email}`;
+            userBadge.style.display = 'block';
+            if (isWhitelisted) {
+                userBadge.style.borderColor = '#f59e0b';
+                userBadge.style.background = 'rgba(245, 158, 11, 0.2)';
+            }
+        }
+
+        emailSubmit.addEventListener('click', () => {
+            const email = emailInputEl.value.trim().toLowerCase();
+            if (email && email.includes('@')) {
+                localStorage.setItem('userEmail', email);
+                emailModal.style.display = 'none';
+                showUserBadge(email);
+                renderLessons();
+
+                if (COURSE_CONFIG.whitelist.includes(email)) {
+                    emailStatus.textContent = '👑 Полный доступ!';
+                    emailStatus.style.color = '#f59e0b';
+                }
+            } else {
+                emailStatus.textContent = 'Введите корректный email';
+                emailStatus.style.color = '#ef4444';
+            }
+        });
+
+        emailInputEl.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') emailSubmit.click();
+        });
+
+        logoutBtnEl.addEventListener('click', () => {
+            localStorage.removeItem('userEmail');
+            location.reload();
+        });
+
         // Initial render
-        renderLessons();
+        checkUserEmail();
 
         // Add keyboard shortcuts for demo
         document.addEventListener('keydown', (e) => {
