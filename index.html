@@ -422,6 +422,12 @@
 
     <script src="js/config.js"></script>
     <script>
+        // Проверка загрузки конфига
+        if (typeof COURSE_CONFIG === 'undefined') {
+            console.error('COURSE_CONFIG не загружен!');
+            alert('Ошибка загрузки конфигурации. Обновите страницу.');
+        }
+
         // Course lessons data
         const lessons = [
             {
@@ -540,14 +546,7 @@
 
         // Проверка доступа через config
         function isUnlocked(lessonId) {
-            const userEmail = localStorage.getItem('userEmail');
-
-            // Если email в белом списке — все открыто
-            if (userEmail && COURSE_CONFIG.whitelist.includes(userEmail.toLowerCase())) {
-                return true;
-            }
-
-            // Иначе только открытые модули
+            // Модуль открыт если он в списке открытых или предыдущий завершён
             return COURSE_CONFIG.unlockedModules.includes(lessonId) || completedLessons.includes(lessonId - 1);
         }
 
@@ -684,10 +683,12 @@
 
         function checkUserEmail() {
             const savedEmail = localStorage.getItem('userEmail');
-            if (savedEmail) {
+            const whitelist = COURSE_CONFIG.whitelist.map(e => e.toLowerCase());
+            if (savedEmail && whitelist.includes(savedEmail.toLowerCase())) {
                 showUserBadge(savedEmail);
                 renderLessons();
             } else {
+                localStorage.removeItem('userEmail');
                 emailModal.style.display = 'flex';
             }
         }
@@ -704,15 +705,21 @@
 
         emailSubmit.addEventListener('click', () => {
             const email = emailInputEl.value.trim().toLowerCase();
-            if (email && email.includes('@')) {
-                localStorage.setItem('userEmail', email);
-                emailModal.style.display = 'none';
-                showUserBadge(email);
-                renderLessons();
+            console.log('Попытка входа:', email);
+            console.log('Whitelist:', COURSE_CONFIG.whitelist);
+            console.log('В списке?:', COURSE_CONFIG.whitelist.map(e => e.toLowerCase()).includes(email));
 
-                if (COURSE_CONFIG.whitelist.includes(email)) {
-                    emailStatus.textContent = '👑 Полный доступ!';
-                    emailStatus.style.color = '#f59e0b';
+            if (email && email.includes('@')) {
+                const whitelist = COURSE_CONFIG.whitelist.map(e => e.toLowerCase());
+                if (whitelist.includes(email)) {
+                    localStorage.setItem('userEmail', email);
+                    emailModal.style.display = 'none';
+                    showUserBadge(email);
+                    renderLessons();
+                } else {
+                    emailStatus.textContent = '🚫 Доступ закрыт. Ваш email не в списке.';
+                    emailStatus.style.color = '#ef4444';
+                    emailInputEl.style.borderColor = '#ef4444';
                 }
             } else {
                 emailStatus.textContent = 'Введите корректный email';
