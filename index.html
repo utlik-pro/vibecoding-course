@@ -439,7 +439,7 @@
                 description: "Изучение технологий для создания современных веб-приложений",
                 topics: ["TypeScript", "Next.js", "PostgreSQL"],
                 duration: "3-4 часа",
-                link: "lessons/lesson-04.html"
+                link: "04-tech-stack-overview/presentation/index.html"
             },
             {
                 id: 5,
@@ -519,9 +519,11 @@
         let completedLessons = JSON.parse(localStorage.getItem('completedLessons')) || [];
         let currentLesson = parseInt(localStorage.getItem('currentLesson')) || 1;
 
-        // For demo purposes, lesson 1 is always unlocked
+        // Только указанные уроки открыты
+        const UNLOCKED_LESSONS = [4]; // Только 4-й модуль открыт
+
         function isUnlocked(lessonId) {
-            return lessonId === 1 || completedLessons.includes(lessonId - 1);
+            return UNLOCKED_LESSONS.includes(lessonId) || completedLessons.includes(lessonId - 1);
         }
 
         function isCompleted(lessonId) {

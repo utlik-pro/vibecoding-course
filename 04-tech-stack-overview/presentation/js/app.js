@@ -3,11 +3,19 @@
  * Интерактивная презентация - Модуль 4
  */
 
+// ==========================================
+// LESSON ACCESS CONFIGURATION
+// ==========================================
+// Какие уроки открыты (номера уроков)
+// Измените этот массив, чтобы открыть/закрыть уроки
+const UNLOCKED_LESSONS = [4]; // Только 4-й модуль открыт
+
 document.addEventListener('DOMContentLoaded', () => {
   initApp();
 });
 
 function initApp() {
+  initLessonLocks();
   initSidebar();
   initTeacherMode();
   initTimer();
@@ -18,6 +26,91 @@ function initApp() {
   initChecklists();
   initKeyboardNav();
   initProgress();
+}
+
+// ==========================================
+// LESSON LOCKS
+// ==========================================
+
+function initLessonLocks() {
+  // Lock navigation items
+  const navItems = document.querySelectorAll('.nav-item[data-lesson]');
+  navItems.forEach(item => {
+    const lessonNum = parseInt(item.dataset.lesson, 10);
+    if (!UNLOCKED_LESSONS.includes(lessonNum)) {
+      item.classList.add('locked');
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        showLockedMessage(lessonNum);
+      });
+    }
+  });
+
+  // Lock lesson cards on index page
+  const lessonCards = document.querySelectorAll('.lesson-card');
+  lessonCards.forEach(card => {
+    const href = card.getAttribute('href');
+    if (!href) return;
+
+    // Extract lesson number from href
+    const match = href.match(/lesson-(\d+)\.html/);
+    if (match) {
+      const lessonNum = parseInt(match[1], 10);
+      if (!UNLOCKED_LESSONS.includes(lessonNum)) {
+        card.classList.add('locked');
+        card.addEventListener('click', (e) => {
+          e.preventDefault();
+          showLockedMessage(lessonNum);
+        });
+      }
+    }
+
+    // Handle project.html (lesson 8)
+    if (href === 'project.html' && !UNLOCKED_LESSONS.includes(8)) {
+      card.classList.add('locked');
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+        showLockedMessage(8);
+      });
+    }
+  });
+
+  // Redirect if trying to access locked page directly
+  const currentPath = window.location.pathname;
+  const pageMatch = currentPath.match(/lesson-(\d+)\.html/);
+  if (pageMatch) {
+    const currentLesson = parseInt(pageMatch[1], 10);
+    if (!UNLOCKED_LESSONS.includes(currentLesson)) {
+      window.location.href = 'index.html';
+    }
+  }
+  if (currentPath.includes('project.html') && !UNLOCKED_LESSONS.includes(8)) {
+    window.location.href = 'index.html';
+  }
+}
+
+function showLockedMessage(lessonNum) {
+  // Remove existing message
+  const existing = document.querySelector('.locked-message');
+  if (existing) existing.remove();
+
+  // Create message
+  const msg = document.createElement('div');
+  msg.className = 'locked-message';
+  msg.innerHTML = `
+    <div class="locked-message-content">
+      <span class="locked-message-icon">🔒</span>
+      <p>Урок ${lessonNum} ещё не открыт</p>
+      <small>Этот урок станет доступен позже</small>
+    </div>
+  `;
+  document.body.appendChild(msg);
+
+  // Auto-remove after 2 seconds
+  setTimeout(() => {
+    msg.classList.add('fade-out');
+    setTimeout(() => msg.remove(), 300);
+  }, 2000);
 }
 
 // ==========================================
