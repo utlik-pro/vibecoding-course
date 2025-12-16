@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 4.5: Облачные платформы | VibeCoding</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 8 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 4</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Регистрация аккаунтов</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Архитектура приложений</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>JS, TS, React</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Базы данных и SQL</a>
+        <a href="lesson-5.html" class="nav-item active" data-lesson="5"><span class="nav-item-number">5</span>Облачные платформы</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Сторонние сервисы</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Инструменты разработчика</a>
+        <a href="project.html" class="nav-item" data-lesson="8"><span class="nav-item-number">P</span>Итоговый проект</a>
+      </nav>
+    </aside>
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 4</a><span class="breadcrumb-separator">/</span><span>Урок 4.5</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer"><span class="timer-icon">⏱</span><span class="timer-display">00:00</span><button class="timer-btn" title="Запустить">▶</button><button class="timer-reset" title="Сбросить">↺</button></div>
+          <div class="mode-toggle" title="Переключить режим"><div class="mode-toggle-switch"></div><span class="mode-toggle-label">Режим студента</span></div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 4.5</span>
+            <span class="lesson-duration">⏱ 1 час</span>
+          </div>
+          <h1 class="lesson-title">Облачные платформы и сервисы</h1>
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Понять принципы облачной разработки</li>
+              <li>Изучить возможности Vercel и Supabase</li>
+              <li>Познакомиться с serverless архитектурой</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Демонстрация:</strong> Покажите деплой простого Next.js проекта на Vercel в реальном времени. Push → автоматический билд → сайт онлайн за 1-2 минуты.</p>
+          </div>
+        </div>
+
+        <!-- Section 1 -->
+        <section class="card">
+          <div class="card-header">1. Облачные платформы — обзор</div>
+          <div class="card-body">
+            <p>Облачные платформы позволяют запускать приложения без управления физическими серверами.</p>
+
+            <h4>Уровни облачных сервисов:</h4>
+            <div class="architecture-diagram">
+              <div class="arch-layer" style="background: rgba(239, 68, 68, 0.1); border: 2px solid #EF4444;">
+                <div class="arch-layer-title">🖥️ IaaS — Infrastructure as a Service</div>
+                <div class="arch-layer-items">
+                  <span class="arch-item">AWS EC2</span>
+                  <span class="arch-item">Google Compute</span>
+                  <span class="arch-item">Azure VMs</span>
+                </div>
+                <p style="font-size: 0.8rem; margin-top: 0.5rem;">Виртуальные серверы. Вы управляете всем.</p>
+              </div>
+
+              <div class="arch-layer" style="background: rgba(245, 158, 11, 0.1); border: 2px solid #F59E0B;">
+                <div class="arch-layer-title">⚙️ PaaS — Platform as a Service</div>
+                <div class="arch-layer-items">
+                  <span class="arch-item">Heroku</span>
+                  <span class="arch-item">Railway</span>
+                  <span class="arch-item">Render</span>
+                </div>
+                <p style="font-size: 0.8rem; margin-top: 0.5rem;">Платформа для деплоя. Меньше настройки.</p>
+              </div>
+
+              <div class="arch-layer" style="background: rgba(16, 185, 129, 0.1); border: 2px solid #10B981;">
+                <div class="arch-layer-title">🚀 FaaS / Serverless</div>
+                <div class="arch-layer-items">
+                  <span class="arch-item">Vercel</span>
+                  <span class="arch-item">AWS Lambda</span>
+                  <span class="arch-item">Cloudflare Workers</span>
+                </div>
+                <p style="font-size: 0.8rem; margin-top: 0.5rem;">Функции по запросу. Оплата за выполнение.</p>
+              </div>
+
+              <div class="arch-layer" style="background: rgba(59, 130, 246, 0.1); border: 2px solid #3B82F6;">
+                <div class="arch-layer-title">🗄️ BaaS — Backend as a Service</div>
+                <div class="arch-layer-items">
+                  <span class="arch-item">Supabase</span>
+                  <span class="arch-item">Firebase</span>
+                  <span class="arch-item">Appwrite</span>
+                </div>
+                <p style="font-size: 0.8rem; margin-top: 0.5rem;">Готовый backend: БД, auth, storage.</p>
+              </div>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <div><strong>Наш стек:</strong> Vercel (FaaS/Serverless) + Supabase (BaaS) — оптимальная комбинация для быстрой разработки с минимальным DevOps.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Vercel -->
+        <section class="card">
+          <div class="card-header">2. Vercel — платформа для фронтенда</div>
+          <div class="card-body">
+            <h4>Ключевые возможности:</h4>
+
+            <div class="accordion open-first">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔄 Automatic Deployments</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Каждый push в Git автоматически запускает деплой:</p>
+                    <ul>
+                      <li><strong>Production</strong> — main/master ветка → основной домен</li>
+                      <li><strong>Preview</strong> — любая другая ветка → уникальный URL для тестирования</li>
+                    </ul>
+                    <p>PR получает комментарий с ссылкой на preview deployment.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🌍 Edge Network</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Контент раздаётся с серверов по всему миру:</p>
+                    <ul>
+                      <li>30+ локаций (включая Европу и Азию)</li>
+                      <li>Автоматическое кэширование статики</li>
+                      <li>Edge Functions — код выполняется ближе к пользователю</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>⚡ Serverless Functions</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>API routes в Next.js автоматически становятся serverless functions:</p>
+                    <div class="code-block">
+                      <div class="code-header"><span class="code-lang">TypeScript</span><button class="code-copy-btn">Копировать</button></div>
+                      <pre><code>// app/api/hello/route.ts
+export async function GET() {
+  return Response.json({ message: 'Hello from Vercel!' });
+}
+
+// Автоматически доступно по /api/hello</code></pre>
+                    </div>
+                    <p><strong>Преимущества:</strong> Масштабируется автоматически, оплата только за использование.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📊 Analytics & Web Vitals</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ul>
+                      <li><strong>Analytics</strong> — посещаемость, география, устройства</li>
+                      <li><strong>Web Vitals</strong> — Core Web Vitals метрики (LCP, FID, CLS)</li>
+                      <li><strong>Speed Insights</strong> — рекомендации по оптимизации</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Supabase -->
+        <section class="card">
+          <div class="card-header">3. Supabase — Backend as a Service</div>
+          <div class="card-body">
+            <p><span class="tooltip-trigger" data-term="Supabase">Supabase</span> предоставляет полный backend из коробки:</p>
+
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">🗄️</div>
+                <h4 class="service-card-title">PostgreSQL</h4>
+                <p class="service-card-desc">Managed база данных с SQL Editor</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🔐</div>
+                <h4 class="service-card-title">Authentication</h4>
+                <p class="service-card-desc">Email, OAuth, magic links</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">📁</div>
+                <h4 class="service-card-title">Storage</h4>
+                <p class="service-card-desc">Хранение файлов, изображений</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">⚡</div>
+                <h4 class="service-card-title">Realtime</h4>
+                <p class="service-card-desc">Подписка на изменения данных</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🔧</div>
+                <h4 class="service-card-title">Edge Functions</h4>
+                <p class="service-card-desc">Серверный код на Deno</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🔒</div>
+                <h4 class="service-card-title">Row Level Security</h4>
+                <p class="service-card-desc">Политики доступа к данным</p>
+              </div>
+            </div>
+
+            <h4>Row Level Security (RLS):</h4>
+            <p>Безопасность на уровне базы данных — пользователи видят только свои данные:</p>
+
+            <div class="code-block">
+              <div class="code-header"><span class="code-lang">SQL</span><button class="code-copy-btn">Копировать</button></div>
+              <pre><code>-- Включить RLS для таблицы
+ALTER TABLE posts ENABLE ROW LEVEL SECURITY;
+
+-- Политика: пользователь видит только свои посты
+CREATE POLICY "Users can view own posts"
+ON posts FOR SELECT
+USING (auth.uid() = user_id);
+
+-- Политика: пользователь может редактировать только свои посты
+CREATE POLICY "Users can update own posts"
+ON posts FOR UPDATE
+USING (auth.uid() = user_id);</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Serverless -->
+        <section class="card">
+          <div class="card-header">4. Serverless архитектура</div>
+          <div class="card-body">
+            <h4>Что такое Serverless?</h4>
+            <p><span class="tooltip-trigger" data-term="Serverless">Serverless</span> — модель, где вы не управляете серверами. Код запускается по запросу.</p>
+
+            <div class="table-container">
+              <table>
+                <thead><tr><th>Преимущества</th><th>Ограничения</th></tr></thead>
+                <tbody>
+                  <tr><td>Автоматическое масштабирование</td><td>Cold starts (задержка при первом запуске)</td></tr>
+                  <tr><td>Оплата за использование</td><td>Ограничение времени выполнения (~30 сек)</td></tr>
+                  <tr><td>Нет DevOps (почти)</td><td>Stateless — нет постоянного состояния</td></tr>
+                  <tr><td>Высокая доступность</td><td>Vendor lock-in</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+              <div><strong>Когда использовать:</strong> API endpoints, обработка форм, webhooks, scheduled jobs. Идеально для большинства SaaS приложений.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz">
+          <div class="quiz-header">
+            <div class="quiz-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <h3 class="quiz-title">Проверьте себя</h3>
+          </div>
+          <div class="quiz-question">К какому типу облачных сервисов относится Supabase?</div>
+          <div class="quiz-options">
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>IaaS</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>PaaS</span></div>
+            <div class="quiz-option" data-correct="true"><span class="quiz-option-marker"></span><span>BaaS</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>SaaS</span></div>
+          </div>
+          <div class="quiz-feedback"><div class="quiz-feedback-text"></div></div>
+          <div class="quiz-actions">
+            <button class="btn btn-primary quiz-check-btn">Проверить</button>
+            <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
+            <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
+          </div>
+        </section>
+
+        <nav class="lesson-nav">
+          <a href="lesson-4.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>
+            <div><div class="nav-arrow-label">Назад</div><div class="nav-arrow-title">Базы данных и SQL</div></div>
+          </a>
+          <button class="btn btn-primary mark-complete-btn" data-lesson="5">Отметить урок пройденным</button>
+          <a href="lesson-6.html" class="nav-arrow nav-arrow-next">
+            <div><div class="nav-arrow-label">Далее</div><div class="nav-arrow-title">Сторонние сервисы</div></div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,6 15,12 9,18"/></svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+  <script src="js/glossary.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

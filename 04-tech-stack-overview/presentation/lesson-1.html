@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 4.1: Регистрация аккаунтов | VibeCoding</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 8 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 4</div>
+
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <a href="lesson-1.html" class="nav-item active" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Регистрация аккаунтов
+        </a>
+
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          Архитектура приложений
+        </a>
+
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          JS, TS, React
+        </a>
+
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Базы данных и SQL
+        </a>
+
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Облачные платформы
+        </a>
+
+        <a href="lesson-6.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">6</span>
+          Сторонние сервисы
+        </a>
+
+        <a href="lesson-7.html" class="nav-item" data-lesson="7">
+          <span class="nav-item-number">7</span>
+          Инструменты разработчика
+        </a>
+
+        <a href="project.html" class="nav-item" data-lesson="8">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 4</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 4.1</span>
+        </div>
+
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 4.1</span>
+            <span class="lesson-duration">⏱ 1 час</span>
+          </div>
+          <h1 class="lesson-title">Регистрация аккаунтов и подготовка</h1>
+
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Зарегистрироваться во всех необходимых сервисах</li>
+              <li>Понять роль каждого сервиса в экосистеме</li>
+              <li>Подготовить окружение для разработки</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Время на секцию:</strong> ~10 минут на введение, ~10-15 минут на каждый сервис</p>
+            <p><strong>Совет:</strong> Покажите свой экран при регистрации в первом сервисе (Vercel), чтобы студенты видели процесс. Для остальных сервисов можно дать время на самостоятельную работу.</p>
+            <p><strong>Частая проблема:</strong> Студенты могут забыть подтвердить email. Напомните об этом после каждой регистрации.</p>
+          </div>
+        </div>
+
+        <!-- Section 1: Overview -->
+        <section class="card">
+          <div class="card-header">1. Список необходимых аккаунтов</div>
+          <div class="card-body">
+            <p>Для разработки современного веб-приложения нам понадобятся следующие сервисы:</p>
+
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">▲</div>
+                <h4 class="service-card-title">Vercel</h4>
+                <p class="service-card-desc">Деплоймент и хостинг фронтенда</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">⚡</div>
+                <h4 class="service-card-title">Supabase</h4>
+                <p class="service-card-desc">База данных как сервис (BaaS)</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🔐</div>
+                <h4 class="service-card-title">Clerk</h4>
+                <p class="service-card-desc">Аутентификация пользователей</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🤖</div>
+                <h4 class="service-card-title">OpenAI</h4>
+                <p class="service-card-desc">ИИ API для функциональности</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">💳</div>
+                <h4 class="service-card-title">Stripe</h4>
+                <p class="service-card-desc">Платежная система</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🐙</div>
+                <h4 class="service-card-title">GitHub</h4>
+                <p class="service-card-desc">Версионирование кода</p>
+              </div>
+            </div>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Важно о безопасности:</strong> API-ключи — это как пароли. Никогда не публикуйте их в коде или на GitHub. Храните в защищённом месте и используйте переменные окружения.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Vercel -->
+        <section class="card">
+          <div class="card-header">2. Vercel — платформа деплоймента</div>
+          <div class="card-body">
+
+            <div class="teacher-note">
+              <div class="teacher-note-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+                Заметка для преподавателя
+              </div>
+              <div class="teacher-note-content">
+                Покажите демо-деплой простого проекта. Это произведёт впечатление на студентов — от push до работающего сайта за секунды.
+              </div>
+            </div>
+
+            <h3>Что такое Vercel?</h3>
+            <p>
+              <span class="tooltip-trigger" data-term="Vercel">Vercel</span> — это облачная платформа для
+              <span class="tooltip-trigger" data-term="Deploy">деплоя</span> веб-приложений.
+              Компания Vercel также создала <span class="tooltip-trigger" data-term="Next.js">Next.js</span> —
+              самый популярный React-фреймворк.
+            </p>
+
+            <h4>Ключевые возможности:</h4>
+            <ul>
+              <li><strong>Автоматический деплой из Git</strong> — push в репозиторий = новая версия сайта</li>
+              <li><strong>Preview Deployments</strong> — каждый Pull Request получает свой URL для тестирования</li>
+              <li><strong>Edge Network</strong> — контент доставляется с ближайшего сервера (низкая задержка)</li>
+              <li><strong>Serverless Functions</strong> — backend без управления серверами</li>
+              <li><strong>Analytics</strong> — мониторинг производительности и посещаемости</li>
+            </ul>
+
+            <div class="accordion open-first">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📝 Пошаговая регистрация</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ol>
+                      <li>Перейдите на <a href="https://vercel.com" target="_blank">vercel.com</a></li>
+                      <li>Нажмите <strong>"Sign Up"</strong></li>
+                      <li>Выберите <strong>"Continue with GitHub"</strong> (рекомендуется)</li>
+                      <li>Авторизуйте Vercel для доступа к GitHub</li>
+                      <li>Заполните имя команды (можно использовать своё имя)</li>
+                      <li>Готово! Вы в Dashboard</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔑 Environment Variables</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>
+                      <span class="tooltip-trigger" data-term="Environment Variables">Environment Variables</span> —
+                      это переменные окружения, хранящие конфиденциальные данные.
+                    </p>
+                    <p>В Vercel они настраиваются в разделе <strong>Settings → Environment Variables</strong>:</p>
+                    <ul>
+                      <li><code>DATABASE_URL</code> — строка подключения к базе данных</li>
+                      <li><code>NEXT_PUBLIC_*</code> — публичные переменные (видны в браузере)</li>
+                      <li><code>SECRET_KEY</code> — приватные ключи (только на сервере)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>💰 Pricing (тарифы)</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="table-container">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>План</th>
+                            <th>Цена</th>
+                            <th>Особенности</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><strong>Hobby</strong></td>
+                            <td>Бесплатно</td>
+                            <td>Для личных проектов, базовые функции</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Pro</strong></td>
+                            <td>$20/месяц</td>
+                            <td>Для команд, больше ресурсов, аналитика</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Enterprise</strong></td>
+                            <td>По запросу</td>
+                            <td>SLA, поддержка, расширенная безопасность</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <p><em>Для обучения и pet-проектов достаточно бесплатного Hobby плана.</em></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Supabase -->
+        <section class="card">
+          <div class="card-header">3. Supabase — Backend-as-a-Service</div>
+          <div class="card-body">
+
+            <h3>Что такое Supabase?</h3>
+            <p>
+              <span class="tooltip-trigger" data-term="Supabase">Supabase</span> — это open-source альтернатива Firebase.
+              Предоставляет готовый backend: базу данных
+              <span class="tooltip-trigger" data-term="PostgreSQL">PostgreSQL</span>,
+              аутентификацию, хранилище файлов и realtime подписки.
+            </p>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Преимущество Supabase:</strong> В отличие от Firebase, Supabase использует стандартный PostgreSQL.
+                Ваши данные не заперты в проприетарном формате — можно мигрировать куда угодно.
+              </div>
+            </div>
+
+            <h4>Компоненты Supabase:</h4>
+
+            <div class="tabs">
+              <div class="tabs-header">
+                <button class="tab-btn active" data-tab="tab-database">Database</button>
+                <button class="tab-btn" data-tab="tab-auth">Auth</button>
+                <button class="tab-btn" data-tab="tab-storage">Storage</button>
+                <button class="tab-btn" data-tab="tab-realtime">Realtime</button>
+              </div>
+
+              <div id="tab-database" class="tab-content active">
+                <h4>PostgreSQL Database</h4>
+                <p>Полноценная реляционная база данных с:</p>
+                <ul>
+                  <li><strong>Table Editor</strong> — визуальный редактор таблиц (как Excel)</li>
+                  <li><strong>SQL Editor</strong> — выполнение SQL запросов напрямую</li>
+                  <li><strong>Auto-generated API</strong> — REST и GraphQL API создаются автоматически</li>
+                  <li><strong>Row Level Security</strong> — политики доступа на уровне строк</li>
+                </ul>
+              </div>
+
+              <div id="tab-auth" class="tab-content">
+                <h4>Authentication</h4>
+                <p>Встроенная система аутентификации:</p>
+                <ul>
+                  <li>Email/Password регистрация</li>
+                  <li>Magic Link (вход по ссылке)</li>
+                  <li>OAuth провайдеры (Google, GitHub, etc.)</li>
+                  <li>Phone/SMS аутентификация</li>
+                </ul>
+                <p><em>Примечание: в нашем стеке для auth используется Clerk, но Supabase Auth — хорошая альтернатива.</em></p>
+              </div>
+
+              <div id="tab-storage" class="tab-content">
+                <h4>File Storage</h4>
+                <p>S3-совместимое хранилище файлов:</p>
+                <ul>
+                  <li>Загрузка изображений, документов, видео</li>
+                  <li>Автоматическая оптимизация изображений</li>
+                  <li>Публичные и приватные бакеты</li>
+                  <li>Интеграция с Row Level Security</li>
+                </ul>
+              </div>
+
+              <div id="tab-realtime" class="tab-content">
+                <h4>Realtime Subscriptions</h4>
+                <p>Мгновенные обновления данных через WebSocket:</p>
+                <ul>
+                  <li>Подписка на изменения в таблицах</li>
+                  <li>Broadcast для отправки сообщений</li>
+                  <li>Presence для отслеживания онлайн-статуса</li>
+                </ul>
+                <p>Идеально для чатов, уведомлений, совместного редактирования.</p>
+              </div>
+            </div>
+
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📝 Пошаговая регистрация</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ol>
+                      <li>Перейдите на <a href="https://supabase.com" target="_blank">supabase.com</a></li>
+                      <li>Нажмите <strong>"Start your project"</strong></li>
+                      <li>Войдите через GitHub</li>
+                      <li>Нажмите <strong>"New Project"</strong></li>
+                      <li>Выберите организацию (создайте новую, если нужно)</li>
+                      <li>Введите название проекта и <strong>сильный пароль для базы данных</strong></li>
+                      <li>Выберите регион (ближайший к вашим пользователям)</li>
+                      <li>Нажмите <strong>"Create new project"</strong></li>
+                      <li>Дождитесь создания (~2 минуты)</li>
+                    </ol>
+                    <div class="alert alert-warning">
+                      <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                        <line x1="12" y1="9" x2="12" y2="13"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                      </svg>
+                      <div>
+                        <strong>Сохраните пароль БД!</strong> Он понадобится для подключения и не восстанавливается.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔑 API ключи</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>После создания проекта найдите ключи в <strong>Settings → API</strong>:</p>
+                    <ul>
+                      <li><code>SUPABASE_URL</code> — URL вашего проекта</li>
+                      <li><code>SUPABASE_ANON_KEY</code> — публичный ключ (используется в браузере)</li>
+                      <li><code>SUPABASE_SERVICE_ROLE_KEY</code> — приватный ключ (только на сервере!)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Clerk -->
+        <section class="card">
+          <div class="card-header">4. Clerk — аутентификация</div>
+          <div class="card-body">
+
+            <h3>Что такое Clerk?</h3>
+            <p>
+              <span class="tooltip-trigger" data-term="Clerk">Clerk</span> — сервис для
+              <span class="tooltip-trigger" data-term="Authentication">аутентификации</span> и управления пользователями.
+              Предоставляет готовые UI-компоненты для входа, регистрации и управления профилем.
+            </p>
+
+            <h4>Почему Clerk?</h4>
+            <ul>
+              <li><strong>Готовые компоненты</strong> — красивые формы входа из коробки</li>
+              <li><strong>Social logins</strong> — Google, GitHub, Apple и другие</li>
+              <li><strong>Multi-factor auth</strong> — SMS, TOTP, backup codes</li>
+              <li><strong>User management</strong> — dashboard для управления пользователями</li>
+              <li><strong>Webhooks</strong> — синхронизация с вашей базой данных</li>
+            </ul>
+
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📝 Пошаговая регистрация</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ol>
+                      <li>Перейдите на <a href="https://clerk.com" target="_blank">clerk.com</a></li>
+                      <li>Нажмите <strong>"Get Started"</strong></li>
+                      <li>Зарегистрируйтесь (можно через GitHub)</li>
+                      <li>Создайте новое приложение</li>
+                      <li>Выберите методы аутентификации (Email, Google, GitHub)</li>
+                      <li>Скопируйте API ключи из Dashboard</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔑 API ключи</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ul>
+                      <li><code>NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY</code> — публичный ключ</li>
+                      <li><code>CLERK_SECRET_KEY</code> — секретный ключ (только сервер)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: OpenAI -->
+        <section class="card">
+          <div class="card-header">5. OpenAI — ИИ возможности</div>
+          <div class="card-body">
+
+            <h3>Что такое OpenAI API?</h3>
+            <p>
+              <span class="tooltip-trigger" data-term="OpenAI">OpenAI</span> предоставляет API для доступа к моделям
+              искусственного интеллекта: GPT-4, DALL-E, Whisper и другим.
+            </p>
+
+            <h4>Возможности:</h4>
+            <ul>
+              <li><strong>GPT-4</strong> — генерация текста, ответы на вопросы, анализ</li>
+              <li><strong>DALL-E</strong> — генерация изображений по описанию</li>
+              <li><strong>Whisper</strong> — распознавание речи</li>
+              <li><strong>Embeddings</strong> — векторные представления для поиска</li>
+            </ul>
+
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📝 Регистрация и получение ключа</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ol>
+                      <li>Перейдите на <a href="https://platform.openai.com" target="_blank">platform.openai.com</a></li>
+                      <li>Создайте аккаунт или войдите</li>
+                      <li>Перейдите в <strong>API Keys</strong></li>
+                      <li>Нажмите <strong>"Create new secret key"</strong></li>
+                      <li>Скопируйте и сохраните ключ (показывается только один раз!)</li>
+                      <li>Настройте лимиты в <strong>Billing</strong></li>
+                    </ol>
+
+                    <div class="alert alert-danger">
+                      <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="12"/>
+                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                      </svg>
+                      <div>
+                        <strong>Внимание:</strong> OpenAI API платный. Установите лимит расходов в Billing, чтобы избежать неожиданных счетов.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 6: Stripe -->
+        <section class="card">
+          <div class="card-header">6. Stripe — платежи</div>
+          <div class="card-body">
+
+            <h3>Что такое Stripe?</h3>
+            <p>
+              <span class="tooltip-trigger" data-term="Stripe">Stripe</span> — платформа для приёма онлайн-платежей.
+              Обрабатывает карты, подписки, выплаты продавцам и многое другое.
+            </p>
+
+            <h4>Ключевые особенности:</h4>
+            <ul>
+              <li><strong>Test Mode</strong> — тестирование без реальных денег</li>
+              <li><strong>Checkout</strong> — готовая страница оплаты</li>
+              <li><strong>Subscriptions</strong> — управление подписками</li>
+              <li><strong>Webhooks</strong> — уведомления о событиях</li>
+            </ul>
+
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📝 Пошаговая регистрация</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ol>
+                      <li>Перейдите на <a href="https://stripe.com" target="_blank">stripe.com</a></li>
+                      <li>Нажмите <strong>"Start now"</strong></li>
+                      <li>Заполните форму регистрации</li>
+                      <li>Подтвердите email</li>
+                      <li>Войдите в Dashboard</li>
+                      <li>Убедитесь, что включен <strong>Test mode</strong> (переключатель справа вверху)</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔑 API ключи</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>В <strong>Developers → API Keys</strong>:</p>
+                    <ul>
+                      <li><code>NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY</code> — публичный ключ (pk_test_...)</li>
+                      <li><code>STRIPE_SECRET_KEY</code> — секретный ключ (sk_test_...)</li>
+                    </ul>
+                    <p><em>Для продакшена используются live-ключи (pk_live_, sk_live_)</em></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz">
+          <div class="quiz-header">
+            <div class="quiz-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <h3 class="quiz-title">Проверьте себя</h3>
+          </div>
+
+          <div class="quiz-question">Какой сервис используется для деплоя (публикации) веб-приложения?</div>
+
+          <div class="quiz-options">
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Supabase</span>
+            </div>
+            <div class="quiz-option" data-correct="true">
+              <span class="quiz-option-marker"></span>
+              <span>Vercel</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Stripe</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Clerk</span>
+            </div>
+          </div>
+
+          <div class="quiz-feedback">
+            <div class="quiz-feedback-text"></div>
+          </div>
+
+          <div class="quiz-actions">
+            <button class="btn btn-primary quiz-check-btn">Проверить</button>
+            <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
+            <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист регистраций</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="reg-github"></span>
+                <span class="checklist-text">GitHub — аккаунт создан</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="reg-vercel"></span>
+                <span class="checklist-text">Vercel — зарегистрирован через GitHub</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="reg-supabase"></span>
+                <span class="checklist-text">Supabase — создан проект, сохранены ключи</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="reg-clerk"></span>
+                <span class="checklist-text">Clerk — создано приложение, сохранены ключи</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="reg-openai"></span>
+                <span class="checklist-text">OpenAI — создан API ключ, настроен billing</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="reg-stripe"></span>
+                <span class="checklist-text">Stripe — аккаунт создан, включен Test mode</span>
+              </li>
+            </ul>
+
+            <div class="progress-bar" style="margin-top: 1rem;">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text">0 из 6 выполнено</div>
+          </div>
+        </section>
+
+        <!-- Homework -->
+        <section class="card">
+          <div class="card-header">Домашнее задание</div>
+          <div class="card-body">
+            <ol>
+              <li>Завершите все регистрации, если не успели на уроке</li>
+              <li>Сохраните все API-ключи в безопасном месте (можно использовать менеджер паролей)</li>
+              <li>Изучите документацию каждого сервиса (обзорно, главные разделы)</li>
+              <li>Создайте тестовый проект в Vercel, чтобы увидеть процесс деплоя</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="index.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Главная</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="1">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-2.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Архитектура приложений</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

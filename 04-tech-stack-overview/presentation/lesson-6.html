@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 4.6: Сторонние сервисы | VibeCoding</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 8 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 4</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Регистрация аккаунтов</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Архитектура приложений</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>JS, TS, React</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Базы данных и SQL</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Облачные платформы</a>
+        <a href="lesson-6.html" class="nav-item active" data-lesson="6"><span class="nav-item-number">6</span>Сторонние сервисы</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Инструменты разработчика</a>
+        <a href="project.html" class="nav-item" data-lesson="8"><span class="nav-item-number">P</span>Итоговый проект</a>
+      </nav>
+    </aside>
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 4</a><span class="breadcrumb-separator">/</span><span>Урок 4.6</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer"><span class="timer-icon">⏱</span><span class="timer-display">00:00</span><button class="timer-btn" title="Запустить">▶</button><button class="timer-reset" title="Сбросить">↺</button></div>
+          <div class="mode-toggle" title="Переключить режим"><div class="mode-toggle-switch"></div><span class="mode-toggle-label">Режим студента</span></div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 4.6</span>
+            <span class="lesson-duration">⏱ 1 час</span>
+          </div>
+          <h1 class="lesson-title">Сторонние сервисы и интеграции</h1>
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Понять экосистему SaaS сервисов</li>
+              <li>Изучить основные категории интеграций</li>
+              <li>Научиться выбирать подходящие сервисы</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Демо:</strong> Покажите процесс "Войти через Google" на примере реального сайта. Объясните, что происходит "под капотом".</p>
+            <p><strong>Акцент:</strong> Подчеркните важность безопасности API-ключей.</p>
+          </div>
+        </div>
+
+        <!-- Section 1 -->
+        <section class="card">
+          <div class="card-header">1. Экосистема сторонних сервисов</div>
+          <div class="card-body">
+            <p>Современные приложения не пишут всё с нуля — используют готовые сервисы для типовых задач:</p>
+
+            <div class="table-container">
+              <table>
+                <thead><tr><th>Категория</th><th>Примеры сервисов</th><th>Наш выбор</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Аутентификация</strong></td><td>Clerk, Auth0, Firebase Auth</td><td>Clerk</td></tr>
+                  <tr><td><strong>Платежи</strong></td><td>Stripe, PayPal, Square</td><td>Stripe</td></tr>
+                  <tr><td><strong>Email</strong></td><td>Resend, SendGrid, Mailgun</td><td>Resend</td></tr>
+                  <tr><td><strong>Аналитика</strong></td><td>Google Analytics, Posthog, Mixpanel</td><td>Posthog</td></tr>
+                  <tr><td><strong>Мониторинг</strong></td><td>Sentry, LogRocket, Datadog</td><td>Sentry</td></tr>
+                  <tr><td><strong>AI</strong></td><td>OpenAI, Anthropic, Cohere</td><td>OpenAI</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <div><strong>Принцип выбора:</strong> Не изобретайте велосипед. Если задача типовая (auth, платежи, email) — используйте готовый сервис. Фокусируйтесь на уникальной бизнес-логике.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Clerk -->
+        <section class="card">
+          <div class="card-header">2. Clerk — аутентификация и управление пользователями</div>
+          <div class="card-body">
+            <p><span class="tooltip-trigger" data-term="Clerk">Clerk</span> — современный сервис аутентификации с готовыми UI-компонентами.</p>
+
+            <h4>Возможности:</h4>
+            <ul>
+              <li><strong>Методы входа:</strong> Email/password, Magic links, Social (Google, GitHub, Apple)</li>
+              <li><strong>Multi-factor auth:</strong> SMS, TOTP, backup codes</li>
+              <li><strong>User management:</strong> Dashboard для управления пользователями</li>
+              <li><strong>Organizations:</strong> Команды и роли</li>
+              <li><strong>Webhooks:</strong> Синхронизация с вашей БД</li>
+            </ul>
+
+            <h4>Интеграция с Next.js:</h4>
+            <div class="code-block">
+              <div class="code-header"><span class="code-lang">TypeScript</span><button class="code-copy-btn">Копировать</button></div>
+              <pre><code>// middleware.ts — защита роутов
+import { clerkMiddleware } from '@clerk/nextjs/server';
+
+export default clerkMiddleware();
+
+export const config = {
+  matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
+};
+
+// app/layout.tsx — провайдер
+import { ClerkProvider } from '@clerk/nextjs';
+
+export default function RootLayout({ children }) {
+  return (
+    <ClerkProvider>
+      <html><body>{children}</body></html>
+    </ClerkProvider>
+  );
+}
+
+// Компоненты для UI
+import { SignInButton, UserButton } from '@clerk/nextjs';
+
+function Header() {
+  return (
+    <header>
+      <SignInButton />  {/* Кнопка входа */}
+      <UserButton />    {/* Аватар пользователя с меню */}
+    </header>
+  );
+}</code></pre>
+            </div>
+
+            <h4>Webhook для синхронизации:</h4>
+            <div class="code-block">
+              <div class="code-header"><span class="code-lang">TypeScript</span><button class="code-copy-btn">Копировать</button></div>
+              <pre><code>// app/api/webhooks/clerk/route.ts
+import { WebhookEvent } from '@clerk/nextjs/server';
+
+export async function POST(request: Request) {
+  const event: WebhookEvent = await request.json();
+
+  if (event.type === 'user.created') {
+    // Создаём пользователя в нашей БД
+    await db.insert(users).values({
+      clerkId: event.data.id,
+      email: event.data.email_addresses[0].email_address,
+      name: event.data.first_name,
+    });
+  }
+
+  return new Response('OK', { status: 200 });
+}</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Stripe -->
+        <section class="card">
+          <div class="card-header">3. Stripe — платежи</div>
+          <div class="card-body">
+            <p><span class="tooltip-trigger" data-term="Stripe">Stripe</span> — платформа для приёма платежей онлайн.</p>
+
+            <h4>Ключевые продукты:</h4>
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">💳</div>
+                <h4 class="service-card-title">Checkout</h4>
+                <p class="service-card-desc">Готовая страница оплаты</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🔄</div>
+                <h4 class="service-card-title">Subscriptions</h4>
+                <p class="service-card-desc">Управление подписками</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">📊</div>
+                <h4 class="service-card-title">Billing Portal</h4>
+                <p class="service-card-desc">Личный кабинет для клиентов</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🔔</div>
+                <h4 class="service-card-title">Webhooks</h4>
+                <p class="service-card-desc">Уведомления о событиях</p>
+              </div>
+            </div>
+
+            <h4>Пример: создание Checkout сессии</h4>
+            <div class="code-block">
+              <div class="code-header"><span class="code-lang">TypeScript</span><button class="code-copy-btn">Копировать</button></div>
+              <pre><code>// app/api/checkout/route.ts
+import Stripe from 'stripe';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+export async function POST(request: Request) {
+  const { priceId } = await request.json();
+
+  const session = await stripe.checkout.sessions.create({
+    mode: 'subscription',
+    payment_method_types: ['card'],
+    line_items: [{ price: priceId, quantity: 1 }],
+    success_url: `${process.env.NEXT_PUBLIC_URL}/success`,
+    cancel_url: `${process.env.NEXT_PUBLIC_URL}/pricing`,
+  });
+
+  return Response.json({ url: session.url });
+}</code></pre>
+            </div>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <div><strong>Test Mode:</strong> Всегда используйте тестовые ключи (sk_test_...) при разработке. Тестовые карты: 4242 4242 4242 4242 (любая дата, CVV).</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Best Practices -->
+        <section class="card">
+          <div class="card-header">4. Best Practices для интеграций</div>
+          <div class="card-body">
+
+            <div class="accordion open-first">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔐 Безопасность API ключей</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ul>
+                      <li><strong>Никогда</strong> не храните ключи в коде</li>
+                      <li>Используйте <code>.env.local</code> для локальной разработки</li>
+                      <li>Добавьте <code>.env*</code> в <code>.gitignore</code></li>
+                      <li>Храните ключи в Vercel Environment Variables</li>
+                      <li>Ротируйте ключи при подозрении на утечку</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔔 Webhooks безопасность</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ul>
+                      <li>Всегда проверяйте <strong>подпись webhook</strong></li>
+                      <li>Используйте <code>webhook secret</code> для верификации</li>
+                      <li>Обрабатывайте события идемпотентно (повторный вызов не должен ломать)</li>
+                      <li>Возвращайте 200 быстро, тяжёлую работу делайте асинхронно</li>
+                    </ul>
+                    <div class="code-block">
+                      <div class="code-header"><span class="code-lang">TypeScript</span><button class="code-copy-btn">Копировать</button></div>
+                      <pre><code>// Проверка подписи Stripe webhook
+import { headers } from 'next/headers';
+
+const signature = headers().get('stripe-signature')!;
+const event = stripe.webhooks.constructEvent(
+  body,
+  signature,
+  process.env.STRIPE_WEBHOOK_SECRET!
+);</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔄 Error Handling & Retries</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ul>
+                      <li>Обрабатывайте ошибки API (rate limits, timeouts)</li>
+                      <li>Используйте exponential backoff для retry</li>
+                      <li>Логируйте все ошибки внешних сервисов</li>
+                      <li>Имейте fallback для критичных функций</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz">
+          <div class="quiz-header">
+            <div class="quiz-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <h3 class="quiz-title">Проверьте себя</h3>
+          </div>
+          <div class="quiz-question">Что такое Webhook?</div>
+          <div class="quiz-options">
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Библиотека для работы с API</span></div>
+            <div class="quiz-option" data-correct="true"><span class="quiz-option-marker"></span><span>HTTP запрос от внешнего сервиса при событии</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Тип базы данных</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Метод аутентификации</span></div>
+          </div>
+          <div class="quiz-feedback"><div class="quiz-feedback-text"></div></div>
+          <div class="quiz-actions">
+            <button class="btn btn-primary quiz-check-btn">Проверить</button>
+            <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
+            <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
+          </div>
+        </section>
+
+        <nav class="lesson-nav">
+          <a href="lesson-5.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>
+            <div><div class="nav-arrow-label">Назад</div><div class="nav-arrow-title">Облачные платформы</div></div>
+          </a>
+          <button class="btn btn-primary mark-complete-btn" data-lesson="6">Отметить урок пройденным</button>
+          <a href="lesson-7.html" class="nav-arrow nav-arrow-next">
+            <div><div class="nav-arrow-label">Далее</div><div class="nav-arrow-title">Инструменты разработчика</div></div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,6 15,12 9,18"/></svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+  <script src="js/glossary.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

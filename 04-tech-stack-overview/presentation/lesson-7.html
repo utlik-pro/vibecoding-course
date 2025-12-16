@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 4.7: Инструменты разработчика | VibeCoding</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 8 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 4</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Регистрация аккаунтов</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Архитектура приложений</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>JS, TS, React</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Базы данных и SQL</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Облачные платформы</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Сторонние сервисы</a>
+        <a href="lesson-7.html" class="nav-item active" data-lesson="7"><span class="nav-item-number">7</span>Инструменты разработчика</a>
+        <a href="project.html" class="nav-item" data-lesson="8"><span class="nav-item-number">P</span>Итоговый проект</a>
+      </nav>
+    </aside>
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 4</a><span class="breadcrumb-separator">/</span><span>Урок 4.7</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer"><span class="timer-icon">⏱</span><span class="timer-display">00:00</span><button class="timer-btn" title="Запустить">▶</button><button class="timer-reset" title="Сбросить">↺</button></div>
+          <div class="mode-toggle" title="Переключить режим"><div class="mode-toggle-switch"></div><span class="mode-toggle-label">Режим студента</span></div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 4.7</span>
+            <span class="lesson-duration">⏱ 45 минут</span>
+          </div>
+          <h1 class="lesson-title">Инструменты разработчика</h1>
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Изучить essential инструменты современного разработчика</li>
+              <li>Настроить эффективный workflow</li>
+              <li>Понять роль каждого инструмента</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Практика:</strong> Помогите студентам установить и настроить VS Code с расширениями. Покажите несколько полезных шорткатов.</p>
+          </div>
+        </div>
+
+        <!-- Section 1: Code Editors -->
+        <section class="card">
+          <div class="card-header">1. Редакторы кода</div>
+          <div class="card-body">
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">📝</div>
+                <h4 class="service-card-title">VS Code</h4>
+                <p class="service-card-desc">Бесплатный, расширяемый, самый популярный</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🤖</div>
+                <h4 class="service-card-title">Cursor</h4>
+                <p class="service-card-desc">VS Code + встроенный AI (GPT/Claude)</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">💼</div>
+                <h4 class="service-card-title">WebStorm</h4>
+                <p class="service-card-desc">JetBrains IDE, платный, мощный</p>
+              </div>
+            </div>
+
+            <h4>Рекомендуемые расширения для VS Code:</h4>
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ext-1"></span>
+                <span class="checklist-text"><strong>ESLint</strong> — проверка качества кода</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ext-2"></span>
+                <span class="checklist-text"><strong>Prettier</strong> — автоформатирование</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ext-3"></span>
+                <span class="checklist-text"><strong>Tailwind CSS IntelliSense</strong> — автодополнение классов</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ext-4"></span>
+                <span class="checklist-text"><strong>GitLens</strong> — расширенная работа с Git</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ext-5"></span>
+                <span class="checklist-text"><strong>Error Lens</strong> — ошибки прямо в коде</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ext-6"></span>
+                <span class="checklist-text"><strong>Thunder Client</strong> — тестирование API</span>
+              </li>
+            </ul>
+
+            <h4>Полезные шорткаты VS Code:</h4>
+            <div class="table-container">
+              <table>
+                <thead><tr><th>Действие</th><th>Mac</th><th>Windows/Linux</th></tr></thead>
+                <tbody>
+                  <tr><td>Командная палитра</td><td><code>Cmd+Shift+P</code></td><td><code>Ctrl+Shift+P</code></td></tr>
+                  <tr><td>Быстрый поиск файлов</td><td><code>Cmd+P</code></td><td><code>Ctrl+P</code></td></tr>
+                  <tr><td>Поиск по проекту</td><td><code>Cmd+Shift+F</code></td><td><code>Ctrl+Shift+F</code></td></tr>
+                  <tr><td>Перейти к определению</td><td><code>Cmd+Click</code></td><td><code>Ctrl+Click</code></td></tr>
+                  <tr><td>Множественные курсоры</td><td><code>Cmd+D</code></td><td><code>Ctrl+D</code></td></tr>
+                  <tr><td>Комментирование</td><td><code>Cmd+/</code></td><td><code>Ctrl+/</code></td></tr>
+                  <tr><td>Форматирование</td><td><code>Shift+Option+F</code></td><td><code>Shift+Alt+F</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Git -->
+        <section class="card">
+          <div class="card-header">2. Git и Version Control</div>
+          <div class="card-body">
+            <p><span class="tooltip-trigger" data-term="Git">Git</span> — система контроля версий. Отслеживает изменения кода и позволяет работать в команде.</p>
+
+            <h4>Основные команды:</h4>
+            <div class="code-block">
+              <div class="code-header"><span class="code-lang">Bash</span><button class="code-copy-btn">Копировать</button></div>
+              <pre><code># Клонировать репозиторий
+git clone https://github.com/user/repo.git
+
+# Проверить статус
+git status
+
+# Добавить файлы в staging
+git add .                    # все файлы
+git add filename.ts          # конкретный файл
+
+# Создать коммит
+git commit -m "feat: add user authentication"
+
+# Отправить на GitHub
+git push origin main
+
+# Получить изменения
+git pull origin main
+
+# Создать ветку
+git checkout -b feature/new-feature
+
+# Переключиться на ветку
+git checkout main</code></pre>
+            </div>
+
+            <h4>Conventional Commits:</h4>
+            <p>Стандарт оформления commit messages:</p>
+            <ul>
+              <li><code>feat:</code> — новая функциональность</li>
+              <li><code>fix:</code> — исправление бага</li>
+              <li><code>docs:</code> — изменения в документации</li>
+              <li><code>style:</code> — форматирование (не влияет на код)</li>
+              <li><code>refactor:</code> — рефакторинг кода</li>
+              <li><code>test:</code> — добавление тестов</li>
+              <li><code>chore:</code> — настройка, зависимости</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Section 3: Browser DevTools -->
+        <section class="card">
+          <div class="card-header">3. Browser DevTools</div>
+          <div class="card-body">
+            <p>Инструменты разработчика встроены в браузер (F12 или Cmd+Option+I).</p>
+
+            <div class="tabs">
+              <div class="tabs-header">
+                <button class="tab-btn active" data-tab="devtools-elements">Elements</button>
+                <button class="tab-btn" data-tab="devtools-console">Console</button>
+                <button class="tab-btn" data-tab="devtools-network">Network</button>
+                <button class="tab-btn" data-tab="devtools-react">React DevTools</button>
+              </div>
+
+              <div id="devtools-elements" class="tab-content active">
+                <h5>Elements (Элементы)</h5>
+                <ul>
+                  <li>Просмотр и редактирование HTML в реальном времени</li>
+                  <li>Изменение CSS стилей</li>
+                  <li>Computed styles — итоговые значения стилей</li>
+                  <li>Box model — визуализация margin/padding/border</li>
+                </ul>
+              </div>
+
+              <div id="devtools-console" class="tab-content">
+                <h5>Console (Консоль)</h5>
+                <ul>
+                  <li><code>console.log()</code> — вывод информации</li>
+                  <li><code>console.error()</code> — вывод ошибок</li>
+                  <li><code>console.table()</code> — вывод таблицей</li>
+                  <li>Выполнение JavaScript в контексте страницы</li>
+                  <li>Просмотр ошибок и предупреждений</li>
+                </ul>
+              </div>
+
+              <div id="devtools-network" class="tab-content">
+                <h5>Network (Сеть)</h5>
+                <ul>
+                  <li>Все HTTP запросы страницы</li>
+                  <li>Заголовки запросов и ответов</li>
+                  <li>Время загрузки каждого ресурса</li>
+                  <li>Фильтрация по типу (XHR, JS, CSS, Images)</li>
+                  <li>Throttling — симуляция медленного интернета</li>
+                </ul>
+              </div>
+
+              <div id="devtools-react" class="tab-content">
+                <h5>React Developer Tools</h5>
+                <p>Расширение для Chrome/Firefox:</p>
+                <ul>
+                  <li>Дерево компонентов</li>
+                  <li>Просмотр и редактирование props/state</li>
+                  <li>Profiler — анализ производительности</li>
+                  <li>Подсветка перерисовок компонентов</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: CLI Tools -->
+        <section class="card">
+          <div class="card-header">4. Командная строка</div>
+          <div class="card-body">
+            <h4>Package Managers:</h4>
+            <div class="table-container">
+              <table>
+                <thead><tr><th>npm</th><th>pnpm (рекомендуем)</th><th>Описание</th></tr></thead>
+                <tbody>
+                  <tr><td><code>npm install</code></td><td><code>pnpm install</code></td><td>Установить зависимости</td></tr>
+                  <tr><td><code>npm install pkg</code></td><td><code>pnpm add pkg</code></td><td>Добавить пакет</td></tr>
+                  <tr><td><code>npm install -D pkg</code></td><td><code>pnpm add -D pkg</code></td><td>Dev-зависимость</td></tr>
+                  <tr><td><code>npm run dev</code></td><td><code>pnpm dev</code></td><td>Запустить скрипт</td></tr>
+                  <tr><td><code>npx create-next-app</code></td><td><code>pnpm create next-app</code></td><td>Создать проект</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4>Полезные CLI утилиты:</h4>
+            <ul>
+              <li><code>gh</code> — GitHub CLI для работы с PR, issues</li>
+              <li><code>vercel</code> — деплой из командной строки</li>
+              <li><code>supabase</code> — управление Supabase проектом локально</li>
+              <li><code>httpie</code> / <code>curl</code> — тестирование API</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Practical -->
+        <section class="card">
+          <div class="card-header">Практическая работа</div>
+          <div class="card-body">
+            <h4>Настройте рабочее окружение:</h4>
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="setup-1"></span>
+                <span class="checklist-text">Установите VS Code или Cursor</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="setup-2"></span>
+                <span class="checklist-text">Установите рекомендуемые расширения</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="setup-3"></span>
+                <span class="checklist-text">Настройте Git (git config --global user.name/email)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="setup-4"></span>
+                <span class="checklist-text">Установите Node.js (LTS версия)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="setup-5"></span>
+                <span class="checklist-text">Установите pnpm (npm install -g pnpm)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="setup-6"></span>
+                <span class="checklist-text">Установите React DevTools в браузер</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz">
+          <div class="quiz-header">
+            <div class="quiz-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <h3 class="quiz-title">Проверьте себя</h3>
+          </div>
+          <div class="quiz-question">Какая команда Git создаёт новую ветку и переключается на неё?</div>
+          <div class="quiz-options">
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>git branch new-branch</span></div>
+            <div class="quiz-option" data-correct="true"><span class="quiz-option-marker"></span><span>git checkout -b new-branch</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>git switch new-branch</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>git create new-branch</span></div>
+          </div>
+          <div class="quiz-feedback"><div class="quiz-feedback-text"></div></div>
+          <div class="quiz-actions">
+            <button class="btn btn-primary quiz-check-btn">Проверить</button>
+            <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
+            <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
+          </div>
+        </section>
+
+        <nav class="lesson-nav">
+          <a href="lesson-6.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>
+            <div><div class="nav-arrow-label">Назад</div><div class="nav-arrow-title">Сторонние сервисы</div></div>
+          </a>
+          <button class="btn btn-primary mark-complete-btn" data-lesson="7">Отметить урок пройденным</button>
+          <a href="project.html" class="nav-arrow nav-arrow-next">
+            <div><div class="nav-arrow-label">Далее</div><div class="nav-arrow-title">Итоговый проект</div></div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,6 15,12 9,18"/></svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+  <script src="js/glossary.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

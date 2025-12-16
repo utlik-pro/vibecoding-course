@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 4.2: Архитектура веб-приложений | VibeCoding</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 8 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 4</div>
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Регистрация аккаунтов
+        </a>
+        <a href="lesson-2.html" class="nav-item active" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          Архитектура приложений
+        </a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          JS, TS, React
+        </a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Базы данных и SQL
+        </a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Облачные платформы
+        </a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">6</span>
+          Сторонние сервисы
+        </a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7">
+          <span class="nav-item-number">7</span>
+          Инструменты разработчика
+        </a>
+        <a href="project.html" class="nav-item" data-lesson="8">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 4</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 4.2</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 4.2</span>
+            <span class="lesson-duration">⏱ 1.5 часа</span>
+          </div>
+          <h1 class="lesson-title">Архитектура современных веб-приложений</h1>
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Понять как взаимодействуют фронтенд, бекенд и база данных</li>
+              <li>Изучить архитектурные паттерны современной веб-разработки</li>
+              <li>Понять роль каждого компонента в системе</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Ключевой урок модуля.</strong> Студенты должны понять общую картину до изучения деталей.</p>
+            <p><strong>Рекомендация:</strong> Рисуйте схемы на доске, показывайте как данные перемещаются между слоями. Используйте аналогии: ресторан (официант=фронтенд, кухня=бекенд, склад=БД).</p>
+          </div>
+        </div>
+
+        <!-- Section 1: Evolution -->
+        <section class="card">
+          <div class="card-header">1. Эволюция веб-архитектуры</div>
+          <div class="card-body">
+            <p>Веб-разработка прошла долгий путь от простых HTML-страниц до сложных приложений:</p>
+
+            <div class="accordion open-first">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📄 Эра 1: Статичные сайты (1990-е)</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Простые HTML + CSS страницы. Контент статичен — чтобы что-то изменить, нужно править файлы вручную.</p>
+                    <p><strong>Пример:</strong> Визитка компании, портфолио.</p>
+                    <p><strong>Проблема:</strong> Нет интерактивности, нельзя работать с данными пользователей.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>⚙️ Эра 2: Server-side rendering (2000-е)</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Сервер генерирует HTML для каждого запроса. PHP, ASP.NET, Ruby on Rails.</p>
+                    <p><strong>Как работает:</strong></p>
+                    <ol>
+                      <li>Браузер запрашивает страницу</li>
+                      <li>Сервер обращается к базе данных</li>
+                      <li>Сервер формирует HTML с данными</li>
+                      <li>Браузер получает готовую страницу</li>
+                    </ol>
+                    <p><strong>Проблема:</strong> Каждое действие = перезагрузка страницы.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>✨ Эра 3: AJAX и динамические приложения (2005+)</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>JavaScript научился делать запросы к серверу без перезагрузки страницы (AJAX).</p>
+                    <p><strong>Пример:</strong> Gmail — почта обновляется без перезагрузки.</p>
+                    <p><strong>Технология:</strong> XMLHttpRequest, позже Fetch API.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>⚛️ Эра 4: Single Page Applications (2010+)</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>
+                      <span class="tooltip-trigger" data-term="SPA">SPA</span> —
+                      приложение загружается один раз, дальше работает без перезагрузок.
+                    </p>
+                    <p><strong>Фреймворки:</strong> Angular, React, Vue.js</p>
+                    <p><strong>Как работает:</strong></p>
+                    <ol>
+                      <li>Браузер загружает JavaScript-приложение</li>
+                      <li>Приложение запрашивает данные через API</li>
+                      <li>Интерфейс обновляется динамически</li>
+                    </ol>
+                    <p><strong>Проблема:</strong> Плохое SEO (поисковики не видят контент), медленная первая загрузка.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🚀 Эра 5: Современные фреймворки (2020+)</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Гибридный подход: <span class="tooltip-trigger" data-term="SSR">SSR</span> +
+                       <span class="tooltip-trigger" data-term="SSG">SSG</span> + клиентская интерактивность.</p>
+                    <p><strong>Фреймворки:</strong> Next.js, Nuxt, SvelteKit, Remix</p>
+                    <p><strong>Преимущества:</strong></p>
+                    <ul>
+                      <li>Быстрая первая загрузка (SSR/SSG)</li>
+                      <li>Отличное SEO</li>
+                      <li>Интерактивность SPA</li>
+                      <li>Автоматическая оптимизация</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Modern Architecture -->
+        <section class="card">
+          <div class="card-header">2. Современная архитектура веб-приложения</div>
+          <div class="card-body">
+
+            <div class="teacher-note">
+              <div class="teacher-note-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+                </svg>
+                Заметка для преподавателя
+              </div>
+              <div class="teacher-note-content">
+                Попросите студентов назвать примеры для каждого слоя из приложений, которыми они пользуются (Instagram, Twitter, банковские приложения).
+              </div>
+            </div>
+
+            <p>Современное веб-приложение состоит из трёх основных слоёв:</p>
+
+            <!-- Architecture Diagram -->
+            <div class="architecture-diagram">
+              <div class="arch-layer arch-frontend">
+                <div class="arch-layer-title">🖥️ Frontend (Клиент)</div>
+                <div class="arch-layer-items">
+                  <span class="arch-item">React</span>
+                  <span class="arch-item">Next.js</span>
+                  <span class="arch-item">Tailwind CSS</span>
+                  <span class="arch-item">shadcn/ui</span>
+                </div>
+              </div>
+
+              <div class="arch-layer arch-backend">
+                <div class="arch-layer-title">⚙️ Backend (Сервер)</div>
+                <div class="arch-layer-items">
+                  <span class="arch-item">API Routes</span>
+                  <span class="arch-item">Auth Middleware</span>
+                  <span class="arch-item">Drizzle ORM</span>
+                  <span class="arch-item">Edge Functions</span>
+                </div>
+              </div>
+
+              <div class="arch-layer arch-database">
+                <div class="arch-layer-title">🗄️ Database (Данные)</div>
+                <div class="arch-layer-items">
+                  <span class="arch-item">PostgreSQL</span>
+                  <span class="arch-item">Supabase</span>
+                  <span class="arch-item">File Storage</span>
+                  <span class="arch-item">Redis Cache</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabs for each layer -->
+            <div class="tabs">
+              <div class="tabs-header">
+                <button class="tab-btn active" data-tab="layer-frontend">Frontend</button>
+                <button class="tab-btn" data-tab="layer-backend">Backend</button>
+                <button class="tab-btn" data-tab="layer-database">Database</button>
+              </div>
+
+              <div id="layer-frontend" class="tab-content active">
+                <h4>Frontend слой — что видит пользователь</h4>
+                <p>Отвечает за отображение интерфейса и взаимодействие с пользователем.</p>
+
+                <h5>Ключевые технологии:</h5>
+                <ul>
+                  <li><strong><span class="tooltip-trigger" data-term="React">React</span></strong> — библиотека для создания UI из компонентов</li>
+                  <li><strong><span class="tooltip-trigger" data-term="Next.js">Next.js</span></strong> — фреймворк с роутингом, SSR, оптимизациями</li>
+                  <li><strong><span class="tooltip-trigger" data-term="Tailwind CSS">Tailwind CSS</span></strong> — utility-first CSS фреймворк</li>
+                  <li><strong><span class="tooltip-trigger" data-term="shadcn/ui">shadcn/ui</span></strong> — библиотека UI-компонентов</li>
+                </ul>
+
+                <h5>Задачи фронтенда:</h5>
+                <ul>
+                  <li>Отрисовка интерфейса</li>
+                  <li>Обработка действий пользователя</li>
+                  <li>Отправка запросов к API</li>
+                  <li>Управление состоянием приложения</li>
+                  <li>Роутинг (навигация между страницами)</li>
+                </ul>
+              </div>
+
+              <div id="layer-backend" class="tab-content">
+                <h4>Backend слой — логика приложения</h4>
+                <p>Обрабатывает бизнес-логику, работает с данными, управляет безопасностью.</p>
+
+                <h5>Ключевые компоненты:</h5>
+                <ul>
+                  <li><strong>API Routes</strong> — эндпоинты для получения/отправки данных</li>
+                  <li><strong><span class="tooltip-trigger" data-term="Middleware">Middleware</span></strong> — проверка авторизации, логирование</li>
+                  <li><strong><span class="tooltip-trigger" data-term="ORM">ORM</span></strong> — работа с базой данных через код</li>
+                  <li><strong>Background Jobs</strong> — отложенные задачи (email, обработка)</li>
+                </ul>
+
+                <h5>Пример API endpoint:</h5>
+                <div class="code-block">
+                  <div class="code-header">
+                    <span class="code-lang">TypeScript</span>
+                    <button class="code-copy-btn">Копировать</button>
+                  </div>
+                  <pre><code>// app/api/users/route.ts
+export async function GET() {
+  const users = await db.select().from(usersTable);
+  return Response.json(users);
+}
+
+export async function POST(request: Request) {
+  const data = await request.json();
+  const newUser = await db.insert(usersTable).values(data);
+  return Response.json(newUser, { status: 201 });
+}</code></pre>
+                </div>
+              </div>
+
+              <div id="layer-database" class="tab-content">
+                <h4>Database слой — хранение данных</h4>
+                <p>Постоянное хранилище для всех данных приложения.</p>
+
+                <h5>Типы баз данных:</h5>
+                <ul>
+                  <li><strong>Реляционные (SQL)</strong> — PostgreSQL, MySQL. Таблицы, связи, строгая структура.</li>
+                  <li><strong>NoSQL</strong> — MongoDB, Redis. Гибкая структура, ключ-значение.</li>
+                  <li><strong>Vector DB</strong> — Pinecone, pgvector. Для AI/ML, поиск по семантике.</li>
+                </ul>
+
+                <h5>Наш выбор: PostgreSQL через Supabase</h5>
+                <ul>
+                  <li>Надёжная реляционная БД</li>
+                  <li>Поддержка JSON для гибкости</li>
+                  <li>Автоматический REST API</li>
+                  <li>Row Level Security для безопасности</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Data Flow -->
+        <section class="card">
+          <div class="card-header">3. Как данные перемещаются в приложении</div>
+          <div class="card-body">
+            <p>Рассмотрим путь данных на примере: пользователь создаёт новый пост в блоге.</p>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Пример: Создание поста</strong>
+                <ol style="margin: 0.5rem 0 0 1rem;">
+                  <li><strong>Пользователь</strong> заполняет форму и нажимает "Опубликовать"</li>
+                  <li><strong>Frontend</strong> собирает данные и отправляет POST запрос на /api/posts</li>
+                  <li><strong>Backend</strong> проверяет авторизацию через middleware</li>
+                  <li><strong>Backend</strong> валидирует данные (заголовок не пустой, текст &lt; 10000 символов)</li>
+                  <li><strong>ORM</strong> формирует SQL запрос и отправляет в базу</li>
+                  <li><strong>Database</strong> сохраняет запись и возвращает ID</li>
+                  <li><strong>Backend</strong> возвращает успешный ответ с данными поста</li>
+                  <li><strong>Frontend</strong> обновляет UI, показывает новый пост</li>
+                </ol>
+              </div>
+            </div>
+
+            <h4>HTTP методы для CRUD операций:</h4>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Операция</th>
+                    <th>HTTP метод</th>
+                    <th>Пример URL</th>
+                    <th>Описание</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Create</td>
+                    <td><code>POST</code></td>
+                    <td>/api/posts</td>
+                    <td>Создать новый пост</td>
+                  </tr>
+                  <tr>
+                    <td>Read</td>
+                    <td><code>GET</code></td>
+                    <td>/api/posts/123</td>
+                    <td>Получить пост по ID</td>
+                  </tr>
+                  <tr>
+                    <td>Update</td>
+                    <td><code>PUT/PATCH</code></td>
+                    <td>/api/posts/123</td>
+                    <td>Обновить пост</td>
+                  </tr>
+                  <tr>
+                    <td>Delete</td>
+                    <td><code>DELETE</code></td>
+                    <td>/api/posts/123</td>
+                    <td>Удалить пост</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Communication -->
+        <section class="card">
+          <div class="card-header">4. Способы коммуникации между слоями</div>
+          <div class="card-body">
+
+            <div class="tabs">
+              <div class="tabs-header">
+                <button class="tab-btn active" data-tab="comm-rest">REST API</button>
+                <button class="tab-btn" data-tab="comm-graphql">GraphQL</button>
+                <button class="tab-btn" data-tab="comm-realtime">Realtime</button>
+                <button class="tab-btn" data-tab="comm-webhooks">Webhooks</button>
+              </div>
+
+              <div id="comm-rest" class="tab-content active">
+                <h4><span class="tooltip-trigger" data-term="REST">REST API</span></h4>
+                <p>Самый распространённый способ. Использует стандартные HTTP методы.</p>
+
+                <h5>Преимущества:</h5>
+                <ul>
+                  <li>Простота и понятность</li>
+                  <li>Хорошо кэшируется</li>
+                  <li>Широкая поддержка инструментов</li>
+                </ul>
+
+                <h5>Недостатки:</h5>
+                <ul>
+                  <li>Overfetching — получаем больше данных, чем нужно</li>
+                  <li>Underfetching — нужно несколько запросов для связанных данных</li>
+                </ul>
+              </div>
+
+              <div id="comm-graphql" class="tab-content">
+                <h4><span class="tooltip-trigger" data-term="GraphQL">GraphQL</span></h4>
+                <p>Клиент точно указывает, какие данные ему нужны.</p>
+
+                <div class="code-block">
+                  <div class="code-header">
+                    <span class="code-lang">GraphQL</span>
+                    <button class="code-copy-btn">Копировать</button>
+                  </div>
+                  <pre><code>query {
+  user(id: 123) {
+    name
+    email
+    posts {
+      title
+      createdAt
+    }
+  }
+}</code></pre>
+                </div>
+
+                <h5>Преимущества:</h5>
+                <ul>
+                  <li>Получаем только нужные данные</li>
+                  <li>Один запрос для связанных данных</li>
+                  <li>Строгая типизация схемы</li>
+                </ul>
+              </div>
+
+              <div id="comm-realtime" class="tab-content">
+                <h4>Realtime коммуникация</h4>
+                <p>Для приложений, где данные должны обновляться мгновенно.</p>
+
+                <h5>WebSockets:</h5>
+                <p>Двусторонняя связь. Идеально для чатов, игр, совместного редактирования.</p>
+
+                <h5>Server-Sent Events (SSE):</h5>
+                <p>Односторонняя связь от сервера. Хорошо для уведомлений, live-обновлений.</p>
+
+                <h5>Supabase Realtime:</h5>
+                <p>Подписка на изменения в базе данных — данные приходят автоматически при изменении.</p>
+              </div>
+
+              <div id="comm-webhooks" class="tab-content">
+                <h4><span class="tooltip-trigger" data-term="Webhook">Webhooks</span></h4>
+                <p>Внешний сервис отправляет HTTP запрос на ваш сервер при событии.</p>
+
+                <h5>Примеры использования:</h5>
+                <ul>
+                  <li><strong>Stripe</strong> — уведомление об успешной оплате</li>
+                  <li><strong>GitHub</strong> — новый коммит в репозитории</li>
+                  <li><strong>Clerk</strong> — создан новый пользователь</li>
+                </ul>
+
+                <div class="alert alert-warning">
+                  <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                  </svg>
+                  <div>
+                    <strong>Безопасность:</strong> Всегда проверяйте подпись webhook запросов, чтобы убедиться, что они пришли от доверенного источника.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: Deployment -->
+        <section class="card">
+          <div class="card-header">5. Deployment и DevOps</div>
+          <div class="card-body">
+
+            <h4>Как код попадает к пользователям?</h4>
+
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔄 CI/CD Pipeline</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p><span class="tooltip-trigger" data-term="CI/CD">CI/CD</span> — автоматизация тестирования и деплоя:</p>
+                    <ol>
+                      <li><strong>Push</strong> — разработчик отправляет код в GitHub</li>
+                      <li><strong>CI (Continuous Integration)</strong> — автоматические тесты, проверка кода</li>
+                      <li><strong>CD (Continuous Deployment)</strong> — автоматический деплой при успешных тестах</li>
+                    </ol>
+                    <p><strong>Vercel</strong> делает это автоматически: push → тесты → деплой.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🌐 CDN и Edge Network</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p><span class="tooltip-trigger" data-term="CDN">CDN</span> — сеть серверов по всему миру:</p>
+                    <ul>
+                      <li>Статические файлы (JS, CSS, изображения) хранятся на ближайших серверах</li>
+                      <li>Пользователь получает контент с минимальной задержкой</li>
+                      <li>Vercel имеет серверы в 30+ локациях</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔧 Environment (окружения)</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ul>
+                      <li><strong>Development</strong> — локальная разработка на вашем компьютере</li>
+                      <li><strong>Preview</strong> — тестовое окружение для каждого Pull Request</li>
+                      <li><strong>Production</strong> — боевой сервер для реальных пользователей</li>
+                    </ul>
+                    <p>Каждое окружение имеет свои переменные (API ключи, URL базы данных).</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz">
+          <div class="quiz-header">
+            <div class="quiz-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <h3 class="quiz-title">Проверьте себя</h3>
+          </div>
+
+          <div class="quiz-question">Какой слой отвечает за хранение данных пользователей?</div>
+
+          <div class="quiz-options">
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Frontend</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Backend</span>
+            </div>
+            <div class="quiz-option" data-correct="true">
+              <span class="quiz-option-marker"></span>
+              <span>Database</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>CDN</span>
+            </div>
+          </div>
+
+          <div class="quiz-feedback">
+            <div class="quiz-feedback-text"></div>
+          </div>
+
+          <div class="quiz-actions">
+            <button class="btn btn-primary quiz-check-btn">Проверить</button>
+            <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
+            <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
+          </div>
+        </section>
+
+        <!-- Practical Work -->
+        <section class="card">
+          <div class="card-header">Практическая работа</div>
+          <div class="card-body">
+            <h4>Задание: Нарисуйте архитектуру вашего проекта</h4>
+            <p>Подумайте о приложении, которое вы хотите создать, и нарисуйте схему его архитектуры:</p>
+            <ol>
+              <li>Какие страницы будут во фронтенде?</li>
+              <li>Какие API endpoints понадобятся?</li>
+              <li>Какие таблицы будут в базе данных?</li>
+              <li>Какие внешние сервисы будете использовать?</li>
+            </ol>
+            <p><em>Можно использовать бумагу, Figma, Miro или любой другой инструмент.</em></p>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-1.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Регистрация аккаунтов</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="2">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-3.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">JS, TS, React</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

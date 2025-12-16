@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vibecoding с нуля - Курс по созданию SaaS с ИИ</title>
+    <title>Vibecoding с нуля - Уроки курса</title>
     <style>
         * {
             margin: 0;
@@ -13,10 +13,9 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            color: #1f2937;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
             min-height: 100vh;
+            color: #fff;
         }
 
         .container {
@@ -25,91 +24,83 @@
             padding: 20px;
         }
 
+        /* Header */
         header {
             text-align: center;
-            padding: 60px 20px;
-            color: white;
-            margin-bottom: 40px;
+            padding: 60px 20px 40px;
         }
 
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        .hero-description {
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto 30px;
-            opacity: 0.8;
-        }
-
-        .tech-badges {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 30px;
-        }
-
-        .badge {
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        .content {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            overflow: hidden;
-            margin-bottom: 40px;
-        }
-
-        .section-header {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
+        .logo {
+            font-size: 3rem;
             margin-bottom: 10px;
         }
 
-        .section-description {
-            font-size: 1.1rem;
-            opacity: 0.9;
+        .course-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
         }
 
-        .lessons-grid {
+        .course-subtitle {
+            font-size: 1.2rem;
+            color: #a0aec0;
+            margin-bottom: 30px;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            padding: 5px;
+            margin: 30px auto;
+            max-width: 600px;
+        }
+
+        .progress-bar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 12px;
+            border-radius: 50px;
+            width: 8.33%;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 15px;
+            color: #a0aec0;
+            font-size: 0.95rem;
+        }
+
+        .progress-text span {
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        /* Lessons Grid */
+        .lessons-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
-            padding: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            padding: 40px 0;
         }
 
+        /* Lesson Card */
         .lesson-card {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 25px;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
         }
 
         .lesson-card::before {
@@ -117,588 +108,559 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
+            right: 0;
             height: 4px;
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .lesson-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-color: #4f46e5;
+        .lesson-card.unlocked:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #667eea;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
         }
 
-        .lesson-number {
-            display: inline-block;
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 40px;
-            font-weight: 700;
-            margin-bottom: 15px;
+        .lesson-card.unlocked:hover::before {
+            opacity: 1;
         }
 
-        .lesson-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #1f2937;
-        }
-
-        .lesson-description {
-            color: #6b7280;
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-        }
-
-        .lesson-topics {
-            list-style: none;
-        }
-
-        .lesson-topics li {
-            padding: 4px 0;
-            font-size: 0.9rem;
-            color: #4b5563;
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .lesson-topics li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: #4f46e5;
-            font-weight: bold;
-        }
-
-        .result-section {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            padding: 40px 30px;
-            text-align: center;
-        }
-
-        .result-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .result-description {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
-
-        .result-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .result-feature {
-            background: rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-        }
-
-        .result-feature h4 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-        }
-
-        .cta-section {
-            text-align: center;
-            padding: 50px 30px;
-            background: white;
-        }
-
-        .cta-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-
-        .btn {
-            padding: 15px 30px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            border: none;
+        .lesson-card.unlocked {
             cursor: pointer;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        .lesson-card.locked {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .lesson-card.locked:hover {
+            transform: none;
+        }
+
+        .lesson-card.completed {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .lesson-card.completed::before {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            opacity: 1;
+        }
+
+        /* Lesson Header */
+        .lesson-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .lesson-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+        .lesson-card.completed .lesson-number {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         }
 
-        .btn-secondary {
-            background: transparent;
-            color: #4f46e5;
-            border: 2px solid #4f46e5;
+        .lesson-card.locked .lesson-number {
+            background: rgba(255,255,255,0.2);
+            color: #6b7280;
         }
 
-        .btn-secondary:hover {
-            background: #4f46e5;
+        .lesson-status {
+            font-size: 1.8rem;
+        }
+
+        /* Lock Icon */
+        .lock-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .lock-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: #6b7280;
+        }
+
+        /* Unlock Icon */
+        .unlock-icon svg {
+            fill: #10b981;
+        }
+
+        /* Lesson Content */
+        .lesson-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .lesson-card.locked .lesson-title {
+            color: #6b7280;
+        }
+
+        .lesson-description {
+            font-size: 0.95rem;
+            color: #a0aec0;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .lesson-card.locked .lesson-description {
+            color: #4b5563;
+        }
+
+        /* Lesson Topics */
+        .lesson-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .topic-tag {
+            background: rgba(102, 126, 234, 0.2);
+            color: #a5b4fc;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .lesson-card.locked .topic-tag {
+            background: rgba(255,255,255,0.05);
+            color: #4b5563;
+        }
+
+        .lesson-card.completed .topic-tag {
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+        }
+
+        /* Lesson Duration */
+        .lesson-duration {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+
+        .lesson-duration svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* CTA Button */
+        .start-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
         }
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: white;
-            opacity: 0.8;
+        .lesson-card.unlocked:hover .start-btn {
+            transform: translateX(5px);
         }
 
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .lessons-grid {
-                grid-template-columns: 1fr;
-                padding: 20px;
-            }
-            
-            .tech-badges {
-                justify-content: center;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
+        .lesson-card.completed .start-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         }
 
-        .scroll-indicator {
-            position: fixed;
+        /* Overlay for locked */
+        .locked-overlay {
+            position: absolute;
             top: 0;
             left: 0;
-            width: 0%;
-            height: 4px;
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            z-index: 1000;
-            transition: width 0.1s ease;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 15, 35, 0.7);
+            backdrop-filter: blur(2px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lesson-card.locked:hover .locked-overlay {
+            opacity: 1;
+        }
+
+        .locked-overlay svg {
+            width: 50px;
+            height: 50px;
+            fill: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .locked-overlay p {
+            color: #a0aec0;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6b7280;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .course-title {
+                font-size: 1.8rem;
+            }
+
+            .lessons-container {
+                grid-template-columns: 1fr;
+            }
+
+            .lesson-card {
+                padding: 25px;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .lesson-card.current {
+            animation: pulse 2s infinite;
+            border-color: #667eea;
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Sparkle effect for unlocked */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0;
         }
     </style>
 </head>
 <body>
-    <div class="scroll-indicator" id="scrollIndicator"></div>
-    
-    <header>
-        <div class="container">
-            <h1 class="hero-title">🚀 Vibecoding с нуля</h1>
-            <p class="hero-subtitle">Создание SaaS-приложений с помощью ИИ</p>
-            <p class="hero-description">
-                Революционный подход к программированию: "кодить через вайб" с использованием 
-                современных ИИ-инструментов для быстрого создания качественного кода
-            </p>
-            
-            <div class="tech-badges">
-                <span class="badge">🤖 Cursor</span>
-                <span class="badge">💬 Claude Code</span>
-                <span class="badge">⚛️ Next.js</span>
-                <span class="badge">🔷 TypeScript</span>
-                <span class="badge">🐘 PostgreSQL</span>
-                <span class="badge">🔐 Clerk</span>
-                <span class="badge">💳 Stripe</span>
-                <span class="badge">☁️ Vercel</span>
-            </div>
-        </div>
-    </header>
-
     <div class="container">
-        <!-- Основной курс -->
-        <div class="content">
-            <div class="section-header">
-                <h2 class="section-title">📚 Основная программа</h2>
-                <p class="section-description">От основ vibecoding до готового SaaS-приложения</p>
+        <header>
+            <div class="logo">🚀</div>
+            <h1 class="course-title">Vibecoding с нуля</h1>
+            <p class="course-subtitle">Создание SaaS-приложений с помощью ИИ</p>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
             </div>
-            
-            <div class="lessons-grid">
-                <div class="lesson-card">
-                    <div class="lesson-number">1</div>
-                    <h3 class="lesson-title">🎯 Введение в Vibecoding</h3>
-                    <p class="lesson-description">
-                        Знакомство с философией "кодить через вайб" и современными ИИ-инструментами
-                    </p>
-                    <ul class="lesson-topics">
-                        <li>Философия vibecoding vs классическое программирование</li>
-                        <li>10 лучших ИИ-инструментов (Cursor, Claude Code, v0.dev)</li>
-                        <li>Первое приложение за 10 минут</li>
-                        <li>GitHub для ИИ-разработки</li>
-                    </ul>
-                </div>
+            <p class="progress-text">Пройдено <span id="completedCount">1</span> из <span>12</span> уроков</p>
+        </header>
 
-                <div class="lesson-card">
-                    <div class="lesson-number">2</div>
-                    <h3 class="lesson-title">🖥️ Мастерство Cursor</h3>
-                    <p class="lesson-description">
-                        Глубокое погружение в Cursor - главный инструмент ИИ-разработчика
-                    </p>
-                    <ul class="lesson-topics">
-                        <li>Установка, настройка и интеграции</li>
-                        <li>Chat, Tab автодополнение, Cmd+K команды</li>
-                        <li>Composer для генерации сложного кода</li>
-                        <li>.cursorrules - персонализация ИИ-помощника</li>
-                    </ul>
-                </div>
-
-                <div class="lesson-card">
-                    <div class="lesson-number">3</div>
-                    <h3 class="lesson-title">🧠 Claude Code</h3>
-                    <p class="lesson-description">
-                        Альтернативный мощный ИИ-инструмент для архитектуры и планирования
-                    </p>
-                    <ul class="lesson-topics">
-                        <li>Возможности веб-интерфейса и Artifacts</li>
-                        <li>Когда использовать Claude вместо Cursor</li>
-                        <li>Генерация API, схем БД и тестов</li>
-                        <li>Гибридный подход в разработке</li>
-                    </ul>
-                </div>
-
-                <div class="lesson-card">
-                    <div class="lesson-number">4</div>
-                    <h3 class="lesson-title">🌐 Современный веб-стек</h3>
-                    <p class="lesson-description">
-                        Изучение технологий для создания современных веб-приложений
-                    </p>
-                    <ul class="lesson-topics">
-                        <li>Архитектура современных веб-приложений</li>
-                        <li>JavaScript/TypeScript экосистема</li>
-                        <li>Базы данных и SQL основы</li>
-                        <li>Регистрация во всех необходимых сервисах</li>
-                    </ul>
-                </div>
-
-                <div class="lesson-card">
-                    <div class="lesson-number">5</div>
-                    <h3 class="lesson-title">⚙️ Настройка проекта</h3>
-                    <p class="lesson-description">
-                        Настройка полного технологического стека для разработки
-                    </p>
-                    <ul class="lesson-topics">
-                        <li>Next.js проект с TypeScript</li>
-                        <li>Настройка Vercel для деплоя</li>
-                        <li>Environment variables и секреты</li>
-                        <li>Интеграция всех сервисов (Supabase, Clerk, OpenAI, Stripe)</li>
-                    </ul>
-                </div>
-
-                <div class="lesson-card">
-                    <div class="lesson-number">6</div>
-                    <h3 class="lesson-title">🖥️ Бекенд</h3>
-                    <p class="lesson-description">
-                        Создание серверной части приложения с базой данных
-                    </p>
-                    <ul class="lesson-topics">
-                        <li>API Routes в Next.js</li>
-                        <li>Drizzle ORM и PostgreSQL</li>
-                        <li>Схема базы данных и миграции</li>
-                        <li>CRUD операции и бизнес-логика</li>
-                    </ul>
-                </div>
-
-                <div class="lesson-card">
-                    <div class="lesson-number">7</div>
-                    <h3 class="lesson-title">🔐 Аутентификация</h3>
-                    <p class="lesson-description">
-                        Система регистрации и входа пользователей
-                    </p>
-                    <ul class="lesson-topics">
-                        <li>Настройка Clerk для аутентификации</li>
-                        <li>Email, социальные входы, MFA</li>
-                        <li>Защищенные роуты и middleware</li>
-                        <li>Синхронизация пользователей с БД</li>
-                    </ul>
-                </div>
-
-                <div class="lesson-card">
-                    <div class="lesson-number">8</div>
-                    <h3 class="lesson-title">🗄️ База данных</h3>
-                    <p class="lesson-description">
-                        Глубокое погружение в Supabase и управление данными
-                    </p>
-                    <ul class="lesson-topics">
-                        <li>Supabase Dashboard и возможности</li>
-                        <li>SQL Editor и Table Editor</li>
-                        <li>Real-time subscriptions</li>
-                        <li>Row Level Security и миграции</li>
-                    </ul>
-                </div>
-
-                <div class="lesson-card">
-                    <div class="lesson-number">9</div>
-                    <h3 class="lesson-title">🎨 Фронтенд</h3>
-                    <p class="lesson-description">
-                        Создание красивого и функционального пользовательского интерфейса
-                    </p>
-                    <ul class="lesson-topics">
-                        <li>Роутинг в Next.js App Router</li>
-                        <li>Hero, Features, Pricing, FAQ блоки</li>
-                        <li>shadcn/ui компоненты и Tailwind CSS</li>
-                        <li>Responsive дизайн и адаптивность</li>
-                    </ul>
-                </div>
-
-                <div class="lesson-card">
-                    <div class="lesson-number">10</div>
-                    <h3 class="lesson-title">💳 API и платежи</h3>
-                    <p class="lesson-description">
-                        Интеграция платежной системы и внешних API
-                    </p>
-                    <ul class="lesson-topics">
-                        <li>HTTP протоколы и RESTful API</li>
-                        <li>Stripe: платежи и подписки</li>
-                        <li>Webhooks для уведомлений</li>
-                        <li>Связка фронтенда и бекенда</li>
-                    </ul>
-                </div>
-
-                <div class="lesson-card">
-                    <div class="lesson-number">11</div>
-                    <h3 class="lesson-title">🔗 Финальная интеграция</h3>
-                    <p class="lesson-description">
-                        Связывание всех компонентов и деплоймент в production
-                    </p>
-                    <ul class="lesson-topics">
-                        <li>Автоматизация с помощью ИИ</li>
-                        <li>OpenAI API и стриминг</li>
-                        <li>Тестирование полного приложения</li>
-                        <li>Production деплой и мониторинг</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="lessons-container" id="lessonsGrid">
+            <!-- Lessons will be inserted here by JavaScript -->
         </div>
 
-        <!-- Продвинутый уровень -->
-        <div class="content">
-            <div class="section-header">
-                <h2 class="section-title">⚡ Продвинутый уровень</h2>
-                <p class="section-description">Автоматизация разработки с помощью ИИ-агентов</p>
-            </div>
-            
-            <div class="lessons-grid">
-                <div class="lesson-card">
-                    <div class="lesson-number">12</div>
-                    <h3 class="lesson-title">🤖 MCP и Агенты</h3>
-                    <p class="lesson-description">
-                        Создание системы ИИ-агентов для полной автоматизации разработки
-                    </p>
-                    <ul class="lesson-topics">
-                        <li>Model Context Protocol (MCP)</li>
-                        <li>Создание специализированных агентов</li>
-                        <li>Taskmaster для управления задачами</li>
-                        <li>SuperCode - автогенерация сложных решений</li>
-                        <li>Связка MCP + .cursorrules</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Финальный проект -->
-        <div class="content">
-            <div class="section-header">
-                <h2 class="section-title">🎯 Ваш финальный проект</h2>
-                <p class="section-description">Полноценное веб-приложение с админ-панелью и базой данных</p>
-            </div>
-
-            <div style="padding: 40px 30px;">
-                <div style="max-width: 800px; margin: 0 auto;">
-                    <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; text-align: center; color: #1f2937;">
-                        Landing Page с полным функционалом
-                    </h3>
-
-                    <p style="font-size: 1.1rem; color: #6b7280; text-align: center; margin-bottom: 40px;">
-                        Современное веб-приложение с красивым лендингом, системой регистрации пользователей,
-                        админ-панелью для отслеживания аудитории и интегрированной базой данных
-                    </p>
-
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 30px;">
-                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 15px; color: white;">
-                            <h4 style="font-size: 1.3rem; margin-bottom: 12px;">🌐 Landing Page</h4>
-                            <ul style="list-style: none; padding: 0; margin: 0;">
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ Адаптивный дизайн</li>
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ Hero секция с призывом</li>
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ Блоки Features & Pricing</li>
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ Форма регистрации</li>
-                            </ul>
-                        </div>
-
-                        <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 25px; border-radius: 15px; color: white;">
-                            <h4 style="font-size: 1.3rem; margin-bottom: 12px;">🔐 Система аутентификации</h4>
-                            <ul style="list-style: none; padding: 0; margin: 0;">
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ Email регистрация</li>
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ Социальные входы</li>
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ Защищенные роуты</li>
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ Управление профилем</li>
-                            </ul>
-                        </div>
-
-                        <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 25px; border-radius: 15px; color: white;">
-                            <h4 style="font-size: 1.3rem; margin-bottom: 12px;">📊 Админ-панель</h4>
-                            <ul style="list-style: none; padding: 0; margin: 0;">
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ Dashboard с аналитикой</li>
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ Список пользователей</li>
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ Статистика регистраций</li>
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ Экспорт данных</li>
-                            </ul>
-                        </div>
-
-                        <div style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); padding: 25px; border-radius: 15px; color: white;">
-                            <h4 style="font-size: 1.3rem; margin-bottom: 12px;">🗄️ База данных</h4>
-                            <ul style="list-style: none; padding: 0; margin: 0;">
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ PostgreSQL на Supabase</li>
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ Таблицы пользователей</li>
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ Real-time обновления</li>
-                                <li style="padding: 6px 0; opacity: 0.95;">✓ Миграции и бэкапы</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div style="background: #f8fafc; border-radius: 15px; padding: 30px; margin-top: 40px; border: 2px solid #e2e8f0;">
-                        <h4 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 15px; color: #1f2937;">
-                            🛠️ Технологический стек проекта
-                        </h4>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
-                            <div>
-                                <strong style="color: #4f46e5;">Frontend:</strong>
-                                <p style="color: #6b7280; margin: 5px 0;">Next.js, React, TypeScript, Tailwind CSS, shadcn/ui</p>
-                            </div>
-                            <div>
-                                <strong style="color: #4f46e5;">Backend:</strong>
-                                <p style="color: #6b7280; margin: 5px 0;">Next.js API Routes, Drizzle ORM, PostgreSQL</p>
-                            </div>
-                            <div>
-                                <strong style="color: #4f46e5;">Сервисы:</strong>
-                                <p style="color: #6b7280; margin: 5px 0;">Clerk Auth, Supabase, Stripe, OpenAI API</p>
-                            </div>
-                            <div>
-                                <strong style="color: #4f46e5;">Деплой:</strong>
-                                <p style="color: #6b7280; margin: 5px 0;">Vercel, GitHub, автоматический CI/CD</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="text-align: center; margin-top: 35px; padding: 25px; background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); border-radius: 15px;">
-                        <p style="font-size: 1.15rem; color: #4b5563; margin: 0;">
-                            <strong style="color: #4f46e5;">💡 Результат:</strong> Полностью рабочее приложение,
-                            которое можно использовать как основу для собственного стартапа или добавить в портфолио
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Резул��тат -->
-        <div class="result-section">
-            <h2 class="result-title">🎯 Что вы получите</h2>
-            <p class="result-description">
-                По завершении курса у вас будет полноценное SaaS-приложение и навыки современной разработки
-            </p>
-            
-            <div class="result-features">
-                <div class="result-feature">
-                    <h4>🚀 Готовое SaaS</h4>
-                    <p>Полнофункциональное приложение в production</p>
-                </div>
-                <div class="result-feature">
-                    <h4>🧠 ИИ-навыки</h4>
-                    <p>Мастерство работы с современными ИИ-инструментами</p>
-                </div>
-                <div class="result-feature">
-                    <h4>💻 Full-stack</h4>
-                    <p>Знание всего современного веб-стека</p>
-                </div>
-                <div class="result-feature">
-                    <h4>⚡ Автоматизация</h4>
-                    <p>Система агентов для ускорения разработки</p>
-                </div>
-                <div class="result-feature">
-                    <h4>💼 Карьера</h4>
-                    <p>Готовность к работе Middle разработчиком</p>
-                </div>
-                <div class="result-feature">
-                    <h4>🎓 Портфолио</h4>
-                    <p>8-10 проектов для демонстрации навыков</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- CTA -->
-        <div class="cta-section">
-            <h2 class="cta-title">Готовы начать?</h2>
-            <p style="font-size: 1.1rem; color: #6b7280; margin-bottom: 30px;">
-                Присоединяйтесь к революции в программировании и создавайте приложения с помощью ИИ
-            </p>
-            
-            <div class="cta-buttons">
-                <a href="README.md" class="btn btn-primary">📖 Подробнее о курсе</a>
-                <a href="ROADMAP.md" class="btn btn-secondary">🗺️ Дорожная карта</a>
-            </div>
-        </div>
+        <footer>
+            <p>© 2025 Vibecoding с нуля • <a href="old-index.html">Программа курса</a></p>
+        </footer>
     </div>
 
-    <footer>
-        <div class="container">
-            <p>© 2024 Vibecoding с нуля • Создано с ❤️ и ИИ</p>
-        </div>
-    </footer>
-
     <script>
-        // Scroll progress indicator
-        window.addEventListener('scroll', () => {
-            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            document.getElementById('scrollIndicator').style.width = scrolled + '%';
-        });
+        // Course lessons data
+        const lessons = [
+            {
+                id: 1,
+                title: "Введение в Vibecoding",
+                icon: "🎯",
+                description: "Знакомство с философией \"кодить через вайб\" и современными ИИ-инструментами",
+                topics: ["Философия vibecoding", "ИИ-инструменты", "Первое приложение"],
+                duration: "2-3 часа",
+                link: "lessons/lesson-01.html"
+            },
+            {
+                id: 2,
+                title: "Мастерство Cursor",
+                icon: "🖥️",
+                description: "Глубокое погружение в Cursor - главный инструмент ИИ-разработчика",
+                topics: ["Chat & Composer", "Cmd+K команды", ".cursorrules"],
+                duration: "3-4 часа",
+                link: "lessons/lesson-02.html"
+            },
+            {
+                id: 3,
+                title: "Claude Code",
+                icon: "🧠",
+                description: "Альтернативный мощный ИИ-инструмент для архитектуры и планирования",
+                topics: ["Artifacts", "Гибридный подход", "Agent Mode"],
+                duration: "2-3 часа",
+                link: "lessons/lesson-03.html"
+            },
+            {
+                id: 4,
+                title: "Современный веб-стек",
+                icon: "🌐",
+                description: "Изучение технологий для создания современных веб-приложений",
+                topics: ["TypeScript", "Next.js", "PostgreSQL"],
+                duration: "3-4 часа",
+                link: "lessons/lesson-04.html"
+            },
+            {
+                id: 5,
+                title: "Настройка проекта",
+                icon: "⚙️",
+                description: "Настройка полного технологического стека для разработки",
+                topics: ["Next.js setup", "Vercel", "Environment vars"],
+                duration: "2-3 часа",
+                link: "lessons/lesson-05.html"
+            },
+            {
+                id: 6,
+                title: "Бекенд",
+                icon: "🖥️",
+                description: "Создание серверной части приложения с базой данных",
+                topics: ["API Routes", "Drizzle ORM", "CRUD"],
+                duration: "4-5 часов",
+                link: "lessons/lesson-06.html"
+            },
+            {
+                id: 7,
+                title: "Аутентификация",
+                icon: "🔐",
+                description: "Простая система регистрации и входа через Supabase Auth",
+                topics: ["Supabase Auth", "Social login", "Защита роутов"],
+                duration: "3-4 часа",
+                link: "lessons/lesson-07.html"
+            },
+            {
+                id: 8,
+                title: "База данных",
+                icon: "🗄️",
+                description: "Глубокое погружение в Supabase и управление данными",
+                topics: ["SQL Editor", "Real-time", "RLS"],
+                duration: "3-4 часа",
+                link: "lessons/lesson-08.html"
+            },
+            {
+                id: 9,
+                title: "Фронтенд",
+                icon: "🎨",
+                description: "Создание красивого интерактивного UI с лендингом и админкой",
+                topics: ["Landing Page", "Dashboard", "shadcn/ui"],
+                duration: "5-6 часов",
+                link: "lessons/lesson-09.html"
+            },
+            {
+                id: 10,
+                title: "API и платежи",
+                icon: "💳",
+                description: "Интеграция платежной системы Stripe и внешних API",
+                topics: ["Stripe", "Webhooks", "Подписки"],
+                duration: "4-5 часов",
+                link: "lessons/lesson-10.html"
+            },
+            {
+                id: 11,
+                title: "Финальная интеграция",
+                icon: "🔗",
+                description: "Сборка, тестирование и production деплой приложения",
+                topics: ["OpenAI API", "Деплой", "Мониторинг"],
+                duration: "4-5 часов",
+                link: "lessons/lesson-11.html"
+            },
+            {
+                id: 12,
+                title: "Финальный проект",
+                icon: "🏆",
+                description: "Проверка качества, тестирование и презентация проектов",
+                topics: ["Code Review", "Тесты", "Презентация"],
+                duration: "6-8 часов",
+                link: "lessons/lesson-12.html"
+            }
+        ];
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        // Load progress from localStorage
+        let completedLessons = JSON.parse(localStorage.getItem('completedLessons')) || [];
+        let currentLesson = parseInt(localStorage.getItem('currentLesson')) || 1;
+
+        // For demo purposes, lesson 1 is always unlocked
+        function isUnlocked(lessonId) {
+            return lessonId === 1 || completedLessons.includes(lessonId - 1);
+        }
+
+        function isCompleted(lessonId) {
+            return completedLessons.includes(lessonId);
+        }
+
+        // Render lessons
+        function renderLessons() {
+            const grid = document.getElementById('lessonsGrid');
+            grid.innerHTML = '';
+
+            lessons.forEach(lesson => {
+                const unlocked = isUnlocked(lesson.id);
+                const completed = isCompleted(lesson.id);
+                const isCurrent = lesson.id === currentLesson && unlocked && !completed;
+
+                const card = document.createElement('a');
+                card.href = unlocked ? lesson.link : '#';
+                card.className = `lesson-card ${unlocked ? 'unlocked' : 'locked'} ${completed ? 'completed' : ''} ${isCurrent ? 'current' : ''}`;
+
+                if (!unlocked) {
+                    card.onclick = (e) => {
+                        e.preventDefault();
+                        showLockedMessage(lesson.id);
+                    };
+                }
+
+                card.innerHTML = `
+                    <div class="lesson-header">
+                        <div class="lesson-number">${lesson.id}</div>
+                        <div class="lock-icon ${unlocked ? 'unlock-icon' : ''}">
+                            ${completed ? `
+                                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                            ` : unlocked ? `
+                                <svg viewBox="0 0 24 24"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6h1.9c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm0 12H6V10h12v10z"/></svg>
+                            ` : `
+                                <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                            `}
+                        </div>
+                    </div>
+
+                    <h3 class="lesson-title">${lesson.icon} ${lesson.title}</h3>
+                    <p class="lesson-description">${lesson.description}</p>
+
+                    <div class="lesson-topics">
+                        ${lesson.topics.map(topic => `<span class="topic-tag">${topic}</span>`).join('')}
+                    </div>
+
+                    <div class="lesson-duration">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                        ${lesson.duration}
+                    </div>
+
+                    ${unlocked ? `
+                        <div class="start-btn">
+                            ${completed ? 'Повторить' : isCurrent ? 'Продолжить' : 'Начать'}
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                        </div>
+                    ` : ''}
+
+                    ${!unlocked ? `
+                        <div class="locked-overlay">
+                            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                            <p>Завершите урок ${lesson.id - 1}</p>
+                        </div>
+                    ` : ''}
+                `;
+
+                grid.appendChild(card);
+            });
+
+            updateProgress();
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const completed = completedLessons.length;
+            const progress = (completed / 12) * 100;
+            document.getElementById('progressBar').style.width = `${Math.max(progress, 8.33)}%`;
+            document.getElementById('completedCount').textContent = completed;
+        }
+
+        // Show locked message
+        function showLockedMessage(lessonId) {
+            alert(`🔒 Урок ${lessonId} заблокирован!\n\nЗавершите урок ${lessonId - 1}, чтобы разблокировать.`);
+        }
+
+        // Mark lesson as complete (can be called from lesson pages)
+        function completeLesson(lessonId) {
+            if (!completedLessons.includes(lessonId)) {
+                completedLessons.push(lessonId);
+                localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+                if (lessonId >= currentLesson) {
+                    currentLesson = lessonId + 1;
+                    localStorage.setItem('currentLesson', currentLesson);
+                }
+                renderLessons();
+            }
+        }
+
+        // Reset progress (for testing)
+        function resetProgress() {
+            localStorage.removeItem('completedLessons');
+            localStorage.removeItem('currentLesson');
+            completedLessons = [];
+            currentLesson = 1;
+            renderLessons();
+        }
+
+        // Demo: Complete lesson 1 for demonstration
+        function demoUnlockNext() {
+            const nextToComplete = completedLessons.length > 0
+                ? Math.max(...completedLessons) + 1
+                : 1;
+            if (nextToComplete <= 12) {
+                completeLesson(nextToComplete);
+            }
+        }
+
+        // Expose functions globally
+        window.completeLesson = completeLesson;
+        window.resetProgress = resetProgress;
+        window.demoUnlockNext = demoUnlockNext;
+
+        // Initial render
+        renderLessons();
+
+        // Add keyboard shortcuts for demo
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'n' && e.ctrlKey) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Add some interactivity to lesson cards
-        document.querySelectorAll('.lesson-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-8px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
+                demoUnlockNext();
+            }
+            if (e.key === 'r' && e.ctrlKey && e.shiftKey) {
+                e.preventDefault();
+                if (confirm('Сбросить весь прогресс?')) {
+                    resetProgress();
+                }
+            }
         });
     </script>
 </body>

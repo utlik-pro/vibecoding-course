@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 4.4: Базы данных | VibeCoding</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 8 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 4</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Регистрация аккаунтов</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Архитектура приложений</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Технологии фронтенда</a>
+        <a href="lesson-4.html" class="nav-item active" data-lesson="4"><span class="nav-item-number">4</span>Базы данных</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Облачные платформы</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Сторонние сервисы</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Инструменты разработчика</a>
+        <a href="project.html" class="nav-item" data-lesson="8"><span class="nav-item-number">P</span>Итоговый проект</a>
+      </nav>
+    </aside>
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 4</a><span class="breadcrumb-separator">/</span><span>Урок 4.4</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer"><span class="timer-icon">⏱</span><span class="timer-display">00:00</span><button class="timer-btn" title="Запустить">▶</button><button class="timer-reset" title="Сбросить">↺</button></div>
+          <div class="mode-toggle" title="Переключить режим"><div class="mode-toggle-switch"></div><span class="mode-toggle-label">Режим студента</span></div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 4.4</span>
+            <span class="lesson-duration">⏱ 45 минут</span>
+          </div>
+          <h1 class="lesson-title">Базы данных: где живут ваши данные</h1>
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Понять, что такое база данных (на примере Excel)</li>
+              <li>Узнать, как данные связаны между собой</li>
+              <li>Выучить термины для работы с AI</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="alert alert-info">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <div>
+            <strong>Философия вайбкодинга:</strong> Вам не нужно учить SQL. AI напишет запросы за вас. Ваша задача — понимать структуру данных и правильно её описывать.
+          </div>
+        </div>
+
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Ключевой посыл:</strong> База данных = Excel в облаке. Студенты не будут писать SQL — они будут описывать структуру данных для AI.</p>
+            <p><strong>Демо:</strong> Покажите интерфейс Supabase Table Editor — он выглядит как Excel.</p>
+          </div>
+        </div>
+
+        <!-- Section 1: What is Database -->
+        <section class="card">
+          <div class="card-header">1. База данных = Excel в облаке</div>
+          <div class="card-body">
+            <p>Если вы работали с Excel, вы уже понимаете базы данных:</p>
+
+            <div class="architecture-diagram">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1rem 0;">
+                <div style="background: #E0F2FE; border: 2px solid #0EA5E9; border-radius: 12px; padding: 1.5rem; text-align: center;">
+                  <div style="font-size: 3rem;">📊</div>
+                  <div style="font-weight: 700; font-size: 1.25rem; margin: 0.5rem 0;">Excel</div>
+                  <div style="font-size: 0.9rem; color: #666;">Файл на компьютере</div>
+                </div>
+                <div style="background: #DCFCE7; border: 2px solid #22C55E; border-radius: 12px; padding: 1.5rem; text-align: center;">
+                  <div style="font-size: 3rem;">🗄️</div>
+                  <div style="font-weight: 700; font-size: 1.25rem; margin: 0.5rem 0;">База данных</div>
+                  <div style="font-size: 0.9rem; color: #666;">Таблицы в облаке</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr><th>Excel</th><th>База данных</th><th>Пример</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Файл</td><td>База (Database)</td><td>myapp_db</td></tr>
+                  <tr><td>Лист</td><td>Таблица (Table)</td><td>users, products, orders</td></tr>
+                  <tr><td>Строка</td><td>Запись (Row)</td><td>Один пользователь</td></tr>
+                  <tr><td>Столбец</td><td>Колонка (Column)</td><td>name, email, age</td></tr>
+                  <tr><td>Ячейка</td><td>Значение (Value)</td><td>"Иван", "ivan@mail.ru"</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Visual Table Example -->
+        <section class="card">
+          <div class="card-header">2. Как выглядят данные</div>
+          <div class="card-body">
+            <p>Пример таблицы <code>users</code> (пользователи):</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="background: #FEF3C7;">id (ключ)</th>
+                    <th>name</th>
+                    <th>email</th>
+                    <th>created_at</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="background: #FEF9C3; font-weight: 600;">1</td>
+                    <td>Анна</td>
+                    <td>anna@mail.ru</td>
+                    <td>2024-01-15</td>
+                  </tr>
+                  <tr>
+                    <td style="background: #FEF9C3; font-weight: 600;">2</td>
+                    <td>Борис</td>
+                    <td>boris@gmail.com</td>
+                    <td>2024-01-16</td>
+                  </tr>
+                  <tr>
+                    <td style="background: #FEF9C3; font-weight: 600;">3</td>
+                    <td>Вика</td>
+                    <td>vika@yandex.ru</td>
+                    <td>2024-01-17</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+              <div>
+                <strong>id (Primary Key)</strong> — уникальный номер каждой записи. Как номер паспорта — не повторяется.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Relationships -->
+        <section class="card">
+          <div class="card-header">3. Связи между таблицами</div>
+          <div class="card-body">
+            <p>Таблицы могут быть связаны друг с другом. Например, у пользователя могут быть заказы:</p>
+
+            <div class="architecture-diagram">
+              <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap; margin: 1.5rem 0;">
+
+                <!-- Users table -->
+                <div style="background: #E0F2FE; border: 2px solid #0EA5E9; border-radius: 12px; padding: 1rem; min-width: 180px;">
+                  <div style="font-weight: 700; text-align: center; margin-bottom: 0.75rem; font-size: 1.1rem;">👤 users</div>
+                  <div style="background: white; border-radius: 6px; padding: 0.5rem; font-size: 0.85rem;">
+                    <div style="color: #F59E0B; font-weight: 600;">🔑 id</div>
+                    <div>name</div>
+                    <div>email</div>
+                  </div>
+                </div>
+
+                <!-- Arrow -->
+                <div style="font-size: 2rem; color: #64748B;">→</div>
+
+                <!-- Orders table -->
+                <div style="background: #DCFCE7; border: 2px solid #22C55E; border-radius: 12px; padding: 1rem; min-width: 180px;">
+                  <div style="font-weight: 700; text-align: center; margin-bottom: 0.75rem; font-size: 1.1rem;">📦 orders</div>
+                  <div style="background: white; border-radius: 6px; padding: 0.5rem; font-size: 0.85rem;">
+                    <div style="color: #F59E0B; font-weight: 600;">🔑 id</div>
+                    <div style="color: #3B82F6; font-weight: 600;">🔗 user_id</div>
+                    <div>total</div>
+                    <div>status</div>
+                  </div>
+                </div>
+              </div>
+
+              <p style="text-align: center; color: #64748B; font-size: 0.9rem;">
+                <strong>user_id</strong> в таблице orders ссылается на <strong>id</strong> в таблице users
+              </p>
+            </div>
+
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">🔑</div>
+                <h4 class="service-card-title">Primary Key</h4>
+                <p class="service-card-desc">Уникальный ID записи. Обычно называется просто <code>id</code></p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🔗</div>
+                <h4 class="service-card-title">Foreign Key</h4>
+                <p class="service-card-desc">Ссылка на запись в другой таблице. Например <code>user_id</code></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: CRUD -->
+        <section class="card">
+          <div class="card-header">4. Четыре операции с данными (CRUD)</div>
+          <div class="card-body">
+            <p>С данными можно делать только 4 вещи:</p>
+
+            <div class="architecture-diagram">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
+
+                <div style="background: #DCFCE7; border: 2px solid #22C55E; border-radius: 12px; padding: 1.25rem; text-align: center;">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">➕</div>
+                  <div style="font-weight: 700; color: #22C55E;">Create</div>
+                  <div style="font-size: 0.9rem; margin-top: 0.25rem;">Создать</div>
+                  <div style="font-size: 0.8rem; color: #64748B; margin-top: 0.5rem;">Добавить нового пользователя</div>
+                </div>
+
+                <div style="background: #E0F2FE; border: 2px solid #0EA5E9; border-radius: 12px; padding: 1.25rem; text-align: center;">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">👁️</div>
+                  <div style="font-weight: 700; color: #0EA5E9;">Read</div>
+                  <div style="font-size: 0.9rem; margin-top: 0.25rem;">Прочитать</div>
+                  <div style="font-size: 0.8rem; color: #64748B; margin-top: 0.5rem;">Получить список заказов</div>
+                </div>
+
+                <div style="background: #FEF3C7; border: 2px solid #F59E0B; border-radius: 12px; padding: 1.25rem; text-align: center;">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">✏️</div>
+                  <div style="font-weight: 700; color: #F59E0B;">Update</div>
+                  <div style="font-size: 0.9rem; margin-top: 0.25rem;">Обновить</div>
+                  <div style="font-size: 0.8rem; color: #64748B; margin-top: 0.5rem;">Изменить email</div>
+                </div>
+
+                <div style="background: #FEE2E2; border: 2px solid #EF4444; border-radius: 12px; padding: 1.25rem; text-align: center;">
+                  <div style="font-size: 2rem; margin-bottom: 0.5rem;">🗑️</div>
+                  <div style="font-weight: 700; color: #EF4444;">Delete</div>
+                  <div style="font-size: 0.9rem; margin-top: 0.25rem;">Удалить</div>
+                  <div style="font-size: 0.8rem; color: #64748B; margin-top: 0.5rem;">Удалить аккаунт</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <div>
+                <strong>Для промптов:</strong> "Сделай CRUD для таблицы products" — AI создаст API для всех 4 операций.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: Supabase -->
+        <section class="card">
+          <div class="card-header">5. Supabase — база данных с интерфейсом</div>
+          <div class="card-body">
+            <p><strong>Supabase</strong> — это "Firebase на PostgreSQL". Главное преимущество: можно работать через визуальный интерфейс!</p>
+
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">📊</div>
+                <h4 class="service-card-title">Table Editor</h4>
+                <p class="service-card-desc">Создавайте таблицы как в Excel — кликами</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🔐</div>
+                <h4 class="service-card-title">Auth</h4>
+                <p class="service-card-desc">Встроенная авторизация пользователей</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">📁</div>
+                <h4 class="service-card-title">Storage</h4>
+                <p class="service-card-desc">Хранение файлов (картинки, документы)</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">⚡</div>
+                <h4 class="service-card-title">Realtime</h4>
+                <p class="service-card-desc">Мгновенные обновления (как в чате)</p>
+              </div>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+              <div>
+                <strong>Для вайбкодинга:</strong> В Supabase можно создавать таблицы через UI, а AI напишет код для работы с ними.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 6: Terminology -->
+        <section class="card">
+          <div class="card-header">6. Словарь терминов для AI</div>
+          <div class="card-body">
+            <p>Эти термины помогут точнее формулировать запросы:</p>
+
+            <div class="table-container">
+              <table>
+                <thead><tr><th>Термин</th><th>Что это</th><th>Пример промпта</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Table</strong></td>
+                    <td>Таблица с данными</td>
+                    <td>"Создай table для хранения products"</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Row / Record</strong></td>
+                    <td>Одна запись (строка)</td>
+                    <td>"Добавь new row в таблицу users"</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Column / Field</strong></td>
+                    <td>Колонка (поле)</td>
+                    <td>"Добавь column 'phone' в users"</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Primary Key</strong></td>
+                    <td>Уникальный ID</td>
+                    <td>"id должен быть primary key"</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Foreign Key</strong></td>
+                    <td>Ссылка на другую таблицу</td>
+                    <td>"user_id — foreign key к users"</td>
+                  </tr>
+                  <tr>
+                    <td><strong>JOIN</strong></td>
+                    <td>Объединить данные из двух таблиц</td>
+                    <td>"Сделай join orders с users"</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Query</strong></td>
+                    <td>Запрос к базе данных</td>
+                    <td>"Напиши query для поиска по email"</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 7: How to describe data -->
+        <section class="card">
+          <div class="card-header">7. Как описывать данные для AI</div>
+          <div class="card-body">
+            <p>Чтобы AI создал правильную структуру, опишите:</p>
+
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">❌</div>
+                <h4 class="service-card-title">Плохо</h4>
+                <p class="service-card-desc">"Сделай базу данных для магазина"</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">✅</div>
+                <h4 class="service-card-title">Хорошо</h4>
+                <p class="service-card-desc">"Создай таблицы:<br>• products (name, price, description, image_url)<br>• orders (user_id, total, status, created_at)<br>• order_items (order_id, product_id, quantity)"</p>
+              </div>
+            </div>
+
+            <h4>Шаблон для промпта:</h4>
+            <div class="code-block">
+              <div class="code-header"><span class="code-lang">Шаблон</span><button class="code-copy-btn">Копировать</button></div>
+              <pre><code>Создай таблицу [название]:
+- [поле1]: [тип] (обязательное/опциональное)
+- [поле2]: [тип]
+- [поле_id]: foreign key к таблице [другая_таблица]
+
+Типы: text, number, boolean, date, timestamp</code></pre>
+            </div>
+
+            <h4>Пример:</h4>
+            <div class="code-block">
+              <div class="code-header"><span class="code-lang">Реальный промпт</span><button class="code-copy-btn">Копировать</button></div>
+              <pre><code>Создай таблицу reviews:
+- id: автогенерируемый primary key
+- user_id: foreign key к users (обязательное)
+- product_id: foreign key к products (обязательное)
+- rating: number от 1 до 5
+- comment: text (опциональное)
+- created_at: timestamp</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz">
+          <div class="quiz-header">
+            <div class="quiz-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <h3 class="quiz-title">Проверьте себя</h3>
+          </div>
+          <div class="quiz-question">Что означает CRUD?</div>
+          <div class="quiz-options">
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Cloud, REST, User, Database</span></div>
+            <div class="quiz-option" data-correct="true"><span class="quiz-option-marker"></span><span>Create, Read, Update, Delete</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Connect, Request, Upload, Download</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Component, React, UI, Design</span></div>
+          </div>
+          <div class="quiz-feedback"><div class="quiz-feedback-text"></div></div>
+          <div class="quiz-actions">
+            <button class="btn btn-primary quiz-check-btn">Проверить</button>
+            <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
+            <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
+          </div>
+        </section>
+
+        <!-- Key Takeaways -->
+        <section class="card" style="border-color: var(--accent);">
+          <div class="card-header" style="background: rgba(16, 185, 129, 0.1);">Главное из урока</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>База данных</strong> — это Excel в облаке с таблицами, строками и колонками</li>
+              <li><strong>Primary Key (id)</strong> — уникальный номер каждой записи</li>
+              <li><strong>Foreign Key</strong> — ссылка, которая связывает таблицы</li>
+              <li><strong>CRUD</strong> — 4 операции: создать, прочитать, обновить, удалить</li>
+              <li><strong>Supabase</strong> — позволяет работать с базой через визуальный интерфейс</li>
+              <li>Вам не нужно писать SQL — описывайте структуру данных для AI</li>
+            </ul>
+          </div>
+        </section>
+
+        <nav class="lesson-nav">
+          <a href="lesson-3.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>
+            <div><div class="nav-arrow-label">Назад</div><div class="nav-arrow-title">Технологии фронтенда</div></div>
+          </a>
+          <button class="btn btn-primary mark-complete-btn" data-lesson="4">Отметить урок пройденным</button>
+          <a href="lesson-5.html" class="nav-arrow nav-arrow-next">
+            <div><div class="nav-arrow-label">Далее</div><div class="nav-arrow-title">Облачные платформы</div></div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,6 15,12 9,18"/></svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+  <script src="js/glossary.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>
