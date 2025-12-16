@@ -6,9 +6,19 @@
 // ==========================================
 // LESSON ACCESS CONFIGURATION
 // ==========================================
-// Какие уроки открыты (номера уроков)
-// Измените этот массив, чтобы открыть/закрыть уроки
-const UNLOCKED_LESSONS = [4]; // Только 4-й модуль открыт
+// Уроки разблокируются последовательно при прохождении
+// Первый урок всегда открыт, остальные открываются после завершения предыдущего
+function getUnlockedLessons() {
+  const completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+  // Урок 1 всегда открыт, + все пройденные, + следующий после последнего пройденного
+  const unlocked = [1];
+  completed.forEach(id => {
+    const num = parseInt(id, 10);
+    if (!unlocked.includes(num)) unlocked.push(num);
+    if (!unlocked.includes(num + 1) && num + 1 <= 8) unlocked.push(num + 1);
+  });
+  return unlocked;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   initApp();
@@ -33,6 +43,8 @@ function initApp() {
 // ==========================================
 
 function initLessonLocks() {
+  const UNLOCKED_LESSONS = getUnlockedLessons();
+
   // Lock navigation items
   const navItems = document.querySelectorAll('.nav-item[data-lesson]');
   navItems.forEach(item => {
