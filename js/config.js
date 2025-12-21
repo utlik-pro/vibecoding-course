@@ -5,7 +5,7 @@
 
 const COURSE_CONFIG = {
   // Какие модули открыты (номера 1-12)
-  unlockedModules: [4],
+  unlockedModules: [1, 4],
 
   // Белый список email
   whitelist: [
@@ -16,7 +16,8 @@ const COURSE_CONFIG = {
     'ddosattaker@gmail.com',         // Левковец Артём
     '1952793alkhm@gmail.com',        // Хмельницкий Алексей
     'predko1994denis@gmail.com',     // Предко Денис Андреевич
-    '1alexeikalinin1@gmail.com'      // Калинин Алексей Николаевич
+    '1alexeikalinin1@gmail.com',     // Калинин Алексей Николаевич
+    'vitalkov@gmail.com'             // Vitalkov
   ],
 
   // Пароль админки
