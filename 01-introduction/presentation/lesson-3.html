@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 1.3: Искусство промптов | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 8 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 1</div>
+
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <a href="lesson-1.html" class="nav-item" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Что такое Vibecoding
+        </a>
+
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          AI-генераторы приложений
+        </a>
+
+        <a href="lesson-3.html" class="nav-item active" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          Искусство промптов
+        </a>
+
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Приложение за 55 минут
+        </a>
+
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Подключение сервисов
+        </a>
+
+        <a href="lesson-6.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">6</span>
+          Доработка в Cursor
+        </a>
+
+        <a href="lesson-7.html" class="nav-item" data-lesson="7">
+          <span class="nav-item-number">7</span>
+          Деплой и публикация
+        </a>
+
+        <a href="project.html" class="nav-item" data-lesson="8">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выйти из модуля
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 1</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 1.3</span>
+        </div>
+
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 1.3</span>
+            <span class="lesson-duration">⏱ 20 минут</span>
+          </div>
+          <h1 class="lesson-title">Искусство промптов</h1>
+
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Научиться создавать эффективные промпты для генерации приложений</li>
+              <li>Создать промпт для Task Manager</li>
+              <li>Сравнить результаты разных LLM</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Время на секцию:</strong> Анатомия промпта (5 мин), Практика (10 мин), Сравнение (5 мин)</p>
+            <p><strong>Совет:</strong> Покажите свой промпт как пример перед тем, как студенты начнут создавать свой.</p>
+            <p><strong>Важно:</strong> Подчеркните: нет «идеального» промпта — есть итерации. Попросите 2-3 студентов поделиться результатами.</p>
+          </div>
+        </div>
+
+        <!-- Section 1: Anatomy of Good Prompt -->
+        <section class="card">
+          <div class="card-header">1. Анатомия хорошего промпта</div>
+          <div class="card-body">
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Почему промпт важен?</strong>
+                <p style="margin: 0.5rem 0 0;">
+                  Качество сгенерированного приложения напрямую зависит от того, насколько чётко и детально вы описали, что хотите получить. Хороший промпт — это 80% успеха.
+                </p>
+              </div>
+            </div>
+
+            <h3>Структура промпта для генерации приложения:</h3>
+            <ol>
+              <li><strong>ЧТО создаём</strong> — тип приложения, его назначение</li>
+              <li><strong>ДЛЯ КОГО</strong> — целевая аудитория, контекст использования</li>
+              <li><strong>КАКИЕ ФУНКЦИИ</strong> — детальный список возможностей</li>
+              <li><strong>КАК ВЫГЛЯДИТ</strong> — дизайн, стиль, UX-требования</li>
+              <li><strong>ТЕХНИЧЕСКИЕ ТРЕБОВАНИЯ</strong> — стек, интеграции, ограничения</li>
+            </ol>
+
+            <h3>Примеры: Плохой vs Хороший промпт</h3>
+
+            <div class="accordion open-first">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>❌ Плохой промпт</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div style="background: #fee; border-left: 4px solid #c33; padding: 1rem; border-radius: 4px;">
+                      <p><strong>Промпт:</strong></p>
+                      <p>«Сделай приложение для задач»</p>
+                      <br>
+                      <p><strong>Проблемы:</strong></p>
+                      <ul>
+                        <li>Не указан тип приложения (веб? мобильное?)</li>
+                        <li>Нет описания функций</li>
+                        <li>Нет требований к дизайну</li>
+                        <li>Нет технических деталей</li>
+                      </ul>
+                      <p><em>Результат: AI угадает, что вы хотите, но скорее всего не попадёт в ваши ожидания.</em></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>✅ Хороший промпт</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div style="background: #efe; border-left: 4px solid #3c3; padding: 1rem; border-radius: 4px;">
+                      <p><strong>Промпт:</strong></p>
+                      <p>«Создай <strong>веб-приложение Task Manager</strong> для <strong>личной продуктивности</strong>.</p>
+                      <p><strong>Функции:</strong></p>
+                      <ul>
+                        <li>Добавление задач с названием и описанием</li>
+                        <li>Установка приоритета (высокий/средний/низкий)</li>
+                        <li>Дедлайны с уведомлениями</li>
+                        <li>Фильтрация по статусу (все/активные/завершённые)</li>
+                      </ul>
+                      <p><strong>Дизайн:</strong> минималистичный, тёмная тема по умолчанию, адаптивный для мобильных.</p>
+                      <p><strong>Стек:</strong> React, Tailwind CSS, хранение в localStorage.»</p>
+                      <br>
+                      <p><strong>Почему это работает:</strong></p>
+                      <ul>
+                        <li>Чёткое описание типа приложения</li>
+                        <li>Детальный список функций</li>
+                        <li>Конкретные требования к дизайну</li>
+                        <li>Указан технический стек</li>
+                      </ul>
+                      <p><em>Результат: AI создаст именно то, что вы описали.</em></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Золотое правило:</strong> Чем детальнее промпт, тем лучше результат. Но не перегружайте деталями — баланс важен.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Practice -->
+        <section class="card">
+          <div class="card-header">2. Практика: создаём промпт для Task Manager</div>
+          <div class="card-body">
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Задание:</strong>
+                <p style="margin: 0.5rem 0 0;">
+                  Откройте <strong>ChatGPT, Claude, Gemini или Grok</strong> и используйте шаблон ниже для создания промпта Task Manager.
+                </p>
+              </div>
+            </div>
+
+            <h3>Шаблон промпта для LLM:</h3>
+            <p>Скопируйте этот текст и вставьте в выбранный LLM:</p>
+
+            <div style="background: #f5f5f5; border: 1px solid #ddd; border-radius: 8px; padding: 1.5rem; margin: 1rem 0; font-family: monospace; font-size: 0.9rem;">
+<pre style="margin: 0; white-space: pre-wrap;">Создай детальное техническое задание для веб-приложения Task Manager.
+
+Приложение должно включать:
+
+ОСНОВНЫЕ ФУНКЦИИ:
+- Создание задач (название, описание, приоритет)
+- Редактирование и удаление задач
+- Отметка задач как выполненных
+- Фильтрация (все/активные/выполненные)
+- Сортировка по дате, приоритету
+
+ДОПОЛНИТЕЛЬНЫЕ ФУНКЦИИ:
+- Категории/теги для задач
+- Поиск по задачам
+- Дедлайны с визуальным индикатором
+
+ДИЗАЙН:
+- Современный минималистичный интерфейс
+- Тёмная и светлая тема
+- Мобильная адаптация
+- Анимации при действиях
+
+ТЕХНИЧЕСКИЙ СТЕК:
+- React или Next.js
+- Tailwind CSS
+- Хранение данных (начнём с localStorage, потом Supabase)
+
+Сформируй ответ в виде промпта для AI-генератора приложений (lovable.dev).</pre>
+            </div>
+
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📝 Пошаговая инструкция</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ol>
+                      <li>Откройте <a href="https://chat.openai.com" target="_blank">ChatGPT</a>, <a href="https://claude.ai" target="_blank">Claude</a>, <a href="https://gemini.google.com" target="_blank">Gemini</a> или <a href="https://grok.x.ai" target="_blank">Grok</a></li>
+                      <li>Скопируйте шаблон промпта выше</li>
+                      <li>Вставьте его в чат с LLM</li>
+                      <li>Дождитесь ответа (30-60 секунд)</li>
+                      <li>LLM создаст детальный промпт для генератора приложений</li>
+                      <li>Скопируйте этот финальный промпт — он понадобится в следующем уроке</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>💡 Советы по улучшению промпта</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Если результат LLM не устраивает, попросите доработать:</p>
+                    <ul>
+                      <li>«Добавь больше деталей про дизайн интерфейса»</li>
+                      <li>«Уточни, как должны работать уведомления»</li>
+                      <li>«Добавь требования к мобильной версии»</li>
+                      <li>«Опиши структуру базы данных подробнее»</li>
+                    </ul>
+                    <p><strong>Помните:</strong> Итерация — это нормально! Промпты редко получаются идеальными с первого раза.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Важно:</strong> Сохраните финальный промпт в текстовый файл или заметки — он понадобится в уроке 1.4 для генерации приложения!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: LLM Comparison -->
+        <section class="card">
+          <div class="card-header">3. Сравнение результатов LLM</div>
+          <div class="card-body">
+            <p>Разные LLM могут дать разные результаты. Вот основные различия и когда какой использовать:</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>LLM</th>
+                    <th>Сильные стороны</th>
+                    <th>Когда использовать</th>
+                    <th>Ссылка</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>ChatGPT (GPT-4)</strong></td>
+                    <td>Универсальность, структурированность</td>
+                    <td>Общие задачи, быстрые ответы</td>
+                    <td><a href="https://chat.openai.com" target="_blank">chat.openai.com</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Claude</strong></td>
+                    <td>Длинные тексты, качество кода</td>
+                    <td>Техзадания, код-ревью</td>
+                    <td><a href="https://claude.ai" target="_blank">claude.ai</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Gemini</strong></td>
+                    <td>Мультимодальность (текст + изображения)</td>
+                    <td>Работа с изображениями, скриншотами</td>
+                    <td><a href="https://gemini.google.com" target="_blank">gemini.google.com</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Grok</strong></td>
+                    <td>Актуальность, доступ к X/Twitter</td>
+                    <td>Нужна свежая информация</td>
+                    <td><a href="https://grok.x.ai" target="_blank">grok.x.ai</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Что сравниваем при оценке результата:</h3>
+            <ul>
+              <li><strong>Детализация ответа</strong> — насколько подробно описаны функции и требования</li>
+              <li><strong>Практичность</strong> — реально ли реализовать предложенные решения</li>
+              <li><strong>Готовность к использованию</strong> — можно ли сразу вставить в генератор или нужна доработка</li>
+              <li><strong>Технические детали</strong> — упомянуты ли конкретные технологии и подходы</li>
+            </ul>
+
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🎯 Наша рекомендация</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p><strong>Для создания промптов приложений лучше всего:</strong></p>
+                    <ol>
+                      <li><strong>Claude</strong> — если нужен детальный технический промпт с качественным описанием архитектуры</li>
+                      <li><strong>ChatGPT</strong> — если нужен быстрый, структурированный результат</li>
+                      <li><strong>Gemini</strong> — если есть скриншот/макет желаемого дизайна</li>
+                    </ol>
+                    <p><em>Совет: Попробуйте разные LLM и выберите тот, чей стиль ответов вам больше нравится!</em></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Артефакт урока:</strong> К концу этого урока у вас должен быть готовый промпт для генерации Task Manager, который мы используем в следующем уроке!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz">
+          <div class="quiz-header">
+            <div class="quiz-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <h3 class="quiz-title">Проверьте себя</h3>
+          </div>
+
+          <div class="quiz-question">Что из перечисленного НЕ входит в структуру хорошего промпта для генерации приложения?</div>
+
+          <div class="quiz-options">
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Описание целевой аудитории</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Список функций приложения</span>
+            </div>
+            <div class="quiz-option" data-correct="true">
+              <span class="quiz-option-marker"></span>
+              <span>Пошаговая инструкция по установке Node.js</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Требования к дизайну и UI</span>
+            </div>
+          </div>
+
+          <div class="quiz-feedback">
+            <div class="quiz-feedback-text"></div>
+          </div>
+
+          <div class="quiz-actions">
+            <button class="btn btn-primary quiz-check-btn">Проверить</button>
+            <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
+            <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l3-understand-structure"></span>
+                <span class="checklist-text">Понимаю структуру хорошего промпта</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l3-see-examples"></span>
+                <span class="checklist-text">Изучил примеры плохого и хорошего промпта</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l3-create-prompt"></span>
+                <span class="checklist-text">Создал промпт для Task Manager с помощью LLM</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l3-save-prompt"></span>
+                <span class="checklist-text">Сохранил финальный промпт для использования в уроке 1.4</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l3-understand-llm"></span>
+                <span class="checklist-text">Понимаю различия между ChatGPT, Claude, Gemini и Grok</span>
+              </li>
+            </ul>
+
+            <div class="progress-bar" style="margin-top: 1rem;">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text">0 из 5 выполнено</div>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-2.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">AI-генераторы приложений</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="3">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-4.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Приложение за 55 минут</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

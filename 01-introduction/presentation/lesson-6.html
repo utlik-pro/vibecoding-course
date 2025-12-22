@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 1.6: Доработка в Cursor | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 8 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 1</div>
+
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <a href="lesson-1.html" class="nav-item" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Что такое Vibecoding
+        </a>
+
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          AI-генераторы приложений
+        </a>
+
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          Искусство промптов
+        </a>
+
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Приложение за 55 минут
+        </a>
+
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Подключение сервисов
+        </a>
+
+        <a href="lesson-6.html" class="nav-item active" data-lesson="6">
+          <span class="nav-item-number">6</span>
+          Доработка в Cursor
+        </a>
+
+        <a href="lesson-7.html" class="nav-item" data-lesson="7">
+          <span class="nav-item-number">7</span>
+          Деплой и публикация
+        </a>
+
+        <a href="project.html" class="nav-item" data-lesson="8">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выйти из модуля
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 1</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 1.6</span>
+        </div>
+
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 1.6</span>
+            <span class="lesson-duration">⏱ 30 минут</span>
+          </div>
+          <h1 class="lesson-title">Доработка в Cursor</h1>
+
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Установить и настроить Cursor AI</li>
+              <li>Клонировать проект из lovable.dev и подготовить к разработке</li>
+              <li>Добавить 3 новых функции через AI-ассистента</li>
+              <li>Научиться эффективно отлаживать проблемы с помощью AI</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Время на секцию:</strong> 10 мин установка + 15 мин добавление функций + 5 мин тестирование</p>
+            <p><strong>Совет:</strong> Убедитесь, что у студентов установлены Node.js и Git перед началом урока. Предложите помощь с командной строкой тем, кто не уверен.</p>
+            <p><strong>Важно:</strong> Подчеркните, что Cursor требует API-ключ. У студентов должен быть либо триал Cursor, либо OpenAI ключ.</p>
+            <p><strong>Демонстрация:</strong> Покажите live-coding: откройте Cursor, используйте Cmd+L, покажите как AI генерирует код в реальном времени.</p>
+          </div>
+        </div>
+
+        <!-- Section 1: Installation -->
+        <section class="card">
+          <div class="card-header">1. Подключение Cursor (10 мин)</div>
+          <div class="card-body">
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Что такое Cursor?</strong>
+                <p style="margin: 0.5rem 0 0;">
+                  <span class="tooltip-trigger" data-term="cursor">Cursor</span> — это AI-редактор кода на базе VS Code с встроенным ассистентом для написания и доработки кода.
+                </p>
+              </div>
+            </div>
+
+            <h3>Шаг 1.1: Установка Cursor</h3>
+            <div class="accordion open-first">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>💻 Установка на macOS/Windows/Linux</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ol>
+                      <li>Перейдите на <a href="https://cursor.com" target="_blank">cursor.com</a></li>
+                      <li>Нажмите <strong>«Download»</strong></li>
+                      <li>Выберите вашу ОС (macOS, Windows, Linux)</li>
+                      <li>Установите приложение как обычный редактор</li>
+                      <li>Запустите Cursor и пройдите первоначальную настройку</li>
+                      <li>Войдите в аккаунт или создайте новый (GitHub рекомендуется)</li>
+                    </ol>
+                    <div class="alert alert-warning" style="margin-top: 1rem;">
+                      <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                        <line x1="12" y1="9" x2="12" y2="13"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                      </svg>
+                      <div>
+                        <strong>Требования:</strong> Cursor работает аналогично VS Code. Если у вас медленный компьютер, возможны задержки при работе AI.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔑 Настройка API-ключа</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>У вас есть два варианта:</p>
+                    <ul>
+                      <li><strong>Вариант 1:</strong> Использовать триал Cursor Pro (14 дней бесплатно, затем $20/мес)</li>
+                      <li><strong>Вариант 2:</strong> Подключить свой OpenAI API ключ</li>
+                    </ul>
+                    <p><strong>Подключение OpenAI ключа:</strong></p>
+                    <ol>
+                      <li>Откройте настройки: <kbd>Cmd+,</kbd> (macOS) или <kbd>Ctrl+,</kbd> (Windows/Linux)</li>
+                      <li>Найдите раздел <strong>Cursor Settings → Models</strong></li>
+                      <li>Вставьте ваш OpenAI API ключ</li>
+                      <li>Сохраните настройки</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h3>Шаг 1.2: Клонирование проекта из lovable.dev</h3>
+            <p>Теперь скопируем наш Task Manager из lovable.dev в локальную среду для доработки.</p>
+
+            <div class="code-block">
+              <div class="code-header">
+                <span class="code-lang">bash</span>
+                <button class="code-copy-btn">Копировать</button>
+              </div>
+              <pre><code># 1. Клонируйте проект из GitHub
+git clone https://github.com/your-username/task-manager.git
+cd task-manager
+
+# 2. Установите зависимости
+npm install
+
+# 3. Запустите локальный сервер
+npm run dev</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Где взять URL репозитория?</strong>
+                <p style="margin: 0.5rem 0 0;">
+                  В lovable.dev откройте ваш проект → нажмите <strong>Export to GitHub</strong> → скопируйте ссылку на репозиторий.
+                </p>
+              </div>
+            </div>
+
+            <h3>Шаг 1.3: Открытие проекта в Cursor</h3>
+            <ol>
+              <li>Откройте Cursor</li>
+              <li>Выберите <strong>File → Open Folder</strong></li>
+              <li>Выберите папку <code>task-manager</code></li>
+              <li>Проект готов к редактированию!</li>
+            </ol>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Готово!</strong> Теперь у вас локальная копия проекта, которую можно дорабатывать в Cursor с помощью AI.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Adding Features -->
+        <section class="card">
+          <div class="card-header">2. Добавление функционала (15 мин)</div>
+          <div class="card-body">
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Cursor Chat (Cmd+L)</strong>
+                <p style="margin: 0.5rem 0 0;">
+                  Используйте <kbd>Cmd+L</kbd> (macOS) или <kbd>Ctrl+L</kbd> (Windows/Linux), чтобы открыть чат с AI. AI видит весь проект и может редактировать файлы.
+                </p>
+              </div>
+            </div>
+
+            <h3>Пример 1: Добавление категорий для задач</h3>
+            <p>Давайте добавим возможность группировать задачи по категориям: Work, Personal, Shopping.</p>
+
+            <div class="accordion open-first">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📝 Промпт для AI</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="prompt-example">
+                      <div class="prompt-example-label">Промпт для Cursor (Cmd+L)</div>
+                      <div class="prompt-example-text">
+                        Добавь систему категорий для задач. Требования:
+
+1. Добавь поле category в модель задачи (Supabase)
+2. Создай 3 категории: Work, Personal, Shopping
+3. Добавь фильтр по категориям в интерфейс
+4. Категория должна отображаться рядом с задачей
+5. При создании задачи можно выбрать категорию
+
+Сохрани существующий стиль приложения.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>✅ Что должно произойти</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ul>
+                      <li>Cursor создаст или обновит миграцию для Supabase</li>
+                      <li>Добавит dropdown для выбора категории</li>
+                      <li>Добавит фильтр по категориям</li>
+                      <li>Обновит интерфейс для отображения категорий</li>
+                    </ul>
+                    <p><strong>Проверьте результат:</strong> Откройте <code>http://localhost:5173</code> и попробуйте создать задачу с категорией.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h3>Пример 2: Улучшение мобильного дизайна</h3>
+            <p>Сделаем интерфейс более удобным для телефонов и планшетов.</p>
+
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📝 Промпт для AI</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="prompt-example">
+                      <div class="prompt-example-label">Промпт для Cursor (Cmd+L)</div>
+                      <div class="prompt-example-text">
+                        Оптимизируй приложение для мобильных устройств:
+
+1. На экранах < 768px сделай задачи на всю ширину
+2. Увеличь размер кнопок и чекбоксов для удобного тапа
+3. Добавь hamburger menu для боковой панели (если она есть)
+4. Сделай форму добавления задачи в виде bottom sheet
+5. Проверь, что всё работает на iPhone и Android
+
+Используй Tailwind responsive классы (sm:, md:, lg:).
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>✅ Что должно произойти</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ul>
+                      <li>Интерфейс станет адаптивным</li>
+                      <li>Кнопки увеличатся на мобильных</li>
+                      <li>Появится мобильное меню</li>
+                      <li>Форма откроется снизу экрана</li>
+                    </ul>
+                    <p><strong>Проверьте результат:</strong> Откройте Dev Tools (F12) → Toggle Device Toolbar, протестируйте на разных размерах экрана.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h3>Пример 3: Drag-and-Drop для задач</h3>
+            <p>Добавим возможность перетаскивать задачи для изменения порядка или статуса.</p>
+
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📝 Промпт для AI</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="prompt-example">
+                      <div class="prompt-example-label">Промпт для Cursor (Cmd+L)</div>
+                      <div class="prompt-example-text">
+                        Добавь drag-and-drop функционал для задач:
+
+1. Установи библиотеку @dnd-kit/core для React
+2. Пользователь должен мочь перетаскивать задачи между колонками статусов (Todo → In Progress → Done)
+3. Добавь визуальную индикацию при перетаскивании (изменение opacity, border)
+4. При drop задачи обнови её статус в Supabase
+5. Добавь плавные анимации перехода
+
+Если колонок статусов нет, создай их. Используй shadcn/ui компоненты.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>✅ Что должно произойти</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ul>
+                      <li>Cursor установит npm пакет @dnd-kit</li>
+                      <li>Создаст колонки для разных статусов</li>
+                      <li>Добавит логику drag-and-drop</li>
+                      <li>Настроит обновление в базе данных</li>
+                    </ul>
+                    <p><strong>Проверьте результат:</strong> Попробуйте перетащить задачу из одной колонки в другую. Проверьте, что статус изменился в базе.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Секрет эффективных промптов:</strong> Всегда указывайте конкретные технологии (библиотеки, фреймворки) и описывайте желаемое поведение пошагово.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Testing & Debugging -->
+        <section class="card">
+          <div class="card-header">3. Тестирование и отладка (5 мин)</div>
+          <div class="card-body">
+            <h3>Workflow отладки с AI</h3>
+            <p>Когда что-то идёт не так, используйте следующий цикл:</p>
+
+            <div class="code-block">
+              <div class="code-header">
+                <span class="code-lang">text</span>
+              </div>
+              <pre><code>1. Внести изменение → npm run dev
+2. Протестировать функцию в браузере
+3. Обнаружить баг или проблему
+4. Описать баг в Cursor Chat (Cmd+L)
+5. AI предложит исправление
+6. Повторить цикл</code></pre>
+            </div>
+
+            <h3>Пример диалога для исправления бага</h3>
+            <div class="accordion open-first">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🐛 Сценарий: Категория не сохраняется</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p><strong>Вы пишете в Cursor Chat:</strong></p>
+                    <div class="prompt-example">
+                      <div class="prompt-example-label">Промпт</div>
+                      <div class="prompt-example-text">
+                        При создании задачи категория не сохраняется в базу данных. Я выбираю категорию в dropdown, но после создания задачи поле category в Supabase остаётся NULL.
+
+Проверь:
+1. Правильно ли передаётся category в функцию создания задачи
+2. Есть ли это поле в INSERT запросе
+3. Существует ли колонка category в таблице tasks
+                      </div>
+                    </div>
+                    <p><strong>AI ответит и предложит исправление:</strong></p>
+                    <ul>
+                      <li>Найдёт ошибку в коде (например, забыли добавить category в параметры функции)</li>
+                      <li>Предложит обновлённый код</li>
+                      <li>Создаст миграцию для добавления колонки, если её нет</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🐛 Сценарий: Drag-and-drop не работает на мобильных</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p><strong>Вы пишете в Cursor Chat:</strong></p>
+                    <div class="prompt-example">
+                      <div class="prompt-example-label">Промпт</div>
+                      <div class="prompt-example-text">
+                        Drag-and-drop работает на desktop, но на мобильных (iPhone Safari) не работает. Задачи не перетаскиваются при touch.
+
+Нужно:
+1. Добавить поддержку touch events
+2. Проверить, что @dnd-kit поддерживает мобильные устройства
+3. Если нужно, добавь полифилл или альтернативную библиотеку
+                      </div>
+                    </div>
+                    <p><strong>AI предложит решение:</strong></p>
+                    <ul>
+                      <li>Добавит <code>TouchSensor</code> из @dnd-kit</li>
+                      <li>Обновит конфигурацию DndContext</li>
+                      <li>Проверит, что touch работает корректно</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔍 Сценарий: Ошибка в консоли браузера</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p><strong>Вы пишете в Cursor Chat:</strong></p>
+                    <div class="prompt-example">
+                      <div class="prompt-example-label">Промпт</div>
+                      <div class="prompt-example-text">
+                        В консоли браузера появляется ошибка:
+
+```
+Uncaught TypeError: Cannot read properties of undefined (reading 'map')
+  at TaskList.jsx:42
+```
+
+Это происходит при загрузке страницы. Что не так?
+                      </div>
+                    </div>
+                    <p><strong>AI проанализирует и исправит:</strong></p>
+                    <ul>
+                      <li>Проверит, инициализирован ли массив tasks</li>
+                      <li>Добавит проверку <code>tasks?.map(...)</code> или <code>tasks.length > 0</code></li>
+                      <li>Предложит loading state до загрузки данных</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Совет:</strong> Всегда копируйте полный текст ошибки из консоли и вставляйте в Cursor Chat. AI лучше понимает проблему, когда видит точное сообщение об ошибке и номер строки.
+              </div>
+            </div>
+
+            <h3>Полезные команды Cursor</h3>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Команда</th>
+                    <th>macOS</th>
+                    <th>Windows/Linux</th>
+                    <th>Описание</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Открыть Chat</strong></td>
+                    <td><kbd>Cmd+L</kbd></td>
+                    <td><kbd>Ctrl+L</kbd></td>
+                    <td>Диалог с AI</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Inline Edit</strong></td>
+                    <td><kbd>Cmd+K</kbd></td>
+                    <td><kbd>Ctrl+K</kbd></td>
+                    <td>Редактировать код прямо в файле</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Применить изменение</strong></td>
+                    <td><kbd>Cmd+Enter</kbd></td>
+                    <td><kbd>Ctrl+Enter</kbd></td>
+                    <td>Применить предложение AI</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Отменить изменение</strong></td>
+                    <td><kbd>Cmd+Z</kbd></td>
+                    <td><kbd>Ctrl+Z</kbd></td>
+                    <td>Откатить последнее изменение</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="card">
+          <div class="card-header">Итоги урока</div>
+          <div class="card-body">
+            <h3>Что мы узнали:</h3>
+            <ul>
+              <li>Как установить и настроить Cursor AI</li>
+              <li>Как клонировать проект из lovable.dev и запустить локально</li>
+              <li>Как использовать Cursor Chat (<kbd>Cmd+L</kbd>) для добавления функций</li>
+              <li>Как писать эффективные промпты для AI-ассистента</li>
+              <li>Как отлаживать проблемы через диалог с AI</li>
+            </ul>
+
+            <h3>Мы добавили:</h3>
+            <ul>
+              <li>Систему категорий для задач</li>
+              <li>Адаптивный дизайн для мобильных устройств</li>
+              <li>Drag-and-Drop для управления задачами</li>
+            </ul>
+
+            <div class="alert alert-success" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Следующий шаг:</strong> В следующем уроке мы создадим ваш персональный Playbook для эффективной работы с Vibecoding!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист выполнения</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l6-cursor-install"></span>
+                <span class="checklist-text">Установил и настроил Cursor</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l6-clone-project"></span>
+                <span class="checklist-text">Клонировал проект из lovable.dev и запустил локально</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l6-categories"></span>
+                <span class="checklist-text">Добавил систему категорий</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l6-mobile"></span>
+                <span class="checklist-text">Улучшил мобильный дизайн</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l6-drag-drop"></span>
+                <span class="checklist-text">Реализовал drag-and-drop</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l6-debug"></span>
+                <span class="checklist-text">Протестировал и исправил минимум один баг с помощью AI</span>
+              </li>
+            </ul>
+
+            <div class="progress-bar" style="margin-top: 1rem;">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text">0 из 6 выполнено</div>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-5.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Подключение сервисов</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="6">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-7.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Деплой и публикация</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

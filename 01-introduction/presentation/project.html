@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Итоговый проект | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 8 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 1</div>
+
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <a href="lesson-1.html" class="nav-item" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Check-in & Prompt Arena
+        </a>
+
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          Философия Vibecoding
+        </a>
+
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          Stack Gauntlet
+        </a>
+
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Приложение за 55 минут
+        </a>
+
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Showcase & Bug Bash
+        </a>
+
+        <a href="lesson-6.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">6</span>
+          GitHub Workflow
+        </a>
+
+        <a href="lesson-7.html" class="nav-item" data-lesson="7">
+          <span class="nav-item-number">7</span>
+          Персональный Playbook
+        </a>
+
+        <a href="project.html" class="nav-item active" data-lesson="8">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1-2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выйти из модуля
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 1</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Итоговый проект</span>
+        </div>
+
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Домашнее задание</span>
+            <span class="lesson-duration">⏱ ~60 минут</span>
+          </div>
+          <h1 class="lesson-title">Итоговый проект модуля</h1>
+
+          <div class="lesson-objectives">
+            <h4>Цели проекта:</h4>
+            <ul>
+              <li>Закрепить навыки vibecoding на практике</li>
+              <li>Создать новое мини-приложение целиком через ИИ</li>
+              <li>Улучшить основной проект воркшопа</li>
+              <li>Подготовить вопросы к следующему модулю</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Формат:</strong> Домашнее задание для самостоятельной работы</p>
+            <p><strong>Дедлайн:</strong> До следующего занятия</p>
+            <p><strong>Проверка:</strong> Ссылки на GitHub репозитории в общем чате/Notion</p>
+          </div>
+        </div>
+
+        <!-- Task 1 -->
+        <section class="card">
+          <div class="card-header">Задание 1: Новое мини-приложение (20 минут)</div>
+          <div class="card-body">
+            <h3>Создайте приложение целиком через ИИ</h3>
+            <p>Выберите одну из идей или придумайте свою:</p>
+
+            <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+              <div style="padding: 1.5rem; background: var(--surface-elevated); border-radius: 12px; border: 1px solid var(--border);">
+                <h4 style="margin-bottom: 0.5rem;">🧮 Калькулятор</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">Калькулятор с историей вычислений и темами оформления</p>
+              </div>
+              <div style="padding: 1.5rem; background: var(--surface-elevated); border-radius: 12px; border: 1px solid var(--border);">
+                <h4 style="margin-bottom: 0.5rem;">🔄 Конвертер</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">Конвертер валют/единиц с сохранением избранных</p>
+              </div>
+              <div style="padding: 1.5rem; background: var(--surface-elevated); border-radius: 12px; border: 1px solid var(--border);">
+                <h4 style="margin-bottom: 0.5rem;">🎲 Генератор</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">Генератор паролей/цитат/идей с копированием</p>
+              </div>
+              <div style="padding: 1.5rem; background: var(--surface-elevated); border-radius: 12px; border: 1px solid var(--border);">
+                <h4 style="margin-bottom: 0.5rem;">📝 Заметки</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">Приложение для заметок с поиском и тегами</p>
+              </div>
+            </div>
+
+            <h4>Требования к приложению:</h4>
+            <ul>
+              <li>Функциональный UI (минимум 3 интерактивных элемента)</li>
+              <li>Сохранение данных (localStorage)</li>
+              <li>Базовая стилизация (Tailwind или CSS)</li>
+              <li>Адаптивность под мобильные</li>
+            </ul>
+
+            <div class="prompt-example">
+              <div class="prompt-example-label">Стартовый промпт</div>
+              <div class="prompt-example-text">
+                «Создай [тип приложения] на Next.js с TypeScript и Tailwind. Требования: [перечисли функции]. Данные сохраняй в localStorage. Сделай адаптивный дизайн.»
+              </div>
+            </div>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Важно:</strong> Засеките время! Цель — уложиться в 20 минут. Документируйте промпты.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Task 2 -->
+        <section class="card">
+          <div class="card-header">Задание 2: Улучшения Focus Todo (30 минут)</div>
+          <div class="card-body">
+            <h3>Добавьте три улучшения в проект с воркшопа</h3>
+            <p>Выберите минимум 3 улучшения из списка:</p>
+
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🌙 Тёмная тема</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Добавьте переключатель светлой/тёмной темы с сохранением выбора в localStorage.</p>
+                    <div class="prompt-example">
+                      <div class="prompt-example-label">Промпт</div>
+                      <div class="prompt-example-text">
+                        «Добавь в приложение переключатель тёмной темы. Используй CSS переменные для цветов. Сохраняй выбор темы в localStorage и применяй при загрузке страницы.»
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔀 Drag-n-drop задач</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Реализуйте перетаскивание задач для изменения порядка.</p>
+                    <div class="prompt-example">
+                      <div class="prompt-example-label">Промпт</div>
+                      <div class="prompt-example-text">
+                        «Добавь drag-n-drop для изменения порядка задач. Используй библиотеку @dnd-kit/core или нативный HTML5 Drag API. Сохраняй новый порядок в localStorage.»
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔔 Уведомления</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Добавьте браузерные уведомления при завершении таймера.</p>
+                    <div class="prompt-example">
+                      <div class="prompt-example-label">Промпт</div>
+                      <div class="prompt-example-text">
+                        «Добавь браузерные уведомления (Notification API) при завершении Pomodoro таймера. Запрашивай разрешение при первом использовании, показывай сообщение "Время вышло! Сделай перерыв."»
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📊 Статистика</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Добавьте страницу статистики выполненных задач.</p>
+                    <div class="prompt-example">
+                      <div class="prompt-example-label">Промпт</div>
+                      <div class="prompt-example-text">
+                        «Добавь страницу статистики: количество выполненных задач за сегодня/неделю, общее время фокус-сессий, график активности. Храни данные в localStorage.»
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🏷️ Категории задач</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Добавьте возможность назначать категории/теги задачам.</p>
+                    <div class="prompt-example">
+                      <div class="prompt-example-label">Промпт</div>
+                      <div class="prompt-example-text">
+                        «Добавь систему категорий для задач: Работа, Личное, Учёба. Возможность фильтровать по категории. Цветовая индикация каждой категории.»
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔊 Звуковые эффекты</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Добавьте звуковые эффекты при завершении таймера и выполнении задачи.</p>
+                    <div class="prompt-example">
+                      <div class="prompt-example-label">Промпт</div>
+                      <div class="prompt-example-text">
+                        «Добавь звуковые эффекты: мелодичный звук при завершении таймера, короткий звук при отметке задачи выполненной. Добавь кнопку mute для отключения звуков.»
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Требования к документации:</h4>
+            <p>В README опишите для каждого улучшения:</p>
+            <ul>
+              <li>Что было добавлено</li>
+              <li>Какой промпт использовали</li>
+              <li>Сколько итераций потребовалось</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Task 3 -->
+        <section class="card">
+          <div class="card-header">Задание 3: Вопросы к следующему модулю</div>
+          <div class="card-body">
+            <h3>Подготовьте 2 вопроса</h3>
+            <p>Сформулируйте вопросы, которые возникли по итогам воркшопа:</p>
+
+            <div style="display: grid; gap: 1rem; margin: 1.5rem 0;">
+              <div style="padding: 1.5rem; background: var(--surface-elevated); border-radius: 12px; border-left: 4px solid var(--primary);">
+                <h4 style="margin-bottom: 0.5rem;">Вопрос 1: Про стек инструментов</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">Например: «Как выбрать между Claude Code и Cursor для конкретной задачи?»</p>
+              </div>
+              <div style="padding: 1.5rem; background: var(--surface-elevated); border-radius: 12px; border-left: 4px solid var(--success);">
+                <h4 style="margin-bottom: 0.5rem;">Вопрос 2: Про командную работу</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">Например: «Как организовать vibecoding в команде из 3+ человек?»</p>
+              </div>
+            </div>
+
+            <div class="prompt-example">
+              <div class="prompt-example-label">Промпт для формулировки вопросов</div>
+              <div class="prompt-example-text">
+                «Я прошёл воркшоп по vibecoding. Вот мои заметки: [описание]. Помоги сформулировать 2 глубоких вопроса: один про инструменты, другой про процессы в команде.»
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Submission -->
+        <section class="card">
+          <div class="card-header">Сдача работы</div>
+          <div class="card-body">
+            <h3>Как сдать домашнее задание</h3>
+
+            <ol style="line-height: 2;">
+              <li>Создайте GitHub репозиторий для нового мини-приложения</li>
+              <li>Обновите репозиторий Focus Todo с улучшениями</li>
+              <li>Добавьте ссылки на оба репозитория в общий Notion/чат группы</li>
+              <li>Запишите 2 вопроса там же</li>
+            </ol>
+
+            <div class="code-block">
+              <div class="code-header">
+                <span class="code-lang">markdown</span>
+                <button class="code-copy-btn">Копировать</button>
+              </div>
+              <pre><code>## Домашнее задание Модуль 1
+
+**Имя:** [Ваше имя]
+
+### Задание 1: Новое приложение
+- Репозиторий: [ссылка]
+- Тип: [калькулятор/конвертер/генератор/другое]
+- Время создания: [XX минут]
+
+### Задание 2: Улучшения Focus Todo
+- Репозиторий: [ссылка]
+- Улучшение 1: [название]
+- Улучшение 2: [название]
+- Улучшение 3: [название]
+
+### Задание 3: Вопросы
+1. [Вопрос про инструменты]
+2. [Вопрос про командную работу]</code></pre>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Успехов!</strong> Помните: цель не идеальный код, а практика vibecoding-подхода. Экспериментируйте с промптами!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист проекта</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="proj-app"></span>
+                <span class="checklist-text">Новое мини-приложение создано</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="proj-app-repo"></span>
+                <span class="checklist-text">Репозиторий мини-приложения на GitHub</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="proj-improve1"></span>
+                <span class="checklist-text">Улучшение 1 добавлено в Focus Todo</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="proj-improve2"></span>
+                <span class="checklist-text">Улучшение 2 добавлено в Focus Todo</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="proj-improve3"></span>
+                <span class="checklist-text">Улучшение 3 добавлено в Focus Todo</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="proj-readme"></span>
+                <span class="checklist-text">README обновлён с описанием промптов</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="proj-questions"></span>
+                <span class="checklist-text">2 вопроса сформулированы</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="proj-submit"></span>
+                <span class="checklist-text">Ссылки отправлены в общий чат</span>
+              </li>
+            </ul>
+
+            <div class="progress-bar" style="margin-top: 1rem;">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text">0 из 8 выполнено</div>
+          </div>
+        </section>
+
+        <!-- Grading -->
+        <section class="card">
+          <div class="card-header">Критерии оценки</div>
+          <div class="card-body">
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border);">
+                  <th style="text-align: left; padding: 0.75rem;">Критерий</th>
+                  <th style="text-align: center; padding: 0.75rem;">Баллы</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--border);">
+                  <td style="padding: 0.75rem;">Новое приложение работает</td>
+                  <td style="text-align: center; padding: 0.75rem;">20</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border);">
+                  <td style="padding: 0.75rem;">Уложился в 20 минут</td>
+                  <td style="text-align: center; padding: 0.75rem;">10</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border);">
+                  <td style="padding: 0.75rem;">3 улучшения Focus Todo</td>
+                  <td style="text-align: center; padding: 0.75rem;">30</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border);">
+                  <td style="padding: 0.75rem;">Документация промптов в README</td>
+                  <td style="text-align: center; padding: 0.75rem;">20</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border);">
+                  <td style="padding: 0.75rem;">2 качественных вопроса</td>
+                  <td style="text-align: center; padding: 0.75rem;">10</td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.75rem;">Креативность и инициатива</td>
+                  <td style="text-align: center; padding: 0.75rem;">10</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr style="border-top: 2px solid var(--border); font-weight: bold;">
+                  <td style="padding: 0.75rem;">Итого</td>
+                  <td style="text-align: center; padding: 0.75rem;">100</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-7.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Персональный Playbook</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="8">
+            Завершить модуль
+          </button>
+
+          <a href="index.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">К главной</div>
+              <div class="nav-arrow-title">Модуль 1</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

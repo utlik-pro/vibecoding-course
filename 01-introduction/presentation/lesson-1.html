@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 1.1: Что такое Vibecoding | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 8 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 1</div>
+
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <a href="lesson-1.html" class="nav-item active" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Что такое Vibecoding
+        </a>
+
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          AI-генераторы приложений
+        </a>
+
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          Искусство промптов
+        </a>
+
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Приложение за 55 минут
+        </a>
+
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Подключение сервисов
+        </a>
+
+        <a href="lesson-6.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">6</span>
+          Доработка в Cursor
+        </a>
+
+        <a href="lesson-7.html" class="nav-item" data-lesson="7">
+          <span class="nav-item-number">7</span>
+          Деплой и публикация
+        </a>
+
+        <a href="project.html" class="nav-item" data-lesson="8">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выйти из модуля
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 1</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 1.1</span>
+        </div>
+
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 1.1</span>
+            <span class="lesson-duration">⏱ 20 минут</span>
+          </div>
+          <h1 class="lesson-title">Что такое Vibecoding</h1>
+
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Понять, что такое vibecoding и почему это важно в 2025</li>
+              <li>Познакомиться со стеком инструментов курса</li>
+              <li>Увидеть разницу между классической разработкой и vibecoding</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Время на секцию:</strong> 5 мин введение, 5 мин сравнение, 10 мин обзор стека</p>
+            <p><strong>Совет:</strong> Покажите живой пример генерации кода через AI — это произведёт впечатление.</p>
+            <p><strong>Ключевая цель:</strong> Вдохновить студентов и показать, что vibecoding — это реальный рабочий подход.</p>
+          </div>
+        </div>
+
+        <!-- Section 1: What is Vibecoding -->
+        <section class="card">
+          <div class="card-header">1. Что такое Vibecoding?</div>
+          <div class="card-body">
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Определение:</strong>
+                <p style="margin: 0.5rem 0 0;">
+                  <span class="tooltip-trigger" data-term="Vibecoding">Vibecoding</span> — это подход к разработке, где вы <strong>описываете ИИ, что хотите получить</strong>, вместо написания кода вручную.
+                </p>
+              </div>
+            </div>
+
+            <h3>Ключевые принципы</h3>
+            <ul>
+              <li><strong>Описание намерения</strong> — вы говорите ИИ, что нужно сделать</li>
+              <li><strong>Итеративное улучшение</strong> — диалог с ИИ для доработки</li>
+              <li><strong>Фокус на результате</strong> — важен продукт, а не синтаксис</li>
+              <li><strong>«Vibe»</strong> — интуитивное понимание того, что нужно</li>
+            </ul>
+
+            <h3>Почему это важно в 2025?</h3>
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">🚀</div>
+                <h4 class="service-card-title">Скорость x10</h4>
+                <p class="service-card-desc">Разработка ускоряется в 5-10 раз</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🎯</div>
+                <h4 class="service-card-title">Production-ready</h4>
+                <p class="service-card-desc">AI-инструменты готовы для реальных проектов</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">📉</div>
+                <h4 class="service-card-title">Низкий порог входа</h4>
+                <p class="service-card-desc">Не нужно учить синтаксис месяцами</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🏢</div>
+                <h4 class="service-card-title">Тренд индустрии</h4>
+                <p class="service-card-desc">Компании массово внедряют AI-разработку</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Classic vs Vibecoding -->
+        <section class="card">
+          <div class="card-header">2. Классика vs Vibecoding</div>
+          <div class="card-body">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Классическая разработка</th>
+                    <th>Vibecoding</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Изучаешь синтаксис месяцами</td>
+                    <td><strong>Описываешь задачу словами</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Пишешь каждую строку вручную</td>
+                    <td><strong>AI генерирует 80% кода</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Гуглишь ошибки</td>
+                    <td><strong>AI объясняет и исправляет</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Один язык = один проект</td>
+                    <td><strong>Мультистек без проблем</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Часы на boilerplate</td>
+                    <td><strong>Минуты на готовый каркас</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="teacher-note">
+              <div class="teacher-note-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+                Заметка для преподавателя
+              </div>
+              <div class="teacher-note-content">
+                <p>Здесь хорошо показать живой пример: откройте Cursor или ChatGPT и за 30 секунд создайте компонент кнопки. Это наглядно демонстрирует разницу.</p>
+              </div>
+            </div>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Важно понимать:</strong> Vibecoding не заменяет понимание программирования. Он ускоряет процесс, но базовые концепции (переменные, функции, логика) всё ещё важны для контроля результата.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Tool Stack -->
+        <section class="card">
+          <div class="card-header">3. Стек инструментов курса</div>
+          <div class="card-body">
+            <p>В этом курсе мы будем использовать следующие инструменты:</p>
+
+            <h3>AI-генераторы приложений</h3>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Инструмент</th>
+                    <th>Описание</th>
+                    <th>Ссылка</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>lovable.dev</strong></td>
+                    <td>Full-stack генератор с Supabase интеграцией</td>
+                    <td><a href="https://lovable.dev" target="_blank">lovable.dev</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>v0.dev</strong></td>
+                    <td>UI-генератор от Vercel (React/Next.js)</td>
+                    <td><a href="https://v0.dev" target="_blank">v0.dev</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>base44</strong></td>
+                    <td>Быстрый прототипинг с деплоем</td>
+                    <td><a href="https://base44.com" target="_blank">base44.com</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>AI IDE и ассистенты</h3>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Инструмент</th>
+                    <th>Описание</th>
+                    <th>Ссылка</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Cursor</strong></td>
+                    <td>AI-first редактор кода (форк VS Code)</td>
+                    <td><a href="https://cursor.com" target="_blank">cursor.com</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Claude Code</strong></td>
+                    <td>CLI-инструмент от Anthropic</td>
+                    <td>npm install -g @anthropic-ai/claude-code</td>
+                  </tr>
+                  <tr>
+                    <td><strong>GitHub Copilot</strong></td>
+                    <td>AI-автодополнение в IDE</td>
+                    <td><a href="https://github.com/copilot" target="_blank">github.com/copilot</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>LLM для промптов</h3>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Инструмент</th>
+                    <th>Сила</th>
+                    <th>Ссылка</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>ChatGPT</strong></td>
+                    <td>Универсальность, популярность</td>
+                    <td><a href="https://chat.openai.com" target="_blank">chat.openai.com</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Claude</strong></td>
+                    <td>Длинные тексты, качественный код</td>
+                    <td><a href="https://claude.ai" target="_blank">claude.ai</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Gemini</strong></td>
+                    <td>Мультимодальность, работа с изображениями</td>
+                    <td><a href="https://gemini.google.com" target="_blank">gemini.google.com</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Grok</strong></td>
+                    <td>Актуальная информация</td>
+                    <td><a href="https://grok.x.ai" target="_blank">grok.x.ai</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Backend и инфраструктура</h3>
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">⚡</div>
+                <h4 class="service-card-title">Supabase</h4>
+                <p class="service-card-desc">PostgreSQL + Auth + Storage</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">▲</div>
+                <h4 class="service-card-title">Vercel</h4>
+                <p class="service-card-desc">Хостинг и деплой</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🔐</div>
+                <h4 class="service-card-title">Clerk</h4>
+                <p class="service-card-desc">Аутентификация</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🤖</div>
+                <h4 class="service-card-title">OpenAI API</h4>
+                <p class="service-card-desc">AI-функции в приложении</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🐙</div>
+                <h4 class="service-card-title">GitHub</h4>
+                <p class="service-card-desc">Хранение кода</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🖥️</div>
+                <h4 class="service-card-title">VPS</h4>
+                <p class="service-card-desc">Для advanced проектов</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: What We'll Build -->
+        <section class="card">
+          <div class="card-header">4. Что мы создадим в этом модуле</div>
+          <div class="card-body">
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Проект модуля: Task Manager</strong>
+                <p style="margin: 0.5rem 0 0;">
+                  Мы создадим полноценное веб-приложение для управления задачами — от идеи до публичной ссылки за 3 часа.
+                </p>
+              </div>
+            </div>
+
+            <h3>Что будет в приложении:</h3>
+            <ul>
+              <li>Добавление, редактирование, удаление задач</li>
+              <li>Приоритеты и категории</li>
+              <li>Фильтрация и поиск</li>
+              <li>Сохранение в базу данных (Supabase)</li>
+              <li>Публичный деплой на Vercel</li>
+            </ul>
+
+            <h3>Этапы создания:</h3>
+            <ol>
+              <li><strong>Создаём промпт</strong> в ChatGPT/Claude/Gemini</li>
+              <li><strong>Генерируем приложение</strong> в lovable.dev/v0.dev/base44</li>
+              <li><strong>Подключаем GitHub</strong> для хранения кода</li>
+              <li><strong>Подключаем Supabase</strong> для базы данных</li>
+              <li><strong>Дорабатываем в Cursor</strong></li>
+              <li><strong>Деплоим на Vercel</strong></li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz">
+          <div class="quiz-header">
+            <div class="quiz-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <h3 class="quiz-title">Проверьте себя</h3>
+          </div>
+
+          <div class="quiz-question">Что является главным принципом vibecoding?</div>
+
+          <div class="quiz-options">
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Писать код максимально быстро вручную</span>
+            </div>
+            <div class="quiz-option" data-correct="true">
+              <span class="quiz-option-marker"></span>
+              <span>Описывать ИИ, что нужно получить</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Использовать только один инструмент</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Избегать AI-инструментов</span>
+            </div>
+          </div>
+
+          <div class="quiz-feedback">
+            <div class="quiz-feedback-text"></div>
+          </div>
+
+          <div class="quiz-actions">
+            <button class="btn btn-primary quiz-check-btn">Проверить</button>
+            <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
+            <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l1-understand"></span>
+                <span class="checklist-text">Понимаю, что такое vibecoding</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l1-difference"></span>
+                <span class="checklist-text">Понимаю разницу с классической разработкой</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l1-tools"></span>
+                <span class="checklist-text">Знаю, какие инструменты будем использовать</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l1-project"></span>
+                <span class="checklist-text">Понимаю, что будем создавать (Task Manager)</span>
+              </li>
+            </ul>
+
+            <div class="progress-bar" style="margin-top: 1rem;">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text">0 из 4 выполнено</div>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="index.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Главная</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="1">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-2.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">AI-генераторы приложений</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

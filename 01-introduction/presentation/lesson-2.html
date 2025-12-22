@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 1.2: AI-генераторы приложений | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 8 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 1</div>
+
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <a href="lesson-1.html" class="nav-item" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Что такое Vibecoding
+        </a>
+
+        <a href="lesson-2.html" class="nav-item active" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          AI-генераторы приложений
+        </a>
+
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          Искусство промптов
+        </a>
+
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Приложение за 55 минут
+        </a>
+
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Подключение сервисов
+        </a>
+
+        <a href="lesson-6.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">6</span>
+          Доработка в Cursor
+        </a>
+
+        <a href="lesson-7.html" class="nav-item" data-lesson="7">
+          <span class="nav-item-number">7</span>
+          Деплой и публикация
+        </a>
+
+        <a href="project.html" class="nav-item" data-lesson="8">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выйти из модуля
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 1</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 1.2</span>
+        </div>
+
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 1.2</span>
+            <span class="lesson-duration">⏱ 15 минут</span>
+          </div>
+          <h1 class="lesson-title">AI-генераторы приложений</h1>
+
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Зарегистрироваться на 3 платформах генерации приложений</li>
+              <li>Понять различия и особенности каждой платформы</li>
+              <li>Подготовиться к практике генерации</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Время на секцию:</strong> 5 мин на каждую платформу</p>
+            <p><strong>Совет:</strong> Дайте студентам 5-7 минут на регистрацию. Помогите тем, у кого проблемы с GitHub авторизацией.</p>
+            <p><strong>Важно:</strong> Напомните про подтверждение email после каждой регистрации.</p>
+          </div>
+        </div>
+
+        <!-- Section 1: lovable.dev -->
+        <section class="card">
+          <div class="card-header">1. lovable.dev — Full-stack генератор</div>
+          <div class="card-body">
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Что это?</strong>
+                <p style="margin: 0.5rem 0 0;">
+                  <span class="tooltip-trigger" data-term="lovable.dev">lovable.dev</span> — это full-stack генератор приложений с встроенной интеграцией Supabase и автоматическим деплоем.
+                </p>
+              </div>
+            </div>
+
+            <h3>Ключевые особенности:</h3>
+            <ul>
+              <li><strong>Полное приложение из текста</strong> — описываете, что нужно, получаете работающий код</li>
+              <li><strong>Интеграция с Supabase</strong> — база данных и аутентификация из коробки</li>
+              <li><strong>Автоматический деплой</strong> — приложение сразу доступно онлайн</li>
+              <li><strong>Экспорт в GitHub</strong> — код можно скачать и дорабатывать</li>
+              <li><strong>Чат-интерфейс</strong> — доработка через диалог с AI</li>
+            </ul>
+
+            <div class="accordion open-first">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📝 Пошаговая регистрация</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ol>
+                      <li>Перейдите на <a href="https://lovable.dev" target="_blank">lovable.dev</a></li>
+                      <li>Нажмите <strong>«Get Started»</strong> или <strong>«Sign Up»</strong></li>
+                      <li>Выберите <strong>«Continue with GitHub»</strong> (рекомендуется)</li>
+                      <li>Авторизуйте доступ к вашему GitHub аккаунту</li>
+                      <li>Подтвердите email, если требуется</li>
+                      <li>Вы в Dashboard — готовы к работе!</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>💰 Тарифы</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="table-container">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>План</th>
+                            <th>Цена</th>
+                            <th>Возможности</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><strong>Free</strong></td>
+                            <td>$0</td>
+                            <td>5 проектов, базовые функции</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Pro</strong></td>
+                            <td>$20/месяц</td>
+                            <td>Неограниченные проекты, приоритетная генерация</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <p><em>Для обучения достаточно бесплатного плана.</em></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Почему lovable.dev — наш основной инструмент:</strong> Лучшая интеграция с Supabase и GitHub, что идеально подходит для нашего проекта Task Manager.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: v0.dev -->
+        <section class="card">
+          <div class="card-header">2. v0.dev — UI-генератор от Vercel</div>
+          <div class="card-body">
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Что это?</strong>
+                <p style="margin: 0.5rem 0 0;">
+                  <span class="tooltip-trigger" data-term="v0.dev">v0.dev</span> — AI-генератор UI-компонентов от Vercel. Создаёт React/Next.js код с Tailwind CSS.
+                </p>
+              </div>
+            </div>
+
+            <h3>Ключевые особенности:</h3>
+            <ul>
+              <li><strong>Фокус на UI</strong> — генерирует красивые компоненты интерфейса</li>
+              <li><strong>Генерация из изображения</strong> — можно загрузить скриншот и получить код</li>
+              <li><strong>React + Tailwind</strong> — современный стек</li>
+              <li><strong>Несколько вариантов</strong> — предлагает разные дизайны на выбор</li>
+              <li><strong>Копирование кода</strong> — легко вставить в свой проект</li>
+            </ul>
+
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📝 Пошаговая регистрация</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ol>
+                      <li>Перейдите на <a href="https://v0.dev" target="_blank">v0.dev</a></li>
+                      <li>Нажмите <strong>«Sign In»</strong></li>
+                      <li>Войдите через <strong>GitHub</strong> или <strong>Vercel</strong> аккаунт</li>
+                      <li>Готово — можете начинать генерировать!</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>💰 Тарифы</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="table-container">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>План</th>
+                            <th>Цена</th>
+                            <th>Лимиты</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><strong>Free</strong></td>
+                            <td>$0</td>
+                            <td>200 сообщений/месяц</td>
+                          </tr>
+                          <tr>
+                            <td><strong>Premium</strong></td>
+                            <td>$20/месяц</td>
+                            <td>Больше сообщений, приоритет</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Важно:</strong> v0.dev генерирует UI-компоненты, а не полные приложения. Код нужно вставлять в существующий проект.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: base44 -->
+        <section class="card">
+          <div class="card-header">3. base44 — Быстрый прототипинг</div>
+          <div class="card-body">
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Что это?</strong>
+                <p style="margin: 0.5rem 0 0;">
+                  <span class="tooltip-trigger" data-term="base44">base44</span> — быстрый генератор приложений с мгновенным preview и деплоем.
+                </p>
+              </div>
+            </div>
+
+            <h3>Ключевые особенности:</h3>
+            <ul>
+              <li><strong>Очень быстрая генерация</strong> — результат за секунды</li>
+              <li><strong>Простой интерфейс</strong> — минимум настроек</li>
+              <li><strong>Мгновенный preview</strong> — сразу видите результат</li>
+              <li><strong>Экспорт кода</strong> — можно скачать и дорабатывать</li>
+            </ul>
+
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📝 Пошаговая регистрация</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ol>
+                      <li>Перейдите на <a href="https://base44.com" target="_blank">base44.com</a></li>
+                      <li>Нажмите <strong>«Sign Up»</strong> или <strong>«Get Started»</strong></li>
+                      <li>Создайте аккаунт (email или GitHub)</li>
+                      <li>Подтвердите email</li>
+                      <li>Готово к работе!</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Comparison -->
+        <section class="card">
+          <div class="card-header">4. Сравнение платформ</div>
+          <div class="card-body">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Критерий</th>
+                    <th>lovable.dev</th>
+                    <th>v0.dev</th>
+                    <th>base44</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Тип</strong></td>
+                    <td>Full-stack приложения</td>
+                    <td>UI-компоненты</td>
+                    <td>Быстрые прототипы</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Интеграция с БД</strong></td>
+                    <td>Supabase из коробки</td>
+                    <td>Нет</td>
+                    <td>Ограниченно</td>
+                  </tr>
+                  <tr>
+                    <td><strong>GitHub экспорт</strong></td>
+                    <td>Да</td>
+                    <td>Копирование кода</td>
+                    <td>Да</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Лучше для</strong></td>
+                    <td>Полных приложений</td>
+                    <td>Красивого UI</td>
+                    <td>Быстрых идей</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Наша стратегия:</strong> Мы попробуем все три платформы, сравним результаты и выберем лучший для дальнейшей работы.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz">
+          <div class="quiz-header">
+            <div class="quiz-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <h3 class="quiz-title">Проверьте себя</h3>
+          </div>
+
+          <div class="quiz-question">Какая платформа лучше всего подходит для создания полного приложения с базой данных?</div>
+
+          <div class="quiz-options">
+            <div class="quiz-option" data-correct="true">
+              <span class="quiz-option-marker"></span>
+              <span>lovable.dev</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>v0.dev</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>base44</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Все одинаково подходят</span>
+            </div>
+          </div>
+
+          <div class="quiz-feedback">
+            <div class="quiz-feedback-text"></div>
+          </div>
+
+          <div class="quiz-actions">
+            <button class="btn btn-primary quiz-check-btn">Проверить</button>
+            <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
+            <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист регистраций</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l2-lovable"></span>
+                <span class="checklist-text">lovable.dev — аккаунт создан</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l2-v0"></span>
+                <span class="checklist-text">v0.dev — аккаунт создан</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l2-base44"></span>
+                <span class="checklist-text">base44 — аккаунт создан</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l2-understand"></span>
+                <span class="checklist-text">Понимаю различия между платформами</span>
+              </li>
+            </ul>
+
+            <div class="progress-bar" style="margin-top: 1rem;">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text">0 из 4 выполнено</div>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-1.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Что такое Vibecoding</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="2">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-3.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Искусство промптов</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

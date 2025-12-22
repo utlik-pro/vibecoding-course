@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 1: Введение в Vibecoding | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 8 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 1</div>
+
+        <a href="index.html" class="nav-item active">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <a href="lesson-1.html" class="nav-item" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Что такое Vibecoding
+        </a>
+
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          AI-генераторы приложений
+        </a>
+
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          Искусство промптов
+        </a>
+
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Приложение за 55 минут
+        </a>
+
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Подключение сервисов
+        </a>
+
+        <a href="lesson-6.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">6</span>
+          Доработка в Cursor
+        </a>
+
+        <a href="lesson-7.html" class="nav-item" data-lesson="7">
+          <span class="nav-item-number">7</span>
+          Деплой и публикация
+        </a>
+
+        <a href="project.html" class="nav-item" data-lesson="8">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выйти из модуля
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 1</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Главная</span>
+        </div>
+
+        <div class="header-actions">
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Hero Section -->
+        <section class="hero">
+          <h1 class="hero-title">Введение в Vibecoding</h1>
+          <p class="hero-subtitle">
+            Погрузитесь в мир AI-powered разработки.<br>
+            От идеи до рабочего приложения за один урок.
+          </p>
+        </section>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Общая продолжительность модуля:</strong> ~3 часа</p>
+            <p><strong>Формат:</strong> Живой воркшоп с групповыми спринтами и демо</p>
+            <p><strong>Практическое покрытие:</strong> 90% времени — hands-on работа</p>
+            <p><strong>Ключевая цель:</strong> К концу урока студенты должны иметь работающее приложение на GitHub и понимать vibecoding-подход.</p>
+          </div>
+        </div>
+
+        <!-- Info Alert -->
+        <div class="alert alert-info">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 16v-4"/>
+            <path d="M12 8h.01"/>
+          </svg>
+          <div>
+            <strong>Что вы изучите в этом модуле:</strong>
+            <ul style="margin: 0.5rem 0 0 1rem;">
+              <li>Что такое vibecoding и почему это важно в 2025</li>
+              <li>Работа с AI-генераторами: lovable.dev, v0.dev, base44</li>
+              <li>Создание промптов для генерации приложений</li>
+              <li>Полный цикл: от идеи до работающего Task Manager</li>
+              <li>Подключение GitHub, Supabase, деплой на Vercel</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Lesson Cards -->
+        <h2 style="margin: 2rem 0 1rem;">Уроки модуля</h2>
+
+        <div class="lesson-cards">
+          <!-- Lesson 1 -->
+          <a href="lesson-1.html" class="lesson-card">
+            <div class="lesson-card-number">1</div>
+            <h3 class="lesson-card-title">Что такое Vibecoding</h3>
+            <p class="lesson-card-desc">
+              Введение в vibecoding. Почему это важно в 2025. Обзор стека: Cursor, Supabase, Vercel и другие.
+            </p>
+            <div class="lesson-card-meta">
+              <span>20 минут</span>
+              <span>•</span>
+              <span>Введение</span>
+            </div>
+          </a>
+
+          <!-- Lesson 2 -->
+          <a href="lesson-2.html" class="lesson-card">
+            <div class="lesson-card-number">2</div>
+            <h3 class="lesson-card-title">AI-генераторы приложений</h3>
+            <p class="lesson-card-desc">
+              Регистрация на lovable.dev, v0.dev, base44. Обзор возможностей каждой платформы.
+            </p>
+            <div class="lesson-card-meta">
+              <span>15 минут</span>
+              <span>•</span>
+              <span>Регистрация</span>
+            </div>
+          </a>
+
+          <!-- Lesson 3 -->
+          <a href="lesson-3.html" class="lesson-card">
+            <div class="lesson-card-number">3</div>
+            <h3 class="lesson-card-title">Искусство промптов</h3>
+            <p class="lesson-card-desc">
+              Создаём промпт для Task Manager в ChatGPT, Grok или Gemini. Сравниваем результаты.
+            </p>
+            <div class="lesson-card-meta">
+              <span>20 минут</span>
+              <span>•</span>
+              <span>Практика</span>
+            </div>
+          </a>
+
+          <!-- Lesson 4 -->
+          <a href="lesson-4.html" class="lesson-card">
+            <div class="lesson-card-number">4</div>
+            <h3 class="lesson-card-title">Приложение за 55 минут</h3>
+            <p class="lesson-card-desc">
+              Генерируем Task Manager на lovable.dev, v0.dev, base44. Выбираем лучший вариант.
+            </p>
+            <div class="lesson-card-meta">
+              <span>55 минут</span>
+              <span>•</span>
+              <span>Спринт</span>
+            </div>
+          </a>
+
+          <!-- Lesson 5 -->
+          <a href="lesson-5.html" class="lesson-card">
+            <div class="lesson-card-number">5</div>
+            <h3 class="lesson-card-title">Подключение сервисов</h3>
+            <p class="lesson-card-desc">
+              Подключаем GitHub для хранения кода. Настраиваем Supabase для базы данных.
+            </p>
+            <div class="lesson-card-meta">
+              <span>25 минут</span>
+              <span>•</span>
+              <span>Интеграция</span>
+            </div>
+          </a>
+
+          <!-- Lesson 6 -->
+          <a href="lesson-6.html" class="lesson-card">
+            <div class="lesson-card-number">6</div>
+            <h3 class="lesson-card-title">Доработка в Cursor</h3>
+            <p class="lesson-card-desc">
+              Клонируем проект в Cursor. Добавляем функционал через AI-диалог.
+            </p>
+            <div class="lesson-card-meta">
+              <span>30 минут</span>
+              <span>•</span>
+              <span>Cursor IDE</span>
+            </div>
+          </a>
+
+          <!-- Lesson 7 -->
+          <a href="lesson-7.html" class="lesson-card">
+            <div class="lesson-card-number">7</div>
+            <h3 class="lesson-card-title">Деплой и публикация</h3>
+            <p class="lesson-card-desc">
+              Пушим на GitHub. Деплоим на Vercel. Получаем публичную ссылку. Домашнее задание.
+            </p>
+            <div class="lesson-card-meta">
+              <span>15 минут</span>
+              <span>•</span>
+              <span>Финал</span>
+            </div>
+          </a>
+
+          <!-- Final Project -->
+          <a href="project.html" class="lesson-card" style="border-color: var(--primary); border-width: 2px;">
+            <div class="lesson-card-number" style="background: var(--accent);">P</div>
+            <h3 class="lesson-card-title">Итоговый проект</h3>
+            <p class="lesson-card-desc">
+              Домашнее задание: добавить 2+ функции в Task Manager. Задокументировать промпты.
+            </p>
+            <div class="lesson-card-meta">
+              <span>Финальное задание</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Quick Start -->
+        <div class="card" style="margin-top: 2rem;">
+          <div class="card-header">Быстрый старт</div>
+          <div class="card-body">
+            <p>Для успешного прохождения модуля вам понадобится:</p>
+
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="start-github"></span>
+                <span class="checklist-text">Аккаунт GitHub (github.com)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="start-llm"></span>
+                <span class="checklist-text">Доступ к LLM (ChatGPT, Claude, Gemini или Grok)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="start-cursor"></span>
+                <span class="checklist-text">Cursor IDE (cursor.com)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="start-nodejs"></span>
+                <span class="checklist-text">Node.js LTS установлен</span>
+              </li>
+            </ul>
+
+            <div style="margin-top: 1rem;">
+              <a href="lesson-1.html" class="btn btn-primary">Начать обучение →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workshop Timeline -->
+        <div class="card">
+          <div class="card-header">Структура воркшопа (3 часа)</div>
+          <div class="card-body">
+            <div class="workshop-timeline">
+              <div class="timeline-item">
+                <div class="timeline-time">0:00–0:20</div>
+                <div class="timeline-title">Что такое Vibecoding</div>
+                <p class="timeline-desc">Введение, философия, обзор инструментов</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-time">0:20–0:35</div>
+                <div class="timeline-title">AI-генераторы приложений</div>
+                <p class="timeline-desc">Регистрация на lovable.dev, v0.dev, base44</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-time">0:35–0:55</div>
+                <div class="timeline-title">Искусство промптов</div>
+                <p class="timeline-desc">Создаём промпт для Task Manager в LLM</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-time">0:55–1:50</div>
+                <div class="timeline-title">Приложение за 55 минут</div>
+                <p class="timeline-desc">Генерация на платформах, выбор лучшего</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-time">1:50–2:15</div>
+                <div class="timeline-title">Подключение сервисов</div>
+                <p class="timeline-desc">GitHub + Supabase интеграция</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-time">2:15–2:45</div>
+                <div class="timeline-title">Доработка в Cursor</div>
+                <p class="timeline-desc">Клонируем и улучшаем через AI</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-time">2:45–3:00</div>
+                <div class="timeline-title">Деплой и публикация</div>
+                <p class="timeline-desc">Vercel, итоги, домашнее задание</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resources -->
+        <div class="card">
+          <div class="card-header">Полезные ресурсы</div>
+          <div class="card-body">
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">💜</div>
+                <h4 class="service-card-title">lovable.dev</h4>
+                <p class="service-card-desc">Full-stack генератор приложений</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🎨</div>
+                <h4 class="service-card-title">v0.dev</h4>
+                <p class="service-card-desc">AI-генератор UI от Vercel</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🖥️</div>
+                <h4 class="service-card-title">Cursor</h4>
+                <p class="service-card-desc">AI-first редактор кода</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">⚡</div>
+                <h4 class="service-card-title">Supabase</h4>
+                <p class="service-card-desc">База данных + Auth</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">▲</div>
+                <h4 class="service-card-title">Vercel</h4>
+                <p class="service-card-desc">Хостинг и деплой</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🐙</div>
+                <h4 class="service-card-title">GitHub</h4>
+                <p class="service-card-desc">Хранение кода</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

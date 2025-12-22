@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 1.7: Деплой и публикация | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 8 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 1</div>
+
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <a href="lesson-1.html" class="nav-item" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Что такое Vibecoding
+        </a>
+
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          AI-генераторы приложений
+        </a>
+
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          Искусство промптов
+        </a>
+
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Приложение за 55 минут
+        </a>
+
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Подключение сервисов
+        </a>
+
+        <a href="lesson-6.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">6</span>
+          Доработка в Cursor
+        </a>
+
+        <a href="lesson-7.html" class="nav-item active" data-lesson="7">
+          <span class="nav-item-number">7</span>
+          Деплой и публикация
+        </a>
+
+        <a href="project.html" class="nav-item" data-lesson="8">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выйти из модуля
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 1</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 1.7</span>
+        </div>
+
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 1.7</span>
+            <span class="lesson-duration">⏱ 15 минут</span>
+          </div>
+          <h1 class="lesson-title">Деплой и публикация</h1>
+
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Загрузить код в GitHub через git команды</li>
+              <li>Задеплоить приложение на Vercel</li>
+              <li>Получить публичную ссылку на работающее приложение</li>
+              <li>Подвести итоги модуля и получить домашнее задание</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Время на секцию:</strong> Git (5 мин), Vercel (7 мин), Итоги (3 мин)</p>
+            <p><strong>Совет:</strong> Убедитесь, что у всех установлен Git. Помогите с первым коммитом - это важный момент.</p>
+            <p><strong>Важно:</strong> В конце занятия все должны получить публичную ссылку на своё приложение. Попросите студентов поделиться ссылками в чате.</p>
+            <p><strong>Типичные проблемы:</strong> Ошибки с переменными окружения в Vercel (SUPABASE_URL, SUPABASE_ANON_KEY). Покажите, где их взять в Supabase Dashboard.</p>
+          </div>
+        </div>
+
+        <!-- Section 1: Git Commit & Push -->
+        <section class="card">
+          <div class="card-header">1. Коммит и Push на GitHub (5 мин)</div>
+          <div class="card-body">
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Зачем загружать в GitHub?</strong>
+                <p style="margin: 0.5rem 0 0;">
+                  GitHub — это хранилище кода, которое позволяет вам сохранить работу, вернуться к предыдущим версиям, и подключить автоматический деплой на Vercel.
+                </p>
+              </div>
+            </div>
+
+            <h3>Шаг 1: Проверьте статус файлов</h3>
+            <p>Откройте терминал в папке вашего проекта и выполните:</p>
+            <div class="code-block">
+              <pre><code>git status</code></pre>
+            </div>
+            <p>Вы увидите список изменённых файлов. Это всё, что мы добавили в Cursor.</p>
+
+            <h3 style="margin-top: 1.5rem;">Шаг 2: Добавьте файлы в коммит</h3>
+            <p>Добавьте все изменения:</p>
+            <div class="code-block">
+              <pre><code>git add .</code></pre>
+            </div>
+            <p><em>Точка означает "добавить все изменённые файлы".</em></p>
+
+            <h3 style="margin-top: 1.5rem;">Шаг 3: Создайте коммит</h3>
+            <p>Коммит — это снимок вашего кода в определённый момент времени:</p>
+            <div class="code-block">
+              <pre><code>git commit -m "Add task filters, search, and priority features"</code></pre>
+            </div>
+            <p><em>Сообщение коммита должно кратко описывать, что вы изменили.</em></p>
+
+            <h3 style="margin-top: 1.5rem;">Шаг 4: Отправьте код на GitHub</h3>
+            <p>Загрузите код в удалённый репозиторий:</p>
+            <div class="code-block">
+              <pre><code>git push origin main</code></pre>
+            </div>
+            <p>Если у вас ветка называется <code>master</code> вместо <code>main</code>, используйте:</p>
+            <div class="code-block">
+              <pre><code>git push origin master</code></pre>
+            </div>
+
+            <h3 style="margin-top: 1.5rem;">Шаг 5: Проверьте на GitHub</h3>
+            <p>Перейдите в ваш репозиторий на GitHub и убедитесь, что код загружен. Вы должны увидеть новый коммит в истории.</p>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Отлично!</strong> Ваш код теперь в безопасности на GitHub и готов к деплою.
+              </div>
+            </div>
+
+            <div class="accordion open-first">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>❓ Что если у меня нет репозитория?</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Если вы ещё не создали репозиторий, выполните эти команды:</p>
+                    <div class="code-block">
+                      <pre><code># Инициализировать Git
+git init
+
+# Создать репозиторий на GitHub (через браузер)
+# Затем подключить его:
+git remote add origin https://github.com/ваш-username/ваш-репозиторий.git
+git branch -M main
+git push -u origin main</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>❓ Что если я получаю ошибку авторизации?</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>GitHub требует Personal Access Token (PAT) вместо пароля:</p>
+                    <ol>
+                      <li>Перейдите в <strong>GitHub Settings → Developer settings → Personal access tokens</strong></li>
+                      <li>Создайте новый token с правами <code>repo</code></li>
+                      <li>Используйте этот token вместо пароля при push</li>
+                    </ol>
+                    <p>Или используйте SSH ключ для более удобной авторизации.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Deploy on Vercel -->
+        <section class="card">
+          <div class="card-header">2. Деплой на Vercel (7 мин)</div>
+          <div class="card-body">
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Что такое Vercel?</strong>
+                <p style="margin: 0.5rem 0 0;">
+                  <span class="tooltip-trigger" data-term="vercel">Vercel</span> — это платформа для деплоя фронтенд-приложений. Она автоматически собирает и публикует ваш проект каждый раз, когда вы делаете push в GitHub.
+                </p>
+              </div>
+            </div>
+
+            <h3>Шаг 1: Подключите GitHub репозиторий</h3>
+            <ol>
+              <li>Перейдите на <a href="https://vercel.com" target="_blank">vercel.com</a></li>
+              <li>Войдите через GitHub (или создайте аккаунт)</li>
+              <li>Нажмите <strong>"Add New Project"</strong></li>
+              <li>Выберите ваш репозиторий с Task Manager</li>
+              <li>Нажмите <strong>"Import"</strong></li>
+            </ol>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Не торопитесь!</strong> Следующий шаг критически важен — без переменных окружения приложение не будет работать.
+              </div>
+            </div>
+
+            <h3 style="margin-top: 1.5rem;">Шаг 2: Настройте Environment Variables</h3>
+            <p>Перед деплоем добавьте переменные окружения для Supabase:</p>
+
+            <div class="accordion open-first">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📋 Где взять SUPABASE_URL и SUPABASE_ANON_KEY?</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ol>
+                      <li>Откройте <a href="https://supabase.com/dashboard" target="_blank">Supabase Dashboard</a></li>
+                      <li>Выберите ваш проект Task Manager</li>
+                      <li>Перейдите в <strong>Settings → API</strong></li>
+                      <li>Скопируйте:
+                        <ul>
+                          <li><strong>Project URL</strong> → это <code>SUPABASE_URL</code></li>
+                          <li><strong>anon public</strong> ключ → это <code>SUPABASE_ANON_KEY</code></li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p style="margin-top: 1rem;">В настройках проекта в Vercel добавьте переменные:</p>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Key</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>VITE_SUPABASE_URL</code></td>
+                    <td>Ваш Project URL из Supabase</td>
+                  </tr>
+                  <tr>
+                    <td><code>VITE_SUPABASE_ANON_KEY</code></td>
+                    <td>Ваш anon public ключ из Supabase</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Префикс VITE_:</strong> Если ваш проект на Vite, переменные должны начинаться с <code>VITE_</code>. Для Next.js используйте <code>NEXT_PUBLIC_</code>.
+              </div>
+            </div>
+
+            <h3 style="margin-top: 1.5rem;">Шаг 3: Запустите деплой</h3>
+            <ol>
+              <li>Нажмите <strong>"Deploy"</strong></li>
+              <li>Дождитесь завершения сборки (обычно 1-2 минуты)</li>
+              <li>После успешного деплоя вы получите публичную ссылку</li>
+            </ol>
+
+            <div class="code-block">
+              <pre><code>🎉 Ваше приложение доступно по адресу:
+https://your-project.vercel.app</code></pre>
+            </div>
+
+            <h3 style="margin-top: 1.5rem;">Шаг 4: Проверьте работу</h3>
+            <ol>
+              <li>Откройте публичную ссылку</li>
+              <li>Попробуйте добавить задачу</li>
+              <li>Проверьте фильтры и поиск</li>
+              <li>Убедитесь, что данные сохраняются в Supabase</li>
+            </ol>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Поздравляем!</strong> Ваше приложение теперь доступно всему миру. Поделитесь ссылкой с друзьями!
+              </div>
+            </div>
+
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔧 Автоматический деплой при каждом коммите</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Vercel автоматически отслеживает ваш GitHub репозиторий. Каждый раз, когда вы делаете <code>git push</code>, Vercel:</p>
+                    <ul>
+                      <li>Автоматически создаёт новый деплой</li>
+                      <li>Собирает проект заново</li>
+                      <li>Обновляет публичную ссылку</li>
+                    </ul>
+                    <p><strong>Это значит:</strong> вы можете продолжать разработку, делать коммиты, и Vercel будет автоматически публиковать изменения!</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>❓ Что если деплой упал с ошибкой?</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Частые причины ошибок:</p>
+                    <ul>
+                      <li><strong>Build failed:</strong> Ошибка в коде. Проверьте логи сборки в Vercel.</li>
+                      <li><strong>Missing env vars:</strong> Не добавили VITE_SUPABASE_URL или VITE_SUPABASE_ANON_KEY.</li>
+                      <li><strong>Wrong framework:</strong> Vercel неправильно определил фреймворк. Укажите вручную в настройках.</li>
+                    </ul>
+                    <p>Нажмите на ошибку в Vercel Dashboard, чтобы увидеть детальные логи.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Module Summary -->
+        <section class="card">
+          <div class="card-header">3. Итоги модуля (3 мин)</div>
+          <div class="card-body">
+            <h3>Что мы достигли за модуль:</h3>
+            <ul>
+              <li>Узнали, что такое Vibecoding и как AI меняет разработку</li>
+              <li>Зарегистрировались на 3 платформах генерации приложений</li>
+              <li>Освоили искусство написания промптов</li>
+              <li>Создали полноценный Task Manager на lovable.dev за 55 минут</li>
+              <li>Подключили Supabase для хранения данных</li>
+              <li>Доработали приложение в Cursor AI с фильтрами, поиском и приоритетами</li>
+              <li>Загрузили код на GitHub и задеплоили на Vercel</li>
+            </ul>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Ваш результат:</strong> Полноценный Task Manager с базой данных, фильтрами, поиском и публичной ссылкой. Вы можете добавить это в портфолио!
+              </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Домашнее задание:</h3>
+
+            <div class="accordion open-first">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📋 Обязательное задание</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <h4>Добавьте 2+ новые фичи в Task Manager</h4>
+                    <p>Используйте Cursor AI для доработки. Примеры фич:</p>
+                    <ul>
+                      <li>Категории задач (Work, Personal, Shopping)</li>
+                      <li>Дедлайны с визуальным индикатором</li>
+                      <li>Теги для задач</li>
+                      <li>Сортировка по дате создания</li>
+                      <li>Экспорт задач в JSON</li>
+                      <li>Статистика выполненных задач</li>
+                      <li>Тёмная тема</li>
+                    </ul>
+                    <p><strong>Требования:</strong></p>
+                    <ol>
+                      <li>Реализуйте минимум 2 фичи</li>
+                      <li>Задокументируйте использованные промпты в README.md</li>
+                      <li>Сделайте коммит и push на GitHub</li>
+                      <li>Vercel автоматически обновит деплой</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🚀 Продвинутое задание (опционально)</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Для тех, кто хочет глубже:</p>
+                    <ul>
+                      <li><strong>Аутентификация:</strong> Добавьте Supabase Auth (регистрация/логин)</li>
+                      <li><strong>Email-уведомления:</strong> Напоминания о просроченных задачах</li>
+                      <li><strong>PWA версия:</strong> Сделайте приложение устанавливаемым на мобильные</li>
+                      <li><strong>Shared tasks:</strong> Возможность делиться задачами с другими пользователями</li>
+                      <li><strong>AI-ассистент:</strong> Генерация подзадач через AI</li>
+                    </ul>
+                    <p><em>Используйте документацию Supabase и Cursor AI для реализации.</em></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Срок сдачи:</strong> До начала следующего модуля. Поделитесь ссылкой на ваш проект в чате курса!
+              </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Что дальше?</h3>
+            <p>В следующих модулях мы:</p>
+            <ul>
+              <li><strong>Модуль 2:</strong> Изучим архитектуру современных веб-приложений</li>
+              <li><strong>Модуль 3:</strong> Познакомимся с базами данных и API</li>
+              <li><strong>Модуль 4:</strong> Освоим продвинутые техники промптинга</li>
+              <li><strong>Модуль 5:</strong> Создадим полноценное коммерческое приложение</li>
+            </ul>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Молодцы!</strong> Вы прошли первый модуль и создали своё первое AI-приложение. Продолжайте практиковаться!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Final Checklist -->
+        <section class="card">
+          <div class="card-header">Финальный чек-лист</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l7-git-status"></span>
+                <span class="checklist-text">Выполнил git status и увидел изменения</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l7-git-commit"></span>
+                <span class="checklist-text">Сделал коммит с понятным сообщением</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l7-git-push"></span>
+                <span class="checklist-text">Отправил код на GitHub (git push)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l7-github-verify"></span>
+                <span class="checklist-text">Проверил код в GitHub репозитории</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l7-vercel-connect"></span>
+                <span class="checklist-text">Подключил репозиторий к Vercel</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l7-vercel-env"></span>
+                <span class="checklist-text">Добавил переменные окружения (SUPABASE_URL, SUPABASE_ANON_KEY)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l7-vercel-deploy"></span>
+                <span class="checklist-text">Задеплоил приложение на Vercel</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l7-verify-app"></span>
+                <span class="checklist-text">Проверил работу приложения по публичной ссылке</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l7-share-link"></span>
+                <span class="checklist-text">Поделился ссылкой в чате курса</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="l7-homework"></span>
+                <span class="checklist-text">Понимаю домашнее задание</span>
+              </li>
+            </ul>
+
+            <div class="progress-bar" style="margin-top: 1rem;">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text">0 из 10 выполнено</div>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-6.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Доработка в Cursor</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="7">
+            Отметить урок пройденным
+          </button>
+
+          <a href="project.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Итоговый проект</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>
