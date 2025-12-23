@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 6.8: Тестирование API | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 6</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое бэкенд</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Что такое API</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>База данных</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Настройка Supabase</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Создание таблицы</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Первый API Route</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>CRUD операции</a>
+        <a href="lesson-8.html" class="nav-item active" data-lesson="8"><span class="nav-item-number">8</span>Тестирование API</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Фронтенд + Бэкенд</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 6</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 6.8</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 6.8</span>
+            <span class="lesson-duration">⏱ 25 минут</span>
+          </div>
+          <h1 class="lesson-title">Тестирование API</h1>
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Установить Thunder Client для тестирования</li>
+              <li>Протестировать все 4 операции Money Tracker</li>
+              <li>Создать коллекцию запросов для проекта</li>
+              <li>Научиться находить и исправлять ошибки</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Intro -->
+        <section class="card">
+          <div class="card-header">Зачем тестировать API?</div>
+          <div class="card-body">
+            <p><strong>Сценарий:</strong> Вы написали весь код для Money Tracker. Как убедиться, что API работает правильно до подключения фронтенда?</p>
+
+            <p>Тестирование через браузер работает только для <a href="glossary.html" class="glossary-link" data-term="GET">GET</a>. Для POST, PATCH, DELETE нужен специальный инструмент.</p>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Thunder Client</strong> — расширение для VS Code/Cursor, позволяет отправлять любые HTTP запросы. Это как личный "тестировщик" API прямо в редакторе.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 1: Install Thunder Client -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 1: Установка Thunder Client</div>
+          <div class="card-body">
+            <p><strong>Задача:</strong> Установить инструмент для тестирования API Money Tracker.</p>
+
+            <h4>Шаги:</h4>
+            <ol>
+              <li>Откройте Cursor</li>
+              <li>Нажмите <strong>Cmd+Shift+X</strong> (Extensions)</li>
+              <li>В поиске введите: <code>Thunder Client</code></li>
+              <li>Нажмите <strong>Install</strong> на первом результате</li>
+              <li>В левой панели появится иконка молнии ⚡</li>
+            </ol>
+
+            <div style="background: #f8fafc; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+              <p style="margin: 0; font-weight: 600;">Проверка установки:</p>
+              <p style="margin: 0.5rem 0 0 0;">Кликните на иконку молнии — откроется панель Thunder Client.</p>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Важно!</strong> Убедитесь что Next.js запущен: <code>npm run dev</code>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 2: Test GET -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 2: Тестируем получение транзакций (GET)</div>
+          <div class="card-body">
+            <p><strong>Сценарий:</strong> Пользователь открывает Money Tracker. Приложение должно загрузить все его транзакции.</p>
+
+            <h4>Создаём первый запрос:</h4>
+            <ol>
+              <li>Откройте Thunder Client (иконка молнии)</li>
+              <li>Нажмите <strong>New Request</strong></li>
+              <li>Метод: <strong>GET</strong> (уже выбран по умолчанию)</li>
+              <li>URL: <code>http://localhost:3000/api/transactions</code></li>
+              <li>Нажмите <strong>Send</strong></li>
+            </ol>
+
+            <div class="interactive-block" style="margin: 1rem 0;">
+              <div class="interactive-header" onclick="this.parentElement.classList.toggle('open')" style="cursor: pointer; padding: 1rem; background: #f0fdf4; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 600; color: #166534;">Что вы должны увидеть? (клик)</span>
+                <span class="toggle-icon" style="transition: transform 0.3s;">▼</span>
+              </div>
+              <div class="interactive-content" style="display: none; padding: 1rem; background: #f8fafc; border-radius: 0 0 8px 8px;">
+                <p><strong>Status:</strong> <span style="color: #10B981;">200 OK</span></p>
+                <p><strong>Response:</strong></p>
+                <div class="code-block">
+                  <pre><code>[
+  {
+    "id": 1,
+    "amount": 50000,
+    "type": "income",
+    "category": "Зарплата",
+    "description": "За декабрь",
+    "date": "2024-12-10"
+  },
+  {
+    "id": 2,
+    "amount": 1200,
+    "type": "expense",
+    "category": "Кафе",
+    "description": "Обед",
+    "date": "2024-12-11"
+  }
+  // ... остальные транзакции
+]</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <h4>Тестируем фильтрацию:</h4>
+            <p>Теперь получим только расходы:</p>
+            <ol>
+              <li>URL: <code>http://localhost:3000/api/transactions?type=expense</code></li>
+              <li>Send</li>
+            </ol>
+
+            <div class="interactive-block" style="margin: 1rem 0;">
+              <div class="interactive-header" onclick="this.parentElement.classList.toggle('open')" style="cursor: pointer; padding: 1rem; background: #fef3c7; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 600; color: #92400e;">Какой будет ответ?</span>
+                <span class="toggle-icon" style="transition: transform 0.3s;">▼</span>
+              </div>
+              <div class="interactive-content" style="display: none; padding: 1rem; background: #f8fafc; border-radius: 0 0 8px 8px;">
+                <p>Только транзакции с <code>"type": "expense"</code> — Кафе, Такси, Продукты.</p>
+                <p>Транзакции с type: "income" не появятся!</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 3: Test POST -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 3: Добавляем новую транзакцию (POST)</div>
+          <div class="card-body">
+            <p><strong>Сценарий:</strong> Пользователь потратил 800 рублей на такси и хочет записать этот расход.</p>
+
+            <h4>Создаём POST запрос:</h4>
+            <ol>
+              <li>В Thunder Client нажмите <strong>New Request</strong></li>
+              <li>Смените метод с GET на <strong>POST</strong></li>
+              <li>URL: <code>http://localhost:3000/api/transactions</code></li>
+              <li>Перейдите во вкладку <strong>Body</strong></li>
+              <li>Выберите <strong>JSON</strong></li>
+              <li>Вставьте данные:</li>
+            </ol>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">json</span>
+                <button class="code-block-copy" title="Копировать">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                </button>
+              </div>
+              <pre><code>{
+  "amount": 800,
+  "type": "expense",
+  "category": "Транспорт",
+  "description": "Такси до аэропорта"
+}</code></pre>
+            </div>
+
+            <ol start="7">
+              <li>Нажмите <strong>Send</strong></li>
+            </ol>
+
+            <div class="interactive-block" style="margin: 1rem 0;">
+              <div class="interactive-header" onclick="this.parentElement.classList.toggle('open')" style="cursor: pointer; padding: 1rem; background: #f0fdf4; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 600; color: #166534;">Ожидаемый результат (клик)</span>
+                <span class="toggle-icon" style="transition: transform 0.3s;">▼</span>
+              </div>
+              <div class="interactive-content" style="display: none; padding: 1rem; background: #f8fafc; border-radius: 0 0 8px 8px;">
+                <p><strong>Status:</strong> <span style="color: #3B82F6;">201 Created</span></p>
+                <p><strong>Response:</strong></p>
+                <div class="code-block">
+                  <pre><code>{
+  "id": 8,
+  "amount": 800,
+  "type": "expense",
+  "category": "Транспорт",
+  "description": "Такси до аэропорта",
+  "date": "2024-12-15",
+  "created_at": "2024-12-15T10:30:00Z"
+}</code></pre>
+                </div>
+                <p style="margin-top: 0.5rem; color: #059669;"><strong>Заметьте:</strong> Транзакция получила id автоматически! Date тоже установилась на сегодня.</p>
+              </div>
+            </div>
+
+            <h4>Проверка:</h4>
+            <p>Выполните GET запрос ещё раз — новая транзакция должна быть в списке!</p>
+          </div>
+        </section>
+
+        <!-- Practice 4: Test PATCH -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 4: Исправляем ошибку (PATCH)</div>
+          <div class="card-body">
+            <p><strong>Сценарий:</strong> Оказалось, такси стоило 950 рублей, а не 800. Нужно исправить!</p>
+
+            <h4>Важно!</h4>
+            <p>Сначала узнайте id транзакции, которую хотите изменить. Допустим, это id = 8.</p>
+
+            <h4>Создаём PATCH запрос:</h4>
+            <ol>
+              <li><strong>New Request</strong></li>
+              <li>Метод: <strong>PATCH</strong></li>
+              <li>URL: <code>http://localhost:3000/api/transactions/8</code></li>
+              <li>Body → JSON:</li>
+            </ol>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">json</span>
+                <button class="code-block-copy" title="Копировать">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                </button>
+              </div>
+              <pre><code>{
+  "amount": 950
+}</code></pre>
+            </div>
+
+            <ol start="5">
+              <li>Send</li>
+            </ol>
+
+            <div class="interactive-block" style="margin: 1rem 0;">
+              <div class="interactive-header" onclick="this.parentElement.classList.toggle('open')" style="cursor: pointer; padding: 1rem; background: #f0fdf4; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 600; color: #166534;">Что должно вернуться? (клик)</span>
+                <span class="toggle-icon" style="transition: transform 0.3s;">▼</span>
+              </div>
+              <div class="interactive-content" style="display: none; padding: 1rem; background: #f8fafc; border-radius: 0 0 8px 8px;">
+                <p><strong>Status:</strong> <span style="color: #10B981;">200 OK</span></p>
+                <p><strong>Response:</strong></p>
+                <div class="code-block">
+                  <pre><code>{
+  "id": 8,
+  "amount": 950,
+  "type": "expense",
+  "category": "Транспорт",
+  "description": "Такси до аэропорта",
+  "date": "2024-12-15"
+}</code></pre>
+                </div>
+                <p style="color: #059669;"><strong>Важно:</strong> Изменилось только поле amount! Остальные поля сохранились.</p>
+              </div>
+            </div>
+
+            <h4>Меняем несколько полей:</h4>
+            <p>Можно изменить сразу несколько полей:</p>
+            <div class="code-block">
+              <pre><code>{
+  "amount": 950,
+  "description": "Такси до Шереметьево"
+}</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 5: Test DELETE -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 5: Удаляем транзакцию (DELETE)</div>
+          <div class="card-body">
+            <p><strong>Сценарий:</strong> Пользователь случайно добавил тестовую транзакцию и хочет её удалить.</p>
+
+            <h4>Создаём DELETE запрос:</h4>
+            <ol>
+              <li><strong>New Request</strong></li>
+              <li>Метод: <strong>DELETE</strong></li>
+              <li>URL: <code>http://localhost:3000/api/transactions/8</code></li>
+              <li>Body: <strong>оставьте пустым</strong> (не нужен)</li>
+              <li>Send</li>
+            </ol>
+
+            <div class="interactive-block" style="margin: 1rem 0;">
+              <div class="interactive-header" onclick="this.parentElement.classList.toggle('open')" style="cursor: pointer; padding: 1rem; background: #fef2f2; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 600; color: #991b1b;">Результат удаления (клик)</span>
+                <span class="toggle-icon" style="transition: transform 0.3s;">▼</span>
+              </div>
+              <div class="interactive-content" style="display: none; padding: 1rem; background: #f8fafc; border-radius: 0 0 8px 8px;">
+                <p><strong>Status:</strong> <span style="color: #10B981;">200 OK</span></p>
+                <p><strong>Response:</strong></p>
+                <div class="code-block">
+                  <pre><code>{ "success": true }</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <h4>Проверка:</h4>
+            <ol>
+              <li>Выполните GET запрос на <code>/api/transactions</code></li>
+              <li>Транзакция с id 8 должна исчезнуть!</li>
+            </ol>
+
+            <div class="alert alert-warning" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Осторожно!</strong> DELETE удаляет данные безвозвратно. В реальных приложениях часто делают "мягкое удаление" (добавляют поле deleted: true).
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- HTTP Codes section -->
+        <section class="card">
+          <div class="card-header">HTTP коды ответов в Money Tracker</div>
+          <div class="card-body">
+            <p>Каждый ответ сервера содержит числовой код. Вот что они означают для нашего API:</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Код</th>
+                    <th>Значение</th>
+                    <th>Пример в Money Tracker</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="background: rgba(16, 185, 129, 0.1);">
+                    <td><strong style="color: #10B981;">200</strong></td>
+                    <td>OK</td>
+                    <td>GET вернул список транзакций</td>
+                  </tr>
+                  <tr style="background: rgba(59, 130, 246, 0.1);">
+                    <td><strong style="color: #3B82F6;">201</strong></td>
+                    <td>Created</td>
+                    <td>POST создал новую транзакцию</td>
+                  </tr>
+                  <tr style="background: rgba(245, 158, 11, 0.1);">
+                    <td><strong style="color: #F59E0B;">400</strong></td>
+                    <td>Bad Request</td>
+                    <td>POST с amount = -100 (нельзя!)</td>
+                  </tr>
+                  <tr style="background: rgba(245, 158, 11, 0.1);">
+                    <td><strong style="color: #F59E0B;">404</strong></td>
+                    <td>Not Found</td>
+                    <td>PATCH /api/transactions/999 (нет такой)</td>
+                  </tr>
+                  <tr style="background: rgba(239, 68, 68, 0.1);">
+                    <td><strong style="color: #EF4444;">500</strong></td>
+                    <td>Server Error</td>
+                    <td>Ошибка в коде или Supabase недоступен</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="interactive-block" style="margin: 1rem 0;">
+              <div class="interactive-header" onclick="this.parentElement.classList.toggle('open')" style="cursor: pointer; padding: 1rem; background: #eff6ff; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 600; color: #1e40af;">Как запомнить коды? (клик)</span>
+                <span class="toggle-icon" style="transition: transform 0.3s;">▼</span>
+              </div>
+              <div class="interactive-content" style="display: none; padding: 1rem; background: #f8fafc; border-radius: 0 0 8px 8px;">
+                <ul>
+                  <li><strong>2xx</strong> — Всё хорошо (2 = "два больших пальца вверх")</li>
+                  <li><strong>4xx</strong> — Ошибка клиента ("4" = "ты" опечатался)</li>
+                  <li><strong>5xx</strong> — Ошибка сервера ("5" = сервер "свалился")</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 6: Create Collection -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 6: Создаём коллекцию запросов</div>
+          <div class="card-body">
+            <p><strong>Зачем?</strong> Чтобы не создавать запросы заново каждый раз. Сохраните их в коллекцию!</p>
+
+            <h4>Создание коллекции:</h4>
+            <ol>
+              <li>В Thunder Client перейдите в раздел <strong>Collections</strong></li>
+              <li>Нажмите <strong>New Collection</strong></li>
+              <li>Название: <code>Money Tracker API</code></li>
+            </ol>
+
+            <h4>Сохранение запросов:</h4>
+            <ol>
+              <li>Откройте любой созданный запрос</li>
+              <li>Нажмите <strong>Save</strong> (Ctrl+S)</li>
+              <li>Выберите коллекцию "Money Tracker API"</li>
+              <li>Дайте понятное имя: "GET all transactions"</li>
+            </ol>
+
+            <p><strong>Создайте 5 запросов в коллекции:</strong></p>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Название</th>
+                    <th>Метод</th>
+                    <th>URL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>GET all transactions</td>
+                    <td>GET</td>
+                    <td>/api/transactions</td>
+                  </tr>
+                  <tr>
+                    <td>GET expenses only</td>
+                    <td>GET</td>
+                    <td>/api/transactions?type=expense</td>
+                  </tr>
+                  <tr>
+                    <td>POST new transaction</td>
+                    <td>POST</td>
+                    <td>/api/transactions</td>
+                  </tr>
+                  <tr>
+                    <td>PATCH update amount</td>
+                    <td>PATCH</td>
+                    <td>/api/transactions/1</td>
+                  </tr>
+                  <tr>
+                    <td>DELETE transaction</td>
+                    <td>DELETE</td>
+                    <td>/api/transactions/1</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                Теперь вы можете тестировать API одним кликом! Коллекция сохраняется между сессиями.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Troubleshooting -->
+        <section class="card">
+          <div class="card-header">Отладка: Что делать если ошибка?</div>
+          <div class="card-body">
+            <p>Разберём типичные ошибки при тестировании Money Tracker API:</p>
+
+            <div style="background: #fef2f2; border-radius: 8px; padding: 1rem; margin: 1rem 0; border-left: 4px solid #ef4444;">
+              <p style="margin: 0; font-weight: 600; color: #991b1b;">Ошибка: "Cannot read properties of null"</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Причина:</strong> Supabase не подключен или ключи неверные.</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Решение:</strong> Проверьте .env.local и перезапустите npm run dev.</p>
+            </div>
+
+            <div style="background: #fef2f2; border-radius: 8px; padding: 1rem; margin: 1rem 0; border-left: 4px solid #ef4444;">
+              <p style="margin: 0; font-weight: 600; color: #991b1b;">Ошибка: 404 Not Found</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Причина:</strong> Неправильный URL или файл route.ts отсутствует.</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Решение:</strong> Проверьте путь: <code>app/api/transactions/route.ts</code></p>
+            </div>
+
+            <div style="background: #fef2f2; border-radius: 8px; padding: 1rem; margin: 1rem 0; border-left: 4px solid #ef4444;">
+              <p style="margin: 0; font-weight: 600; color: #991b1b;">Ошибка: Пустой массив [] при GET</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Причина:</strong> Таблица transactions пуста или RLS блокирует.</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Решение:</strong> Добавьте данные в Supabase и убедитесь что RLS выключен.</p>
+            </div>
+
+            <div style="background: #fef2f2; border-radius: 8px; padding: 1rem; margin: 1rem 0; border-left: 4px solid #ef4444;">
+              <p style="margin: 0; font-weight: 600; color: #991b1b;">Ошибка: "Unexpected token" при POST</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Причина:</strong> Неправильный JSON в Body.</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Решение:</strong> Проверьте кавычки и запятые. JSON строгий!</p>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Совет:</strong> Добавьте <code>console.log()</code> в API route и смотрите терминал — там будет подробная информация об ошибке.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-install"></span>
+                <span class="checklist-text">Thunder Client установлен</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-get"></span>
+                <span class="checklist-text">GET /api/transactions возвращает 200</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-filter"></span>
+                <span class="checklist-text">Фильтрация по ?type= работает</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-post"></span>
+                <span class="checklist-text">POST создаёт транзакцию (201)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-patch"></span>
+                <span class="checklist-text">PATCH обновляет транзакцию (200)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-delete"></span>
+                <span class="checklist-text">DELETE удаляет транзакцию (200)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-collection"></span>
+                <span class="checklist-text">Создана коллекция "Money Tracker API"</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Teacher notes -->
+        <section class="card teacher-only">
+          <div class="card-header">Заметки преподавателя</div>
+          <div class="card-body">
+            <h4>Ключевые моменты:</h4>
+            <ul>
+              <li>Убедитесь что у всех запущен npm run dev ПЕРЕД началом урока</li>
+              <li>Покажите как найти id транзакции для PATCH/DELETE (сначала GET)</li>
+              <li>Демонстрируйте ошибки специально — пусть увидят 400, 404, 500</li>
+              <li>Акцентируйте внимание на коллекциях — это экономит время</li>
+            </ul>
+
+            <h4>Частые проблемы:</h4>
+            <ul>
+              <li>Забывают переключить метод (остаётся GET вместо POST)</li>
+              <li>Не выбирают JSON в Body</li>
+              <li>Используют одинарные кавычки в JSON (нужны двойные)</li>
+              <li>Путают / в конце URL (с / и без /)</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-7.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">CRUD операции</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="8">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-9.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Фронтенд + Бэкенд</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+  <script>
+    // Interactive blocks toggle
+    document.querySelectorAll('.interactive-block').forEach(block => {
+      const content = block.querySelector('.interactive-content');
+      const icon = block.querySelector('.toggle-icon');
+
+      block.querySelector('.interactive-header').addEventListener('click', () => {
+        const isOpen = content.style.display === 'block';
+        content.style.display = isOpen ? 'none' : 'block';
+        icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+      });
+    });
+  </script>
+</body>
+</html>

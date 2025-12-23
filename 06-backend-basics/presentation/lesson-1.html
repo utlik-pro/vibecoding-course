@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 6.1: Что такое бэкенд? | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 6</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item active" data-lesson="1"><span class="nav-item-number">1</span>Что такое бэкенд</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Что такое API</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>База данных</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Настройка Supabase</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Создание таблицы</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Первый API Route</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>CRUD операции</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Тестирование API</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Фронтенд + Бэкенд</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 6</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 6.1</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 6.1</span>
+            <span class="lesson-duration">⏱ 20 минут</span>
+          </div>
+          <h1 class="lesson-title">Что такое бэкенд?</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Понимаем на примере Money Tracker — приложения для учёта финансов
+          </p>
+        </div>
+
+        <!-- Section 1: What We're Building -->
+        <section class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+          <div class="card-header" style="background: transparent; color: white; border-bottom-color: rgba(255,255,255,0.2);">Наша цель: Money Tracker</div>
+          <div class="card-body">
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">К концу модуля вы создадите работающее приложение для учёта финансов:</p>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+              <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 0.85rem; opacity: 0.9;">Доходы</div>
+                <div style="font-size: 1.75rem; font-weight: bold;">+65 000</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 0.85rem; opacity: 0.9;">Расходы</div>
+                <div style="font-size: 1.75rem; font-weight: bold;">-12 500</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 0.85rem; opacity: 0.9;">Баланс</div>
+                <div style="font-size: 1.75rem; font-weight: bold;">52 500</div>
+              </div>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.2); border-radius: 8px; padding: 0.5rem;">
+              <div style="display: flex; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <span>Зарплата</span>
+                <span style="color: #86efac;">+50 000</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <span>Фриланс</span>
+                <span style="color: #86efac;">+15 000</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <span>Кафе</span>
+                <span style="color: #fca5a5;">-1 200</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 0.75rem 1rem;">
+                <span>Такси</span>
+                <span style="color: #fca5a5;">-350</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 1: Problem -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 1: В чём проблема?</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Откройте DevTools в браузере (F12) и посмотрите на localStorage:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Console (F12 → Console)</span>
+              </div>
+              <pre><code>localStorage.setItem('my_balance', '50000');
+localStorage.getItem('my_balance');
+// Результат: "50000"</code></pre>
+            </div>
+
+            <p style="margin-top: 1rem;">Теперь представьте проблемы:</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Что случится</th>
+                    <th>Результат</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Откроете сайт на другом устройстве</td>
+                    <td style="color: #EF4444;">Данных нет — они только на этом компьютере</td>
+                  </tr>
+                  <tr>
+                    <td>Очистите кэш браузера</td>
+                    <td style="color: #EF4444;">Всё удалится</td>
+                  </tr>
+                  <tr>
+                    <td>Кто-то откроет DevTools</td>
+                    <td style="color: #EF4444;">Увидит все ваши данные</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Вывод:</strong> Хранить важные данные только в браузере — плохая идея. Нужен <strong>бэкенд</strong>!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Theory: Frontend vs Backend -->
+        <section class="card">
+          <div class="card-header">Фронтенд vs Бэкенд (на примере Money Tracker)</div>
+          <div class="card-body">
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">🖥️</div>
+                <h4 class="service-card-title">Фронтенд</h4>
+                <p class="service-card-desc">
+                  <strong>Что видит пользователь:</strong><br>
+                  • Кнопка "Добавить расход"<br>
+                  • Форма с полями<br>
+                  • Список транзакций<br>
+                  • Красивые цвета
+                </p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">⚙️</div>
+                <h4 class="service-card-title">Бэкенд</h4>
+                <p class="service-card-desc">
+                  <strong>Что делает сервер:</strong><br>
+                  • Сохраняет транзакцию в базу<br>
+                  • Проверяет что сумма > 0<br>
+                  • Возвращает список транзакций<br>
+                  • Удаляет записи
+                </p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🗄️</div>
+                <h4 class="service-card-title">База данных</h4>
+                <p class="service-card-desc">
+                  <strong>Где хранятся данные:</strong><br>
+                  • Все транзакции<br>
+                  • Суммы и категории<br>
+                  • Даты операций<br>
+                  • Навсегда в облаке
+                </p>
+              </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Аналогия "Ресторан":</strong>
+                Фронтенд = зал ресторана (красиво), Бэкенд = кухня (готовит), База данных = склад (хранит).
+                <a href="glossary.html" style="color: inherit; text-decoration: underline;">Подробнее в глоссарии →</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 2: See Real API -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 2: Смотрим настоящий API</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Откройте в новой вкладке браузера эту ссылку:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">URL</span>
+                <button class="code-block-copy" title="Копировать">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                </button>
+              </div>
+              <pre><code>https://jsonplaceholder.typicode.com/posts/1</code></pre>
+            </div>
+
+            <p style="margin-top: 1rem;">Вы увидите что-то вроде:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">json</span>
+              </div>
+              <pre><code>{
+  "userId": 1,
+  "id": 1,
+  "title": "sunt aut facere repellat...",
+  "body": "quia et suscipit..."
+}</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Что произошло:</strong> Вы только что вызвали API! Бэкенд вернул вам данные в формате JSON.
+                Наш Money Tracker будет работать точно так же — только вместо постов будут транзакции.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 3: Plan Our Data -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 3: Планируем данные Money Tracker</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Подумайте, какие данные нужно хранить для каждой транзакции?</p>
+
+            <p style="margin: 1rem 0;">Например, для записи "Потратил 350 рублей на такси вчера" нужно:</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Поле</th>
+                    <th>Значение</th>
+                    <th>Зачем?</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>amount</code></td>
+                    <td>350</td>
+                    <td>Сумма транзакции</td>
+                  </tr>
+                  <tr>
+                    <td><code>type</code></td>
+                    <td>"expense"</td>
+                    <td>Расход или доход</td>
+                  </tr>
+                  <tr>
+                    <td><code>category</code></td>
+                    <td>"Транспорт"</td>
+                    <td>Для группировки</td>
+                  </tr>
+                  <tr>
+                    <td><code>description</code></td>
+                    <td>"Такси до работы"</td>
+                    <td>Комментарий</td>
+                  </tr>
+                  <tr>
+                    <td><code>date</code></td>
+                    <td>"2024-01-15"</td>
+                    <td>Когда было</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="code-block" style="margin-top: 1rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">JSON — так будет выглядеть одна транзакция</span>
+              </div>
+              <pre><code>{
+  "id": 1,
+  "amount": 350,
+  "type": "expense",
+  "category": "Транспорт",
+  "description": "Такси до работы",
+  "date": "2024-01-15"
+}</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                Это структура данных, которую мы создадим в Supabase в уроке 5. Пока просто запомните — всё просто!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Architecture -->
+        <section class="card">
+          <div class="card-header">Как всё работает вместе</div>
+          <div class="card-body">
+            <p>Путь данных когда вы добавляете расход:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Архитектура Money Tracker</span>
+              </div>
+              <pre><code>1. Вы нажимаете "Добавить расход 350р на такси"
+                    ↓
+2. Фронтенд (React) отправляет запрос на /api/transactions
+                    ↓
+3. Бэкенд (Next.js API Route) получает данные
+                    ↓
+4. Бэкенд сохраняет в Supabase (PostgreSQL)
+                    ↓
+5. Supabase отвечает: "Сохранено! ID = 42"
+                    ↓
+6. Бэкенд возвращает успех фронтенду
+                    ↓
+7. Фронтенд показывает новую транзакцию в списке</code></pre>
+            </div>
+
+            <div class="service-cards" style="margin-top: 1.5rem;">
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">🖥️</div>
+                <h4>React</h4>
+                <p style="font-size: 0.85rem;">Фронтенд</p>
+              </div>
+              <div style="display: flex; align-items: center; font-size: 2rem; color: var(--text-secondary);">→</div>
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">⚡</div>
+                <h4>Next.js API</h4>
+                <p style="font-size: 0.85rem;">Бэкенд</p>
+              </div>
+              <div style="display: flex; align-items: center; font-size: 2rem; color: var(--text-secondary);">→</div>
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">🗄️</div>
+                <h4>Supabase</h4>
+                <p style="font-size: 0.85rem;">База данных</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson1">
+              <p><strong>Где должны храниться транзакции в Money Tracker?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">В localStorage браузера</div>
+                <div class="quiz-option" data-correct="false">В переменной JavaScript</div>
+                <div class="quiz-option" data-correct="true">В базе данных на сервере (Supabase)</div>
+                <div class="quiz-option" data-correct="false">В cookies</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson1-localstorage"></span>
+                <span class="checklist-text">Попробовал localStorage в DevTools</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson1-api"></span>
+                <span class="checklist-text">Открыл jsonplaceholder API в браузере</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson1-structure"></span>
+                <span class="checklist-text">Понял структуру данных для транзакции</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson1-arch"></span>
+                <span class="checklist-text">Понял как данные проходят через систему</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="index.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Главная</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="1">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-2.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Что такое API</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 6.2: Что такое API? | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 6</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое бэкенд</a>
+        <a href="lesson-2.html" class="nav-item active" data-lesson="2"><span class="nav-item-number">2</span>Что такое API</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>База данных</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Настройка Supabase</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Создание таблицы</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Первый API Route</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>CRUD операции</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Тестирование API</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Фронтенд + Бэкенд</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 6</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 6.2</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 6.2</span>
+            <span class="lesson-duration">⏱ 25 минут</span>
+          </div>
+          <h1 class="lesson-title">Что такое API?</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Учимся "разговаривать" с бэкендом на примере Money Tracker
+          </p>
+        </div>
+
+        <!-- API for Money Tracker -->
+        <section class="card">
+          <div class="card-header">API нашего Money Tracker</div>
+          <div class="card-body">
+            <p>Вот какой API мы создадим для приложения финансов:</p>
+
+            <div class="table-container" style="margin: 1rem 0;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Действие пользователя</th>
+                    <th>Метод</th>
+                    <th>Endpoint</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Открыл приложение — показать все транзакции</td>
+                    <td><span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 4px;">GET</span></td>
+                    <td><code>/api/transactions</code></td>
+                  </tr>
+                  <tr>
+                    <td>Нажал "Добавить расход"</td>
+                    <td><span style="background: #3B82F6; color: white; padding: 2px 8px; border-radius: 4px;">POST</span></td>
+                    <td><code>/api/transactions</code></td>
+                  </tr>
+                  <tr>
+                    <td>Изменил сумму транзакции</td>
+                    <td><span style="background: #F59E0B; color: white; padding: 2px 8px; border-radius: 4px;">PATCH</span></td>
+                    <td><code>/api/transactions/5</code></td>
+                  </tr>
+                  <tr>
+                    <td>Удалил транзакцию</td>
+                    <td><span style="background: #EF4444; color: white; padding: 2px 8px; border-radius: 4px;">DELETE</span></td>
+                    <td><code>/api/transactions/5</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>API</strong> — это "меню" команд для бэкенда.
+                <strong>Endpoint</strong> — конкретный адрес команды.
+                <a href="glossary.html" style="color: inherit; text-decoration: underline;">Все термины в глоссарии →</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 1: Call Real API -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 1: Вызываем настоящий API</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Откройте DevTools (F12) → Console и выполните этот код:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">JavaScript — скопируйте в Console</span>
+                <button class="code-block-copy" title="Копировать">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                </button>
+              </div>
+              <pre><code>// GET запрос — получить данные
+fetch('https://jsonplaceholder.typicode.com/posts/1')
+  .then(response => response.json())
+  .then(data => console.log(data));</code></pre>
+            </div>
+
+            <p style="margin-top: 1rem;"><strong>Что вы увидите в консоли:</strong></p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Ответ от API (JSON)</span>
+              </div>
+              <pre><code>{
+  "userId": 1,
+  "id": 1,
+  "title": "sunt aut facere...",
+  "body": "quia et suscipit..."
+}</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Вы только что вызвали API!</strong> fetch() отправил GET запрос, сервер вернул данные в формате JSON.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 2: Multiple requests -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 2: Разные запросы</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Попробуйте эти запросы в Console (по одному):</p>
+
+            <h4>1. Получить список постов (как список транзакций):</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">GET — получить много записей</span>
+              </div>
+              <pre><code>fetch('https://jsonplaceholder.typicode.com/posts?_limit=3')
+  .then(r => r.json())
+  .then(data => console.log('Список:', data));</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">2. Создать новую запись (как добавить транзакцию):</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">POST — создать новое</span>
+              </div>
+              <pre><code>fetch('https://jsonplaceholder.typicode.com/posts', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    title: 'Моя транзакция',
+    body: 'Расход 500 рублей на кофе'
+  })
+})
+.then(r => r.json())
+.then(data => console.log('Создано:', data));</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">3. Удалить запись:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">DELETE — удалить</span>
+              </div>
+              <pre><code>fetch('https://jsonplaceholder.typicode.com/posts/1', {
+  method: 'DELETE'
+})
+.then(() => console.log('Удалено!'));</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                jsonplaceholder — это тестовый API. Он не сохраняет данные по-настоящему, но показывает как работают запросы.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- HTTP Methods -->
+        <section class="card">
+          <div class="card-header">HTTP методы — шпаргалка</div>
+          <div class="card-body">
+            <div class="service-cards">
+              <div class="service-card" style="border-left: 4px solid #10B981;">
+                <h4 style="color: #10B981; margin-bottom: 0.5rem;">GET</h4>
+                <p class="service-card-desc" style="margin-bottom: 0.5rem;"><strong>Получить</strong></p>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                  Money Tracker: показать транзакции<br>
+                  Не меняет данные на сервере
+                </p>
+              </div>
+
+              <div class="service-card" style="border-left: 4px solid #3B82F6;">
+                <h4 style="color: #3B82F6; margin-bottom: 0.5rem;">POST</h4>
+                <p class="service-card-desc" style="margin-bottom: 0.5rem;"><strong>Создать</strong></p>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                  Money Tracker: добавить расход<br>
+                  Создаёт новую запись
+                </p>
+              </div>
+
+              <div class="service-card" style="border-left: 4px solid #F59E0B;">
+                <h4 style="color: #F59E0B; margin-bottom: 0.5rem;">PATCH</h4>
+                <p class="service-card-desc" style="margin-bottom: 0.5rem;"><strong>Изменить</strong></p>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                  Money Tracker: исправить сумму<br>
+                  Меняет существующую запись
+                </p>
+              </div>
+
+              <div class="service-card" style="border-left: 4px solid #EF4444;">
+                <h4 style="color: #EF4444; margin-bottom: 0.5rem;">DELETE</h4>
+                <p class="service-card-desc" style="margin-bottom: 0.5rem;"><strong>Удалить</strong></p>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                  Money Tracker: удалить транзакцию<br>
+                  Удаляет запись навсегда
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 3: Match actions -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 3: Подбери метод</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Какой HTTP метод нужен для каждого действия в Money Tracker?</p>
+
+            <div class="table-container" style="margin: 1rem 0;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Действие</th>
+                    <th>Метод</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Пользователь хочет увидеть все свои расходы за месяц</td>
+                    <td><span style="background: #10B981; color: white; padding: 4px 12px; border-radius: 4px; cursor: pointer;" onclick="this.textContent = 'GET'">?</span></td>
+                  </tr>
+                  <tr>
+                    <td>Пользователь заплатил за обед и хочет записать расход</td>
+                    <td><span style="background: #3B82F6; color: white; padding: 4px 12px; border-radius: 4px; cursor: pointer;" onclick="this.textContent = 'POST'">?</span></td>
+                  </tr>
+                  <tr>
+                    <td>Пользователь ошибся в сумме — было 500, нужно 550</td>
+                    <td><span style="background: #F59E0B; color: white; padding: 4px 12px; border-radius: 4px; cursor: pointer;" onclick="this.textContent = 'PATCH'">?</span></td>
+                  </tr>
+                  <tr>
+                    <td>Пользователь случайно добавил дубликат — нужно удалить</td>
+                    <td><span style="background: #EF4444; color: white; padding: 4px 12px; border-radius: 4px; cursor: pointer;" onclick="this.textContent = 'DELETE'">?</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p style="font-size: 0.9rem; color: var(--text-secondary);">Нажмите на "?" чтобы увидеть ответ</p>
+          </div>
+        </section>
+
+        <!-- JSON -->
+        <section class="card">
+          <div class="card-header">JSON — формат данных</div>
+          <div class="card-body">
+            <p>Данные передаются в формате <strong>JSON</strong>. Вот как будет выглядеть транзакция:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">JSON — одна транзакция</span>
+              </div>
+              <pre><code>{
+  "id": 42,
+  "amount": 1200,
+  "type": "expense",
+  "category": "Кафе",
+  "description": "Обед с коллегами",
+  "date": "2024-01-15"
+}</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Правила JSON:</h4>
+            <ul>
+              <li>Ключи в двойных кавычках: <code>"amount"</code></li>
+              <li>Строки в двойных кавычках: <code>"expense"</code></li>
+              <li>Числа без кавычек: <code>1200</code></li>
+              <li>Массив в квадратных скобках: <code>[ {}, {} ]</code></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson2">
+              <p><strong>Вы хотите добавить новый расход в Money Tracker. Какой метод использовать?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">GET</div>
+                <div class="quiz-option" data-correct="true">POST</div>
+                <div class="quiz-option" data-correct="false">DELETE</div>
+                <div class="quiz-option" data-correct="false">PATCH</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson2-fetch"></span>
+                <span class="checklist-text">Вызвал API через fetch() в Console</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson2-get"></span>
+                <span class="checklist-text">Попробовал GET запрос</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson2-post"></span>
+                <span class="checklist-text">Попробовал POST запрос</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson2-methods"></span>
+                <span class="checklist-text">Знаю когда использовать GET/POST/PATCH/DELETE</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson2-json"></span>
+                <span class="checklist-text">Понимаю формат JSON</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-1.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Что такое бэкенд</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="2">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-3.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">База данных</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

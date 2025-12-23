@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 6.7: CRUD операции | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 6</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое бэкенд</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Что такое API</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>База данных</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Настройка Supabase</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Создание таблицы</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Первый API Route</a>
+        <a href="lesson-7.html" class="nav-item active" data-lesson="7"><span class="nav-item-number">7</span>CRUD операции</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Тестирование API</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Фронтенд + Бэкенд</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 6</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 6.7</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 6.7</span>
+            <span class="lesson-duration">⏱ 40 минут</span>
+          </div>
+          <h1 class="lesson-title">CRUD операции для Money Tracker</h1>
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Добавить возможность создавать транзакции (POST)</li>
+              <li>Добавить возможность изменять транзакции (PATCH)</li>
+              <li>Добавить возможность удалять транзакции (DELETE)</li>
+              <li>Создать полноценный REST API</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Это самый длинный урок!</strong> Делайте паузы между методами. Каждую операцию можно сразу тестировать. К концу урока — полноценный API!</p>
+          </div>
+        </div>
+
+        <!-- Что такое CRUD -->
+        <section class="card">
+          <div class="card-header">Что такое CRUD?</div>
+          <div class="card-body">
+            <p><a href="glossary.html#crud" class="glossary-link">CRUD</a> — четыре базовых операции с данными:</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+              <div style="background: #ECFDF5; border: 2px solid #10B981; border-radius: 12px; padding: 1rem; text-align: center;">
+                <div style="font-size: 1.5rem; font-weight: bold; color: #059669;">C</div>
+                <div style="font-size: 0.85rem; margin-top: 0.25rem;">Create</div>
+                <div style="font-size: 0.75rem; color: #6B7280;">Создать</div>
+              </div>
+              <div style="background: #EFF6FF; border: 2px solid #3B82F6; border-radius: 12px; padding: 1rem; text-align: center;">
+                <div style="font-size: 1.5rem; font-weight: bold; color: #2563EB;">R</div>
+                <div style="font-size: 0.85rem; margin-top: 0.25rem;">Read</div>
+                <div style="font-size: 0.75rem; color: #6B7280;">Прочитать</div>
+              </div>
+              <div style="background: #FFFBEB; border: 2px solid #F59E0B; border-radius: 12px; padding: 1rem; text-align: center;">
+                <div style="font-size: 1.5rem; font-weight: bold; color: #D97706;">U</div>
+                <div style="font-size: 0.85rem; margin-top: 0.25rem;">Update</div>
+                <div style="font-size: 0.75rem; color: #6B7280;">Изменить</div>
+              </div>
+              <div style="background: #FEF2F2; border: 2px solid #EF4444; border-radius: 12px; padding: 1rem; text-align: center;">
+                <div style="font-size: 1.5rem; font-weight: bold; color: #DC2626;">D</div>
+                <div style="font-size: 0.85rem; margin-top: 0.25rem;">Delete</div>
+                <div style="font-size: 0.75rem; color: #6B7280;">Удалить</div>
+              </div>
+            </div>
+
+            <p><strong>Для Money Tracker это значит:</strong></p>
+            <ul>
+              <li><strong>Create</strong> — добавить новую транзакцию (зарплата, покупка)</li>
+              <li><strong>Read</strong> — посмотреть транзакции (уже сделали!)</li>
+              <li><strong>Update</strong> — исправить ошибку (неправильная сумма)</li>
+              <li><strong>Delete</strong> — удалить лишнюю запись</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Практика 1: POST -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">🔧 Практика 1: CREATE — добавляем транзакцию</div>
+          <div class="card-body">
+            <p><strong>Сценарий:</strong> Пользователь хочет записать расход 500₽ на кофе.</p>
+
+            <div style="background: #F9FAFB; border: 2px solid #E5E7EB; border-radius: 12px; padding: 1.5rem; margin: 1rem 0;">
+              <p style="margin: 0 0 0.5rem 0; font-weight: 600;">Что отправляет фронтенд:</p>
+              <div class="code-block" style="margin: 0;">
+                <pre><code>{
+  "amount": 500,
+  "type": "expense",
+  "category": "Еда",
+  "description": "Кофе в Старбаксе",
+  "date": "2024-12-20"
+}</code></pre>
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Промпт для Cursor:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+                <button class="code-block-copy" title="Копировать">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                </button>
+              </div>
+              <pre><code>Добавь POST метод в app/api/transactions/route.ts для Money Tracker:
+
+1. Принимает JSON: amount, type, category, description, date
+2. Валидация:
+   - amount должен быть > 0
+   - type должен быть "income" или "expense"
+   - category обязателен
+3. Создаёт запись в Supabase
+4. Возвращает созданную транзакцию со статусом 201
+5. При ошибке валидации — статус 400
+6. При ошибке сервера — статус 500</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Ожидаемый код:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">app/api/transactions/route.ts (добавить)</span>
+              </div>
+              <pre><code>export async function POST(request: Request) {
+  try {
+    const body = await request.json()
+    const { amount, type, category, description, date } = body
+
+    // Валидация
+    if (!amount || amount <= 0) {
+      return NextResponse.json(
+        { error: 'Сумма должна быть больше 0' },
+        { status: 400 }
+      )
+    }
+
+    if (type !== 'income' && type !== 'expense') {
+      return NextResponse.json(
+        { error: 'Тип должен быть income или expense' },
+        { status: 400 }
+      )
+    }
+
+    if (!category) {
+      return NextResponse.json(
+        { error: 'Категория обязательна' },
+        { status: 400 }
+      )
+    }
+
+    // Создаём запись в Supabase
+    const { data, error } = await supabase
+      .from('transactions')
+      .insert([{ amount, type, category, description, date }])
+      .select()
+      .single()
+
+    if (error) throw error
+
+    return NextResponse.json(data, { status: 201 })
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Ошибка создания транзакции' },
+      { status: 500 }
+    )
+  }
+}</code></pre>
+            </div>
+
+            <div style="background: #ECFDF5; border: 1px solid #10B981; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+              <strong style="color: #059669;">✅ Проверка:</strong>
+              POST метод добавлен в route.ts? Пока не можем протестировать — для этого нужен инструмент (урок 8).
+            </div>
+          </div>
+        </section>
+
+        <!-- Практика 2: Создание [id] route -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">🔧 Практика 2: Создаём route для конкретной транзакции</div>
+          <div class="card-body">
+            <p><strong>Проблема:</strong> Чтобы изменить или удалить транзакцию, нужно указать её <code>id</code>.</p>
+
+            <p>Нужен URL типа: <code>/api/transactions/5</code> — работа с транзакцией #5</p>
+
+            <div style="background: #F3F4F6; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+              <h4 style="margin: 0 0 1rem 0;">Создайте структуру:</h4>
+              <div class="code-block" style="margin: 0;">
+                <pre><code>app/api/transactions/
+├── route.ts           ← GET all, POST (уже есть)
+└── [id]/
+    └── route.ts       ← GET one, PATCH, DELETE (создаём)</code></pre>
+              </div>
+            </div>
+
+            <div style="background: #FEF3C7; border: 1px solid #F59E0B; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+              <strong>🎯 Задание:</strong>
+              <ol style="margin: 0.5rem 0 0 1.5rem; padding: 0;">
+                <li>Создайте папку <code>[id]</code> внутри <code>transactions/</code></li>
+                <li>Создайте файл <code>route.ts</code> внутри <code>[id]/</code></li>
+              </ol>
+              <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #92400E;">
+                Квадратные скобки <code>[id]</code> — это динамический параметр в Next.js!
+              </p>
+            </div>
+
+            <div style="background: #ECFDF5; border: 1px solid #10B981; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+              <strong style="color: #059669;">✅ Проверка:</strong>
+              Файл <code>app/api/transactions/[id]/route.ts</code> создан?
+            </div>
+          </div>
+        </section>
+
+        <!-- Практика 3: PATCH -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">🔧 Практика 3: UPDATE — изменяем транзакцию</div>
+          <div class="card-body">
+            <p><strong>Сценарий:</strong> Ошиблись в сумме — было 500₽, а нужно 550₽.</p>
+
+            <div style="background: #F9FAFB; border: 2px solid #E5E7EB; border-radius: 12px; padding: 1.5rem; margin: 1rem 0;">
+              <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center;">
+                <div>
+                  <p style="margin: 0; font-weight: 600;">Было:</p>
+                  <p style="margin: 0.25rem 0 0 0; color: #DC2626;">amount: 500</p>
+                </div>
+                <div style="font-size: 1.5rem;">→</div>
+                <div>
+                  <p style="margin: 0; font-weight: 600;">Стало:</p>
+                  <p style="margin: 0.25rem 0 0 0; color: #059669;">amount: 550</p>
+                </div>
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Промпт для Cursor:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+                <button class="code-block-copy" title="Копировать">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                </button>
+              </div>
+              <pre><code>Создай PATCH метод в app/api/transactions/[id]/route.ts:
+
+1. Получает id транзакции из URL параметров
+2. Принимает JSON с полями для обновления (любые: amount, type, category, description, date)
+3. Обновляет транзакцию в Supabase по id
+4. Возвращает обновлённую транзакцию
+5. Если не найдена — статус 404
+6. При ошибке — статус 500</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Ожидаемый код:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">app/api/transactions/[id]/route.ts</span>
+              </div>
+              <pre><code>import { NextResponse } from 'next/server'
+import { supabase } from '@/lib/supabase'
+
+export async function PATCH(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const id = params.id
+    const body = await request.json()
+
+    const { data, error } = await supabase
+      .from('transactions')
+      .update(body)
+      .eq('id', id)
+      .select()
+      .single()
+
+    if (error) throw error
+
+    if (!data) {
+      return NextResponse.json(
+        { error: 'Транзакция не найдена' },
+        { status: 404 }
+      )
+    }
+
+    return NextResponse.json(data)
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Ошибка обновления транзакции' },
+      { status: 500 }
+    )
+  }
+}</code></pre>
+            </div>
+
+            <div style="background: #F3F4F6; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+              <p style="margin: 0;"><strong>Как это работает:</strong></p>
+              <ul style="margin: 0.5rem 0 0 1.5rem; padding: 0;">
+                <li><code>params.id</code> — получаем id из URL (например, 5 из /api/transactions/5)</li>
+                <li><code>.eq('id', id)</code> — находим запись с таким id</li>
+                <li><code>.update(body)</code> — обновляем только те поля, что прислали</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Практика 4: DELETE -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">🔧 Практика 4: DELETE — удаляем транзакцию</div>
+          <div class="card-body">
+            <p><strong>Сценарий:</strong> Случайно добавили дубликат транзакции — нужно удалить.</p>
+
+            <h4 style="margin-top: 1rem;">Промпт для Cursor:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+                <button class="code-block-copy" title="Копировать">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                </button>
+              </div>
+              <pre><code>Добавь DELETE метод в app/api/transactions/[id]/route.ts:
+
+1. Получает id транзакции из URL
+2. Удаляет транзакцию из Supabase
+3. Возвращает { success: true, message: "Транзакция удалена" }
+4. При ошибке — статус 500</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Ожидаемый код:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Добавить в [id]/route.ts</span>
+              </div>
+              <pre><code>export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const id = params.id
+
+    const { error } = await supabase
+      .from('transactions')
+      .delete()
+      .eq('id', id)
+
+    if (error) throw error
+
+    return NextResponse.json({
+      success: true,
+      message: 'Транзакция удалена'
+    })
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Ошибка удаления транзакции' },
+      { status: 500 }
+    )
+  }
+}</code></pre>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Осторожно!</strong> DELETE удаляет данные безвозвратно. В реальном приложении часто используют "мягкое удаление" (добавляют флаг deleted вместо реального удаления).
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Практика 5: GET one -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">🔧 Практика 5 (бонус): GET одной транзакции</div>
+          <div class="card-body">
+            <p><strong>Добавим возможность получить одну транзакцию по id:</strong></p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Добавить в [id]/route.ts</span>
+              </div>
+              <pre><code>export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const id = params.id
+
+    const { data, error } = await supabase
+      .from('transactions')
+      .select('*')
+      .eq('id', id)
+      .single()
+
+    if (error) throw error
+
+    if (!data) {
+      return NextResponse.json(
+        { error: 'Транзакция не найдена' },
+        { status: 404 }
+      )
+    }
+
+    return NextResponse.json(data)
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Ошибка получения транзакции' },
+      { status: 500 }
+    )
+  }
+}</code></pre>
+            </div>
+
+            <p style="margin-top: 1rem;">Теперь можно открыть <code>/api/transactions/1</code> и увидеть только транзакцию с id=1.</p>
+          </div>
+        </section>
+
+        <!-- Итоговая таблица API -->
+        <section class="card">
+          <div class="card-header">Итоговая структура API Money Tracker</div>
+          <div class="card-body">
+            <div style="overflow-x: auto;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                <thead>
+                  <tr style="background: #F3F4F6;">
+                    <th style="padding: 0.75rem; text-align: left; border: 1px solid #E5E7EB;">Метод</th>
+                    <th style="padding: 0.75rem; text-align: left; border: 1px solid #E5E7EB;">URL</th>
+                    <th style="padding: 0.75rem; text-align: left; border: 1px solid #E5E7EB;">Действие</th>
+                    <th style="padding: 0.75rem; text-align: left; border: 1px solid #E5E7EB;">Пример для Money Tracker</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;"><span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem;">GET</span></td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;"><code>/api/transactions</code></td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Все транзакции</td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Показать список расходов/доходов</td>
+                  </tr>
+                  <tr style="background: #F9FAFB;">
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;"><span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem;">GET</span></td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;"><code>/api/transactions/5</code></td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Одна транзакция</td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Детали транзакции #5</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;"><span style="background: #3B82F6; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem;">POST</span></td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;"><code>/api/transactions</code></td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Создать</td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Добавить новый расход</td>
+                  </tr>
+                  <tr style="background: #F9FAFB;">
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;"><span style="background: #F59E0B; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem;">PATCH</span></td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;"><code>/api/transactions/5</code></td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Изменить</td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Исправить сумму транзакции #5</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;"><span style="background: #EF4444; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem;">DELETE</span></td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;"><code>/api/transactions/5</code></td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Удалить</td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Удалить транзакцию #5</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>🎉 Поздравляю!</strong> У вас теперь полноценный REST API для Money Tracker!<br>
+                В следующем уроке научимся тестировать все эти endpoints.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-post"></span>
+                <span class="checklist-text">POST метод добавлен (создание транзакций)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-folder"></span>
+                <span class="checklist-text">Папка [id] создана</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-patch"></span>
+                <span class="checklist-text">PATCH метод добавлен (изменение)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-delete"></span>
+                <span class="checklist-text">DELETE метод добавлен (удаление)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-get-one"></span>
+                <span class="checklist-text">GET одной транзакции добавлен (бонус)</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-6.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Первый API Route</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="7">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-8.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Тестирование API</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

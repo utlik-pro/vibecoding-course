@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 6.9: Связь фронтенда с бэкендом | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 6</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое бэкенд</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Что такое API</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>База данных</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Настройка Supabase</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Создание таблицы</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Первый API Route</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>CRUD операции</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Тестирование API</a>
+        <a href="lesson-9.html" class="nav-item active" data-lesson="9"><span class="nav-item-number">9</span>Фронтенд + Бэкенд</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 6</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 6.9</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 6.9</span>
+            <span class="lesson-duration">⏱ 35 минут</span>
+          </div>
+          <h1 class="lesson-title">Связь фронтенда с бэкендом</h1>
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Создать интерфейс Money Tracker</li>
+              <li>Отобразить транзакции из базы данных</li>
+              <li>Показать баланс (доходы - расходы)</li>
+              <li>Добавить форму для новых транзакций</li>
+              <li>Реализовать удаление транзакций</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Intro -->
+        <section class="card">
+          <div class="card-header">Финальный рывок!</div>
+          <div class="card-body">
+            <p><strong>Сценарий:</strong> У нас есть работающий API и база данных с транзакциями. Осталось сделать красивый интерфейс, чтобы пользователь мог:</p>
+
+            <ul style="margin: 1rem 0;">
+              <li>Видеть свой баланс</li>
+              <li>Просматривать список транзакций</li>
+              <li>Добавлять новые расходы и доходы</li>
+              <li>Удалять ненужные записи</li>
+            </ul>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>К концу урока</strong> у вас будет полностью работающее приложение Money Tracker!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- What is fetch -->
+        <section class="card">
+          <div class="card-header">Как React общается с API?</div>
+          <div class="card-body">
+            <p>Для вызова нашего API из React используется функция <a href="glossary.html" class="glossary-link" data-term="fetch">fetch()</a>:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">javascript</span>
+              </div>
+              <pre><code>// Получить транзакции (GET)
+const response = await fetch('/api/transactions');
+const transactions = await response.json();
+
+// Добавить транзакцию (POST)
+await fetch('/api/transactions', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ amount: 500, type: 'expense', category: 'Кафе' })
+});
+
+// Удалить транзакцию (DELETE)
+await fetch('/api/transactions/5', { method: 'DELETE' });</code></pre>
+            </div>
+
+            <div class="interactive-block" style="margin: 1rem 0;">
+              <div class="interactive-header" onclick="this.parentElement.classList.toggle('open')" style="cursor: pointer; padding: 1rem; background: #eff6ff; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 600; color: #1e40af;">Что значит await? (клик)</span>
+                <span class="toggle-icon" style="transition: transform 0.3s;">▼</span>
+              </div>
+              <div class="interactive-content" style="display: none; padding: 1rem; background: #f8fafc; border-radius: 0 0 8px 8px;">
+                <p><strong>await</strong> = "подожди ответа"</p>
+                <p>fetch() отправляет запрос на сервер. Ответ приходит не мгновенно (может занять 100-500мс). <code>await</code> говорит JavaScript: "Подожди пока придёт ответ, потом продолжай".</p>
+                <p style="margin-top: 0.5rem; color: #6b7280;">Без await код пойдёт дальше, не дожидаясь данных — и вы получите undefined вместо транзакций.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 1: Create TransactionList -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 1: Создаём компонент списка транзакций</div>
+          <div class="card-body">
+            <p><strong>Задача:</strong> Создать компонент, который загружает и отображает все транзакции из базы данных.</p>
+
+            <h4>Шаг 1: Попросите Cursor создать компонент</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+                <button class="code-block-copy" title="Копировать">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                </button>
+              </div>
+              <pre><code>Создай компонент components/TransactionList.tsx для Money Tracker:
+
+1. При загрузке получи транзакции из /api/transactions через fetch
+2. Используй useState для хранения транзакций
+3. Используй useState для loading состояния
+4. Используй useEffect для загрузки при монтировании
+5. Пока загрузка — покажи "Загрузка..."
+6. Отобрази каждую транзакцию:
+   - Категория (жирным)
+   - Описание (серым)
+   - Сумма: зелёная для income, красная для expense
+   - + перед суммой дохода, - перед расходом
+7. Используй Tailwind CSS
+8. Добавь 'use client' в начало файла</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Шаг 2: Проверьте что файл создан</h4>
+            <p>Файл должен появиться: <code>components/TransactionList.tsx</code></p>
+
+            <div class="interactive-block" style="margin: 1rem 0;">
+              <div class="interactive-header" onclick="this.parentElement.classList.toggle('open')" style="cursor: pointer; padding: 1rem; background: #f0fdf4; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 600; color: #166534;">Как должен выглядеть код? (клик)</span>
+                <span class="toggle-icon" style="transition: transform 0.3s;">▼</span>
+              </div>
+              <div class="interactive-content" style="display: none; padding: 1rem; background: #f8fafc; border-radius: 0 0 8px 8px;">
+                <div class="code-block">
+                  <pre><code>'use client';
+import { useState, useEffect } from 'react';
+
+type Transaction = {
+  id: number;
+  amount: number;
+  type: 'income' | 'expense';
+  category: string;
+  description: string | null;
+  date: string;
+};
+
+export default function TransactionList() {
+  const [transactions, setTransactions] = useState&lt;Transaction[]&gt;([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchTransactions = async () => {
+    const res = await fetch('/api/transactions');
+    const data = await res.json();
+    setTransactions(data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
+
+  if (loading) return &lt;div&gt;Загрузка...&lt;/div&gt;;
+
+  return (
+    &lt;div className="space-y-2"&gt;
+      {transactions.map((t) =&gt; (
+        &lt;div key={t.id} className="flex justify-between p-4 bg-white border rounded-lg"&gt;
+          &lt;div&gt;
+            &lt;div className="font-semibold"&gt;{t.category}&lt;/div&gt;
+            &lt;div className="text-sm text-gray-500"&gt;{t.description}&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div className={t.type === 'income' ? 'text-green-600 font-bold' : 'text-red-600 font-bold'}&gt;
+            {t.type === 'income' ? '+' : '-'}{t.amount.toLocaleString()} ₽
+          &lt;/div&gt;
+        &lt;/div&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <h4>Шаг 3: Подключите на главной странице</h4>
+            <p>Откройте <code>app/page.tsx</code> и попросите Cursor:</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+              </div>
+              <pre><code>Подключи TransactionList на главной странице.
+Добавь заголовок "Money Tracker" и контейнер с max-w-2xl.</code></pre>
+            </div>
+
+            <h4>Шаг 4: Проверка</h4>
+            <p>Откройте <code>http://localhost:3000</code> — вы должны увидеть список транзакций из Supabase!</p>
+          </div>
+        </section>
+
+        <!-- Practice 2: Add Balance -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 2: Добавляем отображение баланса</div>
+          <div class="card-body">
+            <p><strong>Сценарий:</strong> Пользователь хочет видеть: сколько заработал, сколько потратил, и сколько осталось.</p>
+
+            <h4>Промпт для Cursor:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+                <button class="code-block-copy" title="Копировать">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                </button>
+              </div>
+              <pre><code>Добавь в TransactionList блок с балансом ПЕРЕД списком:
+
+1. Вычисли totalIncome — сумма всех транзакций где type === 'income'
+2. Вычисли totalExpense — сумма всех где type === 'expense'
+3. balance = totalIncome - totalExpense
+4. Отобрази 3 карточки в ряд (grid-cols-3):
+   - Доходы: зелёный фон, сумма с +
+   - Расходы: красный фон, сумма с -
+   - Баланс: синий фон если >= 0, красный если < 0
+5. Форматируй числа с toLocaleString() для разделителей тысяч
+6. Добавь знак ₽ после суммы</code></pre>
+            </div>
+
+            <div class="interactive-block" style="margin: 1rem 0;">
+              <div class="interactive-header" onclick="this.parentElement.classList.toggle('open')" style="cursor: pointer; padding: 1rem; background: #f0fdf4; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 600; color: #166534;">Как вычислить суммы? (клик)</span>
+                <span class="toggle-icon" style="transition: transform 0.3s;">▼</span>
+              </div>
+              <div class="interactive-content" style="display: none; padding: 1rem; background: #f8fafc; border-radius: 0 0 8px 8px;">
+                <div class="code-block">
+                  <pre><code>// Сумма всех доходов
+const totalIncome = transactions
+  .filter(t => t.type === 'income')
+  .reduce((sum, t) => sum + t.amount, 0);
+
+// Сумма всех расходов
+const totalExpense = transactions
+  .filter(t => t.type === 'expense')
+  .reduce((sum, t) => sum + t.amount, 0);
+
+// Баланс
+const balance = totalIncome - totalExpense;</code></pre>
+                </div>
+                <p style="margin-top: 1rem;"><strong>Пример:</strong></p>
+                <ul>
+                  <li>Доходы: 50000 + 15000 = <span style="color: #10B981;">65 000 ₽</span></li>
+                  <li>Расходы: 1200 + 350 + 3500 = <span style="color: #EF4444;">5 050 ₽</span></li>
+                  <li>Баланс: 65000 - 5050 = <span style="color: #3B82F6;">59 950 ₽</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <h4>Ожидаемый результат:</h4>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0;">
+              <div style="background: #dcfce7; padding: 1rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 0.875rem; color: #166534;">Доходы</div>
+                <div style="font-size: 1.5rem; font-weight: bold; color: #15803d;">+65 000 ₽</div>
+              </div>
+              <div style="background: #fee2e2; padding: 1rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 0.875rem; color: #991b1b;">Расходы</div>
+                <div style="font-size: 1.5rem; font-weight: bold; color: #dc2626;">-5 050 ₽</div>
+              </div>
+              <div style="background: #dbeafe; padding: 1rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 0.875rem; color: #1e40af;">Баланс</div>
+                <div style="font-size: 1.5rem; font-weight: bold; color: #2563eb;">59 950 ₽</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 3: Add Form -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 3: Форма добавления транзакции</div>
+          <div class="card-body">
+            <p><strong>Сценарий:</strong> Пользователь купил кофе за 350 рублей и хочет записать этот расход.</p>
+
+            <h4>Промпт для Cursor:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+                <button class="code-block-copy" title="Копировать">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                </button>
+              </div>
+              <pre><code>Добавь форму для создания транзакции МЕЖДУ балансом и списком:
+
+Поля формы:
+- amount: number input, placeholder "Сумма", обязательное
+- type: select с опциями "Расход" (expense) и "Доход" (income)
+- category: select с опциями: Зарплата, Фриланс, Кафе, Продукты, Транспорт, Развлечения, Другое
+- description: text input, placeholder "Описание (необязательно)"
+
+Поведение:
+1. При submit отправь POST на /api/transactions
+2. Покажи loading состояние на кнопке
+3. После успеха — перезагрузи список транзакций (вызови fetchTransactions)
+4. Очисти форму после добавления
+5. Кнопка "Добавить транзакцию" зелёного цвета</code></pre>
+            </div>
+
+            <div class="interactive-block" style="margin: 1rem 0;">
+              <div class="interactive-header" onclick="this.parentElement.classList.toggle('open')" style="cursor: pointer; padding: 1rem; background: #f0fdf4; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 600; color: #166534;">Ключевой код формы (клик)</span>
+                <span class="toggle-icon" style="transition: transform 0.3s;">▼</span>
+              </div>
+              <div class="interactive-content" style="display: none; padding: 1rem; background: #f8fafc; border-radius: 0 0 8px 8px;">
+                <div class="code-block">
+                  <pre><code>const [amount, setAmount] = useState('');
+const [type, setType] = useState&lt;'income' | 'expense'&gt;('expense');
+const [category, setCategory] = useState('Другое');
+const [description, setDescription] = useState('');
+const [submitting, setSubmitting] = useState(false);
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();  // Предотвращаем перезагрузку страницы
+  setSubmitting(true);
+
+  await fetch('/api/transactions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      amount: Number(amount),
+      type,
+      category,
+      description: description || null
+    })
+  });
+
+  // Обновить список и баланс
+  await fetchTransactions();
+
+  // Очистить форму
+  setAmount('');
+  setDescription('');
+  setSubmitting(false);
+};</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <h4>Тест формы:</h4>
+            <ol>
+              <li>Введите сумму: <strong>350</strong></li>
+              <li>Выберите тип: <strong>Расход</strong></li>
+              <li>Выберите категорию: <strong>Кафе</strong></li>
+              <li>Описание: <strong>Кофе</strong></li>
+              <li>Нажмите "Добавить"</li>
+            </ol>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Проверка:</strong> Новая транзакция появилась в списке? Баланс уменьшился на 350 ₽? Отлично!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 4: Delete -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 4: Удаление транзакций</div>
+          <div class="card-body">
+            <p><strong>Сценарий:</strong> Пользователь случайно добавил неправильную транзакцию и хочет её удалить.</p>
+
+            <h4>Промпт для Cursor:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+                <button class="code-block-copy" title="Копировать">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                </button>
+              </div>
+              <pre><code>Добавь кнопку удаления для каждой транзакции:
+
+1. Добавь кнопку с иконкой корзины или текст "Удалить" справа от суммы
+2. При клике покажи confirm("Удалить эту транзакцию?")
+3. Если подтвердил — отправь DELETE на /api/transactions/{id}
+4. После удаления — обнови список (fetchTransactions)
+5. Кнопка красного цвета, появляется при наведении на транзакцию</code></pre>
+            </div>
+
+            <div class="interactive-block" style="margin: 1rem 0;">
+              <div class="interactive-header" onclick="this.parentElement.classList.toggle('open')" style="cursor: pointer; padding: 1rem; background: #fef2f2; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 600; color: #991b1b;">Код функции удаления (клик)</span>
+                <span class="toggle-icon" style="transition: transform 0.3s;">▼</span>
+              </div>
+              <div class="interactive-content" style="display: none; padding: 1rem; background: #f8fafc; border-radius: 0 0 8px 8px;">
+                <div class="code-block">
+                  <pre><code>const handleDelete = async (id: number) => {
+  // Спрашиваем подтверждение
+  if (!confirm('Удалить эту транзакцию?')) return;
+
+  // Отправляем DELETE запрос
+  await fetch(`/api/transactions/${id}`, {
+    method: 'DELETE'
+  });
+
+  // Обновляем список
+  await fetchTransactions();
+};
+
+// В JSX добавляем кнопку
+&lt;button
+  onClick={() => handleDelete(t.id)}
+  className="text-red-500 hover:text-red-700 ml-4"
+&gt;
+  Удалить
+&lt;/button&gt;</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <h4>Тест удаления:</h4>
+            <ol>
+              <li>Найдите тестовую транзакцию "Кофе" (которую добавили)</li>
+              <li>Нажмите "Удалить"</li>
+              <li>Подтвердите удаление</li>
+              <li>Транзакция должна исчезнуть, баланс — обновиться</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Practice 5: Polish UI -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 5: Улучшаем интерфейс</div>
+          <div class="card-body">
+            <p><strong>Задача:</strong> Добавить финальные штрихи для профессионального вида.</p>
+
+            <h4>Промпт для Cursor:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+                <button class="code-block-copy" title="Копировать">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                </button>
+              </div>
+              <pre><code>Улучши UI Money Tracker:
+
+1. Добавь отображение даты транзакции в формате "15 декабря"
+2. Отсортируй транзакции по дате (новые сверху)
+3. Если список пуст — покажи "Нет транзакций. Добавьте первую!"
+4. Добавь тень на карточки (shadow-sm)
+5. Сделай форму сворачиваемой (кнопка "Добавить +" раскрывает форму)
+6. Добавь анимацию при добавлении транзакции</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Форматирование даты на русском:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">typescript</span>
+              </div>
+              <pre><code>// Преобразование даты в читаемый формат
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'long'
+  });
+};
+
+// Использование
+&lt;div className="text-sm text-gray-400"&gt;{formatDate(t.date)}&lt;/div&gt;
+// Результат: "15 декабря"</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Troubleshooting -->
+        <section class="card">
+          <div class="card-header">Частые ошибки и решения</div>
+          <div class="card-body">
+            <div style="background: #fef2f2; border-radius: 8px; padding: 1rem; margin: 1rem 0; border-left: 4px solid #ef4444;">
+              <p style="margin: 0; font-weight: 600; color: #991b1b;">"Hydration failed"</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Причина:</strong> Компонент использует состояние, но нет 'use client'</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Решение:</strong> Добавьте <code>'use client';</code> в первую строку файла</p>
+            </div>
+
+            <div style="background: #fef2f2; border-radius: 8px; padding: 1rem; margin: 1rem 0; border-left: 4px solid #ef4444;">
+              <p style="margin: 0; font-weight: 600; color: #991b1b;">Данные не обновляются после добавления</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Причина:</strong> Забыли вызвать fetchTransactions() после POST</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Решение:</strong> Добавьте <code>await fetchTransactions();</code> после fetch</p>
+            </div>
+
+            <div style="background: #fef2f2; border-radius: 8px; padding: 1rem; margin: 1rem 0; border-left: 4px solid #ef4444;">
+              <p style="margin: 0; font-weight: 600; color: #991b1b;">Форма перезагружает страницу</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Причина:</strong> Нет e.preventDefault()</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Решение:</strong> Добавьте <code>e.preventDefault();</code> в начало handleSubmit</p>
+            </div>
+
+            <div style="background: #fef2f2; border-radius: 8px; padding: 1rem; margin: 1rem 0; border-left: 4px solid #ef4444;">
+              <p style="margin: 0; font-weight: 600; color: #991b1b;">Баланс показывает NaN</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Причина:</strong> amount — строка, а не число</p>
+              <p style="margin: 0.5rem 0 0 0;"><strong>Решение:</strong> Используйте <code>Number(t.amount)</code> при вычислении</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Final result -->
+        <section class="card">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Итоговый результат</div>
+          <div class="card-body">
+            <p>Поздравляю! Вы создали полноценное приложение Money Tracker:</p>
+
+            <div style="background: #f8fafc; border-radius: 12px; padding: 1.5rem; margin: 1rem 0; border: 2px solid #e2e8f0;">
+              <h4 style="margin: 0 0 1rem 0; text-align: center;">Money Tracker</h4>
+
+              <!-- Balance cards mockup -->
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1rem;">
+                <div style="background: #dcfce7; padding: 0.75rem; border-radius: 8px; text-align: center;">
+                  <div style="font-size: 0.75rem; color: #166534;">Доходы</div>
+                  <div style="font-weight: bold; color: #15803d;">+65 000 ₽</div>
+                </div>
+                <div style="background: #fee2e2; padding: 0.75rem; border-radius: 8px; text-align: center;">
+                  <div style="font-size: 0.75rem; color: #991b1b;">Расходы</div>
+                  <div style="font-weight: bold; color: #dc2626;">-5 050 ₽</div>
+                </div>
+                <div style="background: #dbeafe; padding: 0.75rem; border-radius: 8px; text-align: center;">
+                  <div style="font-size: 0.75rem; color: #1e40af;">Баланс</div>
+                  <div style="font-weight: bold; color: #2563eb;">59 950 ₽</div>
+                </div>
+              </div>
+
+              <!-- Transaction mockup -->
+              <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.75rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between;">
+                <div>
+                  <div style="font-weight: 600;">Зарплата</div>
+                  <div style="font-size: 0.875rem; color: #6b7280;">За декабрь</div>
+                </div>
+                <div style="color: #10B981; font-weight: bold;">+50 000 ₽</div>
+              </div>
+              <div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.75rem; display: flex; justify-content: space-between;">
+                <div>
+                  <div style="font-weight: 600;">Кафе</div>
+                  <div style="font-size: 0.875rem; color: #6b7280;">Обед</div>
+                </div>
+                <div style="color: #EF4444; font-weight: bold;">-1 200 ₽</div>
+              </div>
+            </div>
+
+            <h4>Что вы сделали:</h4>
+            <ul>
+              <li>База данных в Supabase с таблицей транзакций</li>
+              <li>API endpoints: GET, POST, PATCH, DELETE</li>
+              <li>React интерфейс с балансом и списком</li>
+              <li>Форма добавления транзакций</li>
+              <li>Функция удаления</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson9-list"></span>
+                <span class="checklist-text">Список транзакций отображается из базы</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson9-balance"></span>
+                <span class="checklist-text">Баланс вычисляется корректно</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson9-colors"></span>
+                <span class="checklist-text">Доходы зелёные, расходы красные</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson9-form"></span>
+                <span class="checklist-text">Форма добавляет новые транзакции</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson9-delete"></span>
+                <span class="checklist-text">Удаление транзакций работает</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson9-update"></span>
+                <span class="checklist-text">Баланс обновляется после изменений</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Teacher notes -->
+        <section class="card teacher-only">
+          <div class="card-header">Заметки преподавателя</div>
+          <div class="card-body">
+            <h4>Ключевые моменты:</h4>
+            <ul>
+              <li>Это кульминация модуля — дайте студентам время насладиться результатом</li>
+              <li>Если кто-то отстаёт — помогите скопировать готовый код</li>
+              <li>Покажите итоговый результат в начале для мотивации</li>
+              <li>Акцентируйте: "Вы сделали настоящее приложение с базой данных!"</li>
+            </ul>
+
+            <h4>Если не хватает времени:</h4>
+            <ul>
+              <li>Практика 5 (улучшение UI) можно пропустить</li>
+              <li>Достаточно: список + баланс + форма добавления</li>
+              <li>Удаление можно сделать на финальном проекте</li>
+            </ul>
+
+            <h4>Дополнительные задания для продвинутых:</h4>
+            <ul>
+              <li>Добавить редактирование транзакций (PATCH)</li>
+              <li>Фильтрация по типу (только расходы / только доходы)</li>
+              <li>Статистика по категориям</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-8.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Тестирование API</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="9">
+            Отметить урок пройденным
+          </button>
+
+          <a href="project.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Итоговый проект</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+  <script>
+    // Interactive blocks toggle
+    document.querySelectorAll('.interactive-block').forEach(block => {
+      const content = block.querySelector('.interactive-content');
+      const icon = block.querySelector('.toggle-icon');
+
+      block.querySelector('.interactive-header').addEventListener('click', () => {
+        const isOpen = content.style.display === 'block';
+        content.style.display = isOpen ? 'none' : 'block';
+        icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+      });
+    });
+  </script>
+</body>
+</html>

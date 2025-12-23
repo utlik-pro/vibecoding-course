@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 6.6: Первый API Route | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 6</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое бэкенд</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Что такое API</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>База данных</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Настройка Supabase</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Создание таблицы</a>
+        <a href="lesson-6.html" class="nav-item active" data-lesson="6"><span class="nav-item-number">6</span>Первый API Route</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>CRUD операции</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Тестирование API</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Фронтенд + Бэкенд</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 6</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 6.6</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 6.6</span>
+            <span class="lesson-duration">⏱ 30 минут</span>
+          </div>
+          <h1 class="lesson-title">Первый API Route для Money Tracker</h1>
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Создать GET endpoint для получения транзакций</li>
+              <li>Протестировать API в браузере</li>
+              <li>Добавить фильтрацию по типу (income/expense)</li>
+              <li>Увидеть данные из Supabase в браузере</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Это ключевой урок!</strong> Студенты впервые создают настоящий API. Результат виден сразу в браузере — это мотивирует! Используйте Cursor для генерации кода.</p>
+          </div>
+        </div>
+
+        <!-- Что будем создавать -->
+        <section class="card">
+          <div class="card-header">Что будем создавать</div>
+          <div class="card-body">
+            <p>Сейчас наши транзакции лежат в Supabase. Мы создадим <a href="glossary.html#api-route" class="glossary-link">API Route</a> — специальный URL, по которому можно получить эти данные.</p>
+
+            <div style="background: #F9FAFB; border: 2px solid #E5E7EB; border-radius: 12px; padding: 1.5rem; margin: 1rem 0;">
+              <p style="margin: 0 0 1rem 0; font-weight: 600;">Схема работы:</p>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; font-size: 0.9rem;">
+                <div style="background: #EFF6FF; padding: 0.75rem 1rem; border-radius: 8px; text-align: center;">
+                  <div>🖥️</div>
+                  <div>Браузер</div>
+                </div>
+                <div style="color: #6B7280;">→</div>
+                <div style="background: #FEF3C7; padding: 0.75rem 1rem; border-radius: 8px; text-align: center;">
+                  <div>📍</div>
+                  <div>/api/transactions</div>
+                </div>
+                <div style="color: #6B7280;">→</div>
+                <div style="background: #ECFDF5; padding: 0.75rem 1rem; border-radius: 8px; text-align: center;">
+                  <div>🗄️</div>
+                  <div>Supabase</div>
+                </div>
+                <div style="color: #6B7280;">→</div>
+                <div style="background: #EFF6FF; padding: 0.75rem 1rem; border-radius: 8px; text-align: center;">
+                  <div>📊</div>
+                  <div>JSON данные</div>
+                </div>
+              </div>
+            </div>
+
+            <p><strong>Результат:</strong> Откроете <code>localhost:3000/api/transactions</code> → увидите свои транзакции!</p>
+          </div>
+        </section>
+
+        <!-- Структура API -->
+        <section class="card">
+          <div class="card-header">Структура API в Next.js</div>
+          <div class="card-body">
+            <p>В Next.js путь файла = URL endpoint:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Структура проекта</span>
+              </div>
+              <pre><code>app/
+└── api/
+    └── transactions/
+        └── route.ts    ← Создадим этот файл</code></pre>
+            </div>
+
+            <div style="background: #F3F4F6; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+              <p style="margin: 0;"><strong>Правило:</strong></p>
+              <p style="margin: 0.5rem 0 0 0;">
+                <code>app/api/transactions/route.ts</code> → <code>/api/transactions</code>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Практика 1: Создание файла -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">🔧 Практика 1: Создаём API endpoint</div>
+          <div class="card-body">
+            <p><strong>Используйте Cursor для создания API:</strong></p>
+
+            <div style="background: #F3F4F6; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+              <h4 style="margin: 0 0 1rem 0;">Шаг 1: Откройте Cursor</h4>
+              <ol style="margin: 0; padding-left: 1.5rem;">
+                <li>Нажмите <code>Cmd+K</code> (Mac) или <code>Ctrl+K</code> (Windows)</li>
+                <li>Введите промпт ниже</li>
+              </ol>
+            </div>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+                <button class="code-block-copy" title="Копировать">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                </button>
+              </div>
+              <pre><code>Создай файл app/api/transactions/route.ts для Money Tracker:
+
+1. GET endpoint — получить все транзакции из Supabase
+2. Импортируй supabase из lib/supabase
+3. Отсортируй по дате (новые первые)
+4. Верни JSON с данными
+5. Обработай ошибки (статус 500)</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Ожидаемый результат от Cursor:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">app/api/transactions/route.ts</span>
+              </div>
+              <pre><code>import { NextResponse } from 'next/server'
+import { supabase } from '@/lib/supabase'
+
+export async function GET() {
+  try {
+    const { data, error } = await supabase
+      .from('transactions')
+      .select('*')
+      .order('date', { ascending: false })
+
+    if (error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json(data)
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    )
+  }
+}</code></pre>
+            </div>
+
+            <div style="background: #ECFDF5; border: 1px solid #10B981; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+              <strong style="color: #059669;">✅ Проверка:</strong>
+              Файл <code>app/api/transactions/route.ts</code> создан?
+            </div>
+          </div>
+        </section>
+
+        <!-- Практика 2: Тестирование в браузере -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">🔧 Практика 2: Тестируем в браузере</div>
+          <div class="card-body">
+            <p><strong>Теперь проверим, что API работает:</strong></p>
+
+            <div style="background: #F3F4F6; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+              <h4 style="margin: 0 0 1rem 0;">Шаг 1: Запустите сервер</h4>
+              <div class="code-block" style="margin: 0.5rem 0;">
+                <pre><code>npm run dev</code></pre>
+              </div>
+            </div>
+
+            <div style="background: #F3F4F6; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+              <h4 style="margin: 0 0 1rem 0;">Шаг 2: Откройте URL</h4>
+              <p style="margin: 0;">В браузере перейдите по адресу:</p>
+              <p style="margin: 0.5rem 0; font-size: 1.1rem;"><code>http://localhost:3000/api/transactions</code></p>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Вы должны увидеть JSON с вашими транзакциями:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Ответ API (пример)</span>
+              </div>
+              <pre><code>[
+  {
+    "id": 1,
+    "amount": 50000,
+    "type": "income",
+    "category": "Зарплата",
+    "description": "Декабрь 2024",
+    "date": "2024-12-15",
+    "created_at": "2024-12-15T10:00:00"
+  },
+  {
+    "id": 2,
+    "amount": 1200,
+    "type": "expense",
+    "category": "Еда",
+    "description": "Обед в кафе",
+    "date": "2024-12-16",
+    "created_at": "2024-12-16T12:30:00"
+  }
+]</code></pre>
+            </div>
+
+            <div style="background: #ECFDF5; border: 1px solid #10B981; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+              <strong style="color: #059669;">🎉 Успех!</strong>
+              Если вы видите свои транзакции — поздравляем! Это ваш первый работающий API!
+            </div>
+
+            <div style="background: #FEF2F2; border: 1px solid #EF4444; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+              <strong style="color: #DC2626;">🐛 Если ошибка:</strong>
+              <ul style="margin: 0.5rem 0 0 1.5rem; padding: 0;">
+                <li><code>Module not found</code> — проверьте путь к lib/supabase.ts</li>
+                <li><code>relation "transactions" does not exist</code> — таблица не создана в Supabase</li>
+                <li>Пустой массив <code>[]</code> — нет данных в таблице</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Практика 3: Разбор кода -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">🔧 Практика 3: Разбираем код</div>
+          <div class="card-body">
+            <p><strong>Давайте поймём, что делает каждая строка:</strong></p>
+
+            <div style="overflow-x: auto; margin: 1rem 0;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                <thead>
+                  <tr style="background: #F3F4F6;">
+                    <th style="padding: 0.75rem; text-align: left; border: 1px solid #E5E7EB;">Код</th>
+                    <th style="padding: 0.75rem; text-align: left; border: 1px solid #E5E7EB;">Что делает</th>
+                    <th style="padding: 0.75rem; text-align: left; border: 1px solid #E5E7EB;">Для Money Tracker</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;"><code>export async function GET()</code></td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Обработчик GET-запросов</td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Когда открываем URL в браузере</td>
+                  </tr>
+                  <tr style="background: #FFFBEB;">
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;"><code>supabase.from('transactions')</code></td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Обращение к таблице</td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Работаем с нашими транзакциями</td>
+                  </tr>
+                  <tr style="background: #FFFBEB;">
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;"><code>.select('*')</code></td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Выбрать все колонки</td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Получаем все поля транзакции</td>
+                  </tr>
+                  <tr style="background: #FFFBEB;">
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;"><code>.order('date', { ascending: false })</code></td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Сортировка</td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Новые транзакции сверху</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;"><code>NextResponse.json(data)</code></td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Вернуть JSON</td>
+                    <td style="padding: 0.75rem; border: 1px solid #E5E7EB;">Отправляем транзакции браузеру</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="background: #FEF3C7; border: 1px solid #F59E0B; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+              <strong>🎯 Задание:</strong> Попробуйте изменить сортировку на <code>ascending: true</code> и обновите страницу. Что изменилось?
+            </div>
+          </div>
+        </section>
+
+        <!-- Практика 4: Добавляем фильтрацию -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">🔧 Практика 4: Добавляем фильтрацию</div>
+          <div class="card-body">
+            <p><strong>Сделаем API умнее — добавим возможность фильтровать транзакции!</strong></p>
+
+            <p>Хотим получить только расходы или только доходы:</p>
+            <ul>
+              <li><code>/api/transactions</code> — все транзакции</li>
+              <li><code>/api/transactions?type=income</code> — только доходы</li>
+              <li><code>/api/transactions?type=expense</code> — только расходы</li>
+            </ul>
+
+            <div class="code-block" style="margin-top: 1rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+                <button class="code-block-copy" title="Копировать">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                </button>
+              </div>
+              <pre><code>Добавь в GET функцию фильтрацию по типу транзакции:
+- Получи параметр ?type из URL (request.nextUrl.searchParams)
+- Если type указан, фильтруй по нему (.eq('type', type))
+- Если не указан, верни все транзакции</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Обновлённый код:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">app/api/transactions/route.ts</span>
+              </div>
+              <pre><code>import { NextRequest, NextResponse } from 'next/server'
+import { supabase } from '@/lib/supabase'
+
+export async function GET(request: NextRequest) {
+  try {
+    // Получаем параметр type из URL
+    const type = request.nextUrl.searchParams.get('type')
+
+    // Базовый запрос
+    let query = supabase
+      .from('transactions')
+      .select('*')
+      .order('date', { ascending: false })
+
+    // Если указан тип — фильтруем
+    if (type) {
+      query = query.eq('type', type)
+    }
+
+    const { data, error } = await query
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+
+    return NextResponse.json(data)
+  } catch (error) {
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+  }
+}</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Тестируем фильтрацию:</h4>
+            <div style="display: grid; gap: 0.5rem; margin: 1rem 0;">
+              <div style="background: #F3F4F6; padding: 0.75rem 1rem; border-radius: 6px;">
+                <code>http://localhost:3000/api/transactions</code>
+                <span style="color: #6B7280; margin-left: 0.5rem;">→ все транзакции</span>
+              </div>
+              <div style="background: #ECFDF5; padding: 0.75rem 1rem; border-radius: 6px;">
+                <code>http://localhost:3000/api/transactions?type=income</code>
+                <span style="color: #059669; margin-left: 0.5rem;">→ только доходы 💰</span>
+              </div>
+              <div style="background: #FEF2F2; padding: 0.75rem 1rem; border-radius: 6px;">
+                <code>http://localhost:3000/api/transactions?type=expense</code>
+                <span style="color: #DC2626; margin-left: 0.5rem;">→ только расходы 💸</span>
+              </div>
+            </div>
+
+            <div style="background: #ECFDF5; border: 1px solid #10B981; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+              <strong style="color: #059669;">✅ Проверка:</strong>
+              Попробуйте все три URL. Данные фильтруются правильно?
+            </div>
+          </div>
+        </section>
+
+        <!-- Практика 5: Мини-задание -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">🔧 Практика 5: Самостоятельное задание</div>
+          <div class="card-body">
+            <p><strong>Попробуйте добавить ещё один фильтр — по категории!</strong></p>
+
+            <div style="background: #FEF3C7; border: 1px solid #F59E0B; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
+              <strong>🎯 Задание:</strong><br>
+              Добавьте фильтрацию по категории: <code>?category=Еда</code><br>
+              <br>
+              <strong>Подсказка:</strong> Используйте такой же подход как с type:
+              <ol style="margin: 0.5rem 0 0 1.5rem; padding: 0;">
+                <li>Получите параметр category из URL</li>
+                <li>Если указан — добавьте <code>.eq('category', category)</code></li>
+              </ol>
+            </div>
+
+            <details style="margin-top: 1rem;">
+              <summary style="cursor: pointer; font-weight: 600; color: #3B82F6;">Показать решение</summary>
+              <div class="code-block" style="margin-top: 1rem;">
+                <div class="code-block-header">
+                  <span class="code-block-lang">Добавьте после фильтра type</span>
+                </div>
+                <pre><code>// Фильтр по категории
+const category = request.nextUrl.searchParams.get('category')
+if (category) {
+  query = query.eq('category', category)
+}</code></pre>
+              </div>
+            </details>
+
+            <p style="margin-top: 1rem;"><strong>Теперь можно делать запросы:</strong></p>
+            <ul>
+              <li><code>/api/transactions?category=Еда</code> — транзакции на еду</li>
+              <li><code>/api/transactions?type=expense&category=Транспорт</code> — расходы на транспорт</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz">
+          <div class="quiz-header">
+            <div class="quiz-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <h3 class="quiz-title">Проверьте себя</h3>
+          </div>
+
+          <div class="quiz-question">Какой файл нужно создать для endpoint /api/transactions?</div>
+
+          <div class="quiz-options">
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>pages/api/transactions.ts</span>
+            </div>
+            <div class="quiz-option" data-correct="true">
+              <span class="quiz-option-marker"></span>
+              <span>app/api/transactions/route.ts</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>api/transactions.ts</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>routes/transactions.ts</span>
+            </div>
+          </div>
+
+          <div class="quiz-feedback"><div class="quiz-feedback-text"></div></div>
+          <div class="quiz-actions">
+            <button class="btn btn-primary quiz-check-btn">Проверить</button>
+            <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
+            <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
+          </div>
+        </section>
+
+        <!-- Итог -->
+        <section class="card">
+          <div class="card-header">Итог: что готово для Money Tracker</div>
+          <div class="card-body">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr style="border-bottom: 1px solid #E5E7EB;">
+                <td style="padding: 0.75rem 0; width: 50%;">✅ GET /api/transactions</td>
+                <td style="padding: 0.75rem 0;">Получить все транзакции</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E5E7EB;">
+                <td style="padding: 0.75rem 0;">✅ ?type=income</td>
+                <td style="padding: 0.75rem 0;">Фильтр по типу</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E5E7EB;">
+                <td style="padding: 0.75rem 0;">✅ ?category=Еда</td>
+                <td style="padding: 0.75rem 0;">Фильтр по категории</td>
+              </tr>
+              <tr>
+                <td style="padding: 0.75rem 0;">⏳ POST, PATCH, DELETE</td>
+                <td style="padding: 0.75rem 0;">Создадим в следующем уроке!</td>
+              </tr>
+            </table>
+
+            <p style="margin-top: 1.5rem; padding: 1rem; background: #EFF6FF; border-radius: 8px;">
+              <strong>Следующий шаг:</strong> В Уроке 7 добавим операции создания, изменения и удаления транзакций (<a href="glossary.html#crud" class="glossary-link">CRUD</a>).
+            </p>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-folder"></span>
+                <span class="checklist-text">Папка app/api/transactions/ создана</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-route"></span>
+                <span class="checklist-text">Файл route.ts создан с помощью Cursor</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-test"></span>
+                <span class="checklist-text">API работает в браузере (видите JSON)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-filter-type"></span>
+                <span class="checklist-text">Фильтрация по type работает</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-filter-category"></span>
+                <span class="checklist-text">Фильтрация по category добавлена (бонус)</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-5.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Создание таблицы</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="6">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-7.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">CRUD операции</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>
