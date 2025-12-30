@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 7.8: Работа с пользователем | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 9 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 7</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое аутентификация</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Supabase Auth обзор</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Настройка Auth</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Регистрация по Email</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Вход в систему</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Social Login</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Защита страниц</a>
+        <a href="lesson-8.html" class="nav-item active" data-lesson="8"><span class="nav-item-number">8</span>Работа с пользователем</a>
+        <a href="project.html" class="nav-item" data-lesson="9"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 7</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 7.8</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 7.8</span>
+            <span class="lesson-duration">⏱ 25 минут</span>
+          </div>
+          <h1 class="lesson-title">Работа с пользователем</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Получаем данные пользователя и связываем их с базой данных
+          </p>
+        </div>
+
+        <!-- Getting Current User -->
+        <section class="card">
+          <div class="card-header">Получение текущего пользователя</div>
+          <div class="card-body">
+            <p>После входа в систему нам нужно <strong>узнать, кто вошёл</strong>. Для этого используем функцию <code>getUser()</code>:</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">JavaScript — получение пользователя</span>
+              </div>
+              <pre><code>// Получаем текущего пользователя
+const { data: { user }, error } = await supabase.auth.getUser()
+
+if (user) {
+  console.log('Пользователь вошёл:', user.email)
+} else {
+  console.log('Пользователь не авторизован')
+}</code></pre>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Простыми словами:</strong> <code>getUser()</code> — это как спросить у охранника "Кто сейчас внутри?"
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- User Object Properties -->
+        <section class="card">
+          <div class="card-header">Что внутри объекта user?</div>
+          <div class="card-body">
+            <p>Объект <code>user</code> содержит много полезной информации:</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">JavaScript — свойства пользователя</span>
+              </div>
+              <pre><code>// Пример объекта user
+{
+  id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",  // Уникальный ID
+  email: "vasya@mail.ru",                        // Email
+  created_at: "2024-01-15T10:30:00Z",           // Дата регистрации
+
+  // Если вошли через Google/GitHub:
+  user_metadata: {
+    avatar_url: "https://...",                   // Аватарка
+    full_name: "Вася Пупкин",                    // Имя
+    name: "Вася"                                 // Короткое имя
+  }
+}</code></pre>
+            </div>
+
+            <div class="table-container" style="margin: 1rem 0;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Свойство</th>
+                    <th>Что это</th>
+                    <th>Пример</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>user.id</code></td>
+                    <td>Уникальный идентификатор</td>
+                    <td>a1b2c3d4-e5f6...</td>
+                  </tr>
+                  <tr>
+                    <td><code>user.email</code></td>
+                    <td>Email пользователя</td>
+                    <td>vasya@mail.ru</td>
+                  </tr>
+                  <tr>
+                    <td><code>user.created_at</code></td>
+                    <td>Когда зарегистрировался</td>
+                    <td>2024-01-15</td>
+                  </tr>
+                  <tr>
+                    <td><code>user.user_metadata.avatar_url</code></td>
+                    <td>Ссылка на аватарку</td>
+                    <td>https://...</td>
+                  </tr>
+                  <tr>
+                    <td><code>user.user_metadata.full_name</code></td>
+                    <td>Полное имя</td>
+                    <td>Вася Пупкин</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Важно:</strong> <code>user_metadata</code> заполняется только при входе через Google/GitHub. При регистрации по email там будет пусто.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Displaying User in UI -->
+        <section class="card">
+          <div class="card-header">Показываем пользователя в интерфейсе</div>
+          <div class="card-body">
+            <p>Теперь покажем информацию о пользователе в шапке сайта:</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">HTML — место для информации о пользователе</span>
+              </div>
+              <pre><code>&lt;header class="header"&gt;
+  &lt;h1&gt;Money Tracker&lt;/h1&gt;
+
+  &lt;!-- Информация о пользователе --&gt;
+  &lt;div class="user-info" id="userInfo"&gt;
+    &lt;img id="userAvatar" src="" alt="Аватар" class="user-avatar"&gt;
+    &lt;span id="userName"&gt;&lt;/span&gt;
+    &lt;button id="logoutBtn"&gt;Выйти&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/header&gt;</code></pre>
+            </div>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">JavaScript — заполняем данные</span>
+              </div>
+              <pre><code>async function showUserInfo() {
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (user) {
+    // Получаем элементы
+    const avatar = document.getElementById('userAvatar')
+    const name = document.getElementById('userName')
+
+    // Заполняем данные
+    avatar.src = user.user_metadata?.avatar_url || 'default-avatar.png'
+    name.textContent = user.user_metadata?.full_name || user.email
+  }
+}
+
+// Вызываем при загрузке страницы
+showUserInfo()</code></pre>
+            </div>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">CSS — стили для аватарки</span>
+              </div>
+              <pre><code>.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;  /* Круглая аватарка */
+  object-fit: cover;
+}</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Adding user_id to Database -->
+        <section class="card">
+          <div class="card-header">Добавляем user_id в таблицу</div>
+          <div class="card-body">
+            <p>Чтобы каждый пользователь видел <strong>только свои данные</strong>, нужно связать записи с пользователем. Добавим колонку <code>user_id</code>:</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL — добавляем колонку user_id</span>
+              </div>
+              <pre><code>-- Добавляем колонку user_id в таблицу transactions
+ALTER TABLE transactions
+ADD COLUMN user_id UUID REFERENCES auth.users(id);
+
+-- Для новых таблиц сразу добавляйте user_id:
+CREATE TABLE transactions (
+  id SERIAL PRIMARY KEY,
+  amount INTEGER NOT NULL,
+  description TEXT,
+  category TEXT,
+  created_at TIMESTAMP DEFAULT NOW(),
+  user_id UUID REFERENCES auth.users(id)  -- Связь с пользователем
+);</code></pre>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>UUID</strong> — это формат ID пользователя (длинная строка с буквами и цифрами).<br>
+                <strong>REFERENCES auth.users(id)</strong> — связывает нашу таблицу с таблицей пользователей.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Updating Money Tracker -->
+        <section class="card">
+          <div class="card-header">Обновляем Money Tracker</div>
+          <div class="card-body">
+            <p>Теперь при добавлении транзакции <strong>сохраняем ID пользователя</strong>:</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">JavaScript — добавление транзакции с user_id</span>
+              </div>
+              <pre><code>async function addTransaction(amount, description, category) {
+  // Получаем текущего пользователя
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) {
+    alert('Сначала войдите в систему!')
+    return
+  }
+
+  // Добавляем транзакцию с user_id
+  const { data, error } = await supabase
+    .from('transactions')
+    .insert({
+      amount: amount,
+      description: description,
+      category: category,
+      user_id: user.id  // Важно! Сохраняем ID пользователя
+    })
+
+  if (error) {
+    console.error('Ошибка:', error)
+  } else {
+    console.log('Транзакция добавлена!')
+  }
+}</code></pre>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Результат:</strong> Теперь каждая транзакция "помнит", кто её создал!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RLS Policies -->
+        <section class="card">
+          <div class="card-header">RLS — защита данных пользователя</div>
+          <div class="card-body">
+            <p><strong>RLS (Row Level Security)</strong> — это правила, которые говорят: <em>"каждый человек может видеть только свои данные"</em>.</p>
+
+            <div class="alert alert-warning" style="margin: 1rem 0;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Зачем это нужно?</strong> Без RLS любой пользователь может увидеть ВСЕ записи в таблице. С RLS — только свои.
+              </div>
+            </div>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL — включаем RLS и создаём политики</span>
+              </div>
+              <pre><code>-- 1. Включаем RLS для таблицы
+ALTER TABLE transactions ENABLE ROW LEVEL SECURITY;
+
+-- 2. Политика для чтения: видеть только свои записи
+CREATE POLICY "Пользователи видят свои транзакции"
+ON transactions FOR SELECT
+USING (user_id = auth.uid());
+
+-- 3. Политика для добавления: создавать только свои записи
+CREATE POLICY "Пользователи создают свои транзакции"
+ON transactions FOR INSERT
+WITH CHECK (user_id = auth.uid());
+
+-- 4. Политика для обновления: редактировать только свои
+CREATE POLICY "Пользователи редактируют свои транзакции"
+ON transactions FOR UPDATE
+USING (user_id = auth.uid());
+
+-- 5. Политика для удаления: удалять только свои
+CREATE POLICY "Пользователи удаляют свои транзакции"
+ON transactions FOR DELETE
+USING (user_id = auth.uid());</code></pre>
+            </div>
+
+            <p><strong>Что означает каждая часть:</strong></p>
+            <ul style="padding-left: 1.5rem; margin: 1rem 0;">
+              <li><code>auth.uid()</code> — ID текущего авторизованного пользователя</li>
+              <li><code>user_id = auth.uid()</code> — показывать только те записи, где user_id совпадает с текущим пользователем</li>
+              <li><code>FOR SELECT</code> — правило для чтения данных</li>
+              <li><code>FOR INSERT</code> — правило для добавления данных</li>
+            </ul>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Теперь данные защищены!</strong> Вася не сможет увидеть транзакции Маши, даже если очень захочет.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- User Profile Page -->
+        <section class="card">
+          <div class="card-header">Страница профиля пользователя</div>
+          <div class="card-body">
+            <p>Создадим простую страницу профиля, где пользователь может увидеть свои данные:</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">HTML — profile.html</span>
+              </div>
+              <pre><code>&lt;div class="profile-page"&gt;
+  &lt;h1&gt;Мой профиль&lt;/h1&gt;
+
+  &lt;div class="profile-card"&gt;
+    &lt;img id="profileAvatar" src="" alt="Аватар" class="profile-avatar"&gt;
+
+    &lt;div class="profile-info"&gt;
+      &lt;p&gt;&lt;strong&gt;Имя:&lt;/strong&gt; &lt;span id="profileName"&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; &lt;span id="profileEmail"&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;Дата регистрации:&lt;/strong&gt; &lt;span id="profileDate"&gt;&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;button id="logoutBtn" class="btn-logout"&gt;Выйти из аккаунта&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">JavaScript — загрузка профиля</span>
+              </div>
+              <pre><code>async function loadProfile() {
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) {
+    // Если не авторизован — перенаправляем на страницу входа
+    window.location.href = 'login.html'
+    return
+  }
+
+  // Заполняем данные профиля
+  document.getElementById('profileAvatar').src =
+    user.user_metadata?.avatar_url || 'default-avatar.png'
+
+  document.getElementById('profileName').textContent =
+    user.user_metadata?.full_name || 'Не указано'
+
+  document.getElementById('profileEmail').textContent = user.email
+
+  // Форматируем дату регистрации
+  const date = new Date(user.created_at)
+  document.getElementById('profileDate').textContent =
+    date.toLocaleDateString('ru-RU')
+}
+
+// Выход из аккаунта
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  await supabase.auth.signOut()
+  window.location.href = 'login.html'
+})
+
+// Загружаем профиль при открытии страницы
+loadProfile()</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика: Показываем пользователя в шапке</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Добавьте информацию о текущем пользователе в шапку Money Tracker.</p>
+
+            <ol style="margin: 1rem 0; padding-left: 1.5rem;">
+              <li>Откройте файл <code>index.html</code> в Money Tracker</li>
+              <li>Добавьте в шапку место для аватарки и имени</li>
+              <li>Создайте функцию <code>showUserInfo()</code></li>
+              <li>Вызовите функцию при загрузке страницы</li>
+            </ol>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+              </div>
+              <pre><code>Добавь в шапку приложения Money Tracker информацию
+о текущем пользователе:
+- Аватарку пользователя (круглая, 40px)
+- Имя или email
+- Кнопку "Выйти"
+
+При загрузке страницы получи данные через
+supabase.auth.getUser() и заполни элементы.
+
+Если user_metadata.avatar_url пустой —
+используй дефолтную аватарку.
+
+При клике на "Выйти" — выполни signOut()
+и перенаправь на login.html</code></pre>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Ожидаемый результат:</strong> В правом верхнем углу отображается аватарка и имя пользователя!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson8">
+              <p><strong>Какая функция возвращает текущего пользователя?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">supabase.auth.signIn()</div>
+                <div class="quiz-option" data-correct="true">supabase.auth.getUser()</div>
+                <div class="quiz-option" data-correct="false">supabase.auth.signOut()</div>
+                <div class="quiz-option" data-correct="false">supabase.auth.currentUser()</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+
+            <div class="quiz" data-quiz="lesson8-2" style="margin-top: 1.5rem;">
+              <p><strong>Что делает RLS (Row Level Security)?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Шифрует пароли пользователей</div>
+                <div class="quiz-option" data-correct="false">Отправляет уведомления на email</div>
+                <div class="quiz-option" data-correct="true">Позволяет каждому пользователю видеть только свои данные</div>
+                <div class="quiz-option" data-correct="false">Создаёт красивый дизайн</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-getuser"></span>
+                <span class="checklist-text">Знаю как получить текущего пользователя через getUser()</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-properties"></span>
+                <span class="checklist-text">Знаю какие свойства есть у объекта user (id, email, user_metadata)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-userid"></span>
+                <span class="checklist-text">Понимаю зачем нужна колонка user_id в таблицах</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-rls"></span>
+                <span class="checklist-text">Понимаю что RLS = "каждый видит только свои данные"</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-practice"></span>
+                <span class="checklist-text">Добавил информацию о пользователе в шапку приложения</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-7.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Защита страниц</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="8">
+            Отметить урок пройденным
+          </button>
+
+          <a href="project.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Итоговый проект</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

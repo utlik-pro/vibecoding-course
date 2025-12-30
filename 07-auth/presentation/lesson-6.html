@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 7.6: Social Login (Google и GitHub) | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 9 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 7</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое аутентификация</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Supabase Auth обзор</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Настройка Auth</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Регистрация по Email</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Вход в систему</a>
+        <a href="lesson-6.html" class="nav-item active" data-lesson="6"><span class="nav-item-number">6</span>Social Login</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Защита страниц</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Работа с пользователем</a>
+        <a href="project.html" class="nav-item" data-lesson="9"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 7</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 7.6</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">~</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">|></button>
+            <button class="timer-reset" title="Сбросить">[r]</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 7.6</span>
+            <span class="lesson-duration">~ 30 минут</span>
+          </div>
+          <h1 class="lesson-title">Social Login: Вход через Google и GitHub</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Добавляем удобный вход одной кнопкой
+          </p>
+        </div>
+
+        <!-- What is OAuth -->
+        <section class="card">
+          <div class="card-header">Что такое OAuth?</div>
+          <div class="card-body">
+            <p>Вы наверняка видели кнопки "Войти через Google" или "Войти через GitHub" на многих сайтах. Это и есть <strong>Social Login</strong>, который работает благодаря технологии <strong>OAuth</strong>.</p>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Простое объяснение:</strong> OAuth — это как использовать ваш пропуск Google для входа в разные "здания" (сайты). Вместо того чтобы получать новый пропуск для каждого здания, вы показываете свой Google-пропуск и говорите: "Google знает, кто я. Спросите у него!"
+              </div>
+            </div>
+
+            <div style="background: var(--surface); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+              <p style="margin: 0 0 1rem 0;"><strong>Как это работает (упрощённо):</strong></p>
+              <div class="code-block" style="margin: 0;">
+                <pre><code>1. Пользователь нажимает "Войти через Google"
+                    |
+                    v
+2. Google спрашивает: "Вы хотите войти на сайт X?"
+                    |
+                    v
+3. Пользователь нажимает "Разрешить"
+                    |
+                    v
+4. Google говорит сайту: "Это Вася, вот его email"
+                    |
+                    v
+5. Сайт создаёт аккаунт и впускает пользователя</code></pre>
+              </div>
+            </div>
+
+            <div class="service-cards" style="margin-top: 1.5rem;">
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">+</div>
+                <h4>Для пользователя</h4>
+                <p style="font-size: 0.85rem;">Не нужно придумывать новый пароль</p>
+              </div>
+
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">+</div>
+                <h4>Для разработчика</h4>
+                <p style="font-size: 0.85rem;">Не нужно хранить пароли</p>
+              </div>
+
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">[*]</div>
+                <h4>Безопасность</h4>
+                <p style="font-size: 0.85rem;">Google защищает аккаунт лучше</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Google OAuth Setup -->
+        <section class="card">
+          <div class="card-header" style="background: #4285F4; color: white;">Шаг 1: Настройка Google OAuth</div>
+          <div class="card-body">
+            <p>Сначала нужно "попросить" Google разрешение использовать его для входа. Для этого создадим учётные данные в Google Cloud Console.</p>
+
+            <div class="alert alert-warning" style="margin: 1rem 0;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Нужен Google аккаунт!</strong> Если у вас нет — создайте на <a href="https://accounts.google.com" target="_blank" style="color: inherit;">accounts.google.com</a>
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">1.1. Открываем Google Cloud Console</h4>
+            <ol style="padding-left: 1.5rem; margin: 0.5rem 0;">
+              <li>Перейдите на <a href="https://console.cloud.google.com" target="_blank" style="color: var(--primary);">console.cloud.google.com</a></li>
+              <li>Войдите в свой Google аккаунт</li>
+            </ol>
+
+            <div style="background: #f5f5f5; padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: center;">
+              <p style="margin: 0; color: #666;">[Скриншот: Главная страница Google Cloud Console]</p>
+              <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem;">Вы увидите панель управления Google Cloud</p>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">1.2. Создаём новый проект</h4>
+            <ol style="padding-left: 1.5rem; margin: 0.5rem 0;">
+              <li>В верхней панели нажмите на выпадающий список проектов</li>
+              <li>Нажмите <strong>"New Project"</strong> (Новый проект)</li>
+              <li>Введите имя: <code>Money Tracker Auth</code></li>
+              <li>Нажмите <strong>"Create"</strong></li>
+            </ol>
+
+            <div style="background: #f5f5f5; padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: center;">
+              <p style="margin: 0; color: #666;">[Скриншот: Окно создания нового проекта]</p>
+              <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem;">Поле "Project name" = Money Tracker Auth</p>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">1.3. Настраиваем OAuth consent screen</h4>
+            <ol style="padding-left: 1.5rem; margin: 0.5rem 0;">
+              <li>В левом меню найдите <strong>"APIs & Services"</strong> -> <strong>"OAuth consent screen"</strong></li>
+              <li>Выберите <strong>"External"</strong> (для всех пользователей)</li>
+              <li>Нажмите <strong>"Create"</strong></li>
+              <li>Заполните:
+                <ul style="margin-top: 0.5rem;">
+                  <li><strong>App name:</strong> Money Tracker</li>
+                  <li><strong>User support email:</strong> ваш email</li>
+                  <li><strong>Developer contact email:</strong> ваш email</li>
+                </ul>
+              </li>
+              <li>Нажмите <strong>"Save and Continue"</strong> несколько раз до конца</li>
+            </ol>
+
+            <h4 style="margin-top: 1.5rem;">1.4. Создаём учётные данные (Credentials)</h4>
+            <ol style="padding-left: 1.5rem; margin: 0.5rem 0;">
+              <li>В левом меню: <strong>"APIs & Services"</strong> -> <strong>"Credentials"</strong></li>
+              <li>Нажмите <strong>"+ Create Credentials"</strong> -> <strong>"OAuth client ID"</strong></li>
+              <li>Application type: <strong>"Web application"</strong></li>
+              <li>Name: <code>Money Tracker Web</code></li>
+            </ol>
+
+            <div class="alert alert-warning" style="margin: 1rem 0;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Важно! Authorized redirect URIs:</strong><br>
+                Добавьте URL: <code>https://YOUR_PROJECT.supabase.co/auth/v1/callback</code><br>
+                (Замените YOUR_PROJECT на ваш ID проекта из Supabase)
+              </div>
+            </div>
+
+            <div style="background: var(--surface); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+              <p style="margin: 0;"><strong>Где найти URL для Supabase:</strong></p>
+              <ol style="padding-left: 1.5rem; margin: 0.5rem 0 0 0;">
+                <li>Откройте <a href="https://supabase.com/dashboard" target="_blank" style="color: var(--primary);">Supabase Dashboard</a></li>
+                <li>Перейдите в <strong>Authentication</strong> -> <strong>Providers</strong></li>
+                <li>Нажмите на <strong>Google</strong></li>
+                <li>Скопируйте <strong>Callback URL</strong></li>
+              </ol>
+            </div>
+
+            <ol start="5" style="padding-left: 1.5rem; margin: 0.5rem 0;">
+              <li>Нажмите <strong>"Create"</strong></li>
+            </ol>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Готово!</strong> Появится окно с <strong>Client ID</strong> и <strong>Client Secret</strong>. Скопируйте их — они понадобятся!
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">1.5. Добавляем в Supabase</h4>
+            <ol style="padding-left: 1.5rem; margin: 0.5rem 0;">
+              <li>Откройте <a href="https://supabase.com/dashboard" target="_blank" style="color: var(--primary);">Supabase Dashboard</a></li>
+              <li>Перейдите: <strong>Authentication</strong> -> <strong>Providers</strong></li>
+              <li>Найдите <strong>Google</strong> и включите переключатель</li>
+              <li>Вставьте <strong>Client ID</strong> и <strong>Client Secret</strong></li>
+              <li>Нажмите <strong>"Save"</strong></li>
+            </ol>
+
+            <div style="background: #f5f5f5; padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: center;">
+              <p style="margin: 0; color: #666;">[Скриншот: Настройки Google в Supabase]</p>
+              <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem;">Поля Client ID и Client Secret заполнены</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- GitHub OAuth Setup -->
+        <section class="card">
+          <div class="card-header" style="background: #24292e; color: white;">Шаг 2: Настройка GitHub OAuth</div>
+          <div class="card-body">
+            <p>Теперь добавим вход через GitHub. Это особенно полезно для технических проектов!</p>
+
+            <div class="alert alert-warning" style="margin: 1rem 0;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Нужен GitHub аккаунт!</strong> Если нет — создайте на <a href="https://github.com" target="_blank" style="color: inherit;">github.com</a>
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">2.1. Открываем настройки разработчика</h4>
+            <ol style="padding-left: 1.5rem; margin: 0.5rem 0;">
+              <li>Перейдите на <a href="https://github.com/settings/developers" target="_blank" style="color: var(--primary);">github.com/settings/developers</a></li>
+              <li>Или: GitHub -> Settings (ваш профиль) -> Developer settings</li>
+            </ol>
+
+            <h4 style="margin-top: 1.5rem;">2.2. Создаём OAuth App</h4>
+            <ol style="padding-left: 1.5rem; margin: 0.5rem 0;">
+              <li>Нажмите <strong>"OAuth Apps"</strong> в левом меню</li>
+              <li>Нажмите <strong>"New OAuth App"</strong></li>
+              <li>Заполните форму:
+                <ul style="margin-top: 0.5rem;">
+                  <li><strong>Application name:</strong> <code>Money Tracker</code></li>
+                  <li><strong>Homepage URL:</strong> <code>http://localhost:5173</code></li>
+                  <li><strong>Authorization callback URL:</strong> <code>https://YOUR_PROJECT.supabase.co/auth/v1/callback</code></li>
+                </ul>
+              </li>
+            </ol>
+
+            <div style="background: #f5f5f5; padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: center;">
+              <p style="margin: 0; color: #666;">[Скриншот: Форма создания OAuth App на GitHub]</p>
+              <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem;">Все поля заполнены как указано выше</p>
+            </div>
+
+            <ol start="4" style="padding-left: 1.5rem; margin: 0.5rem 0;">
+              <li>Нажмите <strong>"Register application"</strong></li>
+            </ol>
+
+            <h4 style="margin-top: 1.5rem;">2.3. Получаем Client ID и Secret</h4>
+            <ol style="padding-left: 1.5rem; margin: 0.5rem 0;">
+              <li>После создания вы увидите <strong>Client ID</strong></li>
+              <li>Нажмите <strong>"Generate a new client secret"</strong></li>
+              <li>Скопируйте оба значения</li>
+            </ol>
+
+            <div class="alert alert-danger" style="margin: 1rem 0;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+              </svg>
+              <div>
+                <strong>Client Secret показывается только один раз!</strong> Сразу скопируйте его. Если потеряете — придётся создавать новый.
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">2.4. Добавляем в Supabase</h4>
+            <ol style="padding-left: 1.5rem; margin: 0.5rem 0;">
+              <li>Откройте <a href="https://supabase.com/dashboard" target="_blank" style="color: var(--primary);">Supabase Dashboard</a></li>
+              <li>Перейдите: <strong>Authentication</strong> -> <strong>Providers</strong></li>
+              <li>Найдите <strong>GitHub</strong> и включите переключатель</li>
+              <li>Вставьте <strong>Client ID</strong> и <strong>Client Secret</strong></li>
+              <li>Нажмите <strong>"Save"</strong></li>
+            </ol>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>GitHub настроен!</strong> Теперь у нас два провайдера: Google и GitHub.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Creating Social Login Buttons -->
+        <section class="card">
+          <div class="card-header">Шаг 3: Создаём кнопки Social Login</div>
+          <div class="card-body">
+            <p>Теперь добавим красивые кнопки для входа через соцсети. Попросим Cursor помочь!</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+              </div>
+              <pre><code>Добавь на страницу логина кнопки для входа через
+Google и GitHub. Кнопки должны быть стилизованы
+в цветах этих компаний (Google - белый/серый,
+GitHub - чёрный). Расположи их под формой логина
+с разделителем "или".</code></pre>
+            </div>
+
+            <p style="margin-top: 1rem;"><strong>Cursor создаст примерно такой HTML:</strong></p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">HTML - кнопки социального входа</span>
+              </div>
+              <pre><code>&lt;!-- Разделитель --&gt;
+&lt;div class="divider"&gt;
+  &lt;span&gt;или&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Кнопки Social Login --&gt;
+&lt;div class="social-buttons"&gt;
+  &lt;button type="button" class="btn-google" onclick="signInWithGoogle()"&gt;
+    &lt;img src="google-icon.svg" alt="Google"&gt;
+    Войти через Google
+  &lt;/button&gt;
+
+  &lt;button type="button" class="btn-github" onclick="signInWithGitHub()"&gt;
+    &lt;img src="github-icon.svg" alt="GitHub"&gt;
+    Войти через GitHub
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">CSS - стили кнопок</span>
+              </div>
+              <pre><code>.divider {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #ddd;
+}
+
+.divider span {
+  padding: 0 1rem;
+  color: #666;
+}
+
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn-google {
+  background: white;
+  border: 1px solid #ddd;
+  color: #333;
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-github {
+  background: #24292e;
+  border: none;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}</code></pre>
+            </div>
+
+            <div style="background: var(--surface); padding: 1.5rem; border-radius: 8px; margin: 1rem 0; text-align: center;">
+              <p style="margin: 0 0 1rem 0; color: #666;">Так будут выглядеть кнопки:</p>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem; max-width: 300px; margin: 0 auto;">
+                <div style="background: white; border: 1px solid #ddd; color: #333; padding: 0.75rem; border-radius: 8px; text-align: center;">[G] Войти через Google</div>
+                <div style="background: #24292e; color: white; padding: 0.75rem; border-radius: 8px; text-align: center;">[GH] Войти через GitHub</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- JavaScript Code -->
+        <section class="card">
+          <div class="card-header">Шаг 4: Код для Social Login</div>
+          <div class="card-body">
+            <p>Теперь добавим JavaScript функции для входа. Это очень просто!</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">JavaScript - вход через Google</span>
+              </div>
+              <pre><code>// Функция входа через Google
+async function signInWithGoogle() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google'
+  })
+
+  if (error) {
+    alert('Ошибка входа: ' + error.message)
+  }
+  // Если успешно - пользователь будет перенаправлен на Google
+}</code></pre>
+            </div>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">JavaScript - вход через GitHub</span>
+              </div>
+              <pre><code>// Функция входа через GitHub
+async function signInWithGitHub() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'github'
+  })
+
+  if (error) {
+    alert('Ошибка входа: ' + error.message)
+  }
+  // Если успешно - пользователь будет перенаправлен на GitHub
+}</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin: 1rem 0;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Как это работает:</strong><br>
+                1. Пользователь нажимает кнопку<br>
+                2. Supabase перенаправляет его на Google/GitHub<br>
+                3. Пользователь входит там<br>
+                4. Google/GitHub отправляет его обратно на ваш сайт<br>
+                5. Supabase автоматически создаёт сессию
+              </div>
+            </div>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+              </div>
+              <pre><code>Добавь функции signInWithGoogle и signInWithGitHub
+которые используют supabase.auth.signInWithOAuth()
+для входа через соответствующих провайдеров.
+Привяжи их к кнопкам социального входа.</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Handling OAuth Callback -->
+        <section class="card">
+          <div class="card-header">Шаг 5: Обработка возврата (Callback)</div>
+          <div class="card-body">
+            <p>После входа через Google/GitHub пользователь возвращается на ваш сайт. Нужно обработать этот возврат!</p>
+
+            <div style="background: var(--surface); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+              <p style="margin: 0;"><strong>Что происходит при возврате:</strong></p>
+              <ol style="padding-left: 1.5rem; margin: 0.5rem 0 0 0;">
+                <li>Supabase получает данные от Google/GitHub</li>
+                <li>Supabase создаёт пользователя (если первый вход)</li>
+                <li>Supabase создаёт сессию</li>
+                <li>Пользователь появляется на вашем сайте авторизованным</li>
+              </ol>
+            </div>
+
+            <div class="alert alert-info" style="margin: 1rem 0;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Хорошая новость:</strong> Supabase обрабатывает callback автоматически! Вам нужно только настроить, куда перенаправлять пользователя после входа.
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Настройка Redirect URL в Supabase</h4>
+            <ol style="padding-left: 1.5rem; margin: 0.5rem 0;">
+              <li>Откройте Supabase Dashboard</li>
+              <li>Перейдите: <strong>Authentication</strong> -> <strong>URL Configuration</strong></li>
+              <li>В поле <strong>"Site URL"</strong> введите: <code>http://localhost:5173</code></li>
+              <li>В <strong>"Redirect URLs"</strong> добавьте: <code>http://localhost:5173/dashboard</code></li>
+              <li>Нажмите <strong>"Save"</strong></li>
+            </ol>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">JavaScript - указываем куда вернуться</span>
+              </div>
+              <pre><code>// Можно указать конкретную страницу для возврата
+async function signInWithGoogle() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: 'http://localhost:5173/dashboard'
+    }
+  })
+}</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Проверка сессии на странице</h4>
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">JavaScript - проверяем вход</span>
+              </div>
+              <pre><code>// При загрузке страницы проверяем, вошёл ли пользователь
+async function checkUser() {
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (user) {
+    console.log('Пользователь вошёл:', user.email)
+    // Показать dashboard
+  } else {
+    console.log('Пользователь не авторизован')
+    // Показать форму входа
+  }
+}
+
+// Вызываем при загрузке страницы
+checkUser()</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика: Вход через Google</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Настройте вход через Google и проверьте его работу.</p>
+
+            <div style="background: var(--surface); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+              <p style="margin: 0 0 0.5rem 0;"><strong>Шаги:</strong></p>
+              <ol style="padding-left: 1.5rem; margin: 0;">
+                <li>Настройте Google OAuth (как описано выше)</li>
+                <li>Добавьте кнопку "Войти через Google" на страницу логина</li>
+                <li>Добавьте функцию signInWithGoogle()</li>
+                <li>Нажмите на кнопку и пройдите вход через Google</li>
+                <li>Проверьте, что в Supabase Dashboard -> Authentication -> Users появился новый пользователь</li>
+              </ol>
+            </div>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+              </div>
+              <pre><code>Добавь на страницу логина возможность входа
+через Google:
+1. Кнопку "Войти через Google" под основной формой
+2. Функцию signInWithGoogle() с supabase.auth.signInWithOAuth()
+3. Перенаправление на /dashboard после успешного входа
+4. Обработку ошибок</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Успех!</strong> Если вы видите своё имя и email из Google в консоли — всё работает!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Common Issues -->
+        <section class="card">
+          <div class="card-header">Частые проблемы и решения</div>
+          <div class="card-body">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Проблема</th>
+                    <th>Решение</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>"Redirect URI mismatch"</strong></td>
+                    <td>URL в Google Console должен точно совпадать с Callback URL из Supabase</td>
+                  </tr>
+                  <tr>
+                    <td><strong>"Access blocked: app not verified"</strong></td>
+                    <td>Это нормально для тестирования. Нажмите "Advanced" -> "Go to... (unsafe)"</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Пользователь не создаётся</strong></td>
+                    <td>Проверьте, что провайдер включён в Supabase Dashboard</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Возврат на неправильную страницу</strong></td>
+                    <td>Проверьте Site URL и Redirect URLs в настройках Supabase</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson6">
+              <p><strong>Что такое OAuth?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Тип базы данных</div>
+                <div class="quiz-option" data-correct="true">Технология, позволяющая входить на сайт через другие сервисы (Google, GitHub)</div>
+                <div class="quiz-option" data-correct="false">Язык программирования</div>
+                <div class="quiz-option" data-correct="false">Название социальной сети</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+
+            <div class="quiz" data-quiz="lesson6-2" style="margin-top: 1.5rem;">
+              <p><strong>Какой метод используется для входа через Google в Supabase?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">supabase.auth.signInWithPassword()</div>
+                <div class="quiz-option" data-correct="true">supabase.auth.signInWithOAuth({ provider: 'google' })</div>
+                <div class="quiz-option" data-correct="false">supabase.auth.googleLogin()</div>
+                <div class="quiz-option" data-correct="false">supabase.auth.socialLogin('google')</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-oauth"></span>
+                <span class="checklist-text">Понял что такое OAuth и как он работает</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-google"></span>
+                <span class="checklist-text">Настроил Google OAuth в Google Cloud Console</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-github"></span>
+                <span class="checklist-text">Настроил GitHub OAuth в Developer Settings</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-supabase"></span>
+                <span class="checklist-text">Добавил провайдеров в Supabase Dashboard</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-buttons"></span>
+                <span class="checklist-text">Добавил кнопки Social Login на страницу</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-test"></span>
+                <span class="checklist-text">Успешно вошёл через Google</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-5.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Вход в систему</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="6">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-7.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Защита страниц</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

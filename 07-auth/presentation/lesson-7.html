@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 7.7: Защита страниц | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 9 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 7</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое аутентификация</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Supabase Auth обзор</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Настройка Auth</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Регистрация по Email</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Вход в систему</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Social Login</a>
+        <a href="lesson-7.html" class="nav-item active" data-lesson="7"><span class="nav-item-number">7</span>Защита страниц</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Работа с пользователем</a>
+        <a href="project.html" class="nav-item" data-lesson="9"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 7</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 7.7</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 7.7</span>
+            <span class="lesson-duration">⏱ 30 минут</span>
+          </div>
+          <h1 class="lesson-title">Защита страниц</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Учимся защищать приватные страницы от неавторизованных пользователей
+          </p>
+        </div>
+
+        <!-- VIP Room Analogy -->
+        <section class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+          <div class="card-header" style="background: transparent; color: white; border-bottom-color: rgba(255,255,255,0.2);">Зачем защищать страницы?</div>
+          <div class="card-body">
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">Представьте клуб с VIP-зоной:</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 2.5rem;">🎉</div>
+                <h4 style="margin: 0.5rem 0;">Общий зал</h4>
+                <p style="font-size: 0.9rem; margin: 0;">Вход для всех</p>
+                <p style="font-size: 0.85rem; margin-top: 0.5rem; opacity: 0.8;">= Главная страница, О нас</p>
+              </div>
+              <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 2.5rem;">👑</div>
+                <h4 style="margin: 0.5rem 0;">VIP-зона</h4>
+                <p style="font-size: 0.9rem; margin: 0;">Только для членов клуба</p>
+                <p style="font-size: 0.85rem; margin-top: 0.5rem; opacity: 0.8;">= Dashboard, Профиль</p>
+              </div>
+            </div>
+
+            <div style="background: rgba(16, 185, 129, 0.3); padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: center;">
+              <strong style="font-size: 1.1rem;">На входе в VIP-зону стоит охранник!</strong><br>
+              Он проверяет: "Вы член клуба? Покажите браслет!"
+            </div>
+          </div>
+        </section>
+
+        <!-- Middleware Analogy -->
+        <section class="card">
+          <div class="card-header">Middleware — ваш охранник</div>
+          <div class="card-body">
+            <p><strong>Middleware</strong> — это код, который выполняется <strong>ДО</strong> того, как пользователь увидит страницу.</p>
+
+            <div class="service-cards" style="margin: 1.5rem 0;">
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem;">👤</div>
+                <h4>Пользователь</h4>
+                <p style="font-size: 0.85rem;">Хочет открыть /dashboard</p>
+              </div>
+              <div style="display: flex; align-items: center; font-size: 2rem; color: var(--text-secondary);">→</div>
+              <div class="service-card" style="text-align: center; border: 2px solid var(--primary);">
+                <div style="font-size: 2.5rem;">🛡️</div>
+                <h4>Middleware</h4>
+                <p style="font-size: 0.85rem;">Проверяет: залогинен?</p>
+              </div>
+              <div style="display: flex; align-items: center; font-size: 2rem; color: var(--text-secondary);">→</div>
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem;">📄</div>
+                <h4>Страница</h4>
+                <p style="font-size: 0.85rem;">Показывает контент</p>
+              </div>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Middleware работает на сервере!</strong> Это значит, что пользователь даже не увидит страницу, если не залогинен — его сразу перенаправит на страницу входа.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Public vs Private -->
+        <section class="card">
+          <div class="card-header">Публичные vs Приватные страницы</div>
+          <div class="card-body">
+            <p>В любом приложении есть два типа страниц:</p>
+
+            <div class="table-container" style="margin: 1rem 0;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Публичные (Public)</th>
+                    <th>Приватные (Private)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="color: #10B981;">Доступны всем</td>
+                    <td style="color: #F59E0B;">Только для залогиненных</td>
+                  </tr>
+                  <tr>
+                    <td>/ (главная)</td>
+                    <td>/dashboard</td>
+                  </tr>
+                  <tr>
+                    <td>/about</td>
+                    <td>/profile</td>
+                  </tr>
+                  <tr>
+                    <td>/login</td>
+                    <td>/settings</td>
+                  </tr>
+                  <tr>
+                    <td>/register</td>
+                    <td>/transactions</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="background: var(--surface); padding: 1rem; border-radius: 8px;">
+              <p style="margin: 0;"><strong>Правило простое:</strong></p>
+              <ul style="margin: 0.5rem 0 0 0; padding-left: 1.5rem;">
+                <li>Страницы с личными данными = приватные</li>
+                <li>Страницы для всех (маркетинг, вход) = публичные</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Middleware Code -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Код: Создаём middleware.ts</div>
+          <div class="card-body">
+            <p>Создайте файл <code>middleware.ts</code> в <strong>корне проекта</strong> (рядом с package.json):</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">middleware.ts</span>
+              </div>
+              <pre><code>import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+
+// Эта функция выполняется ПЕРЕД каждым запросом
+export async function middleware(request: NextRequest) {
+  // Создаём response — это "ответ" который мы можем изменить
+  const res = NextResponse.next()
+
+  // Создаём клиент Supabase для middleware
+  const supabase = createMiddlewareClient({ req: request, res })
+
+  // Проверяем: есть ли сессия? (залогинен ли пользователь?)
+  const { data: { session } } = await supabase.auth.getSession()
+
+  // Получаем путь страницы, которую хочет открыть пользователь
+  const path = request.nextUrl.pathname
+
+  // Список приватных страниц (требуют входа)
+  const privateRoutes = ['/dashboard', '/profile', '/settings', '/transactions']
+
+  // Проверяем: это приватная страница?
+  const isPrivateRoute = privateRoutes.some(route => path.startsWith(route))
+
+  // Если страница приватная И пользователь НЕ залогинен
+  if (isPrivateRoute && !session) {
+    // Перенаправляем на страницу входа
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
+
+  // Бонус: если залогинен и идёт на /login — отправляем на dashboard
+  if (session && (path === '/login' || path === '/register')) {
+    return NextResponse.redirect(new URL('/dashboard', request.url))
+  }
+
+  // Всё ок — пропускаем дальше
+  return res
+}
+
+// Настройка: на каких путях запускать middleware
+export const config = {
+  matcher: [
+    // Запускаем на всех путях, кроме статики и API
+    '/((?!_next/static|_next/image|favicon.ico).*)',
+  ],
+}</code></pre>
+            </div>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Важно!</strong> Файл должен называться именно <code>middleware.ts</code> и лежать в корне проекта. Next.js найдёт его автоматически.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Explanation -->
+        <section class="card">
+          <div class="card-header">Разбираем код по частям</div>
+          <div class="card-body">
+            <div class="term-grid" style="display: grid; gap: 1rem;">
+              <div style="background: var(--surface); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--primary);">
+                <h4 style="margin: 0 0 0.5rem 0; color: var(--primary);">supabase.auth.getSession()</h4>
+                <p style="margin: 0;">Проверяет, есть ли активная сессия (залогинен ли пользователь)</p>
+                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">Если session = null — пользователь не залогинен</p>
+              </div>
+
+              <div style="background: var(--surface); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent);">
+                <h4 style="margin: 0 0 0.5rem 0; color: var(--accent);">privateRoutes.some()</h4>
+                <p style="margin: 0;">Проверяет, начинается ли путь с одного из приватных маршрутов</p>
+                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">Например: /dashboard/settings тоже будет приватным</p>
+              </div>
+
+              <div style="background: var(--surface); padding: 1rem; border-radius: 8px; border-left: 4px solid #10B981;">
+                <h4 style="margin: 0 0 0.5rem 0; color: #10B981;">NextResponse.redirect()</h4>
+                <p style="margin: 0;">Перенаправляет пользователя на другую страницу</p>
+                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">Пользователь даже не увидит приватную страницу — сразу попадёт на /login</p>
+              </div>
+
+              <div style="background: var(--surface); padding: 1rem; border-radius: 8px; border-left: 4px solid #F59E0B;">
+                <h4 style="margin: 0 0 0.5rem 0; color: #F59E0B;">config.matcher</h4>
+                <p style="margin: 0;">Указывает, на каких путях запускать middleware</p>
+                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">Мы исключаем статические файлы (картинки, CSS) для скорости</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Server Component Check -->
+        <section class="card">
+          <div class="card-header">Дополнительная проверка в Server Component</div>
+          <div class="card-body">
+            <p>Middleware — это первая линия защиты. Но иногда нужна проверка прямо в компоненте:</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">app/dashboard/page.tsx</span>
+              </div>
+              <pre><code>import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+
+// Это Server Component — выполняется на сервере
+export default async function DashboardPage() {
+  // Создаём клиент Supabase для серверного компонента
+  const supabase = createServerComponentClient({ cookies })
+
+  // Получаем данные текущего пользователя
+  const { data: { user } } = await supabase.auth.getUser()
+
+  // Если пользователь не найден — перенаправляем на вход
+  if (!user) {
+    redirect('/login')
+  }
+
+  // Пользователь залогинен — показываем контент
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Добро пожаловать, {user.email}!&lt;/h1&gt;
+      &lt;p&gt;Это ваш личный кабинет.&lt;/p&gt;
+
+      {/* Здесь будет контент dashboard */}
+    &lt;/div&gt;
+  )
+}</code></pre>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Зачем двойная проверка?</strong> Middleware защищает от случайного доступа. Проверка в компоненте — дополнительная страховка и доступ к данным пользователя.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- API Route Protection -->
+        <section class="card">
+          <div class="card-header">Защита API Routes</div>
+          <div class="card-body">
+            <p>Не забываем защитить и API! Иначе хакер может отправить запрос напрямую:</p>
+
+            <div style="background: var(--surface); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+              <p style="margin: 0; color: #EF4444;"><strong>Опасность:</strong> Даже если страница защищена, API может быть открыт!</p>
+              <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Хакер: <code>curl -X DELETE /api/transactions/123</code></p>
+            </div>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">app/api/transactions/route.ts</span>
+              </div>
+              <pre><code>import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
+import { NextResponse } from 'next/server'
+
+// GET — получить транзакции пользователя
+export async function GET() {
+  const supabase = createRouteHandlerClient({ cookies })
+
+  // Проверяем авторизацию
+  const { data: { user } } = await supabase.auth.getUser()
+
+  // Если не залогинен — возвращаем ошибку 401
+  if (!user) {
+    return NextResponse.json(
+      { error: 'Unauthorized' },
+      { status: 401 }  // 401 = не авторизован
+    )
+  }
+
+  // Получаем транзакции ТОЛЬКО этого пользователя
+  const { data: transactions } = await supabase
+    .from('transactions')
+    .select('*')
+    .eq('user_id', user.id)  // Фильтр по user_id!
+
+  return NextResponse.json(transactions)
+}
+
+// POST — создать новую транзакцию
+export async function POST(request: Request) {
+  const supabase = createRouteHandlerClient({ cookies })
+
+  // Проверяем авторизацию
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) {
+    return NextResponse.json(
+      { error: 'Unauthorized' },
+      { status: 401 }
+    )
+  }
+
+  // Получаем данные из запроса
+  const body = await request.json()
+
+  // Создаём транзакцию С ПРИВЯЗКОЙ к пользователю
+  const { data, error } = await supabase
+    .from('transactions')
+    .insert({
+      ...body,
+      user_id: user.id  // Автоматически привязываем к пользователю!
+    })
+    .select()
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 400 })
+  }
+
+  return NextResponse.json(data)
+}</code></pre>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Золотое правило:</strong> Всегда проверяйте user в API и используйте user.id для фильтрации данных!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика: Создаём защищённый Dashboard</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Создайте защищённую страницу Dashboard для Money Tracker.</p>
+
+            <ol style="margin: 1rem 0; padding-left: 1.5rem;">
+              <li style="margin-bottom: 1rem;">
+                <strong>Создайте middleware.ts</strong> в корне проекта (скопируйте код выше)
+              </li>
+              <li style="margin-bottom: 1rem;">
+                <strong>Создайте страницу dashboard:</strong>
+                <div class="code-block" style="margin-top: 0.5rem;">
+                  <div class="code-block-header">
+                    <span class="code-block-lang">app/dashboard/page.tsx</span>
+                  </div>
+                  <pre><code>import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+
+export default async function DashboardPage() {
+  const supabase = createServerComponentClient({ cookies })
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) {
+    redirect('/login')
+  }
+
+  // Получаем транзакции пользователя
+  const { data: transactions } = await supabase
+    .from('transactions')
+    .select('*')
+    .eq('user_id', user.id)
+    .order('created_at', { ascending: false })
+
+  return (
+    &lt;div className="p-8"&gt;
+      &lt;h1 className="text-2xl font-bold mb-4"&gt;
+        Привет, {user.email}!
+      &lt;/h1&gt;
+
+      &lt;div className="bg-white rounded-lg shadow p-6"&gt;
+        &lt;h2 className="text-xl mb-4"&gt;Ваши транзакции:&lt;/h2&gt;
+
+        {transactions?.length === 0 ? (
+          &lt;p&gt;Транзакций пока нет. Добавьте первую!&lt;/p&gt;
+        ) : (
+          &lt;ul&gt;
+            {transactions?.map((t) =&gt; (
+              &lt;li key={t.id} className="py-2 border-b"&gt;
+                {t.category}: {t.amount} руб.
+              &lt;/li&gt;
+            ))}
+          &lt;/ul&gt;
+        )}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  )
+}</code></pre>
+                </div>
+              </li>
+              <li style="margin-bottom: 1rem;">
+                <strong>Проверьте работу:</strong>
+                <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                  <li>Откройте /dashboard без входа → должно перенаправить на /login</li>
+                  <li>Войдите в систему → должно показать dashboard</li>
+                  <li>Проверьте, что видите только свои транзакции</li>
+                </ul>
+              </li>
+            </ol>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Подсказка для Cursor:</strong> Попросите "Create a protected dashboard page that shows user's transactions"
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="card">
+          <div class="card-header">Итого: Три уровня защиты</div>
+          <div class="card-body">
+            <div class="service-cards">
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">1️⃣</div>
+                <h4>Middleware</h4>
+                <p style="font-size: 0.85rem;">Первая линия защиты. Перенаправляет на /login</p>
+              </div>
+
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">2️⃣</div>
+                <h4>Server Component</h4>
+                <p style="font-size: 0.85rem;">Проверка в компоненте + доступ к user</p>
+              </div>
+
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">3️⃣</div>
+                <h4>API Routes</h4>
+                <p style="font-size: 0.85rem;">Защита данных + фильтр по user_id</p>
+              </div>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Результат:</strong> Ваше приложение защищено на всех уровнях — от страниц до API!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson7">
+              <p><strong>Что делает middleware в Next.js?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Создаёт красивый дизайн</div>
+                <div class="quiz-option" data-correct="true">Выполняет код ДО показа страницы (проверяет авторизацию)</div>
+                <div class="quiz-option" data-correct="false">Сохраняет данные в базу</div>
+                <div class="quiz-option" data-correct="false">Отправляет email пользователю</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+
+            <div class="quiz" data-quiz="lesson7-2" style="margin-top: 1.5rem;">
+              <p><strong>Почему важно защищать API Routes?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Чтобы код работал быстрее</div>
+                <div class="quiz-option" data-correct="false">Чтобы страница выглядела красиво</div>
+                <div class="quiz-option" data-correct="true">Потому что хакер может отправить запрос напрямую, минуя страницу</div>
+                <div class="quiz-option" data-correct="false">API не нужно защищать, только страницы</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-vip"></span>
+                <span class="checklist-text">Понял аналогию с VIP-зоной и охранником</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-middleware"></span>
+                <span class="checklist-text">Создал middleware.ts для защиты страниц</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-server"></span>
+                <span class="checklist-text">Понял как проверять авторизацию в Server Component</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-api"></span>
+                <span class="checklist-text">Понял как защитить API Routes</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-dashboard"></span>
+                <span class="checklist-text">Создал защищённую страницу Dashboard</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-6.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Social Login</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="7">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-8.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Работа с пользователем</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

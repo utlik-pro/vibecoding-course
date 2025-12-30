@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 7.3: Настройка Supabase Auth | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 9 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 7</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое аутентификация</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Supabase Auth обзор</a>
+        <a href="lesson-3.html" class="nav-item active" data-lesson="3"><span class="nav-item-number">3</span>Настройка Auth</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Регистрация по Email</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Вход в систему</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Social Login</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Защита страниц</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Работа с пользователем</a>
+        <a href="project.html" class="nav-item" data-lesson="9"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 7</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 7.3</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 7.3</span>
+            <span class="lesson-duration">⏱ 25 минут</span>
+          </div>
+          <h1 class="lesson-title">Настройка Supabase Auth</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Включаем аутентификацию, устанавливаем библиотеки, настраиваем проект
+          </p>
+        </div>
+
+        <!-- Prerequisites -->
+        <section class="card">
+          <div class="card-header">Что нужно для этого урока</div>
+          <div class="card-body">
+            <p>Прежде чем начать, убедитесь что у вас есть:</p>
+
+            <div class="alert alert-warning" style="margin: 1rem 0;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Обязательно проверьте!</strong> Если чего-то нет — вернитесь к Модулю 6.
+              </div>
+            </div>
+
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="prereq-nextjs"></span>
+                <span class="checklist-text">Next.js проект (Money Tracker из Модуля 6)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="prereq-supabase"></span>
+                <span class="checklist-text">Аккаунт Supabase с созданным проектом</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="prereq-supabase-js"></span>
+                <span class="checklist-text">Установленный пакет @supabase/supabase-js</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="prereq-env"></span>
+                <span class="checklist-text">Файл .env.local с SUPABASE_URL и SUPABASE_ANON_KEY</span>
+              </li>
+            </ul>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Проверьте проект:</strong> Откройте терминал в папке проекта и выполните <code>npm run dev</code>. Если сайт открывается — всё готово!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 1: Enable Email Provider -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Шаг 1: Включаем Email провайдер в Supabase</div>
+          <div class="card-body">
+            <p><strong>Первым делом</strong> нужно включить способ входа по email в Supabase Dashboard:</p>
+
+            <ol style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
+              <li>Откройте <a href="https://supabase.com/dashboard" target="_blank" style="color: var(--primary);">supabase.com/dashboard</a></li>
+              <li>Выберите ваш проект (Money Tracker)</li>
+              <li>В левом меню нажмите <strong>Authentication</strong></li>
+              <li>Перейдите во вкладку <strong>Providers</strong></li>
+              <li>Найдите <strong>Email</strong> в списке</li>
+              <li>Убедитесь что переключатель <strong>Enable Email provider</strong> включён (зелёный)</li>
+            </ol>
+
+            <div style="background: var(--surface); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+              <p style="margin: 0 0 0.5rem 0;"><strong>Что вы увидите на экране:</strong></p>
+              <div class="code-block">
+                <div class="code-block-header">
+                  <span class="code-block-lang">Supabase Dashboard > Authentication > Providers</span>
+                </div>
+                <pre><code>+------------------------------------------+
+|  Email                           [ON]    |
+|  ----------------------------------------|
+|  Enable Email provider           [✓]     |
+|  Confirm email                   [✓]     |
+|  Secure email change             [✓]     |
++------------------------------------------+</code></pre>
+              </div>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Готово!</strong> Email провайдер уже включён по умолчанию в новых проектах. Просто убедитесь что он активен.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 2: Install SSR Package -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Шаг 2: Устанавливаем библиотеку @supabase/ssr</div>
+          <div class="card-body">
+            <p>Для работы аутентификации в Next.js нам нужна специальная библиотека:</p>
+
+            <div class="alert alert-info" style="margin: 1rem 0;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Зачем ещё одна библиотека?</strong><br>
+                <code>@supabase/supabase-js</code> — базовая библиотека для работы с Supabase<br>
+                <code>@supabase/ssr</code> — дополнение для правильной работы сессий в Next.js<br><br>
+                Представьте: первая библиотека — это двигатель, а вторая — коробка передач для Next.js.
+              </div>
+            </div>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Терминал</span>
+              </div>
+              <pre><code># Откройте терминал в папке проекта и выполните:
+npm install @supabase/ssr</code></pre>
+            </div>
+
+            <p><strong>Что произойдёт:</strong></p>
+            <ul style="padding-left: 1.5rem;">
+              <li>npm скачает библиотеку из интернета</li>
+              <li>Добавит её в папку <code>node_modules</code></li>
+              <li>Обновит файл <code>package.json</code></li>
+            </ul>
+
+            <div style="background: var(--surface); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+              <p style="margin: 0;"><strong>Ожидаемый результат в терминале:</strong></p>
+              <div class="code-block" style="margin-top: 0.5rem;">
+                <pre><code>added 1 package, and audited 320 packages in 3s
+
+found 0 vulnerabilities</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 3: Create Client Files -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Шаг 3: Создаём файлы клиента Supabase</div>
+          <div class="card-body">
+            <p>Теперь нужно создать два важных файла. Они будут "мостиком" между вашим приложением и Supabase Auth.</p>
+
+            <div class="alert alert-info" style="margin: 1rem 0;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Почему два файла?</strong><br>
+                Next.js работает в двух режимах: на сервере и в браузере. Для каждого режима нужен свой способ подключения к Supabase. Это как два входа в здание — один для сотрудников (сервер), другой для посетителей (браузер).
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Файл 1: Клиент для браузера</h4>
+            <p>Создайте папку <code>utils/supabase</code> в корне проекта, затем файл <code>client.ts</code>:</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">utils/supabase/client.ts</span>
+              </div>
+              <pre><code>// Этот файл создаёт подключение к Supabase для браузера
+// Используется в клиентских компонентах (с 'use client')
+
+import { createBrowserClient } from '@supabase/ssr'
+
+// Функция создаёт и возвращает клиент Supabase
+export function createClient() {
+  return createBrowserClient(
+    // URL вашего Supabase проекта (из .env.local)
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    // Анонимный ключ для публичного доступа (из .env.local)
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+}</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Файл 2: Клиент для сервера</h4>
+            <p>В той же папке создайте файл <code>server.ts</code>:</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">utils/supabase/server.ts</span>
+              </div>
+              <pre><code>// Этот файл создаёт подключение к Supabase для сервера
+// Используется в Server Components и API Routes
+
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
+
+// Функция создаёт серверный клиент Supabase
+export async function createClient() {
+  // Получаем доступ к cookies браузера
+  const cookieStore = await cookies()
+
+  return createServerClient(
+    // URL вашего Supabase проекта
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    // Анонимный ключ
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        // Функция для получения всех cookies
+        getAll() {
+          return cookieStore.getAll()
+        },
+        // Функция для установки cookies
+        setAll(cookiesToSet) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            )
+          } catch {
+            // Ошибка может возникнуть при вызове из Server Component
+            // Это нормально, можно игнорировать
+          }
+        },
+      },
+    }
+  )
+}</code></pre>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Не пугайтесь сложного кода!</strong> Этот код — "шаблон" от Supabase. Вам не нужно понимать каждую строчку. Просто скопируйте и используйте.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 4: Create Middleware -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Шаг 4: Создаём Middleware</div>
+          <div class="card-body">
+            <p><strong>Middleware</strong> — это специальный код, который запускается при КАЖДОМ запросе к сайту.</p>
+
+            <div class="alert alert-info" style="margin: 1rem 0;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Простая аналогия:</strong><br>
+                Middleware — это как <strong>охранник на входе в здание</strong>. Он проверяет пропуск каждого посетителя:<br>
+                - Есть пропуск? Проходите!<br>
+                - Нет пропуска? Идите на ресепшен (страница входа)!
+              </div>
+            </div>
+
+            <p>Создайте файл <code>middleware.ts</code> в <strong>корне проекта</strong> (рядом с package.json):</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">middleware.ts (в корне проекта)</span>
+              </div>
+              <pre><code>// Middleware — "охранник", который проверяет сессию пользователя
+// при каждом переходе между страницами
+
+import { createServerClient } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
+
+export async function middleware(request: NextRequest) {
+  // Создаём ответ, который пока просто пропускает запрос дальше
+  let supabaseResponse = NextResponse.next({
+    request,
+  })
+
+  // Создаём клиент Supabase для проверки сессии
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        // Получаем все cookies из запроса
+        getAll() {
+          return request.cookies.getAll()
+        },
+        // Устанавливаем cookies в ответ
+        setAll(cookiesToSet) {
+          // Сначала устанавливаем в запрос
+          cookiesToSet.forEach(({ name, value }) =>
+            request.cookies.set(name, value)
+          )
+          // Создаём новый ответ с обновлёнными cookies
+          supabaseResponse = NextResponse.next({
+            request,
+          })
+          // Устанавливаем cookies в ответ
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          )
+        },
+      },
+    }
+  )
+
+  // ВАЖНО: Не убирайте эту строку!
+  // Она обновляет сессию пользователя, чтобы он не "вылетал"
+  await supabase.auth.getUser()
+
+  return supabaseResponse
+}
+
+// Настройка: на каких путях запускать middleware
+export const config = {
+  matcher: [
+    // Запускать на всех путях, КРОМЕ:
+    // - _next/static (статические файлы)
+    // - _next/image (оптимизированные изображения)
+    // - favicon.ico (иконка сайта)
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
+}</code></pre>
+            </div>
+
+            <div style="background: var(--surface); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+              <p style="margin: 0 0 0.5rem 0;"><strong>Структура файлов после этого шага:</strong></p>
+              <div class="code-block" style="margin-top: 0.5rem;">
+                <pre><code>your-project/
+├── app/
+│   └── ...
+├── utils/
+│   └── supabase/
+│       ├── client.ts    ← клиент для браузера
+│       └── server.ts    ← клиент для сервера
+├── middleware.ts        ← охранник (в корне!)
+├── .env.local
+└── package.json</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 5: Update .env.local -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Шаг 5: Проверяем .env.local</div>
+          <div class="card-body">
+            <p>Убедитесь что в файле <code>.env.local</code> есть правильные переменные:</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">.env.local</span>
+              </div>
+              <pre><code># Supabase Configuration
+# Эти данные берём из Supabase Dashboard > Settings > API
+
+# URL вашего Supabase проекта
+NEXT_PUBLIC_SUPABASE_URL=https://ваш-проект.supabase.co
+
+# Анонимный ключ (публичный, можно показывать)
+NEXT_PUBLIC_SUPABASE_ANON_KEY=ваш-анонимный-ключ</code></pre>
+            </div>
+
+            <div class="alert alert-warning" style="margin: 1rem 0;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Важно!</strong> Обратите внимание на <code>NEXT_PUBLIC_</code> в начале имён. Это обязательно! Без этого префикса переменные не будут доступны в браузере.
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Где взять эти данные?</h4>
+            <ol style="padding-left: 1.5rem; line-height: 1.8;">
+              <li>Откройте <a href="https://supabase.com/dashboard" target="_blank" style="color: var(--primary);">Supabase Dashboard</a></li>
+              <li>Выберите ваш проект</li>
+              <li>Нажмите <strong>Settings</strong> (шестерёнка внизу меню)</li>
+              <li>Выберите <strong>API</strong></li>
+              <li>Скопируйте <strong>Project URL</strong> и <strong>anon public</strong> ключ</li>
+            </ol>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Anon key — публичный!</strong> Его можно безопасно использовать в браузере. Настоящая защита данных — это RLS политики в базе данных.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 6: Verify Installation -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Шаг 6: Проверяем что всё работает</div>
+          <div class="card-body">
+            <p><strong>Финальная проверка!</strong> Убедимся, что установка прошла успешно:</p>
+
+            <h4 style="margin-top: 1rem;">1. Перезапустите сервер</h4>
+            <div class="code-block" style="margin: 0.5rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Терминал</span>
+              </div>
+              <pre><code># Остановите сервер (Ctrl+C) и запустите заново:
+npm run dev</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">2. Откройте браузер</h4>
+            <p>Перейдите на <a href="http://localhost:3000" target="_blank" style="color: var(--primary);">http://localhost:3000</a></p>
+
+            <h4 style="margin-top: 1.5rem;">3. Проверьте консоль</h4>
+            <p>Откройте DevTools (F12) и посмотрите вкладку Console. Не должно быть ошибок связанных с Supabase.</p>
+
+            <div style="background: var(--surface); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+              <p style="margin: 0 0 0.5rem 0;"><strong>Если видите ошибку:</strong></p>
+              <ul style="margin: 0; padding-left: 1.5rem;">
+                <li><code>NEXT_PUBLIC_SUPABASE_URL is not defined</code> — проверьте .env.local</li>
+                <li><code>Cannot find module '@supabase/ssr'</code> — запустите npm install заново</li>
+                <li><code>middleware.ts not found</code> — файл должен быть в корне проекта</li>
+              </ul>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Если сайт открывается без ошибок — поздравляем!</strong> Supabase Auth настроен и готов к использованию.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="card">
+          <div class="card-header">Что мы сделали в этом уроке</div>
+          <div class="card-body">
+            <div class="service-cards" style="margin: 1rem 0;">
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">1</div>
+                <h4>Включили Email</h4>
+                <p style="font-size: 0.85rem;">В Supabase Dashboard</p>
+              </div>
+
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">2</div>
+                <h4>Установили SSR</h4>
+                <p style="font-size: 0.85rem;">@supabase/ssr</p>
+              </div>
+
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">3</div>
+                <h4>Создали клиенты</h4>
+                <p style="font-size: 0.85rem;">client.ts + server.ts</p>
+              </div>
+
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">4</div>
+                <h4>Добавили Middleware</h4>
+                <p style="font-size: 0.85rem;">"Охранник" сессий</p>
+              </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>В следующем уроке</strong> мы создадим форму регистрации и зарегистрируем первого пользователя!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson3">
+              <p><strong>Зачем нужен файл middleware.ts?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Для красивого оформления сайта</div>
+                <div class="quiz-option" data-correct="true">Для проверки сессии пользователя при каждом запросе</div>
+                <div class="quiz-option" data-correct="false">Для хранения паролей</div>
+                <div class="quiz-option" data-correct="false">Для отправки email</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+
+            <div class="quiz" data-quiz="lesson3-2" style="margin-top: 1.5rem;">
+              <p><strong>Почему мы создаём два файла клиента (client.ts и server.ts)?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Потому что один файл — это слишком мало</div>
+                <div class="quiz-option" data-correct="false">Для красоты кода</div>
+                <div class="quiz-option" data-correct="true">Потому что Next.js работает и в браузере, и на сервере — нужны разные подключения</div>
+                <div class="quiz-option" data-correct="false">Потому что так требует Supabase</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-email"></span>
+                <span class="checklist-text">Проверил что Email провайдер включён в Supabase</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-ssr"></span>
+                <span class="checklist-text">Установил @supabase/ssr</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-client"></span>
+                <span class="checklist-text">Создал utils/supabase/client.ts</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-server"></span>
+                <span class="checklist-text">Создал utils/supabase/server.ts</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-middleware"></span>
+                <span class="checklist-text">Создал middleware.ts в корне проекта</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-env"></span>
+                <span class="checklist-text">Проверил .env.local с NEXT_PUBLIC_ переменными</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-verify"></span>
+                <span class="checklist-text">Проверил что сайт запускается без ошибок</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-2.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Supabase Auth обзор</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="3">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-4.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Регистрация по Email</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

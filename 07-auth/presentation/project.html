@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Итоговый проект: Защищённый Money Tracker | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 9 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 7</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое аутентификация</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Supabase Auth обзор</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Настройка Auth</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Регистрация по Email</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Вход в систему</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Social Login</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Защита страниц</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Работа с пользователем</a>
+        <a href="project.html" class="nav-item active" data-lesson="9"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 7</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Итоговый проект</span>
+        </div>
+        <div class="header-actions">
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Итоговый проект</span>
+          </div>
+          <h1 class="lesson-title">Защищённый Money Tracker</h1>
+
+          <div class="lesson-objectives">
+            <h4>Цель проекта:</h4>
+            <ul>
+              <li>Добавить аутентификацию в Money Tracker из Модуля 6</li>
+              <li>Реализовать регистрацию и вход пользователей</li>
+              <li>Защитить данные — каждый видит только свои транзакции</li>
+              <li>Настроить RLS политики в базе данных</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Preview -->
+        <section class="card">
+          <div class="card-header">Что должно получиться</div>
+          <div class="card-body">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <!-- Login Screen -->
+              <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1.5rem; border-radius: 12px; color: white;">
+                <h4 style="margin: 0 0 1rem 0; font-size: 1rem; opacity: 0.8;">Страница входа</h4>
+                <div style="background: rgba(255,255,255,0.95); padding: 1.5rem; border-radius: 8px; color: #333;">
+                  <h3 style="margin: 0 0 1rem 0; color: #667eea;">Money Tracker</h3>
+                  <div style="background: #f5f5f5; padding: 0.5rem; border-radius: 4px; margin-bottom: 0.5rem;">vasya@mail.ru</div>
+                  <div style="background: #f5f5f5; padding: 0.5rem; border-radius: 4px; margin-bottom: 1rem;">********</div>
+                  <div style="background: #667eea; color: white; padding: 0.5rem; border-radius: 4px; text-align: center; margin-bottom: 0.5rem;">Войти</div>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <div style="flex: 1; background: #333; color: white; padding: 0.5rem; border-radius: 4px; text-align: center; font-size: 0.8rem;">GitHub</div>
+                    <div style="flex: 1; background: #ea4335; color: white; padding: 0.5rem; border-radius: 4px; text-align: center; font-size: 0.8rem;">Google</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Dashboard -->
+              <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1.5rem; border-radius: 12px; color: white;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                  <h4 style="margin: 0; font-size: 1rem; opacity: 0.8;">Dashboard</h4>
+                  <div style="background: rgba(255,255,255,0.2); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem;">Выйти</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.15); padding: 0.75rem; border-radius: 8px; margin-bottom: 0.5rem;">
+                  <div style="font-size: 0.75rem; opacity: 0.8;">Ваш баланс</div>
+                  <div style="font-size: 1.25rem; font-weight: bold;">59 950 р.</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.1); border-radius: 6px; font-size: 0.8rem;">
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    <span>Зарплата</span>
+                    <span style="color: #86efac;">+50 000 р.</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 0.5rem;">
+                    <span>Кафе</span>
+                    <span style="color: #fca5a5;">-1 200 р.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Результат:</strong> Полноценное защищённое приложение! Каждый пользователь видит только свои транзакции.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Requirements Checklist -->
+        <section class="card">
+          <div class="card-header">Требования к проекту</div>
+          <div class="card-body">
+            <h4 style="margin-top: 0;">Обязательный функционал:</h4>
+
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-register"></span>
+                <span class="checklist-text">Страница регистрации (email + пароль)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-login"></span>
+                <span class="checklist-text">Страница входа (email + пароль)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-social"></span>
+                <span class="checklist-text">Social Login (Google или GitHub)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-protected"></span>
+                <span class="checklist-text">Защищённый dashboard (только для авторизованных)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-user-data"></span>
+                <span class="checklist-text">Транзакции привязаны к пользователю (user_id)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-logout"></span>
+                <span class="checklist-text">Кнопка выхода (Logout)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-rls"></span>
+                <span class="checklist-text">RLS политики настроены</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Step by Step Guide -->
+        <section class="card">
+          <div class="card-header">Пошаговое руководство</div>
+          <div class="card-body">
+            <div class="alert alert-info" style="margin-bottom: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Подсказка:</strong> Используйте Cursor для генерации кода! Просто описывайте что нужно сделать.
+              </div>
+            </div>
+
+            <h4 style="margin-top: 0;">Шаг 1: Изменения в базе данных</h4>
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL — Добавить user_id в таблицу transactions</span>
+              </div>
+              <pre><code>-- Добавляем колонку user_id
+ALTER TABLE transactions
+ADD COLUMN user_id UUID REFERENCES auth.users(id);
+
+-- Делаем её обязательной для новых записей
+-- (старые записи можно удалить или обновить)</code></pre>
+            </div>
+
+            <h4>Шаг 2: Настройка RLS политик</h4>
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL — RLS политики для transactions</span>
+              </div>
+              <pre><code>-- Включаем RLS
+ALTER TABLE transactions ENABLE ROW LEVEL SECURITY;
+
+-- Политика на чтение: видим только свои транзакции
+CREATE POLICY "Users can view own transactions"
+ON transactions FOR SELECT
+USING (auth.uid() = user_id);
+
+-- Политика на создание: можем создавать только для себя
+CREATE POLICY "Users can create own transactions"
+ON transactions FOR INSERT
+WITH CHECK (auth.uid() = user_id);
+
+-- Политика на обновление: можем менять только свои
+CREATE POLICY "Users can update own transactions"
+ON transactions FOR UPDATE
+USING (auth.uid() = user_id);
+
+-- Политика на удаление: можем удалять только свои
+CREATE POLICY "Users can delete own transactions"
+ON transactions FOR DELETE
+USING (auth.uid() = user_id);</code></pre>
+            </div>
+
+            <h4>Шаг 3: Создание страниц авторизации</h4>
+            <p>Попросите Cursor создать:</p>
+            <ul style="padding-left: 1.5rem;">
+              <li><code>/login</code> — страница входа</li>
+              <li><code>/register</code> — страница регистрации</li>
+              <li>Middleware для защиты dashboard</li>
+            </ul>
+
+            <h4>Шаг 4: Интеграция с транзакциями</h4>
+            <p>При создании транзакции добавляйте user_id текущего пользователя:</p>
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">JavaScript — создание транзакции с user_id</span>
+              </div>
+              <pre><code>const { data: { user } } = await supabase.auth.getUser();
+
+const { data, error } = await supabase
+  .from('transactions')
+  .insert({
+    amount: 50000,
+    category: 'Зарплата',
+    type: 'income',
+    user_id: user.id  // Привязываем к пользователю!
+  });</code></pre>
+            </div>
+
+            <h4>Шаг 5: Добавление кнопки выхода</h4>
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">JavaScript — выход из системы</span>
+              </div>
+              <pre><code>const handleLogout = async () => {
+  await supabase.auth.signOut();
+  router.push('/login');
+};</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Database Changes -->
+        <section class="card">
+          <div class="card-header">Изменения в базе данных</div>
+          <div class="card-body">
+            <p>Обновлённая структура таблицы <code>transactions</code>:</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Поле</th>
+                    <th>Тип</th>
+                    <th>Описание</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>id</code></td>
+                    <td>int8, Primary Key</td>
+                    <td>Уникальный ID</td>
+                  </tr>
+                  <tr>
+                    <td><code>amount</code></td>
+                    <td>numeric</td>
+                    <td>Сумма</td>
+                  </tr>
+                  <tr>
+                    <td><code>type</code></td>
+                    <td>text</td>
+                    <td>"income" или "expense"</td>
+                  </tr>
+                  <tr>
+                    <td><code>category</code></td>
+                    <td>text</td>
+                    <td>Категория</td>
+                  </tr>
+                  <tr style="background: rgba(16, 185, 129, 0.1);">
+                    <td><code>user_id</code></td>
+                    <td>UUID, FK -> auth.users</td>
+                    <td><strong>НОВОЕ!</strong> ID владельца</td>
+                  </tr>
+                  <tr>
+                    <td><code>created_at</code></td>
+                    <td>timestamptz</td>
+                    <td>Дата создания</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Важно!</strong> Если у вас есть старые транзакции без user_id — их нужно удалить или обновить. Иначе RLS их заблокирует.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RLS Policies Summary -->
+        <section class="card">
+          <div class="card-header">Итоговые RLS политики</div>
+          <div class="card-body">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Операция</th>
+                    <th>Политика</th>
+                    <th>Условие</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem;">SELECT</span></td>
+                    <td>Users can view own transactions</td>
+                    <td><code>auth.uid() = user_id</code></td>
+                  </tr>
+                  <tr>
+                    <td><span style="background: #3B82F6; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem;">INSERT</span></td>
+                    <td>Users can create own transactions</td>
+                    <td><code>auth.uid() = user_id</code></td>
+                  </tr>
+                  <tr>
+                    <td><span style="background: #F59E0B; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem;">UPDATE</span></td>
+                    <td>Users can update own transactions</td>
+                    <td><code>auth.uid() = user_id</code></td>
+                  </tr>
+                  <tr>
+                    <td><span style="background: #EF4444; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem;">DELETE</span></td>
+                    <td>Users can delete own transactions</td>
+                    <td><code>auth.uid() = user_id</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>RLS работает автоматически!</strong> Даже если кто-то попытается получить чужие данные через API — база данных вернёт только его транзакции.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Project Structure -->
+        <section class="card">
+          <div class="card-header">Ожидаемая структура проекта</div>
+          <div class="card-body">
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Структура</span>
+              </div>
+              <pre><code>money-tracker/
+├── app/
+│   ├── api/
+│   │   └── transactions/
+│   │       ├── route.ts
+│   │       └── [id]/route.ts
+│   │
+│   ├── login/
+│   │   └── page.tsx            # Страница входа
+│   │
+│   ├── register/
+│   │   └── page.tsx            # Страница регистрации
+│   │
+│   ├── dashboard/
+│   │   └── page.tsx            # Защищённый dashboard
+│   │
+│   ├── auth/
+│   │   └── callback/
+│   │       └── route.ts        # Обработка OAuth callback
+│   │
+│   ├── page.tsx                # Редирект на login/dashboard
+│   ├── layout.tsx
+│   └── globals.css
+│
+├── components/
+│   ├── TransactionList.tsx
+│   ├── LoginForm.tsx           # НОВОЕ
+│   ├── RegisterForm.tsx        # НОВОЕ
+│   └── LogoutButton.tsx        # НОВОЕ
+│
+├── lib/
+│   └── supabase.ts
+│
+├── middleware.ts               # НОВОЕ: защита роутов
+├── .env.local
+└── package.json</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Testing Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист тестирования</div>
+          <div class="card-body">
+            <p>Проверьте каждый пункт перед сдачей проекта:</p>
+
+            <h4 style="margin-top: 1rem;">Регистрация и вход</h4>
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="test-register-new"></span>
+                <span class="checklist-text">Можно зарегистрировать нового пользователя</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="test-login-works"></span>
+                <span class="checklist-text">Можно войти с email и паролем</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="test-social-works"></span>
+                <span class="checklist-text">Social Login работает (Google или GitHub)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="test-logout-works"></span>
+                <span class="checklist-text">Кнопка выхода работает</span>
+              </li>
+            </ul>
+
+            <h4 style="margin-top: 1.5rem;">Защита данных</h4>
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="test-own-data"></span>
+                <span class="checklist-text">Пользователь видит только свои транзакции</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="test-no-access"></span>
+                <span class="checklist-text">Без входа нельзя попасть на dashboard</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="test-redirect"></span>
+                <span class="checklist-text">Неавторизованный пользователь редиректится на /login</span>
+              </li>
+            </ul>
+
+            <h4 style="margin-top: 1.5rem;">Транзакции</h4>
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="test-create"></span>
+                <span class="checklist-text">Создание транзакции сохраняет user_id</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="test-crud"></span>
+                <span class="checklist-text">CRUD операции работают для своих транзакций</span>
+              </li>
+            </ul>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Совет:</strong> Создайте двух тестовых пользователей и проверьте, что каждый видит только свои данные!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Evaluation -->
+        <section class="card">
+          <div class="card-header">Критерии оценки</div>
+          <div class="card-body">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Критерий</th>
+                    <th>Баллы</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Регистрация по email работает</td>
+                    <td>15</td>
+                  </tr>
+                  <tr>
+                    <td>Вход по email работает</td>
+                    <td>15</td>
+                  </tr>
+                  <tr>
+                    <td>Social Login настроен (Google или GitHub)</td>
+                    <td>10</td>
+                  </tr>
+                  <tr>
+                    <td>Dashboard защищён (middleware)</td>
+                    <td>15</td>
+                  </tr>
+                  <tr>
+                    <td>user_id добавлен в таблицу transactions</td>
+                    <td>10</td>
+                  </tr>
+                  <tr>
+                    <td>RLS политики настроены</td>
+                    <td>15</td>
+                  </tr>
+                  <tr>
+                    <td>Пользователь видит только свои транзакции</td>
+                    <td>10</td>
+                  </tr>
+                  <tr>
+                    <td>Кнопка выхода работает</td>
+                    <td>10</td>
+                  </tr>
+                  <tr style="background: rgba(16, 185, 129, 0.1);">
+                    <td><strong>БОНУС:</strong> Отображение email/имени пользователя</td>
+                    <td>+5</td>
+                  </tr>
+                  <tr style="background: rgba(16, 185, 129, 0.1);">
+                    <td><strong>БОНУС:</strong> И Google, и GitHub настроены</td>
+                    <td>+5</td>
+                  </tr>
+                  <tr style="background: rgba(16, 185, 129, 0.1);">
+                    <td><strong>БОНУС:</strong> Красивые формы входа/регистрации</td>
+                    <td>+5</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Поздравляем!</strong> Вы создали полноценное защищённое приложение с аутентификацией!
+                Теперь ваш Money Tracker защищён как банковское приложение.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bonus Challenges -->
+        <section class="card">
+          <div class="card-header">Бонусные задания</div>
+          <div class="card-body">
+            <p>Хотите получить дополнительные баллы? Попробуйте реализовать:</p>
+
+            <div class="service-cards" style="margin-top: 1rem;">
+              <div class="service-card">
+                <h4>Профиль пользователя</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                  Страница /profile с именем и email пользователя. Возможность обновить данные.
+                </p>
+                <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem;">+5 баллов</span>
+              </div>
+
+              <div class="service-card">
+                <h4>Сброс пароля</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                  Страница "Забыл пароль" с отправкой ссылки на email для сброса.
+                </p>
+                <span style="background: #10B981; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem;">+5 баллов</span>
+              </div>
+
+              <div class="service-card">
+                <h4>Email подтверждение</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                  Требовать подтверждение email перед доступом к приложению.
+                </p>
+                <span style="background: #F59E0B; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem;">+10 баллов</span>
+              </div>
+
+              <div class="service-card">
+                <h4>Аватар пользователя</h4>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                  Загрузка и отображение аватара через Supabase Storage.
+                </p>
+                <span style="background: #EF4444; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem;">+15 баллов</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Submission -->
+        <section class="card">
+          <div class="card-header">Сдача проекта</div>
+          <div class="card-body">
+            <ol>
+              <li>Убедитесь, что все обязательные чек-листы выполнены</li>
+              <li>Протестируйте приложение с двумя разными пользователями</li>
+              <li>Проверьте, что production деплой работает</li>
+              <li>Отправьте преподавателю:
+                <ul>
+                  <li>Ссылку на GitHub репозиторий</li>
+                  <li>Ссылку на Vercel деплой</li>
+                  <li>Тестовые данные для входа (email + пароль)</li>
+                </ul>
+              </li>
+            </ol>
+
+            <div class="alert alert-warning" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Не забудьте!</strong> Добавьте OAuth Redirect URL в настройках Vercel для работы Social Login в production.
+              </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Следующий модуль:</strong> Деплой и DevOps — научимся профессионально разворачивать и поддерживать приложения!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <nav class="lesson-nav">
+          <a href="lesson-8.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Работа с пользователем</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="9">
+            Завершить модуль
+          </button>
+
+          <a href="../../index.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Вернуться к курсу</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 7.4: Регистрация по Email | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 9 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 7</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое аутентификация</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Supabase Auth обзор</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Настройка Auth</a>
+        <a href="lesson-4.html" class="nav-item active" data-lesson="4"><span class="nav-item-number">4</span>Регистрация по Email</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Вход в систему</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Social Login</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Защита страниц</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Работа с пользователем</a>
+        <a href="project.html" class="nav-item" data-lesson="9"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 7</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 7.4</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 7.4</span>
+            <span class="lesson-duration">⏱ 30 минут</span>
+          </div>
+          <h1 class="lesson-title">Регистрация по Email</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Создаём форму регистрации и подключаем к Supabase Auth
+          </p>
+        </div>
+
+        <!-- What we will create -->
+        <section class="card">
+          <div class="card-header">Что мы создадим</div>
+          <div class="card-body">
+            <p>В этом уроке мы создадим полноценную страницу регистрации:</p>
+
+            <div class="service-cards" style="margin-top: 1rem;">
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">📝</div>
+                <h4>Форма</h4>
+                <p style="font-size: 0.85rem;">Email, пароль, подтверждение</p>
+              </div>
+
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">✅</div>
+                <h4>Валидация</h4>
+                <p style="font-size: 0.85rem;">Проверка правильности данных</p>
+              </div>
+
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">📧</div>
+                <h4>Подтверждение</h4>
+                <p style="font-size: 0.85rem;">Email с ссылкой активации</p>
+              </div>
+
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">💬</div>
+                <h4>Обратная связь</h4>
+                <p style="font-size: 0.85rem;">Сообщения об ошибках</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Creating the page -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Шаг 1: Создаём страницу регистрации</div>
+          <div class="card-body">
+            <p>В Next.js каждая папка в <code>app/</code> — это отдельная страница. Создадим папку для регистрации:</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Структура папок</span>
+              </div>
+              <pre><code>app/
+├── auth/              ← Папка для страниц входа/регистрации
+│   ├── signup/        ← Страница регистрации
+│   │   └── page.tsx   ← Файл страницы
+│   └── login/         ← Страница входа (создадим позже)
+│       └── page.tsx
+└── page.tsx           ← Главная страница</code></pre>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Почему auth/signup?</strong><br>
+                Это создаст адрес <code>http://localhost:3000/auth/signup</code> — логичный и понятный!
+              </div>
+            </div>
+
+            <p style="margin-top: 1rem;"><strong>Создайте папки и файл:</strong></p>
+            <ol style="padding-left: 1.5rem;">
+              <li>В Cursor откройте папку <code>app/</code></li>
+              <li>Создайте папку <code>auth</code></li>
+              <li>Внутри <code>auth</code> создайте папку <code>signup</code></li>
+              <li>Внутри <code>signup</code> создайте файл <code>page.tsx</code></li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Cursor prompt -->
+        <section class="card">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Шаг 2: Просим Cursor создать форму</div>
+          <div class="card-body">
+            <p>Откройте <code>page.tsx</code> и попросите Cursor (Cmd+K / Ctrl+K):</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+              </div>
+              <pre><code>Создай страницу регистрации для Next.js с Supabase Auth.
+
+Требования:
+- Форма с полями: email, password, confirmPassword
+- Валидация: пароли должны совпадать, минимум 6 символов
+- Использовать supabase.auth.signUp()
+- Показывать состояния: loading, error, success
+- После успешной регистрации показать сообщение "Проверьте email"
+- Красивый дизайн с Tailwind CSS
+- Ссылка на страницу входа</code></pre>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Важно!</strong> Cursor сгенерирует код. Не волнуйтесь если он выглядит сложно — сейчас мы разберём каждую часть!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Code explanation -->
+        <section class="card">
+          <div class="card-header">Шаг 3: Разбираем код формы</div>
+          <div class="card-body">
+            <p>Вот как должен выглядеть готовый код (с объяснениями каждой строки):</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">app/auth/signup/page.tsx — Часть 1: Подготовка</span>
+              </div>
+              <pre><code>// "use client" — говорим Next.js, что это клиентский компонент
+// (работает в браузере пользователя, а не на сервере)
+"use client"
+
+// Импортируем нужные инструменты
+import { useState } from "react"        // Для хранения данных формы
+import { createClient } from "@/lib/supabase/client"  // Подключение к Supabase
+import Link from "next/link"             // Для ссылок между страницами
+
+// Создаём подключение к Supabase
+const supabase = createClient()</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Что такое useState?</strong><br>
+                Это как "ящик для хранения" данных. Когда пользователь печатает в поле email — мы сохраняем текст в этот ящик. Потом можем его использовать!
+              </div>
+            </div>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">app/auth/signup/page.tsx — Часть 2: Состояния</span>
+              </div>
+              <pre><code>export default function SignUpPage() {
+  // Создаём "ящики" для хранения данных
+
+  // Ящик для email (изначально пустой)
+  const [email, setEmail] = useState("")
+
+  // Ящик для пароля (изначально пустой)
+  const [password, setPassword] = useState("")
+
+  // Ящик для подтверждения пароля
+  const [confirmPassword, setConfirmPassword] = useState("")
+
+  // Ящик для сообщения об ошибке (изначально пустой)
+  const [error, setError] = useState("")
+
+  // Ящик для статуса загрузки (изначально false = не загружается)
+  const [loading, setLoading] = useState(false)
+
+  // Ящик для успешной регистрации
+  const [success, setSuccess] = useState(false)</code></pre>
+            </div>
+
+            <div style="background: var(--surface); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+              <p style="margin: 0;"><strong>Простая аналогия:</strong></p>
+              <p style="margin: 0.5rem 0 0 0;">
+                <code>useState</code> — это как записная книжка. <code>email</code> — текущее значение (что записано). <code>setEmail</code> — карандаш, чтобы изменить запись.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Form submission -->
+        <section class="card">
+          <div class="card-header">Шаг 4: Функция регистрации</div>
+          <div class="card-body">
+            <p>Главная часть — функция, которая отправляет данные в Supabase:</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">app/auth/signup/page.tsx — Часть 3: Регистрация</span>
+              </div>
+              <pre><code>  // Функция регистрации — вызывается при нажатии кнопки
+  async function handleSignUp(e: React.FormEvent) {
+    // Предотвращаем перезагрузку страницы
+    e.preventDefault()
+
+    // Очищаем предыдущую ошибку
+    setError("")
+
+    // Проверка 1: Пароли должны совпадать
+    if (password !== confirmPassword) {
+      setError("Пароли не совпадают")
+      return  // Останавливаем выполнение
+    }
+
+    // Проверка 2: Пароль минимум 6 символов
+    if (password.length < 6) {
+      setError("Пароль должен быть минимум 6 символов")
+      return
+    }
+
+    // Включаем индикатор загрузки
+    setLoading(true)
+
+    // Отправляем запрос в Supabase
+    const { error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    })
+
+    // Выключаем индикатор загрузки
+    setLoading(false)
+
+    // Если есть ошибка — показываем её
+    if (error) {
+      setError(error.message)
+      return
+    }
+
+    // Успех! Показываем сообщение
+    setSuccess(true)
+  }</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Что такое async/await?</strong><br>
+                Представьте, что вы заказываете пиццу. <code>async</code> — это заказ, а <code>await</code> — ожидание доставки. Код "ждёт" ответа от Supabase, прежде чем продолжить.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Form HTML -->
+        <section class="card">
+          <div class="card-header">Шаг 5: HTML формы</div>
+          <div class="card-body">
+            <p>Теперь добавляем саму форму (то, что видит пользователь):</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">app/auth/signup/page.tsx — Часть 4: Форма</span>
+              </div>
+              <pre><code>  return (
+    &lt;div className="min-h-screen flex items-center justify-center bg-gray-50"&gt;
+      &lt;div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md"&gt;
+        &lt;h1 className="text-2xl font-bold text-center mb-6"&gt;
+          Регистрация
+        &lt;/h1&gt;
+
+        {/* Если успешно — показываем сообщение */}
+        {success ? (
+          &lt;div className="text-center"&gt;
+            &lt;div className="text-green-600 text-lg mb-4"&gt;
+              Регистрация успешна!
+            &lt;/div&gt;
+            &lt;p className="text-gray-600"&gt;
+              Проверьте вашу почту и нажмите на ссылку
+              для подтверждения аккаунта.
+            &lt;/p&gt;
+          &lt;/div&gt;
+        ) : (
+          // Если ещё не зарегистрирован — показываем форму
+          &lt;form onSubmit={handleSignUp}&gt;
+            {/* Поле Email */}
+            &lt;div className="mb-4"&gt;
+              &lt;label className="block text-gray-700 mb-2"&gt;
+                Email
+              &lt;/label&gt;
+              &lt;input
+                type="email"
+                value={email}
+                onChange={(e) =&gt; setEmail(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg"
+                placeholder="your@email.com"
+                required
+              /&gt;
+            &lt;/div&gt;
+
+            {/* Поле Пароль */}
+            &lt;div className="mb-4"&gt;
+              &lt;label className="block text-gray-700 mb-2"&gt;
+                Пароль
+              &lt;/label&gt;
+              &lt;input
+                type="password"
+                value={password}
+                onChange={(e) =&gt; setPassword(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg"
+                placeholder="Минимум 6 символов"
+                required
+              /&gt;
+            &lt;/div&gt;
+
+            {/* Поле Подтверждение пароля */}
+            &lt;div className="mb-4"&gt;
+              &lt;label className="block text-gray-700 mb-2"&gt;
+                Подтвердите пароль
+              &lt;/label&gt;
+              &lt;input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) =&gt; setConfirmPassword(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg"
+                placeholder="Повторите пароль"
+                required
+              /&gt;
+            &lt;/div&gt;
+
+            {/* Сообщение об ошибке */}
+            {error && (
+              &lt;div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg"&gt;
+                {error}
+              &lt;/div&gt;
+            )}
+
+            {/* Кнопка отправки */}
+            &lt;button
+              type="submit"
+              disabled={loading}
+              className="w-full py-2 px-4 bg-blue-600 text-white rounded-lg
+                         hover:bg-blue-700 disabled:bg-gray-400"
+            &gt;
+              {loading ? "Регистрация..." : "Зарегистрироваться"}
+            &lt;/button&gt;
+          &lt;/form&gt;
+        )}
+
+        {/* Ссылка на вход */}
+        &lt;p className="mt-4 text-center text-gray-600"&gt;
+          Уже есть аккаунт?{" "}
+          &lt;Link href="/auth/login" className="text-blue-600 hover:underline"&gt;
+            Войти
+          &lt;/Link&gt;
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  )
+}</code></pre>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Что такое onChange?</strong><br>
+                Каждый раз, когда вы печатаете букву — вызывается эта функция. Она берёт новый текст (<code>e.target.value</code>) и сохраняет его (<code>setEmail</code>).
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Full code -->
+        <section class="card">
+          <div class="card-header">Полный код страницы</div>
+          <div class="card-body">
+            <p>Вот весь код целиком для копирования:</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">app/auth/signup/page.tsx — Полный код</span>
+              </div>
+              <pre><code>"use client"
+
+import { useState } from "react"
+import { createClient } from "@/lib/supabase/client"
+import Link from "next/link"
+
+const supabase = createClient()
+
+export default function SignUpPage() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+
+  async function handleSignUp(e: React.FormEvent) {
+    e.preventDefault()
+    setError("")
+
+    if (password !== confirmPassword) {
+      setError("Пароли не совпадают")
+      return
+    }
+
+    if (password.length < 6) {
+      setError("Пароль должен быть минимум 6 символов")
+      return
+    }
+
+    setLoading(true)
+
+    const { error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    })
+
+    setLoading(false)
+
+    if (error) {
+      setError(error.message)
+      return
+    }
+
+    setSuccess(true)
+  }
+
+  return (
+    &lt;div className="min-h-screen flex items-center justify-center bg-gray-50"&gt;
+      &lt;div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md"&gt;
+        &lt;h1 className="text-2xl font-bold text-center mb-6"&gt;
+          Регистрация
+        &lt;/h1&gt;
+
+        {success ? (
+          &lt;div className="text-center"&gt;
+            &lt;div className="text-green-600 text-lg mb-4"&gt;
+              Регистрация успешна!
+            &lt;/div&gt;
+            &lt;p className="text-gray-600"&gt;
+              Проверьте вашу почту и нажмите на ссылку
+              для подтверждения аккаунта.
+            &lt;/p&gt;
+          &lt;/div&gt;
+        ) : (
+          &lt;form onSubmit={handleSignUp}&gt;
+            &lt;div className="mb-4"&gt;
+              &lt;label className="block text-gray-700 mb-2"&gt;Email&lt;/label&gt;
+              &lt;input
+                type="email"
+                value={email}
+                onChange={(e) =&gt; setEmail(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="your@email.com"
+                required
+              /&gt;
+            &lt;/div&gt;
+
+            &lt;div className="mb-4"&gt;
+              &lt;label className="block text-gray-700 mb-2"&gt;Пароль&lt;/label&gt;
+              &lt;input
+                type="password"
+                value={password}
+                onChange={(e) =&gt; setPassword(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Минимум 6 символов"
+                required
+              /&gt;
+            &lt;/div&gt;
+
+            &lt;div className="mb-4"&gt;
+              &lt;label className="block text-gray-700 mb-2"&gt;Подтвердите пароль&lt;/label&gt;
+              &lt;input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) =&gt; setConfirmPassword(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Повторите пароль"
+                required
+              /&gt;
+            &lt;/div&gt;
+
+            {error && (
+              &lt;div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg"&gt;
+                {error}
+              &lt;/div&gt;
+            )}
+
+            &lt;button
+              type="submit"
+              disabled={loading}
+              className="w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+            &gt;
+              {loading ? "Регистрация..." : "Зарегистрироваться"}
+            &lt;/button&gt;
+          &lt;/form&gt;
+        )}
+
+        &lt;p className="mt-4 text-center text-gray-600"&gt;
+          Уже есть аккаунт?{" "}
+          &lt;Link href="/auth/login" className="text-blue-600 hover:underline"&gt;
+            Войти
+          &lt;/Link&gt;
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  )
+}</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Email confirmation -->
+        <section class="card">
+          <div class="card-header">Подтверждение Email</div>
+          <div class="card-body">
+            <p>После регистрации Supabase автоматически отправит письмо на указанный email:</p>
+
+            <div style="background: var(--surface); padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+              <div style="background: white; padding: 1rem; border-radius: 4px; border: 1px solid #e5e7eb;">
+                <p style="margin: 0; font-weight: bold;">От: noreply@mail.app.supabase.io</p>
+                <p style="margin: 0.5rem 0 0 0;">Тема: Confirm your signup</p>
+                <hr style="margin: 1rem 0; border-color: #e5e7eb;">
+                <p style="margin: 0;">Нажмите на ссылку ниже, чтобы подтвердить ваш аккаунт:</p>
+                <p style="margin: 0.5rem 0 0 0; color: blue; text-decoration: underline;">[Ссылка подтверждения]</p>
+              </div>
+            </div>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Проверьте папку Спам!</strong><br>
+                Письма от Supabase иногда попадают в спам. Если не видите письмо — загляните туда.
+              </div>
+            </div>
+
+            <p style="margin-top: 1rem;"><strong>Что происходит после клика на ссылку:</strong></p>
+            <ol style="padding-left: 1.5rem;">
+              <li>Supabase отмечает email как подтверждённый</li>
+              <li>Пользователь перенаправляется на ваш сайт</li>
+              <li>Теперь можно войти в систему!</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Common mistakes -->
+        <section class="card">
+          <div class="card-header" style="background: #EF4444; color: white;">Частые ошибки</div>
+          <div class="card-body">
+            <div class="alert alert-error" style="margin-bottom: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+              </svg>
+              <div>
+                <strong>Ошибка: "User already registered"</strong><br>
+                Такой email уже зарегистрирован. Используйте другой email или страницу входа.
+              </div>
+            </div>
+
+            <div class="alert alert-error" style="margin-bottom: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+              </svg>
+              <div>
+                <strong>Ошибка: "Password should be at least 6 characters"</strong><br>
+                Пароль слишком короткий. Supabase требует минимум 6 символов.
+              </div>
+            </div>
+
+            <div class="alert alert-error" style="margin-bottom: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+              </svg>
+              <div>
+                <strong>Ошибка: "Unable to validate email address"</strong><br>
+                Неправильный формат email. Проверьте, что есть @ и точка.
+              </div>
+            </div>
+
+            <div class="alert alert-error">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+              </svg>
+              <div>
+                <strong>Письмо не приходит</strong><br>
+                1) Проверьте папку Спам<br>
+                2) Убедитесь, что email правильный<br>
+                3) Подождите 1-2 минуты
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика: Регистрируем первого пользователя</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Создайте своего первого пользователя!</p>
+
+            <ol style="padding-left: 1.5rem; margin: 1rem 0;">
+              <li>Запустите проект: <code>npm run dev</code></li>
+              <li>Откройте <a href="http://localhost:3000/auth/signup" target="_blank" style="color: var(--primary);">localhost:3000/auth/signup</a></li>
+              <li>Введите ваш реальный email</li>
+              <li>Придумайте пароль (минимум 6 символов)</li>
+              <li>Нажмите "Зарегистрироваться"</li>
+              <li>Проверьте почту и кликните на ссылку</li>
+            </ol>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Проверка:</strong> Зайдите в Supabase Dashboard → Authentication → Users. Вы должны увидеть своего пользователя в списке!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson4">
+              <p><strong>Какая функция Supabase используется для регистрации?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">supabase.auth.login()</div>
+                <div class="quiz-option" data-correct="true">supabase.auth.signUp()</div>
+                <div class="quiz-option" data-correct="false">supabase.auth.register()</div>
+                <div class="quiz-option" data-correct="false">supabase.auth.create()</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+
+            <div class="quiz" data-quiz="lesson4-2" style="margin-top: 1.5rem;">
+              <p><strong>Что делает useState в React?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Отправляет данные на сервер</div>
+                <div class="quiz-option" data-correct="false">Создаёт новую страницу</div>
+                <div class="quiz-option" data-correct="true">Хранит данные (состояние) компонента</div>
+                <div class="quiz-option" data-correct="false">Проверяет пароль</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson4-folder"></span>
+                <span class="checklist-text">Создал папку app/auth/signup/</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson4-page"></span>
+                <span class="checklist-text">Создал файл page.tsx с формой регистрации</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson4-usestate"></span>
+                <span class="checklist-text">Понял что такое useState</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson4-signup"></span>
+                <span class="checklist-text">Понял как работает supabase.auth.signUp()</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson4-user"></span>
+                <span class="checklist-text">Зарегистрировал первого пользователя</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson4-confirm"></span>
+                <span class="checklist-text">Подтвердил email по ссылке</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-3.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Настройка Auth</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="4">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-5.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Вход в систему</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

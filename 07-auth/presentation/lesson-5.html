@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 7.5: Вход в систему | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 9 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 7</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое аутентификация</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Supabase Auth обзор</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Настройка Auth</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Регистрация по Email</a>
+        <a href="lesson-5.html" class="nav-item active" data-lesson="5"><span class="nav-item-number">5</span>Вход в систему</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Social Login</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Защита страниц</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Работа с пользователем</a>
+        <a href="project.html" class="nav-item" data-lesson="9"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 7</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 7.5</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 7.5</span>
+            <span class="lesson-duration">⏱ 25 минут</span>
+          </div>
+          <h1 class="lesson-title">Вход в систему</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Создаём страницу входа, работаем с сессиями и добавляем выход из аккаунта
+          </p>
+        </div>
+
+        <!-- Intro -->
+        <section class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+          <div class="card-header" style="background: transparent; color: white; border-bottom-color: rgba(255,255,255,0.2);">Регистрация vs Вход</div>
+          <div class="card-body">
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">В прошлом уроке мы создали регистрацию. Теперь нужен вход для тех, кто уже зарегистрировался!</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px;">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">Регистрация</div>
+                <div style="font-size: 0.9rem;">signUp() — создать аккаунт</div>
+                <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">Делается один раз</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px;">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">Вход</div>
+                <div style="font-size: 0.9rem;">signInWithPassword() — войти</div>
+                <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">Делается каждый раз</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Session Analogy -->
+        <section class="card">
+          <div class="card-header">Что такое сессия? (Аналогия с клубом)</div>
+          <div class="card-body">
+            <p>Представьте, что вы приходите в ночной клуб:</p>
+
+            <div class="service-cards" style="margin: 1.5rem 0;">
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem;">🎫</div>
+                <h4>Покупаете билет</h4>
+                <p style="font-size: 0.85rem;">= Вводите логин и пароль</p>
+              </div>
+              <div style="display: flex; align-items: center; font-size: 2rem; color: var(--text-secondary);">→</div>
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem;">📿</div>
+                <h4>Получаете браслет</h4>
+                <p style="font-size: 0.85rem;">= Получаете сессию (токен)</p>
+              </div>
+              <div style="display: flex; align-items: center; font-size: 2rem; color: var(--text-secondary);">→</div>
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem;">🎉</div>
+                <h4>Гуляете свободно</h4>
+                <p style="font-size: 0.85rem;">= Пользуетесь приложением</p>
+              </div>
+            </div>
+
+            <div style="background: var(--surface); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary);">
+              <p style="margin: 0; font-size: 1.1rem;"><strong>Браслет в клубе = Сессия в приложении</strong></p>
+              <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">
+                Браслет доказывает, что вы уже заплатили за вход. Вам не нужно показывать билет каждый раз, когда идёте к бару или на танцпол.
+                Точно так же <strong>сессия</strong> доказывает, что вы уже вошли в систему — не нужно вводить пароль на каждой странице!
+              </p>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Технически:</strong> Сессия — это специальный токен (код), который браузер хранит в cookies и автоматически отправляет серверу при каждом запросе.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Create Login Page -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Шаг 1: Создаём страницу входа</div>
+          <div class="card-body">
+            <p><strong>Задание для Cursor:</strong> Создайте страницу входа.</p>
+
+            <div class="code-block" style="margin: 1rem 0;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт для Cursor</span>
+              </div>
+              <pre><code>Создай страницу входа app/auth/login/page.tsx
+
+Требования:
+- Форма с полями email и password
+- Кнопка "Войти"
+- Ссылка "Нет аккаунта? Зарегистрируйтесь"
+- При успешном входе — редирект на /dashboard
+- Показывать ошибки (неверный пароль и т.д.)
+- Использовать supabase.auth.signInWithPassword()</code></pre>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Структура папок:</strong><br>
+                <code>app/auth/login/page.tsx</code> — страница входа<br>
+                <code>app/auth/register/page.tsx</code> — страница регистрации (из прошлого урока)
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Login Form Code -->
+        <section class="card">
+          <div class="card-header">Как выглядит форма входа</div>
+          <div class="card-body">
+            <p>Cursor создаст что-то похожее на это:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">app/auth/login/page.tsx</span>
+              </div>
+              <pre><code>'use client'
+
+import { useState } from 'react'
+import { createClient } from '@/utils/supabase/client'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+
+export default function LoginPage() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const router = useRouter()
+  const supabase = createClient()
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setError('')
+
+    // Вот главная функция входа!
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (error) {
+      setError('Неверный email или пароль')
+      setLoading(false)
+      return
+    }
+
+    // Успешный вход — идём на dashboard
+    router.push('/dashboard')
+  }
+
+  return (
+    &lt;div className="login-container"&gt;
+      &lt;h1&gt;Вход&lt;/h1&gt;
+
+      &lt;form onSubmit={handleLogin}&gt;
+        &lt;input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        /&gt;
+
+        &lt;input
+          type="password"
+          placeholder="Пароль"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        /&gt;
+
+        {error && &lt;p className="error"&gt;{error}&lt;/p&gt;}
+
+        &lt;button type="submit" disabled={loading}&gt;
+          {loading ? 'Входим...' : 'Войти'}
+        &lt;/button&gt;
+      &lt;/form&gt;
+
+      &lt;p&gt;
+        Нет аккаунта?{' '}
+        &lt;Link href="/auth/register"&gt;Зарегистрируйтесь&lt;/Link&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  )
+}</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Ключевая строка:</strong> <code>signInWithPassword({ email, password })</code> — это всё, что нужно для входа! Supabase делает остальное.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- What Happens After Login -->
+        <section class="card">
+          <div class="card-header">Что происходит после входа?</div>
+          <div class="card-body">
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Процесс входа (за кулисами)</span>
+              </div>
+              <pre><code>1. Пользователь нажимает "Войти"
+                    ↓
+2. signInWithPassword() отправляет email и пароль в Supabase
+                    ↓
+3. Supabase проверяет:
+   ✓ Есть ли такой email в базе?
+   ✓ Правильный ли пароль?
+                    ↓
+4. Если всё OK — Supabase создаёт СЕССИЮ
+   (токен сохраняется в cookies браузера)
+                    ↓
+5. router.push('/dashboard') — перенаправляем на главную
+                    ↓
+6. Теперь на любой странице можно узнать:
+   - Кто этот пользователь (getUser())
+   - Его email, id и другие данные</code></pre>
+            </div>
+
+            <div style="background: var(--surface); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+              <p style="margin: 0;"><strong>Про cookies:</strong></p>
+              <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">
+                Cookies — это маленькие файлы, которые браузер хранит на компьютере. Supabase автоматически сохраняет туда токен сессии.
+                Вам не нужно об этом думать — всё работает "из коробки"!
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Redirect to Dashboard -->
+        <section class="card">
+          <div class="card-header">Редирект после входа</div>
+          <div class="card-body">
+            <p>После успешного входа мы отправляем пользователя на <strong>dashboard</strong> (личный кабинет):</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Редирект в Next.js</span>
+              </div>
+              <pre><code>import { useRouter } from 'next/navigation'
+
+// Создаём роутер
+const router = useRouter()
+
+// После успешного входа:
+router.push('/dashboard')  // Переход на /dashboard
+
+// Другие варианты:
+router.push('/')           // На главную
+router.push('/profile')    // На профиль
+router.back()              // Назад (предыдущая страница)</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Куда редиректить?</strong> Обычно после входа отправляют на главную страницу приложения — там, где пользователь будет работать (dashboard, лента, профиль).
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Logout -->
+        <section class="card">
+          <div class="card-header" style="background: #EF4444; color: white;">Выход из аккаунта (Logout)</div>
+          <div class="card-body">
+            <p>Если можно войти — должна быть возможность <strong>выйти</strong>! Это как снять браслет в клубе.</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Кнопка выхода</span>
+              </div>
+              <pre><code>// Функция выхода
+const handleLogout = async () => {
+  const supabase = createClient()
+
+  // Выходим из системы
+  await supabase.auth.signOut()
+
+  // Перенаправляем на страницу входа
+  router.push('/auth/login')
+}
+
+// Кнопка в интерфейсе
+&lt;button onClick={handleLogout}&gt;
+  Выйти
+&lt;/button&gt;</code></pre>
+            </div>
+
+            <div class="table-container" style="margin: 1rem 0;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Действие</th>
+                    <th>Функция</th>
+                    <th>Что происходит</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Вход</td>
+                    <td><code>signInWithPassword()</code></td>
+                    <td>Создаётся сессия (браслет надевается)</td>
+                  </tr>
+                  <tr>
+                    <td>Выход</td>
+                    <td><code>signOut()</code></td>
+                    <td>Сессия удаляется (браслет снимается)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Не забудьте!</strong> После <code>signOut()</code> обязательно перенаправьте пользователя на страницу входа, иначе он останется на защищённой странице.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Remember Me -->
+        <section class="card">
+          <div class="card-header">Как работает "Запомнить меня"</div>
+          <div class="card-body">
+            <p>Вы наверняка видели галочку "Запомнить меня" на сайтах. Как это работает?</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+              <div style="background: var(--surface); padding: 1rem; border-radius: 8px; border-left: 4px solid #EF4444;">
+                <h4 style="margin: 0 0 0.5rem 0; color: #EF4444;">Без "Запомнить меня"</h4>
+                <p style="margin: 0; font-size: 0.9rem;">Сессия хранится в памяти браузера. Закрыли вкладку — нужно заново входить.</p>
+              </div>
+              <div style="background: var(--surface); padding: 1rem; border-radius: 8px; border-left: 4px solid #10B981;">
+                <h4 style="margin: 0 0 0.5rem 0; color: #10B981;">С "Запомнить меня"</h4>
+                <p style="margin: 0; font-size: 0.9rem;">Сессия хранится в cookies надолго. Даже через неделю вы будете залогинены.</p>
+              </div>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Хорошая новость!</strong> Supabase по умолчанию "запоминает" пользователя. Сессия хранится 1 неделю и автоматически обновляется. Вам не нужно ничего дополнительно настраивать!
+              </div>
+            </div>
+
+            <div class="code-block" style="margin-top: 1rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Если хотите изменить время жизни сессии</span>
+              </div>
+              <pre><code>// В Supabase Dashboard:
+// Authentication → Settings → Session Duration
+
+// По умолчанию: 604800 секунд = 7 дней
+// Можно изменить на любое значение</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика: Входим с вашим пользователем</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Войдите в систему с аккаунтом, который создали в прошлом уроке.</p>
+
+            <ol style="margin: 1rem 0; padding-left: 1.5rem;">
+              <li>Попросите Cursor создать страницу <code>app/auth/login/page.tsx</code></li>
+              <li>Запустите проект: <code>npm run dev</code></li>
+              <li>Откройте <code>http://localhost:3000/auth/login</code></li>
+              <li>Введите email и пароль, которые использовали при регистрации</li>
+              <li>Нажмите "Войти"</li>
+              <li>Если всё правильно — вас перенаправит на dashboard!</li>
+            </ol>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Ошибка "Invalid login credentials"?</strong><br>
+                Это значит неверный email или пароль. Проверьте, что вводите данные от зарегистрированного аккаунта. Если забыли — создайте новый через /auth/register.
+              </div>
+            </div>
+
+            <div style="background: var(--surface); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+              <p style="margin: 0;"><strong>Проверка в Supabase Dashboard:</strong></p>
+              <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">
+                Зайдите в Authentication → Users. Найдите вашего пользователя.
+                В колонке "Last Sign In" увидите время последнего входа — оно должно обновиться!
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Complete Flow -->
+        <section class="card">
+          <div class="card-header">Полный цикл аутентификации</div>
+          <div class="card-body">
+            <p>Теперь у нас есть полный цикл:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Жизненный цикл пользователя</span>
+              </div>
+              <pre><code>┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│   1. РЕГИСТРАЦИЯ          2. ВХОД              3. РАБОТА   │
+│   ───────────────────────────────────────────────────────   │
+│                                                             │
+│   /auth/register    →    /auth/login    →    /dashboard    │
+│   signUp()               signInWithPassword()    getUser() │
+│                                                             │
+│                              │                              │
+│                              │                              │
+│                              ▼                              │
+│                                                             │
+│                          4. ВЫХОД                           │
+│                          ─────────                          │
+│                          signOut()                          │
+│                              │                              │
+│                              ▼                              │
+│                         /auth/login                         │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Поздравляем!</strong> Вы создали работающую систему входа и выхода. Это основа любого современного приложения!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson5">
+              <p><strong>Какая функция используется для входа по email и паролю?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">supabase.auth.signUp()</div>
+                <div class="quiz-option" data-correct="true">supabase.auth.signInWithPassword()</div>
+                <div class="quiz-option" data-correct="false">supabase.auth.signOut()</div>
+                <div class="quiz-option" data-correct="false">supabase.auth.getUser()</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+
+            <div class="quiz" data-quiz="lesson5-2" style="margin-top: 1.5rem;">
+              <p><strong>Что такое сессия в контексте аутентификации?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Пароль пользователя</div>
+                <div class="quiz-option" data-correct="false">Название страницы входа</div>
+                <div class="quiz-option" data-correct="true">Токен, который доказывает что пользователь уже вошёл (как браслет в клубе)</div>
+                <div class="quiz-option" data-correct="false">Время работы сервера</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-session"></span>
+                <span class="checklist-text">Понял что такое сессия (браслет в клубе)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-login"></span>
+                <span class="checklist-text">Создал страницу входа app/auth/login/page.tsx</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-signin"></span>
+                <span class="checklist-text">Использовал signInWithPassword() для входа</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-redirect"></span>
+                <span class="checklist-text">Настроил редирект на dashboard после входа</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-logout"></span>
+                <span class="checklist-text">Знаю как сделать выход — signOut()</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-test"></span>
+                <span class="checklist-text">Успешно вошёл в систему с моим аккаунтом</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-4.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Регистрация по Email</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="5">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-6.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Social Login</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>
