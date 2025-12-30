@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 2: Cursor - ваш ИИ-помощник | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 13 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 2</div>
+
+        <a href="index.html" class="nav-item active">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <a href="lesson-1.html" class="nav-item" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Что такое вайбкодинг
+        </a>
+
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          Знакомство с Cursor
+        </a>
+
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          Первый разговор с ИИ
+        </a>
+
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Tab автодополнение
+        </a>
+
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Composer
+        </a>
+
+        <a href="lesson-6.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">6</span>
+          Работа с кодом
+        </a>
+
+        <a href="lesson-7.html" class="nav-item" data-lesson="7">
+          <span class="nav-item-number">7</span>
+          Cmd+K команды
+        </a>
+
+        <a href="lesson-8.html" class="nav-item" data-lesson="8">
+          <span class="nav-item-number">8</span>
+          Запуск и просмотр
+        </a>
+
+        <a href="lesson-9.html" class="nav-item" data-lesson="9">
+          <span class="nav-item-number">9</span>
+          Структура проекта
+        </a>
+
+        <a href="lesson-10.html" class="nav-item" data-lesson="10">
+          <span class="nav-item-number">10</span>
+          Основы HTML
+        </a>
+
+        <a href="lesson-11.html" class="nav-item" data-lesson="11">
+          <span class="nav-item-number">11</span>
+          Основы CSS
+        </a>
+
+        <a href="lesson-12.html" class="nav-item" data-lesson="12">
+          <span class="nav-item-number">12</span>
+          Адаптивный дизайн
+        </a>
+
+        <a href="project.html" class="nav-item" data-lesson="13">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </span>
+          Глоссарий
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выйти из модуля
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 2</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Главная</span>
+        </div>
+
+        <div class="header-actions">
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Hero Section -->
+        <section class="hero">
+          <h1 class="hero-title">Cursor - ваш ИИ-помощник</h1>
+          <p class="hero-subtitle">
+            Научитесь создавать сайты с помощью искусственного интеллекта.<br>
+            Никакого предыдущего опыта не требуется!
+          </p>
+        </section>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Общая продолжительность модуля:</strong> ~20 часов</p>
+            <p><strong>Рекомендация:</strong> Этот модуль для полных новичков. Используйте простые аналогии, показывайте экран и делайте всё вместе со студентами. Не торопитесь - лучше меньше, но понятнее.</p>
+            <p><strong>Ключевая цель:</strong> К концу модуля студенты смогут самостоятельно создавать красивые веб-страницы с помощью ИИ в Cursor.</p>
+          </div>
+        </div>
+
+        <!-- Info Alert -->
+        <div class="alert alert-info">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 16v-4"/>
+            <path d="M12 8h.01"/>
+          </svg>
+          <div>
+            <strong>Что вы освоите в этом модуле:</strong>
+            <ul style="margin: 0.5rem 0 0 1rem;">
+              <li>Поймёте что такое программирование и вайбкодинг</li>
+              <li>Установите и настроите Cursor</li>
+              <li>Научитесь общаться с ИИ для создания кода</li>
+              <li>Освоите Tab-автодополнение и Composer</li>
+              <li>Создадите свои первые веб-страницы</li>
+              <li>Поймёте основы HTML и CSS</li>
+              <li>Создадите полноценный сайт-портфолио</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Project Preview -->
+        <div class="alert alert-success">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22,4 12,14.01 9,11.01"/>
+          </svg>
+          <div>
+            <strong>Проект модуля: Сайт-портфолио</strong><br>
+            Вы создадите красивый многостраничный сайт о себе с использованием ИИ. Реальный проект, который можно показать друзьям и работодателям!
+          </div>
+        </div>
+
+        <!-- Lesson Cards -->
+        <h2 style="margin: 2rem 0 1rem;">Уроки модуля</h2>
+
+        <div class="lesson-cards">
+          <!-- Lesson 1 -->
+          <a href="lesson-1.html" class="lesson-card">
+            <div class="lesson-card-number">1</div>
+            <h3 class="lesson-card-title">Что такое программирование и вайбкодинг</h3>
+            <p class="lesson-card-desc">
+              Программирование простыми словами. Что такое вайбкодинг и почему это проще, чем кажется.
+            </p>
+            <div class="lesson-card-meta">
+              <span>2 часа</span>
+              <span>•</span>
+              <span>Теория</span>
+            </div>
+          </a>
+
+          <!-- Lesson 2 -->
+          <a href="lesson-2.html" class="lesson-card">
+            <div class="lesson-card-number">2</div>
+            <h3 class="lesson-card-title">Первое знакомство с Cursor</h3>
+            <p class="lesson-card-desc">
+              Установка Cursor, обзор интерфейса, создание первого файла.
+            </p>
+            <div class="lesson-card-meta">
+              <span>2 часа</span>
+              <span>•</span>
+              <span>Практика</span>
+            </div>
+          </a>
+
+          <!-- Lesson 3 -->
+          <a href="lesson-3.html" class="lesson-card">
+            <div class="lesson-card-number">3</div>
+            <h3 class="lesson-card-title">Первый разговор с ИИ</h3>
+            <p class="lesson-card-desc">
+              Открываем ИИ-чат, учимся правильно общаться, создаём первую страницу.
+            </p>
+            <div class="lesson-card-meta">
+              <span>2 часа</span>
+              <span>•</span>
+              <span>Практика</span>
+            </div>
+          </a>
+
+          <!-- Lesson 4 -->
+          <a href="lesson-4.html" class="lesson-card">
+            <div class="lesson-card-number">4</div>
+            <h3 class="lesson-card-title">Tab автодополнение</h3>
+            <p class="lesson-card-desc">
+              Магия во время печати: ИИ угадывает, что вы хотите написать.
+            </p>
+            <div class="lesson-card-meta">
+              <span>1.5 часа</span>
+              <span>•</span>
+              <span>Практика</span>
+            </div>
+          </a>
+
+          <!-- Lesson 5 -->
+          <a href="lesson-5.html" class="lesson-card">
+            <div class="lesson-card-number">5</div>
+            <h3 class="lesson-card-title">Composer</h3>
+            <p class="lesson-card-desc">
+              Создаём целые страницы одной фразой. Мощный инструмент для больших задач.
+            </p>
+            <div class="lesson-card-meta">
+              <span>2 часа</span>
+              <span>•</span>
+              <span>Практика</span>
+            </div>
+          </a>
+
+          <!-- Lesson 6 -->
+          <a href="lesson-6.html" class="lesson-card">
+            <div class="lesson-card-number">6</div>
+            <h3 class="lesson-card-title">Работа с готовым кодом</h3>
+            <p class="lesson-card-desc">
+              Читаем и понимаем код, вносим изменения руками и через ИИ.
+            </p>
+            <div class="lesson-card-meta">
+              <span>1.5 часа</span>
+              <span>•</span>
+              <span>Практика</span>
+            </div>
+          </a>
+
+          <!-- Lesson 7 -->
+          <a href="lesson-7.html" class="lesson-card">
+            <div class="lesson-card-number">7</div>
+            <h3 class="lesson-card-title">Cmd+K - быстрые команды</h3>
+            <p class="lesson-card-desc">
+              Быстрое редактирование кода без открытия чата.
+            </p>
+            <div class="lesson-card-meta">
+              <span>1 час</span>
+              <span>•</span>
+              <span>Практика</span>
+            </div>
+          </a>
+
+          <!-- Lesson 8 -->
+          <a href="lesson-8.html" class="lesson-card">
+            <div class="lesson-card-number">8</div>
+            <h3 class="lesson-card-title">Запуск и просмотр результата</h3>
+            <p class="lesson-card-desc">
+              Открываем страницы в браузере, Live Server, отладка ошибок.
+            </p>
+            <div class="lesson-card-meta">
+              <span>1.5 часа</span>
+              <span>•</span>
+              <span>Практика</span>
+            </div>
+          </a>
+
+          <!-- Lesson 9 -->
+          <a href="lesson-9.html" class="lesson-card">
+            <div class="lesson-card-number">9</div>
+            <h3 class="lesson-card-title">Структура проекта</h3>
+            <p class="lesson-card-desc">
+              Организация файлов, связывание HTML, CSS и JS, несколько страниц.
+            </p>
+            <div class="lesson-card-meta">
+              <span>1.5 часа</span>
+              <span>•</span>
+              <span>Практика</span>
+            </div>
+          </a>
+
+          <!-- Lesson 10 -->
+          <a href="lesson-10.html" class="lesson-card">
+            <div class="lesson-card-number">10</div>
+            <h3 class="lesson-card-title">Основы HTML</h3>
+            <p class="lesson-card-desc">
+              Основные теги, структура страницы, формы и ввод данных.
+            </p>
+            <div class="lesson-card-meta">
+              <span>2 часа</span>
+              <span>•</span>
+              <span>Теория + Практика</span>
+            </div>
+          </a>
+
+          <!-- Lesson 11 -->
+          <a href="lesson-11.html" class="lesson-card">
+            <div class="lesson-card-number">11</div>
+            <h3 class="lesson-card-title">Основы CSS</h3>
+            <p class="lesson-card-desc">
+              Цвета, шрифты, отступы, селекторы - делаем страницы красивыми.
+            </p>
+            <div class="lesson-card-meta">
+              <span>2 часа</span>
+              <span>•</span>
+              <span>Теория + Практика</span>
+            </div>
+          </a>
+
+          <!-- Lesson 12 -->
+          <a href="lesson-12.html" class="lesson-card">
+            <div class="lesson-card-number">12</div>
+            <h3 class="lesson-card-title">Адаптивный дизайн</h3>
+            <p class="lesson-card-desc">
+              Сайт для всех устройств: компьютер, планшет, телефон.
+            </p>
+            <div class="lesson-card-meta">
+              <span>1.5 часа</span>
+              <span>•</span>
+              <span>Практика</span>
+            </div>
+          </a>
+
+          <!-- Final Project -->
+          <a href="project.html" class="lesson-card" style="border-color: var(--primary); border-width: 2px;">
+            <div class="lesson-card-number" style="background: var(--accent);">P</div>
+            <h3 class="lesson-card-title">Итоговый проект</h3>
+            <p class="lesson-card-desc">
+              Создаём полноценный сайт-портфолио с несколькими страницами.
+            </p>
+            <div class="lesson-card-meta">
+              <span>3 часа</span>
+              <span>•</span>
+              <span>Финальное задание</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Quick Start -->
+        <div class="card" style="margin-top: 2rem;">
+          <div class="card-header">Требования</div>
+          <div class="card-body">
+            <p>Для успешного прохождения модуля вам понадобится:</p>
+
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="start-computer"></span>
+                <span class="checklist-text">Компьютер (Windows, Mac или Linux)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="start-internet"></span>
+                <span class="checklist-text">Подключение к интернету</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="start-browser"></span>
+                <span class="checklist-text">Современный браузер (Chrome, Firefox, Safari)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="start-curiosity"></span>
+                <span class="checklist-text">Желание учиться и экспериментировать!</span>
+              </li>
+            </ul>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Важно:</strong> Никакого предыдущего опыта программирования не требуется! Мы начинаем с полного нуля.
+              </div>
+            </div>
+
+            <div style="margin-top: 1rem;">
+              <a href="lesson-1.html" class="btn btn-primary">Начать обучение</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resources -->
+        <div class="card">
+          <div class="card-header">Что вы будете использовать</div>
+          <div class="card-body">
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">C</div>
+                <h4 class="service-card-title">Cursor</h4>
+                <p class="service-card-desc">Редактор кода со встроенным ИИ-помощником</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">H</div>
+                <h4 class="service-card-title">HTML</h4>
+                <p class="service-card-desc">Язык для создания веб-страниц</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">S</div>
+                <h4 class="service-card-title">CSS</h4>
+                <p class="service-card-desc">Язык для красоты и оформления</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">AI</div>
+                <h4 class="service-card-title">ИИ-помощник</h4>
+                <p class="service-card-desc">Ваш терпеливый учитель и помощник</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

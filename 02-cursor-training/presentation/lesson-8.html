@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 2.8: Запуск и просмотр результата | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 13 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 2</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое вайбкодинг</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Знакомство с Cursor</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Первый разговор с ИИ</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Tab автодополнение</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Composer</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Работа с кодом</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Cmd+K команды</a>
+        <a href="lesson-8.html" class="nav-item active" data-lesson="8"><span class="nav-item-number">8</span>Запуск и просмотр</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Структура проекта</a>
+        <a href="lesson-10.html" class="nav-item" data-lesson="10"><span class="nav-item-number">10</span>Основы HTML</a>
+        <a href="lesson-11.html" class="nav-item" data-lesson="11"><span class="nav-item-number">11</span>Основы CSS</a>
+        <a href="lesson-12.html" class="nav-item" data-lesson="12"><span class="nav-item-number">12</span>Адаптивный дизайн</a>
+        <a href="project.html" class="nav-item" data-lesson="13"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 2</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 2.8</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 2.8</span>
+            <span class="lesson-duration">⏱ 1.5 часа</span>
+          </div>
+          <h1 class="lesson-title">Запуск и просмотр результата</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Учимся видеть результат своей работы в браузере
+          </p>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Цель урока:</strong> Научить студентов просматривать HTML-страницы в браузере и использовать Live Server для автоматического обновления.</p>
+            <p><strong>Ключевой момент:</strong> Это один из самых важных уроков! Студенты должны понять цикл разработки: написал код - посмотрел результат - исправил - посмотрел снова.</p>
+            <p><strong>Частая ошибка:</strong> Студенты забывают сохранять файл перед просмотром. Постоянно напоминайте о Cmd+S / Ctrl+S!</p>
+          </div>
+        </div>
+
+        <!-- Why We Need This -->
+        <section class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+          <div class="card-header" style="background: transparent; color: white; border-bottom-color: rgba(255,255,255,0.2);">Зачем это нужно?</div>
+          <div class="card-body">
+            <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">
+              Вы написали код - отлично! Но как увидеть результат? Код сам по себе - это просто текст. Чтобы увидеть красивую страницу, нужен <strong>браузер</strong>.
+            </p>
+
+            <div style="background: rgba(255,255,255,0.2); padding: 1.5rem; border-radius: 8px;">
+              <div style="text-align: center; font-size: 1.1rem;">
+                <strong>Код в редакторе</strong> → <strong>Браузер</strong> → <strong>Красивая страница!</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Analogy -->
+        <section class="card">
+          <div class="card-header">Аналогия: рецепт и блюдо</div>
+          <div class="card-body">
+            <div class="service-cards">
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📝</div>
+                <h4>Код (HTML/CSS)</h4>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                  Это как <strong>рецепт</strong> блюда - инструкция, что и как делать
+                </p>
+              </div>
+
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🍳</div>
+                <h4>Браузер</h4>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                  Это <strong>повар</strong>, который читает рецепт и готовит блюдо
+                </p>
+              </div>
+
+              <div class="service-card" style="text-align: center; border-color: var(--accent);">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🍕</div>
+                <h4>Веб-страница</h4>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                  Это <strong>готовое блюдо</strong> - то, что видит пользователь
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Method 1: Simple Open -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Способ 1: Простое открытие в браузере</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1.5rem;">Самый простой способ - открыть HTML-файл прямо в браузере:</p>
+
+            <div style="display: grid; gap: 1rem;">
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 32px; height: 32px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">1</div>
+                <div>
+                  <strong>Сохраните файл</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Cmd+S (Mac) или Ctrl+S (Windows)</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 32px; height: 32px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">2</div>
+                <div>
+                  <strong>Найдите файл в Finder/Проводнике</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Ваш файл .html лежит в папке проекта</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 32px; height: 32px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">3</div>
+                <div>
+                  <strong>Дважды кликните на файл</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Или правый клик → "Открыть с помощью" → Chrome/Safari/Firefox</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 32px; height: 32px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">4</div>
+                <div>
+                  <strong>Смотрите результат!</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Страница откроется в браузере</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Минус этого способа:</strong> После каждого изменения в коде нужно вручную обновлять страницу в браузере (F5 или Cmd+R).
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Method 2: Live Server -->
+        <section class="card">
+          <div class="card-header" style="background: #3B82F6; color: white;">Способ 2: Live Server (рекомендуется!)</div>
+          <div class="card-body">
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+              <strong>Live Server</strong> — это волшебное расширение! Оно автоматически обновляет страницу, когда вы сохраняете файл.
+            </p>
+
+            <h4 style="margin-bottom: 1rem;">Установка Live Server:</h4>
+            <div style="display: grid; gap: 1rem; margin-bottom: 1.5rem;">
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 32px; height: 32px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">1</div>
+                <div>
+                  <strong>Откройте панель расширений</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Нажмите на иконку кубиков в боковой панели Cursor (или Cmd+Shift+X)</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 32px; height: 32px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">2</div>
+                <div>
+                  <strong>Введите "Live Server" в поиске</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Найдите расширение от Ritwick Dey</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 32px; height: 32px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">3</div>
+                <div>
+                  <strong>Нажмите "Install"</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Установка займёт несколько секунд</p>
+                </div>
+              </div>
+            </div>
+
+            <h4 style="margin-bottom: 1rem;">Использование Live Server:</h4>
+            <div style="display: grid; gap: 1rem;">
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 32px; height: 32px; background: #10B981; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">1</div>
+                <div>
+                  <strong>Откройте HTML-файл в Cursor</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Файл должен быть открыт в редакторе</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 32px; height: 32px; background: #10B981; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">2</div>
+                <div>
+                  <strong>Нажмите "Go Live" внизу справа</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Или правый клик → "Open with Live Server"</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 32px; height: 32px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">3</div>
+                <div>
+                  <strong>Готово! Браузер откроется автоматически</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Теперь при сохранении страница обновляется сама!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Магия Live Server:</strong> Сохраняете файл (Cmd+S) → Страница мгновенно обновляется! Не нужно переключаться и нажимать F5.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Development Cycle -->
+        <section class="card">
+          <div class="card-header">Цикл разработки</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1.5rem;">Настоящие разработчики работают по такому циклу. Повторяйте его десятки раз за день!</p>
+
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center;">
+              <div style="background: var(--bg-main); padding: 1rem; border-radius: 8px;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">1. ✏️</div>
+                <strong>Пишете код</strong>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">В редакторе Cursor</p>
+              </div>
+
+              <div style="background: var(--bg-main); padding: 1rem; border-radius: 8px;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">2. 💾</div>
+                <strong>Сохраняете</strong>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Cmd+S / Ctrl+S</p>
+              </div>
+
+              <div style="background: var(--bg-main); padding: 1rem; border-radius: 8px;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">3. 👀</div>
+                <strong>Смотрите</strong>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Результат в браузере</p>
+              </div>
+
+              <div style="background: var(--bg-main); padding: 1rem; border-radius: 8px;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">4. 🔄</div>
+                <strong>Повторяете</strong>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Пока не получится</p>
+              </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Совет профи:</strong> Сохраняйтесь очень часто! Каждые несколько строк кода. Так вы сразу видите, что работает, а что нет.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Basic Debugging -->
+        <section class="card">
+          <div class="card-header">Базовая отладка: что делать, если что-то не так</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1.5rem;">Не видите изменений? Страница выглядит странно? Вот чек-лист для проверки:</p>
+
+            <div style="display: grid; gap: 1rem;">
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid #EF4444;">
+                <strong style="color: #EF4444;">Проблема: Изменения не появляются</strong>
+                <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--text-secondary);">
+                  <li>Сохранили ли файл? (Cmd+S)</li>
+                  <li>Обновили ли браузер? (F5 или используйте Live Server)</li>
+                  <li>Открыли ли правильный файл в браузере?</li>
+                </ul>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid #F59E0B;">
+                <strong style="color: #F59E0B;">Проблема: Страница пустая</strong>
+                <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--text-secondary);">
+                  <li>Проверьте, есть ли в файле код</li>
+                  <li>Убедитесь, что файл имеет расширение .html</li>
+                  <li>Попросите ИИ проверить код на ошибки</li>
+                </ul>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid #3B82F6;">
+                <strong style="color: #3B82F6;">Проблема: Стили не применяются</strong>
+                <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--text-secondary);">
+                  <li>CSS должен быть внутри тега &lt;style&gt; или в отдельном файле</li>
+                  <li>Проверьте правильность имён классов</li>
+                  <li>Об этом подробнее в уроке по CSS!</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Developer Tools -->
+        <section class="card">
+          <div class="card-header">Инструменты разработчика в браузере</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1.5rem;">В каждом браузере есть секретная панель для разработчиков. Она поможет найти ошибки!</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Как открыть</span>
+              </div>
+              <pre><code>Mac: Cmd + Option + I
+Windows: Ctrl + Shift + I
+Или: правый клик → "Посмотреть код"</code></pre>
+            </div>
+
+            <p style="margin: 1.5rem 0 1rem;">Что можно увидеть:</p>
+            <div style="display: grid; gap: 1rem;">
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <strong>Elements (Элементы)</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Показывает структуру HTML-страницы</p>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <strong>Console (Консоль)</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Показывает ошибки красным цветом - очень полезно!</p>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <strong>Styles (Стили)</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Можно посмотреть и даже изменить CSS прямо в браузере</p>
+              </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Для новичков:</strong> Пока достаточно знать, что эта панель существует. Если видите красный текст в Console - там ошибка! Скопируйте её и спросите ИИ, что не так.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1rem;">Давайте попробуем весь цикл на практике:</p>
+
+            <ol style="margin: 1rem 0 1.5rem 1.5rem;">
+              <li style="margin-bottom: 0.5rem;">Создайте файл test.html в вашем проекте</li>
+              <li style="margin-bottom: 0.5rem;">Попросите ИИ: "Создай простую страницу с заголовком 'Привет!'"</li>
+              <li style="margin-bottom: 0.5rem;">Сохраните файл (Cmd+S)</li>
+              <li style="margin-bottom: 0.5rem;">Установите Live Server (если ещё не установлен)</li>
+              <li style="margin-bottom: 0.5rem;">Нажмите "Go Live" и посмотрите результат</li>
+              <li style="margin-bottom: 0.5rem;">Измените заголовок на "Привет, мир!" и сохраните</li>
+              <li>Убедитесь, что страница обновилась автоматически!</li>
+            </ol>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Цель:</strong> Добиться того, чтобы изменения в коде мгновенно появлялись в браузере без лишних действий.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка понимания</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson8">
+              <p><strong>Что делает Live Server?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Пишет код за вас</div>
+                <div class="quiz-option" data-correct="true">Автоматически обновляет страницу в браузере при сохранении файла</div>
+                <div class="quiz-option" data-correct="false">Публикует сайт в интернет</div>
+                <div class="quiz-option" data-correct="false">Проверяет код на ошибки</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-open"></span>
+                <span class="checklist-text">Умею открывать HTML-файл в браузере вручную</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-liveserver"></span>
+                <span class="checklist-text">Установил расширение Live Server</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-golive"></span>
+                <span class="checklist-text">Знаю, как запустить Live Server (кнопка "Go Live")</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-save"></span>
+                <span class="checklist-text">Помню, что нужно сохранять файл (Cmd+S / Ctrl+S)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-devtools"></span>
+                <span class="checklist-text">Знаю, как открыть инструменты разработчика в браузере</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Homework -->
+        <section class="card">
+          <div class="card-header">Домашнее задание</div>
+          <div class="card-body">
+            <p>Создайте страницу и поэкспериментируйте:</p>
+            <ol style="margin: 1rem 0 1rem 1.5rem;">
+              <li style="margin-bottom: 0.5rem;">Создайте файл experiment.html</li>
+              <li style="margin-bottom: 0.5rem;">Попросите ИИ создать страницу с 3 разноцветными кнопками</li>
+              <li style="margin-bottom: 0.5rem;">Запустите Live Server</li>
+              <li style="margin-bottom: 0.5rem;">Измените цвета кнопок 5 раз (каждый раз сохраняя и наблюдая результат)</li>
+              <li>Откройте инструменты разработчика и найдите вкладку Console</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-7.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Cmd+K команды</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="8">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-9.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Структура проекта</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

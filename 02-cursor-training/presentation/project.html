@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Итоговый проект: Сайт-портфолио | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 13 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 2</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое вайбкодинг</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Знакомство с Cursor</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Первый разговор с ИИ</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Tab автодополнение</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Composer</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Работа с кодом</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Cmd+K команды</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Запуск и просмотр</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Структура проекта</a>
+        <a href="lesson-10.html" class="nav-item" data-lesson="10"><span class="nav-item-number">10</span>Основы HTML</a>
+        <a href="lesson-11.html" class="nav-item" data-lesson="11"><span class="nav-item-number">11</span>Основы CSS</a>
+        <a href="lesson-12.html" class="nav-item" data-lesson="12"><span class="nav-item-number">12</span>Адаптивный дизайн</a>
+        <a href="project.html" class="nav-item active" data-lesson="13"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 2</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Итоговый проект</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number" style="background: var(--accent);">Проект</span>
+            <span class="lesson-duration">⏱ 3 часа</span>
+          </div>
+          <h1 class="lesson-title">Создаём сайт-портфолио</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Применяем все знания на практике
+          </p>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Цель проекта:</strong> Закрепить все изученные навыки в одном практическом проекте. Студенты создадут реальный сайт-портфолио.</p>
+            <p><strong>Формат:</strong> Самостоятельная работа с консультациями. Можно делать в группе или индивидуально.</p>
+            <p><strong>Оценка:</strong> Критерии успеха приведены в конце страницы. Акцент на процесс, а не на идеальный результат.</p>
+            <p><strong>Важно:</strong> Поощряйте творчество! Пусть каждый сделает уникальный сайт. Разрешите отходить от шаблона.</p>
+          </div>
+        </div>
+
+        <!-- Project Overview -->
+        <section class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+          <div class="card-header" style="background: transparent; color: white; border-bottom-color: rgba(255,255,255,0.2);">О проекте</div>
+          <div class="card-body">
+            <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">
+              Вы создадите <strong>личный сайт-портфолио</strong> - страницу о себе, которую можно показать друзьям, разместить в интернете или добавить в резюме!
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center;">
+              <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📄</div>
+                <strong>3 страницы</strong>
+              </div>
+              <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📱</div>
+                <strong>Адаптивность</strong>
+              </div>
+              <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">✨</div>
+                <strong>Ваш стиль</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Project Structure -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Структура проекта</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1.5rem;">Ваш проект будет состоять из следующих файлов:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Структура папок</span>
+              </div>
+              <pre><code>portfolio/
+  index.html          - Главная страница
+  projects.html       - Страница проектов
+  contact.html        - Страница контактов
+  css/
+    styles.css        - Все стили
+  images/
+    avatar.jpg        - Ваше фото (или любая картинка)
+    project1.jpg      - Картинка проекта
+    project2.jpg      - Картинка проекта
+    project3.jpg      - Картинка проекта</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Page 1: Home -->
+        <section class="card">
+          <div class="card-header">Страница 1: Главная (index.html)</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1.5rem;"><strong>Что должно быть на странице:</strong></p>
+
+            <div style="display: grid; gap: 1rem;">
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid var(--primary);">
+                <strong>Шапка (Header)</strong>
+                <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--text-secondary);">
+                  <li>Ваше имя/логотип</li>
+                  <li>Навигационное меню (Главная, Проекты, Контакты)</li>
+                </ul>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid var(--primary);">
+                <strong>Hero-секция (приветствие)</strong>
+                <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--text-secondary);">
+                  <li>Большой заголовок с вашим именем</li>
+                  <li>Короткое описание (кто вы, чем занимаетесь)</li>
+                  <li>Ваше фото или аватар</li>
+                  <li>Кнопка "Связаться со мной"</li>
+                </ul>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid var(--primary);">
+                <strong>Секция "Обо мне"</strong>
+                <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--text-secondary);">
+                  <li>Рассказ о себе (2-3 параграфа)</li>
+                  <li>Ваши навыки/увлечения (список)</li>
+                </ul>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid var(--primary);">
+                <strong>Подвал (Footer)</strong>
+                <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--text-secondary);">
+                  <li>Копирайт</li>
+                  <li>Ссылки на соцсети (можно фейковые)</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="code-block" style="margin-top: 1.5rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Запрос к ИИ</span>
+              </div>
+              <pre><code>Создай главную страницу портфолио с:
+- Шапкой с логотипом "Имя Фамилия" и меню навигации
+- Hero-секцией с большим заголовком, описанием и фото
+- Секцией "Обо мне" с текстом и списком навыков
+- Красивым футером
+Стиль: современный, минималистичный
+Подключи css/styles.css</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Page 2: Projects -->
+        <section class="card">
+          <div class="card-header">Страница 2: Проекты (projects.html)</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1.5rem;"><strong>Что должно быть на странице:</strong></p>
+
+            <div style="display: grid; gap: 1rem;">
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid #8B5CF6;">
+                <strong>Та же шапка и футер</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Навигация должна работать на всех страницах</p>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid #8B5CF6;">
+                <strong>Заголовок секции</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">"Мои проекты" или подобный</p>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid #8B5CF6;">
+                <strong>3 карточки проектов</strong>
+                <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--text-secondary);">
+                  <li>Картинка проекта</li>
+                  <li>Название проекта</li>
+                  <li>Короткое описание</li>
+                  <li>Кнопка "Подробнее" (можно без ссылки)</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="code-block" style="margin-top: 1.5rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Запрос к ИИ</span>
+              </div>
+              <pre><code>Создай страницу "Мои проекты" с:
+- Той же шапкой и футером что на главной
+- Заголовком "Мои проекты"
+- Тремя красивыми карточками проектов с картинками
+Карточки должны быть в ряд на десктопе и в колонку на мобильных.
+Используй css/styles.css</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Совет:</strong> Проекты могут быть вымышленными! Придумайте любые интересные проекты или опишите свои хобби.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Page 3: Contact -->
+        <section class="card">
+          <div class="card-header">Страница 3: Контакты (contact.html)</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1.5rem;"><strong>Что должно быть на странице:</strong></p>
+
+            <div style="display: grid; gap: 1rem;">
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid #F59E0B;">
+                <strong>Та же шапка и футер</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Единый стиль на всех страницах</p>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid #F59E0B;">
+                <strong>Контактная информация</strong>
+                <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--text-secondary);">
+                  <li>Email (можно вымышленный)</li>
+                  <li>Телефон (можно вымышленный)</li>
+                  <li>Ссылки на соцсети</li>
+                </ul>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid #F59E0B;">
+                <strong>Форма обратной связи</strong>
+                <ul style="margin: 0.5rem 0 0 1.5rem; color: var(--text-secondary);">
+                  <li>Поле "Ваше имя"</li>
+                  <li>Поле "Email"</li>
+                  <li>Поле "Сообщение" (textarea)</li>
+                  <li>Кнопка "Отправить"</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="code-block" style="margin-top: 1.5rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Запрос к ИИ</span>
+              </div>
+              <pre><code>Создай страницу "Контакты" с:
+- Той же шапкой и футером
+- Секцией с контактной информацией (email, телефон, соцсети)
+- Красивой формой обратной связи
+Форма не должна реально отправлять данные, просто красиво выглядеть.
+Используй css/styles.css</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Styling -->
+        <section class="card">
+          <div class="card-header" style="background: #3B82F6; color: white;">Стилизация (css/styles.css)</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1.5rem;">CSS должен быть один на все страницы. Вот что нужно добавить:</p>
+
+            <div style="display: grid; gap: 1rem;">
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <strong>Цветовая схема</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Выберите 2-3 основных цвета и используйте их везде</p>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <strong>Типографика</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Подберите красивый шрифт (Google Fonts или стандартный)</p>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <strong>Отступы и выравнивание</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Аккуратные padding, margin, центрирование</p>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <strong>Hover-эффекты</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Кнопки и ссылки должны реагировать на наведение мыши</p>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <strong>Адаптивность</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Сайт должен хорошо выглядеть на телефоне!</p>
+              </div>
+            </div>
+
+            <div class="code-block" style="margin-top: 1.5rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Запрос к ИИ для стилей</span>
+              </div>
+              <pre><code>Добавь в styles.css:
+- Красивую цветовую схему (основной цвет: синий)
+- Стили для шапки с фиксированной позицией
+- Стили для карточек с тенью и закруглёнными углами
+- Hover-эффекты для кнопок и ссылок
+- Media queries для мобильных устройств (меню вертикальное, карточки в колонку)</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step by Step -->
+        <section class="card">
+          <div class="card-header">Порядок выполнения</div>
+          <div class="card-body">
+            <div style="display: grid; gap: 1rem;">
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">1</div>
+                <div>
+                  <strong>Создайте структуру папок</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Папка portfolio, внутри css и images</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">2</div>
+                <div>
+                  <strong>Начните с index.html</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Создайте главную страницу с помощью ИИ</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">3</div>
+                <div>
+                  <strong>Добавьте базовые стили</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Создайте css/styles.css и подключите к HTML</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">4</div>
+                <div>
+                  <strong>Проверьте через Live Server</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Убедитесь, что всё работает</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">5</div>
+                <div>
+                  <strong>Создайте projects.html</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Скопируйте шапку и футер с главной</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">6</div>
+                <div>
+                  <strong>Создайте contact.html</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Аналогично, с формой обратной связи</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">7</div>
+                <div>
+                  <strong>Проверьте навигацию</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Все ссылки должны работать между страницами</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">8</div>
+                <div>
+                  <strong>Добавьте адаптивность</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Проверьте на мобильном в DevTools</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="width: 40px; height: 40px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0;">9</div>
+                <div>
+                  <strong>Финальная полировка</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Добавьте картинки, исправьте мелочи, улучшите дизайн</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Evaluation Criteria -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Критерии оценки</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1.5rem;">Ваш проект будет оцениваться по следующим критериям:</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Критерий</th>
+                    <th>Описание</th>
+                    <th style="width: 100px;">Баллы</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Структура</strong></td>
+                    <td>3 страницы, правильная организация файлов</td>
+                    <td>20</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Навигация</strong></td>
+                    <td>Меню работает, можно переходить между страницами</td>
+                    <td>15</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Контент</strong></td>
+                    <td>Заполнены все секции осмысленным содержимым</td>
+                    <td>15</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Дизайн</strong></td>
+                    <td>Приятный внешний вид, единый стиль</td>
+                    <td>20</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Адаптивность</strong></td>
+                    <td>Сайт корректно отображается на мобильных</td>
+                    <td>15</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Форма</strong></td>
+                    <td>Есть рабочая форма обратной связи</td>
+                    <td>10</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Бонус</strong></td>
+                    <td>Креативность, дополнительные функции</td>
+                    <td>5</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Главное:</strong> Не бойтесь экспериментировать! Лучше попробовать что-то новое и ошибиться, чем сделать "безопасно" и скучно.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tips -->
+        <section class="card">
+          <div class="card-header">Советы для успеха</div>
+          <div class="card-body">
+            <div style="display: grid; gap: 1rem;">
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid #10B981;">
+                <strong style="color: #10B981;">Сохраняйтесь часто</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Cmd+S после каждого изменения. Так вы сразу видите результат.</p>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid #10B981;">
+                <strong style="color: #10B981;">Не пытайтесь сделать идеально с первого раза</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Сначала создайте базовую версию, потом улучшайте.</p>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid #10B981;">
+                <strong style="color: #10B981;">Используйте ИИ для объяснений</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Если что-то непонятно, спросите: "Объясни, что делает этот код"</p>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid #10B981;">
+                <strong style="color: #10B981;">Вдохновляйтесь другими сайтами</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Посмотрите портфолио в интернете и попросите ИИ сделать похожее.</p>
+              </div>
+
+              <div style="padding: 1rem; background: var(--bg-main); border-radius: 8px; border-left: 4px solid #10B981;">
+                <strong style="color: #10B981;">Просите о помощи</strong>
+                <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Если застряли - обратитесь к преподавателю или одногруппникам.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист готовности проекта</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-folder"></span>
+                <span class="checklist-text">Создана структура папок (portfolio/, css/, images/)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-index"></span>
+                <span class="checklist-text">Готова главная страница (index.html)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-projects"></span>
+                <span class="checklist-text">Готова страница проектов (projects.html)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-contact"></span>
+                <span class="checklist-text">Готова страница контактов (contact.html)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-css"></span>
+                <span class="checklist-text">Создан и подключен CSS-файл</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-nav"></span>
+                <span class="checklist-text">Навигация работает на всех страницах</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-form"></span>
+                <span class="checklist-text">Есть форма обратной связи</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-responsive"></span>
+                <span class="checklist-text">Сайт адаптивен (проверено на мобильном)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-content"></span>
+                <span class="checklist-text">Весь контент заполнен</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-images"></span>
+                <span class="checklist-text">Добавлены картинки</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Congratulations -->
+        <section class="card" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; border: none;">
+          <div class="card-header" style="background: transparent; color: white; border-bottom-color: rgba(255,255,255,0.2);">Поздравляем!</div>
+          <div class="card-body" style="text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+            <h2 style="margin-bottom: 1rem;">Вы прошли модуль "Cursor - ваш ИИ-помощник"!</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+              Теперь вы умеете создавать веб-страницы с помощью искусственного интеллекта.<br>
+              Это только начало вашего пути в вайбкодинге!
+            </p>
+            <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px; display: inline-block;">
+              <strong>Следующий шаг:</strong> Изучите другие модули курса VibeCoding!
+            </div>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-12.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Адаптивный дизайн</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="13">
+            Завершить модуль
+          </button>
+
+          <a href="index.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">К началу</div>
+              <div class="nav-arrow-title">Главная модуля</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

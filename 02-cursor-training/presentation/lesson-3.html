@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 2.3: Первый разговор с ИИ | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 13 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 2</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое вайбкодинг</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Знакомство с Cursor</a>
+        <a href="lesson-3.html" class="nav-item active" data-lesson="3"><span class="nav-item-number">3</span>Первый разговор с ИИ</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Tab автодополнение</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Composer</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Работа с кодом</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Cmd+K команды</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Запуск и просмотр</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Структура проекта</a>
+        <a href="lesson-10.html" class="nav-item" data-lesson="10"><span class="nav-item-number">10</span>Основы HTML</a>
+        <a href="lesson-11.html" class="nav-item" data-lesson="11"><span class="nav-item-number">11</span>Основы CSS</a>
+        <a href="lesson-12.html" class="nav-item" data-lesson="12"><span class="nav-item-number">12</span>Адаптивный дизайн</a>
+        <a href="project.html" class="nav-item" data-lesson="13"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 2</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 2.3</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 2.3</span>
+            <span class="lesson-duration">⏱ 2 часа</span>
+          </div>
+          <h1 class="lesson-title">Первый разговор с ИИ</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Учимся общаться с ИИ и создаём первую веб-страницу
+          </p>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Цель урока:</strong> Каждый студент должен поговорить с ИИ и создать страницу.</p>
+            <p><strong>Важно:</strong> Поддерживайте студентов — многие стесняются "разговаривать с компьютером". Покажите, что это весело!</p>
+          </div>
+        </div>
+
+        <!-- Opening Chat -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Шаг 1: Открываем ИИ-чат</div>
+          <div class="card-body">
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+              ИИ-чат — это ваш помощник, который понимает обычные слова и пишет код за вас.
+            </p>
+
+            <div style="display: grid; gap: 1rem;">
+              <div style="display: flex; gap: 1rem; align-items: center; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="font-size: 2rem;">⌨️</div>
+                <div>
+                  <strong>Способ 1:</strong> Нажмите <code>Ctrl+L</code> (Windows) или <code>Cmd+L</code> (Mac)
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: center; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="font-size: 2rem;">🖱️</div>
+                <div>
+                  <strong>Способ 2:</strong> Кликните на иконку чата в правой панели
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Первое сообщение:</strong> Попробуйте написать "Привет! Я новичок, помоги мне" — ИИ дружелюбно ответит!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- How to Talk -->
+        <section class="card">
+          <div class="card-header">Как правильно разговаривать с ИИ</div>
+          <div class="card-body">
+            <h4 style="color: var(--accent);">Простые слова работают!</h4>
+            <p>Не нужно использовать технические термины. ИИ понимает обычный язык:</p>
+
+            <div class="table-container" style="margin: 1.5rem 0;">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="color: #10B981;">Хорошо ✅</th>
+                    <th style="color: #EF4444;">Не нужно ❌</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>"Создай красную кнопку"</td>
+                    <td>"Сгенерируй HTML-элемент button с CSS-свойством background-color: red"</td>
+                  </tr>
+                  <tr>
+                    <td>"Добавь картинку"</td>
+                    <td>"Вставь тег img с атрибутом src"</td>
+                  </tr>
+                  <tr>
+                    <td>"Сделай текст крупнее"</td>
+                    <td>"Примени font-size: 24px к элементу p"</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="color: var(--accent); margin-top: 2rem;">Будьте конкретны</h4>
+
+            <div class="table-container" style="margin: 1rem 0;">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="color: #EF4444;">Плохо ❌</th>
+                    <th style="color: #10B981;">Хорошо ✅</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>"Сделай что-нибудь красивое"</td>
+                    <td>"Создай заголовок 'Мой сайт' синего цвета"</td>
+                  </tr>
+                  <tr>
+                    <td>"Добавь кнопку"</td>
+                    <td>"Добавь зелёную кнопку с текстом 'Отправить'"</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="color: var(--accent); margin-top: 2rem;">Итеративный подход</h4>
+            <p>Делайте маленькие шаги и улучшайте постепенно:</p>
+
+            <div style="background: var(--bg-main); border-radius: 8px; padding: 1.5rem; margin-top: 1rem;">
+              <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem;">
+                <span style="background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.85rem;">Шаг 1</span>
+                <span>"Создай кнопку"</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem;">
+                <span style="background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.85rem;">Шаг 2</span>
+                <span>"Сделай её больше"</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem;">
+                <span style="background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.85rem;">Шаг 3</span>
+                <span>"Измени цвет на синий"</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 1rem;">
+                <span style="background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.85rem;">Шаг 4</span>
+                <span>"Добавь тень"</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Good Examples -->
+        <section class="card">
+          <div class="card-header">Примеры хороших запросов</div>
+          <div class="card-body">
+            <div style="display: grid; gap: 1rem;">
+              <div style="padding: 1rem; background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0;">
+                "Объясни этот код простыми словами"
+              </div>
+              <div style="padding: 1rem; background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0;">
+                "Создай страницу с моим именем и фото"
+              </div>
+              <div style="padding: 1rem; background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0;">
+                "Добавь список из 5 пунктов"
+              </div>
+              <div style="padding: 1rem; background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0;">
+                "Исправь ошибку, я не понимаю что не так"
+              </div>
+              <div style="padding: 1rem; background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0;">
+                "Сделай фон страницы светло-голубым"
+              </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Помните:</strong> ИИ не судит и не смеётся! Можно спрашивать что угодно, даже самые простые вещи.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика: Создаём первую страницу</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1.5rem;">Давайте создадим страницу шаг за шагом:</p>
+
+            <h4>Шаг 1: Открываем чат и просим</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Ваш запрос к ИИ</span>
+              </div>
+              <pre><code>Создай простую HTML страницу с заголовком "Привет!"</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Шаг 2: Копируем код в файл</h4>
+            <p>ИИ даст вам код — скопируйте его в ваш файл index.html</p>
+
+            <h4 style="margin-top: 1.5rem;">Шаг 3: Просим добавить абзац</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Ваш запрос к ИИ</span>
+              </div>
+              <pre><code>Добавь абзац с текстом "Это моя первая страница"</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Шаг 4: Меняем фон</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Ваш запрос к ИИ</span>
+              </div>
+              <pre><code>Сделай фон страницы светло-голубым</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Шаг 5: Добавляем кнопку</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Ваш запрос к ИИ</span>
+              </div>
+              <pre><code>Добавь кнопку "Связаться со мной" синего цвета</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Результат:</strong> Вы только что создали веб-страницу с помощью ИИ! Откройте файл в браузере, чтобы увидеть результат.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Common Mistakes -->
+        <section class="card">
+          <div class="card-header">Типичные ошибки начинающих</div>
+          <div class="card-body">
+            <div style="display: grid; gap: 1rem;">
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px;">
+                <div style="font-size: 1.5rem;">❌</div>
+                <div>
+                  <strong>Слишком сложные запросы сразу</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Лучше делать по шагам, чем просить всё сразу</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px;">
+                <div style="font-size: 1.5rem;">❌</div>
+                <div>
+                  <strong>Не говорить, если что-то непонятно</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Всегда можно спросить "Объясни подробнее"</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px;">
+                <div style="font-size: 1.5rem;">❌</div>
+                <div>
+                  <strong>Бояться переспрашивать</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">ИИ не устаёт и не раздражается!</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px;">
+                <div style="font-size: 1.5rem;">❌</div>
+                <div>
+                  <strong>Не проверять результат после каждого шага</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Сохраняйте и смотрите в браузере после каждого изменения</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Exercises -->
+        <section class="card">
+          <div class="card-header">Упражнения для практики</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1rem;">Попробуйте выполнить эти задания:</p>
+
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ex3-1"></span>
+                <span class="checklist-text">Спросить: "Что такое HTML простыми словами?"</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ex3-2"></span>
+                <span class="checklist-text">Создать страницу с вашим именем</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ex3-3"></span>
+                <span class="checklist-text">Попросить добавить картинку</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ex3-4"></span>
+                <span class="checklist-text">Изменить цвета на странице</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ex3-5"></span>
+                <span class="checklist-text">Спросить: "Объясни что делает этот код"</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка понимания</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson3">
+              <p><strong>Какой запрос к ИИ лучше?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">"Сделай красиво"</div>
+                <div class="quiz-option" data-correct="true">"Создай синюю кнопку с текстом 'Отправить'"</div>
+                <div class="quiz-option" data-correct="false">"Напиши код"</div>
+                <div class="quiz-option" data-correct="false">"Сгенерируй HTML-элемент с атрибутами"</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-chat"></span>
+                <span class="checklist-text">Открыл ИИ-чат в Cursor</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-talk"></span>
+                <span class="checklist-text">Поговорил с ИИ (не стесняясь!)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-page"></span>
+                <span class="checklist-text">Создал страницу с помощью ИИ</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-iterate"></span>
+                <span class="checklist-text">Понял итеративный подход (шаг за шагом)</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Homework -->
+        <section class="card">
+          <div class="card-header">Домашнее задание</div>
+          <div class="card-body">
+            <p><strong>Создать страницу "О себе" с помощью ИИ:</strong></p>
+            <ul style="margin: 1rem 0 1rem 1.5rem;">
+              <li>Ваше имя в качестве заголовка</li>
+              <li>Фотография (можно любую картинку из интернета)</li>
+              <li>Несколько фактов о себе</li>
+              <li>Кнопка "Связаться"</li>
+            </ul>
+            <p>Общайтесь с ИИ шаг за шагом!</p>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-2.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Знакомство с Cursor</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="3">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-4.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Tab автодополнение</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

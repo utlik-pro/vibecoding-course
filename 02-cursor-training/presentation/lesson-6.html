@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 2.6: Работа с готовым кодом | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 13 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 2</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое вайбкодинг</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Знакомство с Cursor</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Первый разговор с ИИ</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Tab автодополнение</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Composer</a>
+        <a href="lesson-6.html" class="nav-item active" data-lesson="6"><span class="nav-item-number">6</span>Работа с кодом</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Cmd+K команды</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Запуск и просмотр</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Структура проекта</a>
+        <a href="lesson-10.html" class="nav-item" data-lesson="10"><span class="nav-item-number">10</span>Основы HTML</a>
+        <a href="lesson-11.html" class="nav-item" data-lesson="11"><span class="nav-item-number">11</span>Основы CSS</a>
+        <a href="lesson-12.html" class="nav-item" data-lesson="12"><span class="nav-item-number">12</span>Адаптивный дизайн</a>
+        <a href="project.html" class="nav-item" data-lesson="13"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 2</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 2.6</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 2.6</span>
+            <span class="lesson-duration">⏱ 1.5 часа</span>
+          </div>
+          <h1 class="lesson-title">Работа с готовым кодом</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Понимаем и меняем код, созданный ИИ
+          </p>
+        </div>
+
+        <!-- Reading HTML -->
+        <section class="card">
+          <div class="card-header">Как читать HTML код</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1.5rem;">HTML состоит из <strong>тегов</strong> — это как коробки, которые содержат контент:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">HTML — структура тега</span>
+              </div>
+              <pre><code>&lt;тег&gt;Содержимое&lt;/тег&gt;
+
+<span style="color: #10B981;">↑ открывающий</span>    <span style="color: #EF4444;">↑ закрывающий</span></code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Основные теги, которые вы увидите:</h4>
+            <div class="table-container" style="margin-top: 1rem;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Тег</th>
+                    <th>Что делает</th>
+                    <th>Пример</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code></td>
+                    <td>Заголовки (h1 = самый большой)</td>
+                    <td>&lt;h1&gt;Привет&lt;/h1&gt;</td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;p&gt;</code></td>
+                    <td>Абзац текста</td>
+                    <td>&lt;p&gt;Текст&lt;/p&gt;</td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;button&gt;</code></td>
+                    <td>Кнопка</td>
+                    <td>&lt;button&gt;Нажми&lt;/button&gt;</td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;img&gt;</code></td>
+                    <td>Картинка</td>
+                    <td>&lt;img src="фото.jpg"&gt;</td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;div&gt;</code></td>
+                    <td>Контейнер (коробка)</td>
+                    <td>&lt;div&gt;...&lt;/div&gt;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Подсказка:</strong> Если видите непонятный тег — выделите его и спросите ИИ: "Объясни что делает этот код"
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Manual vs AI Changes -->
+        <section class="card">
+          <div class="card-header">Изменения руками vs через ИИ</div>
+          <div class="card-body">
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">✋</div>
+                <h4 class="service-card-title">Простые изменения руками</h4>
+                <p class="service-card-desc">
+                  • Поменять текст<br>
+                  • Изменить цвет (найти <code>color:</code>)<br>
+                  • Изменить размер (найти <code>size:</code>)
+                </p>
+              </div>
+
+              <div class="service-card" style="border-color: var(--primary);">
+                <div class="service-card-icon">🤖</div>
+                <h4 class="service-card-title">Сложные через ИИ</h4>
+                <p class="service-card-desc">
+                  • Добавить анимацию<br>
+                  • Сделать адаптивным<br>
+                  • Добавить эффекты
+                </p>
+              </div>
+            </div>
+
+            <h4 style="margin-top: 2rem;">Пример: меняем текст руками</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Было</span>
+              </div>
+              <pre><code>&lt;h1&gt;Привет, мир!&lt;/h1&gt;</code></pre>
+            </div>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Стало (просто заменили текст)</span>
+              </div>
+              <pre><code>&lt;h1&gt;Добро пожаловать!&lt;/h1&gt;</code></pre>
+            </div>
+
+            <h4 style="margin-top: 2rem;">Пример: меняем цвет руками</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Было</span>
+              </div>
+              <pre><code>&lt;button style="background: <span style="color: #EF4444;">red</span>;"&gt;Кнопка&lt;/button&gt;</code></pre>
+            </div>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Стало</span>
+              </div>
+              <pre><code>&lt;button style="background: <span style="color: #3B82F6;">blue</span>;"&gt;Кнопка&lt;/button&gt;</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Undo -->
+        <section class="card">
+          <div class="card-header" style="background: var(--accent); color: white;">Не бойтесь экспериментировать!</div>
+          <div class="card-body">
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+              Если что-то сломали — <strong>всегда можно вернуть</strong>:
+            </p>
+
+            <div style="display: grid; gap: 1rem;">
+              <div style="display: flex; gap: 1rem; align-items: center; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <code style="font-size: 1.25rem; font-weight: bold;">Ctrl+Z</code>
+                <span>Отменить последнее действие (Windows)</span>
+              </div>
+              <div style="display: flex; gap: 1rem; align-items: center; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <code style="font-size: 1.25rem; font-weight: bold;">Cmd+Z</code>
+                <span>Отменить последнее действие (Mac)</span>
+              </div>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Правило:</strong> "Сломал" — не страшно! Нажми Ctrl+Z и попробуй снова или спроси ИИ.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Exercises -->
+        <section class="card">
+          <div class="card-header">Практические упражнения</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ex6-1"></span>
+                <span class="checklist-text">Возьмите код со вчерашнего урока и измените все тексты</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ex6-2"></span>
+                <span class="checklist-text">Измените все цвета на странице</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ex6-3"></span>
+                <span class="checklist-text">Добавьте новый раздел руками</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ex6-4"></span>
+                <span class="checklist-text">Попросите ИИ улучшить дизайн</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка понимания</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson6">
+              <p><strong>Как отменить последнее действие в Cursor?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="true">Ctrl+Z (Windows) или Cmd+Z (Mac)</div>
+                <div class="quiz-option" data-correct="false">Delete</div>
+                <div class="quiz-option" data-correct="false">Escape</div>
+                <div class="quiz-option" data-correct="false">Ctrl+S</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-read"></span>
+                <span class="checklist-text">Научился читать простой HTML код</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-change"></span>
+                <span class="checklist-text">Изменил текст и цвет руками</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-undo"></span>
+                <span class="checklist-text">Знаю как отменить изменения</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-ai"></span>
+                <span class="checklist-text">Попросил ИИ объяснить непонятный код</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Homework -->
+        <section class="card">
+          <div class="card-header">Домашнее задание</div>
+          <div class="card-body">
+            <p>Возьмите любую созданную ранее страницу и измените минимум 5 элементов:</p>
+            <ul style="margin: 1rem 0 0 1.5rem;">
+              <li>3 изменения руками (тексты, цвета)</li>
+              <li>2 изменения через ИИ (эффекты, улучшения)</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-5.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Composer</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="6">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-7.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Cmd+K команды</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

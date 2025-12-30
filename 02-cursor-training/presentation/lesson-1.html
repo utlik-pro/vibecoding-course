@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 2.1: Что такое программирование и вайбкодинг | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 13 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 2</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item active" data-lesson="1"><span class="nav-item-number">1</span>Что такое вайбкодинг</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Знакомство с Cursor</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Первый разговор с ИИ</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Tab автодополнение</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Composer</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Работа с кодом</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Cmd+K команды</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Запуск и просмотр</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Структура проекта</a>
+        <a href="lesson-10.html" class="nav-item" data-lesson="10"><span class="nav-item-number">10</span>Основы HTML</a>
+        <a href="lesson-11.html" class="nav-item" data-lesson="11"><span class="nav-item-number">11</span>Основы CSS</a>
+        <a href="lesson-12.html" class="nav-item" data-lesson="12"><span class="nav-item-number">12</span>Адаптивный дизайн</a>
+        <a href="project.html" class="nav-item" data-lesson="13"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 2</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 2.1</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 2.1</span>
+            <span class="lesson-duration">⏱ 2 часа</span>
+          </div>
+          <h1 class="lesson-title">Что такое программирование и вайбкодинг</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Избавляемся от страха перед кодом и знакомимся с ИИ-помощниками
+          </p>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Цель урока:</strong> Снять страх перед программированием и показать, что с ИИ это доступно каждому.</p>
+            <p><strong>Ключевой момент:</strong> Многие студенты боятся программирования. Используйте аналогии, шутки, покажите что это проще, чем кажется.</p>
+          </div>
+        </div>
+
+        <!-- Section 1: What is Programming -->
+        <section class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+          <div class="card-header" style="background: transparent; color: white; border-bottom-color: rgba(255,255,255,0.2);">Что такое программирование?</div>
+          <div class="card-body">
+            <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">
+              Программирование — это просто <strong>разговор с компьютером</strong>. Вы объясняете ему, что нужно сделать, а он выполняет.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+              <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌐</div>
+                <div style="font-weight: bold;">Веб-сайты</div>
+                <div style="font-size: 0.85rem; opacity: 0.9;">YouTube, Instagram, банки</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📱</div>
+                <div style="font-weight: bold;">Приложения</div>
+                <div style="font-size: 0.85rem; opacity: 0.9;">Telegram, Uber, игры</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤖</div>
+                <div style="font-weight: bold;">Автоматизация</div>
+                <div style="font-size: 0.85rem; opacity: 0.9;">Боты, скрипты</div>
+              </div>
+            </div>
+
+            <p style="font-size: 1.1rem; opacity: 0.95;">
+              Всё это создано программистами — людьми, которые умеют "разговаривать" с компьютером.
+            </p>
+          </div>
+        </section>
+
+        <!-- Myths Section -->
+        <section class="card">
+          <div class="card-header">Развенчиваем мифы</div>
+          <div class="card-body">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Миф</th>
+                    <th>Реальность</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="color: #EF4444;">"Нужно быть гением математики"</td>
+                    <td style="color: #10B981;">Для веб-разработки достаточно знать сложение и вычитание</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #EF4444;">"Нужно запоминать тысячи команд"</td>
+                    <td style="color: #10B981;">ИИ-помощник напомнит любую команду за секунду</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #EF4444;">"Нужно учиться годами"</td>
+                    <td style="color: #10B981;">Первый сайт можно создать за 1 час с помощью ИИ</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #EF4444;">"Это очень сложно"</td>
+                    <td style="color: #10B981;">С ИИ это как разговор на обычном языке</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- What is Vibecoding -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Что такое Вайбкодинг?</div>
+          <div class="card-body">
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+              <strong>Вайбкодинг</strong> — это новый подход к программированию, где вы <em>описываете</em> что хотите,
+              а <strong>ИИ пишет код</strong> за вас.
+            </p>
+
+            <div class="service-cards">
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📝</div>
+                <h4>Традиционно</h4>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                  Учите синтаксис → Запоминаете команды → Пишете код вручную → Ищете ошибки
+                </p>
+                <p style="color: #EF4444; font-weight: 600;">Месяцы обучения</p>
+              </div>
+
+              <div class="service-card" style="text-align: center; border-color: var(--accent);">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🚀</div>
+                <h4>Вайбкодинг</h4>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                  Объясняете идею → ИИ пишет код → Вы проверяете → Просите исправить
+                </p>
+                <p style="color: #10B981; font-weight: 600;">Результат за часы</p>
+              </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Принцип вайбкодинга:</strong> "Объясни что хочешь — ИИ напишет код"
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Example Conversation -->
+        <section class="card">
+          <div class="card-header">Как это выглядит на практике</div>
+          <div class="card-body">
+            <p>Вот как выглядит разговор с ИИ в Cursor:</p>
+
+            <div style="background: var(--bg-main); border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
+              <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                <div style="width: 32px; height: 32px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">Я</div>
+                <div style="flex: 1; background: white; padding: 1rem; border-radius: 8px; box-shadow: var(--shadow);">
+                  Создай красную кнопку с текстом "Нажми меня"
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem;">
+                <div style="width: 32px; height: 32px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">AI</div>
+                <div style="flex: 1; background: white; padding: 1rem; border-radius: 8px; box-shadow: var(--shadow);">
+                  <p style="margin-bottom: 0.5rem;">Конечно! Вот код для красной кнопки:</p>
+                  <div class="code-block" style="margin: 0;">
+                    <pre><code>&lt;button style="background: red; color: white; padding: 10px 20px; border: none; border-radius: 5px;"&gt;
+  Нажми меня
+&lt;/button&gt;</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 1.5rem;">
+              <p style="margin-bottom: 1rem;">И вот результат:</p>
+              <button style="background: red; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer;">Нажми меня</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Basic Terms -->
+        <section class="card">
+          <div class="card-header">Базовые термины для новичков</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1.5rem;">Давайте выучим несколько простых слов, которые будем использовать:</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Термин</th>
+                    <th>Что это значит</th>
+                    <th>Аналогия</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Файл</strong></td>
+                    <td>Документ с кодом или данными</td>
+                    <td>Как документ Word на компьютере</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Папка/Проект</strong></td>
+                    <td>Коллекция файлов для одной программы</td>
+                    <td>Как папка на рабочем столе</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Код</strong></td>
+                    <td>Инструкции для компьютера</td>
+                    <td>Как рецепт для повара</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Запуск</strong></td>
+                    <td>Показать результат программы</td>
+                    <td>Как нажать "Play" на видео</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Ошибка</strong></td>
+                    <td>Когда что-то пошло не так</td>
+                    <td>Это нормально! ИИ поможет исправить</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Подробнее:</strong> Все термины собраны в <a href="glossary.html">Глоссарии</a> — можете заглядывать туда в любой момент!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Web Languages -->
+        <section class="card">
+          <div class="card-header">Три языка веба</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1.5rem;">Веб-страницы создаются с помощью трёх "языков". Не пугайтесь — ИИ знает их все!</p>
+
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon" style="background: #E34F26; color: white;">H</div>
+                <h4 class="service-card-title">HTML</h4>
+                <p class="service-card-desc">
+                  <strong>Скелет страницы</strong><br>
+                  Определяет структуру: заголовки, абзацы, кнопки, картинки
+                </p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon" style="background: #1572B6; color: white;">C</div>
+                <h4 class="service-card-title">CSS</h4>
+                <p class="service-card-desc">
+                  <strong>Красота страницы</strong><br>
+                  Определяет внешний вид: цвета, шрифты, размеры, расположение
+                </p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon" style="background: #F7DF1E; color: black;">JS</div>
+                <h4 class="service-card-title">JavaScript</h4>
+                <p class="service-card-desc">
+                  <strong>Интерактивность</strong><br>
+                  Делает страницу "живой": клики, анимации, загрузка данных
+                </p>
+              </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Аналогия "Дом":</strong> HTML — это кирпичи и стены, CSS — обои и краска, JavaScript — электричество и техника.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Philosophy -->
+        <section class="card">
+          <div class="card-header">Философия вайбкодинга</div>
+          <div class="card-body">
+            <div style="display: grid; gap: 1rem;">
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="font-size: 1.5rem;">✅</div>
+                <div>
+                  <strong>Не нужно знать синтаксис наизусть</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">ИИ напишет правильный код за вас</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="font-size: 1.5rem;">✅</div>
+                <div>
+                  <strong>Важно понимать логику, а не каждую строку</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Понимайте "что" делает код, а не "как" именно</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="font-size: 1.5rem;">✅</div>
+                <div>
+                  <strong>ИИ — ваш терпеливый учитель</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Он не судит, не смеётся и готов объяснять бесконечно</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="font-size: 1.5rem;">✅</div>
+                <div>
+                  <strong>Итеративный подход: пробуем → смотрим → улучшаем</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Нет "правильного" пути — есть эксперименты</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="font-size: 1.5rem;">✅</div>
+                <div>
+                  <strong>Ошибки — это часть процесса</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Даже профессионалы ошибаются. ИИ поможет исправить!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Demo -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практическая демонстрация</div>
+          <div class="card-body">
+            <div class="teacher-note">
+              <div class="teacher-note-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+                Для преподавателя
+              </div>
+              <div class="teacher-note-content">
+                <p>Покажите создание простой страницы в Cursor (если уже установлен). Если нет — покажите видео или картинки.</p>
+                <p>Важно продемонстрировать, как обычные слова превращаются в код.</p>
+              </div>
+            </div>
+
+            <p style="margin-top: 1rem;"><strong>Что мы попросим ИИ:</strong></p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Запрос к ИИ</span>
+              </div>
+              <pre><code>Создай простую веб-страницу с заголовком "Привет, мир!",
+абзацем текста и синей кнопкой</code></pre>
+            </div>
+
+            <p style="margin-top: 1rem;"><strong>Что получим в результате:</strong></p>
+            <div style="background: white; border: 1px solid var(--border); border-radius: 8px; padding: 2rem; text-align: center;">
+              <h2 style="color: #333; margin-bottom: 1rem;">Привет, мир!</h2>
+              <p style="color: #666; margin-bottom: 1.5rem;">Это моя первая веб-страница, созданная с помощью ИИ.</p>
+              <button style="background: #3B82F6; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer;">Нажми меня</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка понимания</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson1">
+              <p><strong>Что такое вайбкодинг?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Традиционное программирование с запоминанием команд</div>
+                <div class="quiz-option" data-correct="true">Подход, где вы описываете задачу, а ИИ пишет код</div>
+                <div class="quiz-option" data-correct="false">Программирование только на одном языке</div>
+                <div class="quiz-option" data-correct="false">Сложный метод для профессионалов</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson1-understand"></span>
+                <span class="checklist-text">Понял, что программирование — это разговор с компьютером</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson1-vibecoding"></span>
+                <span class="checklist-text">Понял, что такое вайбкодинг и чем он отличается от традиционного подхода</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson1-terms"></span>
+                <span class="checklist-text">Запомнил базовые термины (файл, проект, код)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson1-languages"></span>
+                <span class="checklist-text">Знаю три языка веба: HTML, CSS, JavaScript</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson1-nofear"></span>
+                <span class="checklist-text">Перестал бояться программирования!</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Homework -->
+        <section class="card">
+          <div class="card-header">Домашнее задание</div>
+          <div class="card-body">
+            <p>Посмотрите 2-3 видео о вайбкодинге на YouTube:</p>
+            <ul style="margin: 1rem 0 1rem 1.5rem;">
+              <li>Поищите "vibecoding tutorial" или "AI coding assistant"</li>
+              <li>Запишите вопросы, которые возникли</li>
+              <li>Обратите внимание: насколько быстро создаются проекты</li>
+            </ul>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Подготовка к следующему уроку:</strong> На следующем занятии мы будем устанавливать Cursor. Убедитесь, что у вас есть доступ к интернету и права администратора на компьютере.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="index.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Главная</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="1">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-2.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Знакомство с Cursor</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

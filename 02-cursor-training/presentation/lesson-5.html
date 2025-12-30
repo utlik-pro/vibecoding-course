@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 2.5: Composer | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 13 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 2</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое вайбкодинг</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Знакомство с Cursor</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Первый разговор с ИИ</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Tab автодополнение</a>
+        <a href="lesson-5.html" class="nav-item active" data-lesson="5"><span class="nav-item-number">5</span>Composer</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Работа с кодом</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Cmd+K команды</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Запуск и просмотр</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Структура проекта</a>
+        <a href="lesson-10.html" class="nav-item" data-lesson="10"><span class="nav-item-number">10</span>Основы HTML</a>
+        <a href="lesson-11.html" class="nav-item" data-lesson="11"><span class="nav-item-number">11</span>Основы CSS</a>
+        <a href="lesson-12.html" class="nav-item" data-lesson="12"><span class="nav-item-number">12</span>Адаптивный дизайн</a>
+        <a href="project.html" class="nav-item" data-lesson="13"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 2</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 2.5</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 2.5</span>
+            <span class="lesson-duration">⏱ 2 часа</span>
+          </div>
+          <h1 class="lesson-title">Composer</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Создаём целые страницы одной фразой
+          </p>
+        </div>
+
+        <!-- What is Composer -->
+        <section class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+          <div class="card-header" style="background: transparent; color: white; border-bottom-color: rgba(255,255,255,0.2);">Что такое Composer?</div>
+          <div class="card-body">
+            <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">
+              <strong>Composer</strong> — это мощный инструмент для создания целых файлов и страниц сразу. В отличие от чата, который отвечает на вопросы, Composer создаёт полноценный код!
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+              <div style="background: rgba(255,255,255,0.2); padding: 1.5rem; border-radius: 8px;">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">💬</div>
+                <strong>Чат (Chat)</strong>
+                <p style="margin: 0.5rem 0 0; font-size: 0.9rem; opacity: 0.9;">
+                  Для вопросов и небольших изменений:<br>
+                  "Объясни этот код", "Добавь кнопку"
+                </p>
+              </div>
+              <div style="background: rgba(255,255,255,0.2); padding: 1.5rem; border-radius: 8px; border: 2px solid rgba(255,255,255,0.5);">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🎨</div>
+                <strong>Composer</strong>
+                <p style="margin: 0.5rem 0 0; font-size: 0.9rem; opacity: 0.9;">
+                  Для создания целых страниц:<br>
+                  "Создай страницу портфолио"
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- How to Open -->
+        <section class="card">
+          <div class="card-header">Как открыть Composer</div>
+          <div class="card-body">
+            <div style="display: grid; gap: 1rem;">
+              <div style="display: flex; gap: 1rem; align-items: center; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="font-size: 2rem;">⌨️</div>
+                <div>
+                  <strong>Способ 1:</strong> Нажмите <code>Ctrl+I</code> (Windows) или <code>Cmd+I</code> (Mac)
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: center; padding: 1rem; background: var(--bg-main); border-radius: 8px;">
+                <div style="font-size: 2rem;">🖱️</div>
+                <div>
+                  <strong>Способ 2:</strong> Кликните на иконку Composer в панели (выглядит как звёздочка или карандаш)
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Example Request -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика: Первый проект в Composer</div>
+          <div class="card-body">
+            <p style="margin-bottom: 1rem;">Откройте Composer и напишите:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Запрос в Composer</span>
+              </div>
+              <pre><code>Создай простую страницу "Обо мне" с:
+- Заголовком с моим именем
+- Фотографией (используй placeholder)
+- Абзацем о себе
+- Списком хобби
+- Кнопкой "Связаться"
+Используй красивые цвета и современный дизайн</code></pre>
+            </div>
+
+            <p style="margin: 1.5rem 0 1rem;">Composer создаст полный HTML файл с CSS стилями!</p>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Важно:</strong> После создания проверьте результат в браузере и улучшайте через чат: "Сделай фото круглым", "Измени цвета на синие"
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Types of Pages -->
+        <section class="card">
+          <div class="card-header">Примеры запросов для разных страниц</div>
+          <div class="card-body">
+            <div style="display: grid; gap: 1.5rem;">
+              <div style="padding: 1.5rem; background: var(--bg-main); border-radius: 8px;">
+                <h4 style="margin-bottom: 0.5rem;">🎯 Лендинг (целевая страница)</h4>
+                <div class="code-block" style="margin: 0;">
+                  <pre><code>Создай страницу для онлайн-курса по рисованию
+с заголовком, описанием курса, 3 преимуществами
+и кнопкой "Записаться"</code></pre>
+                </div>
+              </div>
+
+              <div style="padding: 1.5rem; background: var(--bg-main); border-radius: 8px;">
+                <h4 style="margin-bottom: 0.5rem;">📸 Портфолио</h4>
+                <div class="code-block" style="margin: 0;">
+                  <pre><code>Создай портфолио фотографа с галереей из 6 фото,
+секцией "Обо мне" и контактной формой</code></pre>
+                </div>
+              </div>
+
+              <div style="padding: 1.5rem; background: var(--bg-main); border-radius: 8px;">
+                <h4 style="margin-bottom: 0.5rem;">📝 Блог</h4>
+                <div class="code-block" style="margin: 0;">
+                  <pre><code>Создай страницу блога с 3 постами,
+у каждого есть заголовок, дата и краткое описание</code></pre>
+                </div>
+              </div>
+
+              <div style="padding: 1.5rem; background: var(--bg-main); border-radius: 8px;">
+                <h4 style="margin-bottom: 0.5rem;">📮 Форма</h4>
+                <div class="code-block" style="margin: 0;">
+                  <pre><code>Создай форму подписки на рассылку
+с полями для имени и email, красивой кнопкой</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tips -->
+        <section class="card">
+          <div class="card-header">Советы по работе с Composer</div>
+          <div class="card-body">
+            <div style="display: grid; gap: 1rem;">
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                <div style="font-size: 1.5rem;">✅</div>
+                <div>
+                  <strong>Будьте конкретны в описании</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">Указывайте что именно хотите: сколько элементов, какие цвета</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                <div style="font-size: 1.5rem;">✅</div>
+                <div>
+                  <strong>Описывайте желаемый дизайн</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">"Современный", "минималистичный", "яркий", "тёмная тема"</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                <div style="font-size: 1.5rem;">✅</div>
+                <div>
+                  <strong>Не бойтесь переделывать</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">"Перепиши это, но с другими цветами"</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                <div style="font-size: 1.5rem;">✅</div>
+                <div>
+                  <strong>Добавляйте примеры</strong>
+                  <p style="margin: 0.25rem 0 0; color: var(--text-secondary);">"Как на сайте Apple, но проще"</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Exercises -->
+        <section class="card">
+          <div class="card-header">Практические задания</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ex5-1"></span>
+                <span class="checklist-text">Создать страницу-визитку для вымышленного бизнеса</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ex5-2"></span>
+                <span class="checklist-text">Создать страницу рецепта с ингредиентами и шагами</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ex5-3"></span>
+                <span class="checklist-text">Создать галерею из 4 карточек продуктов</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="ex5-4"></span>
+                <span class="checklist-text">Создать страницу с формой обратной связи</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка понимания</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson5">
+              <p><strong>Для чего лучше использовать Composer?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Для ответов на вопросы о коде</div>
+                <div class="quiz-option" data-correct="false">Для добавления одной кнопки</div>
+                <div class="quiz-option" data-correct="true">Для создания целых страниц с нуля</div>
+                <div class="quiz-option" data-correct="false">Для сохранения файлов</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-open"></span>
+                <span class="checklist-text">Научился открывать Composer</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-page"></span>
+                <span class="checklist-text">Создал страницу с помощью Composer</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-diff"></span>
+                <span class="checklist-text">Понял разницу между Chat и Composer</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-iterate"></span>
+                <span class="checklist-text">Улучшил созданную страницу через чат</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Homework -->
+        <section class="card">
+          <div class="card-header">Домашнее задание</div>
+          <div class="card-body">
+            <p><strong>Создайте страницу для вымышленного кафе:</strong></p>
+            <ul style="margin: 1rem 0 1rem 1.5rem;">
+              <li>Название и логотип кафе</li>
+              <li>Меню с 5-6 блюдами</li>
+              <li>Фотографии (можно placeholder)</li>
+              <li>Адрес и часы работы</li>
+              <li>Кнопка "Забронировать столик"</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-4.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Tab автодополнение</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="5">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-6.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Работа с кодом</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>
