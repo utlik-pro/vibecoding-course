@@ -31,7 +31,8 @@ const COURSE_CONFIG = {
     'kvetnevskiy@gmail.com',         // Кветневский Антон Юрьевич
     'iharmarynin@gmail.com',         // Маринин Игорь Егорович
     'Sergejsputalov@gmail.com',      // Шпуталов Сергей Витальевич
-    'rei.sheko@gmail.com'            // Шеко Андрей Иванович
+    'rei.sheko@gmail.com',           // Шеко Андрей Иванович
+    'nmedvedeva312@gmail.com'        // Медведева Н.
   ],
 
   // Пароль админки
