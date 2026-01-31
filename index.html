@@ -390,7 +390,7 @@
             <div class="progress-container">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
-            <p class="progress-text">Пройдено <span id="completedCount">0</span> из <span>12</span> модулей</p>
+            <p class="progress-text">Пройдено <span id="completedCount">0</span> из <span>14</span> модулей</p>
         </header>
 
         <div class="lessons-container" id="lessonsGrid">
@@ -500,7 +500,7 @@
                 description: "Глубокое погружение в Supabase и управление данными",
                 topics: ["SQL Editor", "Real-time", "RLS"],
                 duration: "3-4 часа",
-                link: "lessons/lesson-08.html"
+                link: "08-database/presentation/index.html"
             },
             {
                 id: 9,
@@ -509,7 +509,7 @@
                 description: "Создание красивого интерактивного UI с лендингом и админкой",
                 topics: ["Landing Page", "Dashboard", "shadcn/ui"],
                 duration: "5-6 часов",
-                link: "lessons/lesson-09.html"
+                link: "09-frontend/presentation/index.html"
             },
             {
                 id: 10,
@@ -518,25 +518,43 @@
                 description: "Интеграция платежной системы Stripe и внешних API",
                 topics: ["Stripe", "Webhooks", "Подписки"],
                 duration: "4-5 часов",
-                link: "lessons/lesson-10.html"
+                link: "10-api-payments/presentation/index.html"
             },
             {
                 id: 11,
+                title: "Claude Code: Основы",
+                icon: "🤖",
+                description: "Введение в Claude Code - мощный терминальный ИИ-помощник",
+                topics: ["Установка", "Команды", "Настройка"],
+                duration: "3-4 часа",
+                link: "11-claude-code-basics/presentation/index.html"
+            },
+            {
+                id: 12,
+                title: "Claude Code: Продвинутый",
+                icon: "🚀",
+                description: "Продвинутые техники работы с Claude Code",
+                topics: ["MCP", "Хуки", "Автоматизация"],
+                duration: "4-5 часов",
+                link: "12-claude-code-advanced/presentation/index.html"
+            },
+            {
+                id: 13,
                 title: "Финальная интеграция",
                 icon: "🔗",
                 description: "Сборка, тестирование и production деплой приложения",
                 topics: ["OpenAI API", "Деплой", "Мониторинг"],
                 duration: "4-5 часов",
-                link: "lessons/lesson-11.html"
+                link: "13-integration/lesson-plan.md"
             },
             {
-                id: 12,
+                id: 14,
                 title: "Финальный проект",
                 icon: "🏆",
                 description: "Проверка качества, тестирование и презентация проектов",
                 topics: ["Code Review", "Тесты", "Презентация"],
                 duration: "6-8 часов",
-                link: "lessons/lesson-12.html"
+                link: "14-final-project/lesson-plan.md"
             }
         ];
 
@@ -625,8 +643,8 @@
         // Update progress bar
         function updateProgress() {
             const completed = completedLessons.length;
-            const progress = (completed / 12) * 100;
-            document.getElementById('progressBar').style.width = `${Math.max(progress, 8.33)}%`;
+            const progress = (completed / 14) * 100;
+            document.getElementById('progressBar').style.width = `${Math.max(progress, 7.14)}%`;
             document.getElementById('completedCount').textContent = completed;
         }
 
@@ -662,7 +680,7 @@
             const nextToComplete = completedLessons.length > 0
                 ? Math.max(...completedLessons) + 1
                 : 1;
-            if (nextToComplete <= 12) {
+            if (nextToComplete <= 14) {
                 completeLesson(nextToComplete);
             }
         }
