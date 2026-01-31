@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 11.3: Работа с файлами и кодом | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 6 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 11</div>
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Основы</div>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Установка
+        </a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          CLAUDE.md
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Работа</div>
+        <a href="lesson-3.html" class="nav-item active" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          Файлы и код
+        </a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Настройки
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Landing Page
+        </a>
+        <a href="project.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выход
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-wrapper">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="lesson-2.html">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15,18 9,12 15,6"/>
+              </svg>
+              Предыдущий урок
+            </a>
+            <a href="lesson-4.html">
+              Следующий урок
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9,18 15,12 9,6"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="lesson-title-section">
+            <span class="lesson-badge files">3</span>
+            <div>
+              <h1>Работа с файлами и кодом</h1>
+              <p style="color: var(--text-secondary); margin: 0;">45 минут</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson Content -->
+        <section class="content-section">
+          <h2>Инструменты для работы с файлами</h2>
+
+          <p>Claude Code использует специальные инструменты (tools) для работы:</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Инструмент</th>
+                <th>Что делает</th>
+                <th>Пример промпта</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>Read</code></td>
+                <td>Читает файл</td>
+                <td>"Покажи app/page.tsx"</td>
+              </tr>
+              <tr>
+                <td><code>Write</code></td>
+                <td>Создаёт файл</td>
+                <td>"Создай utils/helpers.ts"</td>
+              </tr>
+              <tr>
+                <td><code>Edit</code></td>
+                <td>Редактирует файл</td>
+                <td>"Добавь кнопку в header"</td>
+              </tr>
+              <tr>
+                <td><code>Glob</code></td>
+                <td>Ищет файлы</td>
+                <td>"Найди все .tsx файлы"</td>
+              </tr>
+              <tr>
+                <td><code>Grep</code></td>
+                <td>Ищет текст</td>
+                <td>"Где используется useState"</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Как это работает</div>
+            <p>Когда вы говорите: <strong>"Добавь кнопку логина в header"</strong></p>
+            <p>Claude автоматически:</p>
+            <ol>
+              <li><strong>Read</strong> - читает текущий header</li>
+              <li>Понимает структуру</li>
+              <li><strong>Edit</strong> - добавляет кнопку в нужное место</li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Чтение и анализ кода</h2>
+
+          <h3>Примеры промптов для анализа:</h3>
+
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Покажи структуру проекта</span><br><br>
+              <span class="output">> Объясни что делает app/api/users/route.ts</span><br><br>
+              <span class="output">> Найди все компоненты с useState</span><br><br>
+              <span class="output">> Как связаны файлы в папке components/?</span>
+            </div>
+          </div>
+
+          <div class="info-box claude">
+            <div class="info-box-title">Claude сам решает что читать!</div>
+            <p>Когда вы спрашиваете "как работает авторизация", Claude сам найдёт нужные файлы, прочитает их и объяснит логику.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Создание и редактирование</h2>
+
+          <h3>Создание файлов</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Создай компонент Button с variants:</span><br>
+              <span class="output">   primary, secondary, danger</span><br><br>
+              <span class="output">> Создай страницу /dashboard с layout</span><br><br>
+              <span class="output">> Создай API route для списка пользователей</span>
+            </div>
+          </div>
+
+          <h3>Редактирование файлов</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Добавь тёмную тему в этот компонент</span><br><br>
+              <span class="output">> Исправь баг: кнопка не работает на мобильных</span><br><br>
+              <span class="output">> Рефакторинг: вынеси логику в отдельный хук</span>
+            </div>
+          </div>
+
+          <div class="info-box warning">
+            <div class="info-box-title">Важно</div>
+            <p>Claude спросит разрешение перед изменением файлов! Вы всегда контролируете что меняется.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Поиск по проекту</h2>
+
+          <h3>Glob — поиск файлов по паттерну</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Найди все файлы .test.ts</span><br><br>
+              <span class="output">> Покажи все компоненты в components/</span>
+            </div>
+          </div>
+
+          <h3>Grep — поиск текста в файлах</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Найди все места где используется fetch</span><br><br>
+              <span class="output">> Где в проекте определён тип User?</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Plan Mode — планирование</h2>
+
+          <p><strong>Plan Mode позволяет сначала спланировать изменения.</strong></p>
+
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="comment"># Нажмите Ctrl+G для входа в Plan Mode</span><br><br>
+              <span class="output">> Добавь авторизацию через Google</span><br><br>
+              <span class="comment"># Claude создаст план, а не сразу код</span>
+            </div>
+          </div>
+
+          <h3>Рекомендуемый workflow:</h3>
+          <ol>
+            <li><strong>Explore</strong> — изучение кодбейза</li>
+            <li><strong>Plan</strong> — планирование (Ctrl+G)</li>
+            <li><strong>Implement</strong> — реализация</li>
+            <li><strong>Commit</strong> — сохранение</li>
+          </ol>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Checkpoints</div>
+            <p>Claude автоматически сохраняет checkpoints. Используйте <code>/rewind</code> или <code>Esc+Esc</code> чтобы откатить изменения.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Git интеграция</h2>
+
+          <p>Claude Code отлично работает с Git.</p>
+
+          <h3>Просмотр статуса</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Какие файлы изменены?</span><br><br>
+              <span class="output">> Покажи git status</span>
+            </div>
+          </div>
+
+          <h3>Создание коммитов</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Закоммить с сообщением: добавлен header</span><br><br>
+              <span class="comment"># Claude сам добавит файлы и создаст коммит</span>
+            </div>
+          </div>
+
+          <h3>Работа с ветками</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Создай ветку feature/auth</span><br><br>
+              <span class="output">> Переключись на main</span><br><br>
+              <span class="output">> Смержи feature/auth в main</span>
+            </div>
+          </div>
+
+          <h3>Pull Request</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Создай PR для текущей ветки</span><br><br>
+              <span class="comment"># Claude использует gh CLI для GitHub</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz-section">
+          <h2>Проверьте себя</h2>
+
+          <div class="quiz-question">
+            <h4>Вопрос 1: Какой инструмент используется для редактирования файлов?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="false">
+                <span>Read</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>Write</span>
+              </div>
+              <div class="quiz-option" data-correct="true">
+                <span>Edit</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>Glob</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="quiz-question" style="margin-top: 2rem;">
+            <h4>Вопрос 2: Как найти текст в файлах проекта?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="false">
+                <span>Glob — поиск по паттерну</span>
+              </div>
+              <div class="quiz-option" data-correct="true">
+                <span>Grep — поиск текста</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>Read — чтение файла</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>Write — создание файла</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="content-section">
+          <h2>Чеклист урока</h2>
+          <div class="checklist">
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Знаю инструменты: Read, Write, Edit, Glob, Grep</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Умею создавать и редактировать файлы</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Умею искать по проекту</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Понимаю Git интеграцию</span>
+            </label>
+          </div>
+        </section>
+
+        <!-- Next Lesson -->
+        <section class="start-section">
+          <h2>Следующий шаг</h2>
+          <p>В следующем уроке настроим разрешения и выберем модель</p>
+          <a href="lesson-4.html" class="btn-start">
+            Перейти к уроку 4
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12,5 19,12 12,19"/>
+            </svg>
+          </a>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

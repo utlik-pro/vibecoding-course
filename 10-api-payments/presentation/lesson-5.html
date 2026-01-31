@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 10.5: Внешние API | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header"><div class="sidebar-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>VibeCoding</div></div>
+      <div class="progress-container"><div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div><div class="progress-text">4 из 10 уроков</div></div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 10</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Git</div>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое Git</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Git через Cursor</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>GitHub</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Ветки</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: API</div>
+        <a href="lesson-5.html" class="nav-item active" data-lesson="5"><span class="nav-item-number">5</span>Внешние API</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Интеграция API</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Stripe</div>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Настройка Stripe</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Checkout Session</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Webhooks</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="content-wrapper">
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="lesson-4.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg> Предыдущий урок</a>
+            <a href="lesson-6.html">Следующий урок <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg></a>
+          </div>
+          <div class="lesson-title-section">
+            <span class="lesson-badge api">5</span>
+            <div>
+              <h1>Что такое внешние API</h1>
+              <p style="color: var(--text-secondary); margin: 0;">20 минут</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="content-section">
+          <h2>Аналогия "Доставка еды"</h2>
+          <p>Вы хотите показать погоду в приложении. Но у вас нет метеостанций!</p>
+          <p><strong>Решение:</strong> "заказать" данные у тех, у кого они есть.</p>
+          <pre><code>Ваше приложение  →  OpenWeatherMap API  →  Данные о погоде
+                    (запрос)                (ответ)</code></pre>
+
+          <table>
+            <thead><tr><th>Доставка еды</th><th>API</th></tr></thead>
+            <tbody>
+              <tr><td>Вы звоните в ресторан</td><td>HTTP запрос</td></tr>
+              <tr><td>Говорите что хотите</td><td>Параметры запроса</td></tr>
+              <tr><td>Вам привозят еду</td><td>JSON ответ</td></tr>
+              <tr><td>Платите за заказ</td><td>API ключ / лимиты</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="content-section">
+          <h2>Популярные бесплатные API</h2>
+          <table>
+            <thead><tr><th>API</th><th>Что даёт</th><th>Бесплатный лимит</th></tr></thead>
+            <tbody>
+              <tr><td>OpenWeatherMap</td><td>Погода</td><td>1000 запросов/день</td></tr>
+              <tr><td>ExchangeRate-API</td><td>Курсы валют</td><td>1500/месяц</td></tr>
+              <tr><td>NewsAPI</td><td>Новости</td><td>100/день</td></tr>
+              <tr><td>JSONPlaceholder</td><td>Тестовые данные</td><td>Безлимитно</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="content-section">
+          <h2>Как выглядит запрос и ответ</h2>
+
+          <h3>Запрос:</h3>
+          <pre><code>GET https://api.openweathermap.org/data/2.5/weather?q=Moscow&appid=YOUR_KEY</code></pre>
+
+          <h3>Ответ (JSON):</h3>
+          <pre><code>{
+  "name": "Moscow",
+  "main": {
+    "temp": 5.2,
+    "humidity": 80
+  },
+  "weather": [{
+    "description": "облачно"
+  }]
+}</code></pre>
+        </section>
+
+        <section class="content-section">
+          <h2>API ключи - безопасность</h2>
+
+          <div class="info-box danger">
+            <div class="info-box-title">НИКОГДА так!</div>
+            <pre><code>const API_KEY = "abc123secretkey"  // В коде — ОПАСНО!</code></pre>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">ВСЕГДА так!</div>
+            <pre><code>// .env.local (этот файл НЕ попадает на GitHub)
+WEATHER_API_KEY=abc123secretkey
+
+// В коде:
+const API_KEY = process.env.WEATHER_API_KEY</code></pre>
+          </div>
+        </section>
+
+        <section class="quiz-section">
+          <h2>Проверьте себя</h2>
+          <div class="quiz-question">
+            <h4>Где хранить API ключи?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="false"><span>В коде напрямую</span></div>
+              <div class="quiz-option" data-correct="false"><span>В README.md</span></div>
+              <div class="quiz-option" data-correct="true"><span>В файле .env.local</span></div>
+              <div class="quiz-option" data-correct="false"><span>В комментариях</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Чеклист урока</h2>
+          <div class="checklist">
+            <label class="checklist-item"><input type="checkbox"><span>Понимаю что такое внешний API</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Знаю про API ключи</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Понимаю почему ключи нужно хранить в .env</span></label>
+          </div>
+        </section>
+
+        <section class="start-section">
+          <h2>Теория понятна!</h2>
+          <p>Переходим к практике - интегрируем API в Next.js</p>
+          <a href="lesson-6.html" class="btn-start">Перейти к уроку 6 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

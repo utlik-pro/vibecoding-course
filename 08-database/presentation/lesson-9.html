@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 8.9: Полезные SQL-фишки | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 8</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>SQL основы</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Фильтрация WHERE</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Сортировка и лимиты</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>UPDATE и DELETE</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Связи таблиц</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>JOIN запросы</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Агрегация GROUP BY</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Интеграция в приложение</a>
+        <a href="lesson-9.html" class="nav-item active" data-lesson="9"><span class="nav-item-number">9</span>Полезные SQL-фишки</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>SQL Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 8</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 8.9</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 8.9</span>
+            <span class="lesson-duration">⏱ 25 минут</span>
+          </div>
+          <h1 class="lesson-title">Полезные SQL-фишки</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Простые приёмы, которые сделают вашу работу с базой удобнее
+          </p>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Цель урока:</strong> Показать полезные SQL-приёмы на примерах из нашего таск-менеджера.</p>
+            <p><strong>Совет:</strong> Это урок-справочник. Не нужно запоминать всё — главное понять идею и знать, где посмотреть.</p>
+          </div>
+        </div>
+
+        <!-- What we'll learn -->
+        <section class="card">
+          <div class="card-header">Что изучим в этом уроке</div>
+          <div class="card-body">
+            <div class="service-cards">
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">📅</div>
+                <h4>Даты</h4>
+                <p class="service-card-desc">Работа с датами: сегодня, за неделю, форматирование</p>
+              </div>
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">🔤</div>
+                <h4>Текст</h4>
+                <p class="service-card-desc">UPPER, LOWER, склейка строк</p>
+              </div>
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">❓</div>
+                <h4>NULL</h4>
+                <p class="service-card-desc">Как заменить пустые значения</p>
+              </div>
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">💾</div>
+                <h4>VIEW</h4>
+                <p class="service-card-desc">Сохранённые запросы</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 1: Dates -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 1: Работа с датами</div>
+          <div class="card-body">
+            <p>В нашем таск-менеджере у задач есть дата создания. Вот как с ней работать:</p>
+
+            <h4 style="margin-top: 1rem;">Получить текущую дату и время:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Текущая дата и время
+SELECT NOW();              -- 2024-01-15 14:30:00
+
+-- Только дата (без времени)
+SELECT CURRENT_DATE;       -- 2024-01-15</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Практические примеры для таск-менеджера:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Задачи, созданные СЕГОДНЯ
+SELECT * FROM tasks
+WHERE DATE(created_at) = CURRENT_DATE;
+
+-- Задачи за последние 7 ДНЕЙ
+SELECT * FROM tasks
+WHERE created_at >= NOW() - INTERVAL '7 days';
+
+-- Задачи за последний МЕСЯЦ
+SELECT * FROM tasks
+WHERE created_at >= NOW() - INTERVAL '1 month';</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Формула:</strong> <code>NOW() - INTERVAL 'X days/months/years'</code> — отнимает время от текущего момента
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 2: Text Functions -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 2: Работа с текстом</div>
+          <div class="card-body">
+            <p>Иногда нужно изменить текст прямо в запросе — сделать заглавным, склеить строки и т.д.</p>
+
+            <h4 style="margin-top: 1rem;">Изменение регистра:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Всё ЗАГЛАВНЫМИ
+SELECT UPPER('привет');          -- ПРИВЕТ
+
+-- Всё строчными
+SELECT LOWER('ПРИВЕТ');          -- привет
+
+-- Первая буква заглавная
+SELECT INITCAP('привет мир');    -- Привет Мир</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Склеивание строк (конкатенация):</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Способ 1: через ||
+SELECT 'Задача: ' || title FROM tasks;
+-- Результат: "Задача: Позвонить маме"
+
+-- Способ 2: через CONCAT
+SELECT CONCAT('Задача: ', title) FROM tasks;
+-- Результат: "Задача: Позвонить маме"
+
+-- Склеиваем несколько полей
+SELECT title || ' (' || priority || ')' FROM tasks;
+-- Результат: "Позвонить маме (high)"</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Форматирование даты для отображения:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Красивый формат даты
+SELECT
+  title,
+  TO_CHAR(created_at, 'DD.MM.YYYY') AS created_date
+FROM tasks;
+
+-- Результат:
+-- Позвонить маме | 15.01.2024
+-- Купить продукты | 14.01.2024</code></pre>
+            </div>
+
+            <div class="table-container" style="margin-top: 1.5rem;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Функция</th>
+                    <th>Что делает</th>
+                    <th>Пример</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>UPPER()</code></td>
+                    <td>Всё заглавными</td>
+                    <td>ПРИВЕТ</td>
+                  </tr>
+                  <tr>
+                    <td><code>LOWER()</code></td>
+                    <td>Всё строчными</td>
+                    <td>привет</td>
+                  </tr>
+                  <tr>
+                    <td><code>||</code> или <code>CONCAT()</code></td>
+                    <td>Склейка строк</td>
+                    <td>'Привет' || ' мир'</td>
+                  </tr>
+                  <tr>
+                    <td><code>TO_CHAR()</code></td>
+                    <td>Форматирование даты</td>
+                    <td>15.01.2024</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 3: COALESCE -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 3: Замена пустых значений (COALESCE)</div>
+          <div class="card-body">
+            <p>Помните, в нашем таск-менеджере у некоторых задач нет описания (<code>description = NULL</code>)? Например, "Позвонить маме" или "Полить цветы".</p>
+
+            <div class="service-cards" style="margin: 1.5rem 0;">
+              <div class="service-card" style="text-align: center; border-color: #EF4444;">
+                <h4 style="color: #EF4444;">Проблема</h4>
+                <p class="service-card-desc">На экране показывается пустота или слово NULL</p>
+              </div>
+              <div style="display: flex; align-items: center; font-size: 2rem; color: var(--text-secondary);">→</div>
+              <div class="service-card" style="text-align: center; border-color: #10B981;">
+                <h4 style="color: #10B981;">Решение</h4>
+                <p class="service-card-desc">COALESCE заменяет NULL на понятный текст</p>
+              </div>
+            </div>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- БЕЗ COALESCE — видим пустоту
+SELECT title, description FROM tasks;
+-- Позвонить маме | (пусто)
+-- Полить цветы   | (пусто)
+
+-- С COALESCE — видим понятный текст
+SELECT
+  title,
+  COALESCE(description, 'Без описания') AS description
+FROM tasks;
+-- Позвонить маме | Без описания
+-- Полить цветы   | Без описания</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Применение в нашем таск-менеджере:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Полный запрос для отображения задач
+SELECT
+  t.title,
+  COALESCE(t.description, 'Без описания') AS description,
+  t.priority,
+  COALESCE(c.name, 'Без категории') AS category_name,
+  COALESCE(c.color, '#6B7280') AS category_color
+FROM tasks t
+LEFT JOIN categories c ON t.category_id = c.id;</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Правило:</strong> <code>COALESCE(значение, замена)</code> — если значение = NULL, вернёт замену
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 4: VIEW -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 4: Сохранённые запросы (VIEW)</div>
+          <div class="card-body">
+            <p>Представьте: вы написали длинный запрос и не хотите каждый раз его копировать. VIEW — это способ сохранить запрос и обращаться к нему по имени.</p>
+
+            <div class="service-cards" style="margin: 1.5rem 0;">
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">📝</div>
+                <h4>Обычный запрос</h4>
+                <p class="service-card-desc">Пишем каждый раз заново</p>
+              </div>
+              <div style="display: flex; align-items: center; font-size: 2rem; color: var(--text-secondary);">vs</div>
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2rem;">💾</div>
+                <h4>VIEW</h4>
+                <p class="service-card-desc">Сохранили один раз, используем всегда</p>
+              </div>
+            </div>
+
+            <h4>Пример для таск-менеджера:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Создаём VIEW "срочные задачи"
+CREATE VIEW urgent_tasks AS
+SELECT
+  t.id,
+  t.title,
+  COALESCE(t.description, 'Без описания') AS description,
+  c.name AS category
+FROM tasks t
+LEFT JOIN categories c ON t.category_id = c.id
+WHERE t.priority = 'high' AND t.completed = false;
+
+-- Теперь используем как обычную таблицу!
+SELECT * FROM urgent_tasks;
+
+-- Результат:
+-- 1 | Подготовить презентацию | Слайды для встречи | Работа
+-- 4 | Позвонить маме          | Без описания       | Личное
+-- 12| Пройти урок по SQL      | Модуль 8           | Учёба</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Ещё один полезный VIEW — статистика:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- VIEW для статистики категорий
+CREATE VIEW category_stats AS
+SELECT
+  c.name,
+  c.color,
+  COUNT(t.id) AS total_tasks,
+  COUNT(t.id) FILTER (WHERE t.completed = true) AS done
+FROM categories c
+LEFT JOIN tasks t ON c.id = t.category_id
+GROUP BY c.id;
+
+-- Используем
+SELECT * FROM category_stats;
+-- Работа  | #3B82F6 | 3 | 1
+-- Личное  | #10B981 | 3 | 1
+-- ...</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Удалить VIEW:</strong> <code>DROP VIEW IF EXISTS urgent_tasks;</code>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 5: Practical examples -->
+        <section class="card">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Практика 5: Готовые запросы для таск-менеджера</div>
+          <div class="card-body">
+            <p>Вот полезные запросы, которые пригодятся в вашем проекте:</p>
+
+            <h4>1. Задачи на сегодня (высокий приоритет первыми):</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>SELECT
+  t.title,
+  t.priority,
+  c.name AS category,
+  c.color
+FROM tasks t
+LEFT JOIN categories c ON t.category_id = c.id
+WHERE t.completed = false
+ORDER BY
+  CASE t.priority
+    WHEN 'high' THEN 1
+    WHEN 'medium' THEN 2
+    WHEN 'low' THEN 3
+  END;</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">2. Прогресс по каждой категории:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>SELECT
+  c.name,
+  c.color,
+  COUNT(t.id) AS total,
+  COUNT(t.id) FILTER (WHERE t.completed) AS done,
+  ROUND(
+    COUNT(t.id) FILTER (WHERE t.completed)::numeric /
+    NULLIF(COUNT(t.id), 0) * 100
+  ) AS percent
+FROM categories c
+LEFT JOIN tasks t ON c.id = t.category_id
+GROUP BY c.id
+ORDER BY c.name;</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">3. Недавно выполненные задачи:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>SELECT
+  title,
+  TO_CHAR(updated_at, 'DD.MM.YYYY HH24:MI') AS completed_at
+FROM tasks
+WHERE completed = true
+ORDER BY updated_at DESC
+LIMIT 5;</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Command Summary -->
+        <section class="card">
+          <div class="card-header">Шпаргалка: всё в одном месте</div>
+          <div class="card-body">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Что делаем</th>
+                    <th>Команда</th>
+                    <th>Пример</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Текущая дата</td>
+                    <td><code>NOW()</code></td>
+                    <td><code>SELECT NOW()</code></td>
+                  </tr>
+                  <tr>
+                    <td>За последние N дней</td>
+                    <td><code>INTERVAL</code></td>
+                    <td><code>WHERE created_at >= NOW() - INTERVAL '7 days'</code></td>
+                  </tr>
+                  <tr>
+                    <td>Красивая дата</td>
+                    <td><code>TO_CHAR()</code></td>
+                    <td><code>TO_CHAR(created_at, 'DD.MM.YYYY')</code></td>
+                  </tr>
+                  <tr>
+                    <td>ЗАГЛАВНЫЕ буквы</td>
+                    <td><code>UPPER()</code></td>
+                    <td><code>SELECT UPPER(title)</code></td>
+                  </tr>
+                  <tr>
+                    <td>Склеить строки</td>
+                    <td><code>||</code></td>
+                    <td><code>title || ' (' || priority || ')'</code></td>
+                  </tr>
+                  <tr>
+                    <td>Заменить NULL</td>
+                    <td><code>COALESCE()</code></td>
+                    <td><code>COALESCE(description, 'Без описания')</code></td>
+                  </tr>
+                  <tr>
+                    <td>Сохранить запрос</td>
+                    <td><code>CREATE VIEW</code></td>
+                    <td><code>CREATE VIEW urgent AS SELECT...</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson9">
+              <p><strong>Как показать "Нет описания" вместо пустоты?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">SELECT description FROM tasks</div>
+                <div class="quiz-option" data-correct="true">SELECT COALESCE(description, 'Нет описания') FROM tasks</div>
+                <div class="quiz-option" data-correct="false">SELECT NULL(description) FROM tasks</div>
+                <div class="quiz-option" data-correct="false">SELECT REPLACE(description) FROM tasks</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+
+            <div class="quiz" data-quiz="lesson9-2" style="margin-top: 2rem;">
+              <p><strong>Как получить задачи за последнюю неделю?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">WHERE created_at = '7 days'</div>
+                <div class="quiz-option" data-correct="false">WHERE created_at - 7</div>
+                <div class="quiz-option" data-correct="true">WHERE created_at >= NOW() - INTERVAL '7 days'</div>
+                <div class="quiz-option" data-correct="false">WHERE WEEK(created_at) = 1</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson9-dates"></span>
+                <span class="checklist-text">Умею фильтровать по датам (NOW, INTERVAL)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson9-text"></span>
+                <span class="checklist-text">Знаю UPPER, LOWER, склейку строк</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson9-tochar"></span>
+                <span class="checklist-text">Могу форматировать дату через TO_CHAR</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson9-coalesce"></span>
+                <span class="checklist-text">Использую COALESCE для замены NULL</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson9-view"></span>
+                <span class="checklist-text">Понимаю, что такое VIEW</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-8.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Интеграция в приложение</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="9">
+            Отметить урок пройденным
+          </button>
+
+          <a href="project.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Итоговый проект</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

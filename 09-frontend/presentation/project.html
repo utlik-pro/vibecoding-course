@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Итоговый проект: SaaS приложение | VibeCoding</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 87.5%"></div></div>
+        <div class="progress-text">7 из 8 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 9: Фронтенд</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item completed" data-lesson="1"><span class="nav-item-number">1</span>Структура и роутинг</a>
+        <a href="lesson-2.html" class="nav-item completed" data-lesson="2"><span class="nav-item-number">2</span>Компоненты</a>
+        <a href="lesson-3.html" class="nav-item completed" data-lesson="3"><span class="nav-item-number">3</span>Формы</a>
+        <a href="lesson-4.html" class="nav-item completed" data-lesson="4"><span class="nav-item-number">4</span>Анимации</a>
+        <a href="lesson-5.html" class="nav-item completed" data-lesson="5"><span class="nav-item-number">5</span>Landing Page</a>
+        <a href="lesson-6.html" class="nav-item completed" data-lesson="6"><span class="nav-item-number">6</span>Dashboard</a>
+        <a href="lesson-7.html" class="nav-item completed" data-lesson="7"><span class="nav-item-number">7</span>Оптимизация</a>
+        <a href="project.html" class="nav-item active" data-lesson="8"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="prompts.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Все промпты</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 9</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Итоговый проект</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Итоговый проект</span>
+            <span class="lesson-duration">⏱ 2-3 часа</span>
+          </div>
+          <h1 class="lesson-title">SaaS приложение TaskFlow</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Создайте полноценное SaaS приложение используя все изученные AI-промпты
+          </p>
+        </div>
+
+        <!-- Intro -->
+        <section class="card">
+          <div class="card-header" style="background: linear-gradient(135deg, #8B5CF6, #6366F1); color: white;">Финальный проект</div>
+          <div class="card-body">
+            <p>Пришло время собрать всё вместе! Используя промпты из всех уроков, создайте полноценное SaaS приложение.</p>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Подход:</strong> Копируйте промпты из уроков, адаптируйте под свой проект, генерируйте код через AI.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Landing Page Requirements -->
+        <section class="card">
+          <div class="card-header">Часть 1: Landing Page</div>
+          <div class="card-body">
+            <p><strong>Создайте лендинг с секциями:</strong></p>
+
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-hero"></span>
+                <span class="checklist-text">Hero с анимацией</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-features"></span>
+                <span class="checklist-text">Features (6 фич)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-pricing"></span>
+                <span class="checklist-text">Pricing (3 плана с toggle месяц/год)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-testimonials"></span>
+                <span class="checklist-text">Testimonials (5 отзывов)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-faq"></span>
+                <span class="checklist-text">FAQ (8 вопросов)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-cta"></span>
+                <span class="checklist-text">CTA блок</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-footer"></span>
+                <span class="checklist-text">Footer</span>
+              </li>
+            </ul>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Промпты:</strong> Используйте все промпты из Урока 9.5 (Landing Page)
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Dashboard Requirements -->
+        <section class="card">
+          <div class="card-header">Часть 2: Dashboard</div>
+          <div class="card-body">
+            <p><strong>Создайте админ-панель:</strong></p>
+
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-sidebar"></span>
+                <span class="checklist-text">Sidebar navigation</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-stats"></span>
+                <span class="checklist-text">Stats cards (4 шт)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-table"></span>
+                <span class="checklist-text">Data table с поиском/фильтрами</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-charts"></span>
+                <span class="checklist-text">2 графика (Line + Pie)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-activity"></span>
+                <span class="checklist-text">Activity feed</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-profile"></span>
+                <span class="checklist-text">Profile форма</span>
+              </li>
+            </ul>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Промпты:</strong> Используйте все промпты из Урока 9.6 (Dashboard)
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quality Requirements -->
+        <section class="card">
+          <div class="card-header">Часть 3: Качество</div>
+          <div class="card-body">
+            <p><strong>Проверьте и улучшите качество:</strong></p>
+
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-responsive"></span>
+                <span class="checklist-text">Полностью responsive</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-loading"></span>
+                <span class="checklist-text">Loading states везде</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-error"></span>
+                <span class="checklist-text">Error handling</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-animations"></span>
+                <span class="checklist-text">Плавные анимации</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-dark"></span>
+                <span class="checklist-text">Dark mode</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-lighthouse"></span>
+                <span class="checklist-text">Lighthouse > 85</span>
+              </li>
+            </ul>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Промпты:</strong> Используйте все промпты из Урока 9.7 (Оптимизация)
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- v0.dev Tips -->
+        <section class="card">
+          <div class="card-header" style="background: #0ea5e9; color: white;">Бонус: v0.dev промпты</div>
+          <div class="card-body">
+            <p><strong>Быстрая генерация через v0.dev:</strong></p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">v0.dev - Pricing</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Create a SaaS pricing section with 3 tiers: Free, Pro ($29/mo), Enterprise.
+Include feature comparison, popular badge on Pro, and annual discount toggle.
+Use modern design with gradients and shadows.</code></pre>
+            </div>
+
+            <div class="code-block" style="margin-top: 1rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">v0.dev - Sidebar</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Create a dashboard sidebar with:
+- Logo at top
+- Navigation items with icons (Dashboard, Tasks, Projects, Team, Settings)
+- Collapsible
+- User profile at bottom with avatar and dropdown
+Dark theme support.</code></pre>
+            </div>
+
+            <div class="code-block" style="margin-top: 1rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">v0.dev - Data Table</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Create a data table for tasks with:
+- Columns: checkbox, title, status badge, priority, assignee avatar, due date, actions
+- Sorting, filtering, search
+- Pagination
+- Bulk actions toolbar
+Shadcn/ui style.</code></pre>
+            </div>
+
+            <p style="margin-top: 1rem;"><strong>Workflow:</strong></p>
+            <ol>
+              <li>Генерируй в <a href="https://v0.dev" target="_blank">v0.dev</a></li>
+              <li>Копируй код в проект</li>
+              <li>Адаптируй через Cursor если нужно</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Resources -->
+        <section class="card">
+          <div class="card-header">Полезные ресурсы</div>
+          <div class="card-body">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Инструмент</th>
+                    <th>Для чего</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="https://cursor.sh" target="_blank">Cursor</a></td>
+                    <td>Основной редактор с AI</td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://claude.ai" target="_blank">Claude</a></td>
+                    <td>Сложные архитектурные задачи</td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://v0.dev" target="_blank">v0.dev</a></td>
+                    <td>Быстрая генерация UI</td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://ui.shadcn.com" target="_blank">shadcn/ui</a></td>
+                    <td>Компоненты</td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://framer.com/motion" target="_blank">Framer Motion</a></td>
+                    <td>Анимации</td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://recharts.org" target="_blank">Recharts</a></td>
+                    <td>Графики</td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://lucide.dev" target="_blank">Lucide</a></td>
+                    <td>Иконки</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="card">
+          <div class="card-header" style="background: linear-gradient(135deg, #10B981, #059669); color: white;">Поздравляем!</div>
+          <div class="card-body">
+            <p style="font-size: 1.2rem; text-align: center; margin-bottom: 1.5rem;">
+              Вы завершили модуль "Фронтенд для вайбкодера"!
+            </p>
+
+            <div class="service-cards">
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem;">🎯</div>
+                <h4>Навыки</h4>
+                <p class="service-card-desc">Next.js, Tailwind, shadcn/ui, Framer Motion</p>
+              </div>
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem;">🤖</div>
+                <h4>Подход</h4>
+                <p class="service-card-desc">Вайбкодинг через AI промпты</p>
+              </div>
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem;">🚀</div>
+                <h4>Результат</h4>
+                <p class="service-card-desc">Полноценное SaaS приложение</p>
+              </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Что дальше:</strong> Интегрируйте бэкенд из Модуля 6 и аутентификацию из Модуля 7!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-7.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Оптимизация</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="8">
+            Завершить модуль
+          </button>
+
+          <a href="index.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">К началу</div>
+              <div class="nav-arrow-title">Главная модуля</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

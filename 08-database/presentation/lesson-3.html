@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 8.3: Сортировка и лимиты | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 8</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>SQL основы</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Фильтрация WHERE</a>
+        <a href="lesson-3.html" class="nav-item active" data-lesson="3"><span class="nav-item-number">3</span>Сортировка и лимиты</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>UPDATE и DELETE</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Связи таблиц</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>JOIN запросы</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Агрегация GROUP BY</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Интеграция в приложение</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Продвинутые техники</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>SQL Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 8</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 8.3</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 8.3</span>
+            <span class="lesson-duration">⏱ 15 минут</span>
+          </div>
+          <h1 class="lesson-title">Сортировка и лимиты</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            ORDER BY, LIMIT, OFFSET — управляем порядком и количеством результатов
+          </p>
+        </div>
+
+        <!-- Practice 1: ORDER BY ASC/DESC -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 1: Сортировка ORDER BY</div>
+          <div class="card-body">
+            <p>ORDER BY сортирует результаты по указанной колонке:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Сортировка по названию (А-Я)
+SELECT * FROM tasks ORDER BY title ASC;
+
+-- Сортировка по названию (Я-А)
+SELECT * FROM tasks ORDER BY title DESC;
+
+-- Сначала новые задачи
+SELECT * FROM tasks ORDER BY created_at DESC;
+
+-- Сначала старые задачи
+SELECT * FROM tasks ORDER BY created_at ASC;</code></pre>
+            </div>
+
+            <div class="service-cards" style="margin-top: 1.5rem;">
+              <div class="service-card" style="text-align: center; border-color: #3B82F6;">
+                <h4 style="color: #3B82F6;">ASC</h4>
+                <p class="service-card-desc">По возрастанию</p>
+                <p style="font-size: 0.85rem;">A-Z, 1-9, старые-новые</p>
+              </div>
+              <div class="service-card" style="text-align: center; border-color: #F59E0B;">
+                <h4 style="color: #F59E0B;">DESC</h4>
+                <p class="service-card-desc">По убыванию</p>
+                <p style="font-size: 0.85rem;">Z-A, 9-1, новые-старые</p>
+              </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Совет:</strong> Если не указать ASC/DESC, по умолчанию используется ASC (по возрастанию)
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 2: Multiple column sorting -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 2: Сортировка по нескольким колонкам</div>
+          <div class="card-body">
+            <p>Можно сортировать сразу по нескольким полям — если значения в первом поле совпадают, SQL смотрит на второе:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Сначала по приоритету, потом по дате создания
+SELECT * FROM tasks
+ORDER BY priority ASC, created_at DESC;
+
+-- Сначала невыполненные, потом по приоритету
+SELECT * FROM tasks
+ORDER BY completed ASC, priority DESC;
+
+-- Комбинация: статус, приоритет, название
+SELECT * FROM tasks
+ORDER BY completed ASC, priority DESC, title ASC;</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Практический пример:</strong> В списке задач обычно сортируют так: сначала невыполненные (completed ASC), потом важные (priority DESC).
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 3: LIMIT -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 3: Ограничение результатов LIMIT</div>
+          <div class="card-body">
+            <p>LIMIT ограничивает количество возвращаемых записей:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Получить только 3 задачи
+SELECT * FROM tasks LIMIT 3;
+
+-- Топ-5 самых новых задач
+SELECT * FROM tasks
+ORDER BY created_at DESC
+LIMIT 5;
+
+-- Одна самая важная задача
+SELECT * FROM tasks
+WHERE priority = 'high' AND completed = false
+ORDER BY created_at ASC
+LIMIT 1;</code></pre>
+            </div>
+
+            <div class="table-container" style="margin-top: 1.5rem;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Сценарий</th>
+                    <th>Запрос</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Последние 10 заказов</td>
+                    <td><code>ORDER BY created_at DESC LIMIT 10</code></td>
+                  </tr>
+                  <tr>
+                    <td>Самый дорогой товар</td>
+                    <td><code>ORDER BY price DESC LIMIT 1</code></td>
+                  </tr>
+                  <tr>
+                    <td>5 случайных записей</td>
+                    <td><code>ORDER BY RANDOM() LIMIT 5</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 4: OFFSET for pagination -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 4: Пагинация с OFFSET</div>
+          <div class="card-body">
+            <p>OFFSET пропускает первые N записей — это основа пагинации:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Страница 1: первые 3 задачи
+SELECT * FROM tasks
+ORDER BY id
+LIMIT 3 OFFSET 0;
+
+-- Страница 2: следующие 3 задачи (пропустить первые 3)
+SELECT * FROM tasks
+ORDER BY id
+LIMIT 3 OFFSET 3;
+
+-- Страница 3: ещё 3 задачи (пропустить первые 6)
+SELECT * FROM tasks
+ORDER BY id
+LIMIT 3 OFFSET 6;</code></pre>
+            </div>
+
+            <div class="service-cards" style="margin-top: 1.5rem;">
+              <div class="service-card" style="text-align: center;">
+                <h4>Страница 1</h4>
+                <code>LIMIT 3 OFFSET 0</code>
+                <p class="service-card-desc">Записи 1, 2, 3</p>
+              </div>
+              <div class="service-card" style="text-align: center;">
+                <h4>Страница 2</h4>
+                <code>LIMIT 3 OFFSET 3</code>
+                <p class="service-card-desc">Записи 4, 5, 6</p>
+              </div>
+              <div class="service-card" style="text-align: center;">
+                <h4>Страница 3</h4>
+                <code>LIMIT 3 OFFSET 6</code>
+                <p class="service-card-desc">Записи 7, 8, 9</p>
+              </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Формула:</strong> OFFSET = (номер_страницы - 1) * LIMIT<br>
+                Например, для страницы 5 по 10 записей: OFFSET = (5-1) * 10 = 40
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 5: Selecting specific columns -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 5: Выборка конкретных колонок</div>
+          <div class="card-body">
+            <p>Не всегда нужны все колонки. Выбирайте только необходимые:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Только id и название для списка
+SELECT id, title FROM tasks
+ORDER BY created_at DESC;
+
+-- Название и статус для отображения
+SELECT title, completed FROM tasks
+WHERE priority = 'high';
+
+-- Комбинация: конкретные колонки + сортировка + лимит
+SELECT id, title, priority FROM tasks
+WHERE completed = false
+ORDER BY priority DESC
+LIMIT 5;</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Почему это важно:</strong>
+                <ul style="margin: 0.5rem 0 0 1rem;">
+                  <li>Меньше данных передаётся по сети</li>
+                  <li>Быстрее работает запрос</li>
+                  <li>Приложение получает только нужное</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Full example -->
+        <section class="card">
+          <div class="card-header">Полный пример: список задач с пагинацией</div>
+          <div class="card-body">
+            <p>Типичный запрос для приложения со списком задач:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Список задач: невыполненные сверху, важные выше, по 10 на страницу
+SELECT id, title, priority, completed, created_at
+FROM tasks
+WHERE completed = false
+ORDER BY
+  CASE priority
+    WHEN 'high' THEN 1
+    WHEN 'medium' THEN 2
+    WHEN 'low' THEN 3
+  END,
+  created_at DESC
+LIMIT 10
+OFFSET 0;</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>CASE в ORDER BY</strong> — продвинутый приём для кастомной сортировки. high=1, medium=2, low=3 — чем меньше число, тем выше в списке.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson3">
+              <p><strong>Как получить записи 11-20 для второй страницы (по 10 на странице)?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">LIMIT 10 OFFSET 0</div>
+                <div class="quiz-option" data-correct="true">LIMIT 10 OFFSET 10</div>
+                <div class="quiz-option" data-correct="false">LIMIT 20 OFFSET 10</div>
+                <div class="quiz-option" data-correct="false">LIMIT 10 OFFSET 20</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mini-tasks -->
+        <section class="card">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Мини-задания (делаем вместе)</div>
+          <div class="card-body">
+            <ol>
+              <li>Получите 3 самые старые задачи</li>
+              <li>Получите топ-5 задач отсортированных по названию (А-Я)</li>
+              <li>Сделайте запрос для 3-й страницы (по 2 записи на странице)</li>
+            </ol>
+
+            <details style="margin-top: 1rem;">
+              <summary style="cursor: pointer; color: var(--primary);">Показать решения</summary>
+              <div class="code-block" style="margin-top: 0.5rem;">
+                <pre><code>-- 1. Три самые старые задачи
+SELECT * FROM tasks ORDER BY created_at ASC LIMIT 3;
+
+-- 2. Топ-5 по названию А-Я
+SELECT * FROM tasks ORDER BY title ASC LIMIT 5;
+
+-- 3. Страница 3 (по 2 записи): OFFSET = (3-1) * 2 = 4
+SELECT * FROM tasks ORDER BY id LIMIT 2 OFFSET 4;</code></pre>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-orderby"></span>
+                <span class="checklist-text">Использовал ORDER BY ASC и DESC</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-multiorder"></span>
+                <span class="checklist-text">Попробовал сортировку по нескольким колонкам</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-limit"></span>
+                <span class="checklist-text">Ограничил результаты с LIMIT</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-offset"></span>
+                <span class="checklist-text">Понял пагинацию с OFFSET</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson3-columns"></span>
+                <span class="checklist-text">Выбирал конкретные колонки вместо *</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-2.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Фильтрация WHERE</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="3">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-4.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">UPDATE и DELETE</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 11.2: CLAUDE.md - мозг проекта | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 6 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 11</div>
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Основы</div>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Установка
+        </a>
+        <a href="lesson-2.html" class="nav-item active" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          CLAUDE.md
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Работа</div>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          Файлы и код
+        </a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Настройки
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Landing Page
+        </a>
+        <a href="project.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выход
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-wrapper">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="lesson-1.html">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15,18 9,12 15,6"/>
+              </svg>
+              Предыдущий урок
+            </a>
+            <a href="lesson-3.html">
+              Следующий урок
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9,18 15,12 9,6"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="lesson-title-section">
+            <span class="lesson-badge basics">2</span>
+            <div>
+              <h1>CLAUDE.md - мозг проекта</h1>
+              <p style="color: var(--text-secondary); margin: 0;">30 минут</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson Content -->
+        <section class="content-section">
+          <h2>Что такое CLAUDE.md?</h2>
+
+          <p><strong>CLAUDE.md — это инструкция для Claude о вашем проекте.</strong></p>
+
+          <p>Когда вы запускаете <code>claude</code> в папке, он автоматически читает CLAUDE.md и понимает:</p>
+          <ul>
+            <li>Какой технологический стек используется</li>
+            <li>Какой стиль кода предпочитаете</li>
+            <li>Какие есть особые правила</li>
+            <li>Как устроен проект</li>
+          </ul>
+
+          <div class="info-box claude">
+            <div class="info-box-title">Аналогия</div>
+            <p><strong>CLAUDE.md = Должностная инструкция для сотрудника</strong></p>
+            <p>Без инструкции: "Сделай что-нибудь хорошее"<br>
+            С инструкцией: "Мы используем React + TypeScript, пишем тесты, комментарии на русском"</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Автогенерация через /init</h2>
+
+          <p><strong>Самый простой способ создать CLAUDE.md:</strong></p>
+
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Terminal</span>
+            </div>
+            <div class="terminal-body">
+              <span class="prompt">$</span> <span class="command">cd ваш-проект</span><br>
+              <span class="prompt">$</span> <span class="command">claude</span><br>
+              <span class="output">> /init</span><br><br>
+              <span class="comment"># Claude проанализирует проект и создаст CLAUDE.md</span>
+            </div>
+          </div>
+
+          <h3>Что Claude определит автоматически:</h3>
+          <ul>
+            <li>Язык программирования</li>
+            <li>Фреймворки (React, Next.js, Vue, и т.д.)</li>
+            <li>Систему сборки (npm, yarn, pnpm)</li>
+            <li>Структуру папок</li>
+            <li>Паттерны кода</li>
+          </ul>
+        </section>
+
+        <section class="content-section">
+          <h2>Структура CLAUDE.md</h2>
+
+          <h3>Базовая структура</h3>
+
+          <pre><code># Project: SaaS Analytics Dashboard
+
+## Tech Stack
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS
+- Supabase
+
+## Code Style
+- Функциональные компоненты
+- camelCase для переменных
+- PascalCase для компонентов
+- Комментарии на русском
+
+## Project Structure
+```
+src/
+├── app/          # Страницы
+├── components/   # UI компоненты
+├── lib/          # Утилиты
+└── types/        # TypeScript типы
+```
+
+## Commands
+- `npm run dev` - dev сервер
+- `npm run build` - сборка
+- `npm run lint` - проверка кода
+
+## Rules
+- Не используй any в TypeScript
+- Всегда добавляй loading состояния
+- Используй server components</code></pre>
+        </section>
+
+        <section class="content-section">
+          <h2>Иерархия CLAUDE.md файлов</h2>
+
+          <p><strong>Claude читает CLAUDE.md файлы на разных уровнях:</strong></p>
+
+          <table>
+            <thead>
+              <tr><th>Расположение</th><th>Применение</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>~/.claude/CLAUDE.md</code></td><td>Глобальные правила для всех проектов</td></tr>
+              <tr><td><code>./CLAUDE.md</code></td><td>Правила для текущего проекта</td></tr>
+              <tr><td><code>./subfolder/CLAUDE.md</code></td><td>Правила для конкретной папки</td></tr>
+            </tbody>
+          </table>
+
+          <h3>Синтаксис @imports</h3>
+          <p>Подключайте другие файлы в CLAUDE.md:</p>
+          <pre><code># Project: My App
+
+## Style Guide
+@docs/style-guide.md
+
+## API Documentation
+@docs/api.md
+
+## Component Examples
+@src/components/Button/README.md</code></pre>
+
+          <div class="info-box tip">
+            <div class="info-box-title">@imports</div>
+            <p>Используйте <code>@path/to/file</code> чтобы подключить содержимое другого файла. Claude прочитает его как часть инструкций.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Что включать в CLAUDE.md</h2>
+
+          <h3>Команды которые Claude не угадает</h3>
+          <pre><code>## Commands
+- `npm run dev` - запуск (порт 3000)
+- `npm run test:watch` - тесты в watch режиме
+- `npm run db:migrate` - миграции базы</code></pre>
+
+          <h3>Правила стиля</h3>
+          <pre><code>## Code Style
+- Функциональные компоненты
+- camelCase для переменных
+- PascalCase для компонентов
+- Комментарии на русском</code></pre>
+
+          <h3>Чего НЕ делать</h3>
+          <pre><code>## Don't
+- Не используй any в TypeScript
+- Не создавай файлы без спроса
+- Не удаляй существующие комментарии</code></pre>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Совет</div>
+            <p>CLAUDE.md обновляется по мере развития проекта. Добавляйте правила, когда замечаете что Claude делает что-то не так.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Практика: CLAUDE.md для нашего проекта</h2>
+
+          <p>Создаём CLAUDE.md для SaaS Analytics Dashboard:</p>
+
+          <pre><code># Project: SaaS Analytics Dashboard
+
+## Overview
+SaaS приложение с landing page и dashboard.
+Модуль 11-12 курса VibeCoding.
+
+## Tech Stack
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS
+- Recharts для графиков
+- Vercel для деплоя
+
+## Code Style
+- Функциональные компоненты с TypeScript
+- Tailwind для стилей (не CSS modules)
+- Именование файлов: kebab-case
+- Компоненты: PascalCase
+
+## Project Structure
+```
+src/
+├── app/
+│   ├── page.tsx           # Landing
+│   ├── dashboard/
+│   │   └── page.tsx       # Dashboard
+│   └── layout.tsx
+├── components/
+│   ├── landing/
+│   └── dashboard/
+└── lib/
+    └── utils.ts
+```
+
+## Commands
+- `npm run dev` - localhost:3000
+- `npm run build` - сборка
+- `npm run lint` - линтинг
+
+## Rules
+- 'use client' только для интерактивности
+- Все тексты на русском
+- Добавляй loading.tsx для страниц</code></pre>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz-section">
+          <h2>Проверьте себя</h2>
+
+          <div class="quiz-question">
+            <h4>Вопрос 1: Зачем нужен CLAUDE.md?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="false">
+                <span>Для документации проекта</span>
+              </div>
+              <div class="quiz-option" data-correct="true">
+                <span>Чтобы Claude понимал контекст и правила проекта</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>Для хранения паролей</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>Для настройки git</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="quiz-question" style="margin-top: 2rem;">
+            <h4>Вопрос 2: Как создать CLAUDE.md автоматически?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="false">
+                <span>Создать файл вручную</span>
+              </div>
+              <div class="quiz-option" data-correct="true">
+                <span>Использовать команду /init</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>Скачать с сайта</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>npm install claude-md</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="content-section">
+          <h2>Чеклист урока</h2>
+          <div class="checklist">
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Понимаю зачем нужен CLAUDE.md</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Знаю как создать через /init</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Понимаю структуру файла</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Создал CLAUDE.md для своего проекта</span>
+            </label>
+          </div>
+        </section>
+
+        <!-- Next Lesson -->
+        <section class="start-section">
+          <h2>Готовы к следующему шагу?</h2>
+          <p>В следующем уроке научимся работать с файлами через Claude Code</p>
+          <a href="lesson-3.html" class="btn-start">
+            Перейти к уроку 3
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12,5 19,12 12,19"/>
+            </svg>
+          </a>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

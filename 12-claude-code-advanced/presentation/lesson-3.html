@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 12.3: Субагенты и Task Tool | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 7 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 12</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Интеграции</div>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>MCP серверы</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Custom Skills</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Автоматизация</div>
+        <a href="lesson-3.html" class="nav-item active" data-lesson="3"><span class="nav-item-number">3</span>Субагенты</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Hooks</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Dashboard</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Best Practices</a>
+        <a href="project.html" class="nav-item" data-lesson="7"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="content-wrapper">
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="lesson-2.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>Предыдущий урок</a>
+            <a href="lesson-4.html">Следующий урок<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg></a>
+          </div>
+          <div class="lesson-title-section">
+            <span class="lesson-badge files">3</span>
+            <div>
+              <h1>Субагенты и Task Tool</h1>
+              <p style="color: var(--text-secondary); margin: 0;">45 минут</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="content-section">
+          <h2>Что такое субагенты?</h2>
+          <p><strong>Субагенты — это специализированные "помощники" Claude.</strong></p>
+          <p>Каждый субагент:</p>
+          <ul>
+            <li>Имеет свой контекст (не видит весь разговор)</li>
+            <li>Специализируется на определённых задачах</li>
+            <li>Может работать параллельно</li>
+          </ul>
+
+          <h3>Типы субагентов:</h3>
+          <table>
+            <thead>
+              <tr><th>Тип</th><th>Назначение</th><th>Инструменты</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>Explore</code></td><td>Исследование кодбейза</td><td>Read, Glob, Grep</td></tr>
+              <tr><td><code>Plan</code></td><td>Планирование реализации</td><td>Read, Glob, Grep</td></tr>
+              <tr><td><code>Bash</code></td><td>Выполнение команд</td><td>Bash</td></tr>
+              <tr><td><code>general-purpose</code></td><td>Универсальные задачи</td><td>Все</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="content-section">
+          <h2>Task Tool — оркестрация</h2>
+          <p><strong>Task Tool позволяет запускать субагентов.</strong></p>
+          <p>Когда использовать:</p>
+          <ul>
+            <li>Исследование большого кодбейза</li>
+            <li>Параллельное выполнение задач</li>
+            <li>Сложные многошаговые операции</li>
+          </ul>
+
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Исследуй как работает авторизация в проекте</span><br><br>
+              <span class="comment"># Claude запустит Explore агента</span><br>
+              <span class="comment"># Агент найдёт файлы, прочитает и вернёт summary</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Параллельное выполнение</h2>
+          <p><strong>Можно запустить несколько агентов одновременно!</strong></p>
+
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Параллельно:</span><br>
+              <span class="output">   1. Исследуй структуру API</span><br>
+              <span class="output">   2. Найди все компоненты с формами</span><br>
+              <span class="output">   3. Проверь конфигурацию TypeScript</span><br><br>
+              <span class="comment"># 3 Explore агента работают одновременно!</span>
+            </div>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Когда это полезно</div>
+            <p>Анализ большого проекта, подготовка к рефакторингу, аудит кодбейза.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Создание своих субагентов</h2>
+
+          <p>Можно создать собственного субагента в <code>.claude/agents/</code>:</p>
+
+          <h3>Пример: Security Reviewer</h3>
+          <pre><code># .claude/agents/security-reviewer.md
+---
+name: security-reviewer
+description: Reviews code for security vulnerabilities
+tools: Read, Grep, Glob
+model: opus
+---
+
+You are a security engineer. Review code for:
+1. SQL injection
+2. XSS vulnerabilities
+3. Hardcoded secrets
+4. OWASP Top 10
+
+Provide specific line references.</code></pre>
+
+          <h3>Использование:</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="output">> Use security-reviewer to check the auth module</span>
+            </div>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Frontmatter опции</div>
+            <p><code>name</code> — имя агента<br>
+            <code>tools</code> — доступные инструменты<br>
+            <code>model</code> — модель (sonnet, opus, haiku)</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Практика</h2>
+
+          <h3>Задание 1: Исследование</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="output">> Используй Explore агента чтобы понять структуру проекта</span>
+            </div>
+          </div>
+
+          <h3>Задание 2: Свой агент</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="output">> Создай .claude/agents/code-reviewer.md</span><br>
+              <span class="output">   для проверки качества кода</span>
+            </div>
+          </div>
+
+          <h3>Задание 3: Параллельные задачи</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="output">> Параллельно выполни:</span><br>
+              <span class="output">   1. Найди все TODO комментарии</span><br>
+              <span class="output">   2. Найди все console.log</span><br>
+              <span class="output">   3. Проверь безопасность с security-reviewer</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="quiz-section">
+          <h2>Проверьте себя</h2>
+          <div class="quiz-question">
+            <h4>Какой субагент используется для исследования кода?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="true"><span>Explore</span></div>
+              <div class="quiz-option" data-correct="false"><span>Bash</span></div>
+              <div class="quiz-option" data-correct="false"><span>Plan</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Чеклист урока</h2>
+          <div class="checklist">
+            <label class="checklist-item"><input type="checkbox"><span>Понимаю что такое субагенты</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Знаю типы субагентов</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Использовал Explore агента</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Запустил параллельные задачи</span></label>
+          </div>
+        </section>
+
+        <section class="start-section">
+          <h2>Следующий шаг</h2>
+          <p>Изучим Hooks для автоматизации workflow</p>
+          <a href="lesson-4.html" class="btn-start">Перейти к уроку 4<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

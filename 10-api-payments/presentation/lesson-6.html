@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 10.6: Интеграция API в Next.js | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header"><div class="sidebar-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>VibeCoding</div></div>
+      <div class="progress-container"><div class="progress-bar"><div class="progress-fill" style="width: 50%"></div></div><div class="progress-text">5 из 10 уроков</div></div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 10</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Git</div>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое Git</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Git через Cursor</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>GitHub</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Ветки</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: API</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Внешние API</a>
+        <a href="lesson-6.html" class="nav-item active" data-lesson="6"><span class="nav-item-number">6</span>Интеграция API</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Stripe</div>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Настройка Stripe</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Checkout Session</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Webhooks</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="content-wrapper">
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="lesson-5.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg> Предыдущий урок</a>
+            <a href="lesson-7.html">Следующий урок <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg></a>
+          </div>
+          <div class="lesson-title-section">
+            <span class="lesson-badge api">6</span>
+            <div>
+              <h1>Интеграция API в Next.js</h1>
+              <p style="color: var(--text-secondary); margin: 0;">35 минут</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="content-section">
+          <h2>Получение API ключей</h2>
+
+          <h3>OpenWeatherMap (погода):</h3>
+          <ol>
+            <li>Регистрация на <a href="https://openweathermap.org" target="_blank">openweathermap.org</a></li>
+            <li>Подтверждаем email</li>
+            <li>API Keys → Generate</li>
+            <li>Копируем ключ</li>
+          </ol>
+
+          <div class="info-box warning">
+            <div class="info-box-title">Важно!</div>
+            <p>Ключ активируется через 10-30 минут после создания!</p>
+          </div>
+
+          <h3>ExchangeRate-API (курсы валют):</h3>
+          <ol>
+            <li>Регистрация на <a href="https://exchangerate-api.com" target="_blank">exchangerate-api.com</a></li>
+            <li>Dashboard → API Key</li>
+            <li>Копируем ключ</li>
+          </ol>
+
+          <h3>Добавляем в .env.local:</h3>
+          <pre><code># API ключи (НЕ публикуйте!)
+OPENWEATHER_API_KEY=ваш_ключ_погоды
+EXCHANGE_API_KEY=ваш_ключ_валют</code></pre>
+        </section>
+
+        <section class="content-section">
+          <h2>API Route для погоды</h2>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Промпт для Cursor</div>
+            <pre><code>Создай API route /api/weather в Next.js App Router:
+
+1. Файл: app/api/weather/route.ts
+2. Принимает query параметр city (город)
+3. Делает запрос к OpenWeatherMap API
+4. API ключ из process.env.OPENWEATHER_API_KEY
+5. Возвращает: city, temp, description, humidity
+6. Обрабатывает ошибки (город не найден, API недоступен)</code></pre>
+          </div>
+
+          <h3>Тестируем:</h3>
+          <pre><code>http://localhost:3000/api/weather?city=Moscow
+http://localhost:3000/api/weather?city=Минск</code></pre>
+        </section>
+
+        <section class="content-section">
+          <h2>API Route для курсов валют</h2>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Промпт для Cursor</div>
+            <pre><code>Создай API route /api/exchange в Next.js App Router:
+
+1. Файл: app/api/exchange/route.ts
+2. Принимает query параметр base (по умолчанию USD)
+3. Делает запрос к ExchangeRate-API
+4. Возвращает курсы к RUB, EUR, BYN, UAH
+5. Кеширует на 1 час (revalidate: 3600)</code></pre>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Виджеты для отображения</h2>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Промпт для WeatherWidget</div>
+            <pre><code>Создай React компонент WeatherWidget:
+1. Props: city (string)
+2. Запрос к /api/weather?city={city}
+3. Loading spinner во время загрузки
+4. Показывает: город, температура, описание
+5. Обработка ошибок
+6. Стили: Tailwind CSS, красивая карточка</code></pre>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Чеклист урока</h2>
+          <div class="checklist">
+            <label class="checklist-item"><input type="checkbox"><span>API ключи получены</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Ключи добавлены в .env.local</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>/api/weather работает</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>/api/exchange работает</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Виджеты отображают данные</span></label>
+          </div>
+        </section>
+
+        <section class="start-section">
+          <h2>API интегрированы!</h2>
+          <p>Переходим к Stripe для приёма платежей</p>
+          <a href="lesson-7.html" class="btn-start">Перейти к части C: Stripe <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

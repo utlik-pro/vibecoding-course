@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 11.1: Установка и первый проект | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 6 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 11</div>
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Основы</div>
+        <a href="lesson-1.html" class="nav-item active" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Установка
+        </a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          CLAUDE.md
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Работа</div>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          Файлы и код
+        </a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Настройки
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Landing Page
+        </a>
+        <a href="project.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выход
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-wrapper">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="index.html">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15,18 9,12 15,6"/>
+              </svg>
+              Назад к модулю
+            </a>
+            <a href="lesson-2.html">
+              Следующий урок
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9,18 15,12 9,6"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="lesson-title-section">
+            <span class="lesson-badge basics">1</span>
+            <div>
+              <h1>Установка и первый проект</h1>
+              <p style="color: var(--text-secondary); margin: 0;">30 минут</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson Content -->
+        <section class="content-section">
+          <h2>Что такое Claude Code?</h2>
+
+          <p><strong>Claude Code — это AI-программист в вашем терминале.</strong></p>
+
+          <p>В отличие от ChatGPT или Claude.ai в браузере, Claude Code работает напрямую с вашими файлами:</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>ChatGPT / Claude.ai</th>
+                <th>Claude Code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Работает в браузере</td>
+                <td>Работает в терминале</td>
+              </tr>
+              <tr>
+                <td>Копируете код вручную</td>
+                <td>Пишет код прямо в файлы</td>
+              </tr>
+              <tr>
+                <td>Не видит ваш проект</td>
+                <td>Видит весь проект целиком</td>
+              </tr>
+              <tr>
+                <td>Нужно объяснять контекст</td>
+                <td>Сам понимает структуру</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="info-box claude">
+            <div class="info-box-title">Где работает Claude Code</div>
+            <p><strong>В терминале</strong> (основной режим), <strong>в браузере</strong> на claude.ai/code, <strong>в Desktop приложении</strong>, <strong>в VS Code</strong> и <strong>JetBrains IDE</strong>.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Установка Claude Code</h2>
+
+          <h3>Требования</h3>
+          <ul>
+            <li>macOS, Linux или Windows</li>
+            <li>Подписка Claude Pro/Max/Teams ($20+/мес) или API ключ</li>
+          </ul>
+
+          <h3>Установка (выберите ваш способ)</h3>
+
+          <p><strong>macOS / Linux / WSL:</strong></p>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Terminal</span>
+            </div>
+            <div class="terminal-body">
+              <span class="prompt">$</span> <span class="command">curl -fsSL https://claude.ai/install.sh | bash</span>
+            </div>
+          </div>
+
+          <p><strong>Windows PowerShell:</strong></p>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">PowerShell</span>
+            </div>
+            <div class="terminal-body">
+              <span class="prompt">></span> <span class="command">irm https://claude.ai/install.ps1 | iex</span>
+            </div>
+          </div>
+
+          <p><strong>Homebrew (macOS):</strong></p>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Terminal</span>
+            </div>
+            <div class="terminal-body">
+              <span class="prompt">$</span> <span class="command">brew install --cask claude-code</span>
+            </div>
+          </div>
+
+          <h3>Проверка установки</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Terminal</span>
+            </div>
+            <div class="terminal-body">
+              <span class="prompt">$</span> <span class="command">claude --version</span>
+            </div>
+          </div>
+
+          <h3>Первый запуск</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Terminal</span>
+            </div>
+            <div class="terminal-body">
+              <span class="prompt">$</span> <span class="command">cd your-project && claude</span><br>
+              <span class="comment"># Откроется браузер для авторизации</span>
+            </div>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Подсказка</div>
+            <p>При первом запуске откроется браузер для авторизации. Поддерживаются: Claude Pro, Max, Teams, Enterprise и Console (API).</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Базовые команды</h2>
+
+          <h3>Запуск Claude Code</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Terminal</span>
+            </div>
+            <div class="terminal-body">
+              <span class="comment"># Интерактивный режим</span><br>
+              <span class="prompt">$</span> <span class="command">claude</span><br><br>
+              <span class="comment"># Одна команда без диалога</span><br>
+              <span class="prompt">$</span> <span class="command">claude -p "создай файл hello.js"</span>
+            </div>
+          </div>
+
+          <h3>Slash-команды внутри Claude</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Команда</th>
+                <th>Что делает</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>/help</code></td>
+                <td>Показать все команды</td>
+              </tr>
+              <tr>
+                <td><code>/clear</code></td>
+                <td>Очистить контекст (начать заново)</td>
+              </tr>
+              <tr>
+                <td><code>/init</code></td>
+                <td>Создать CLAUDE.md для проекта</td>
+              </tr>
+              <tr>
+                <td><code>/login</code></td>
+                <td>Сменить аккаунт</td>
+              </tr>
+              <tr>
+                <td><code>/compact</code></td>
+                <td>Сжать контекст</td>
+              </tr>
+              <tr>
+                <td><code>/permissions</code></td>
+                <td>Настроить разрешения</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Навигация</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Клавиши</th>
+                <th>Действие</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>Enter</code></td>
+                <td>Отправить сообщение</td>
+              </tr>
+              <tr>
+                <td><code>Shift+Enter</code></td>
+                <td>Новая строка</td>
+              </tr>
+              <tr>
+                <td><code>Esc</code></td>
+                <td>Остановить действие</td>
+              </tr>
+              <tr>
+                <td><code>Ctrl+G</code></td>
+                <td>Plan Mode (только чтение)</td>
+              </tr>
+              <tr>
+                <td><code>?</code></td>
+                <td>Показать все shortcuts</td>
+              </tr>
+              <tr>
+                <td><code>exit</code> или <code>Ctrl+C</code></td>
+                <td>Выйти из Claude Code</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="content-section">
+          <h2>Практика: Первый проект за 15 минут</h2>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Задание</div>
+            <p>Создаём landing page для фитнес-приложения FitLife с помощью Claude Code.</p>
+          </div>
+
+          <h3>Шаг 1: Создаём папку проекта</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Terminal</span>
+            </div>
+            <div class="terminal-body">
+              <span class="prompt">$</span> <span class="command">mkdir fitness-landing && cd fitness-landing</span>
+            </div>
+          </div>
+
+          <h3>Шаг 2: Запускаем Claude Code</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Terminal</span>
+            </div>
+            <div class="terminal-body">
+              <span class="prompt">$</span> <span class="command">claude</span>
+            </div>
+          </div>
+
+          <h3>Шаг 3: Даём промпт</h3>
+          <pre><code>Создай landing page для фитнес-приложения FitLife:
+- Современный дизайн с градиентами
+- Hero секция с заголовком и CTA
+- 3 карточки с преимуществами
+- Секция с отзывами
+- Footer
+
+Используй HTML, CSS (Tailwind через CDN),
+и минимум JavaScript.</code></pre>
+
+          <h3>Шаг 4: Смотрим результат</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Terminal</span>
+            </div>
+            <div class="terminal-body">
+              <span class="prompt">$</span> <span class="command">open index.html</span><br>
+              <span class="comment"># На Windows: start index.html</span>
+            </div>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Результат</div>
+            <p>Через 2-3 минуты у вас готовый landing page! Claude сам создаст структуру файлов и напишет весь код.</p>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz-section">
+          <h2>Проверьте себя</h2>
+
+          <div class="quiz-question">
+            <h4>Вопрос 1: Чем Claude Code отличается от ChatGPT?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="false">
+                <span>Ничем, это одно и то же</span>
+              </div>
+              <div class="quiz-option" data-correct="true">
+                <span>Claude Code работает с файлами напрямую, не нужно копировать код</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>Claude Code работает только онлайн</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>Claude Code бесплатный</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="quiz-question" style="margin-top: 2rem;">
+            <h4>Вопрос 2: Какая команда создаёт CLAUDE.md файл?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="false">
+                <span>/help</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>/clear</span>
+              </div>
+              <div class="quiz-option" data-correct="true">
+                <span>/init</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>/config</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="content-section">
+          <h2>Чеклист урока</h2>
+          <div class="checklist">
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Установил Claude Code</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Прошёл авторизацию</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Знаю базовые slash-команды</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Создал первый проект (landing page)</span>
+            </label>
+          </div>
+        </section>
+
+        <!-- Next Lesson -->
+        <section class="start-section">
+          <h2>Отлично!</h2>
+          <p>В следующем уроке изучим CLAUDE.md — как настроить контекст для проекта</p>
+          <a href="lesson-2.html" class="btn-start">
+            Перейти к уроку 2
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12,5 19,12 12,19"/>
+            </svg>
+          </a>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

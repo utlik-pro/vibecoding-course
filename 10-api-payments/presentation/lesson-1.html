@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 10.1: Что такое Git | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar (same as index.html) -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 10</div>
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Git</div>
+        <a href="lesson-1.html" class="nav-item active" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Что такое Git
+        </a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          Git через Cursor
+        </a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          GitHub
+        </a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Ветки
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: API</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Внешние API
+        </a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">6</span>
+          Интеграция API
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Stripe</div>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7">
+          <span class="nav-item-number">7</span>
+          Настройка Stripe
+        </a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8">
+          <span class="nav-item-number">8</span>
+          Checkout Session
+        </a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9">
+          <span class="nav-item-number">9</span>
+          Webhooks
+        </a>
+        <a href="project.html" class="nav-item" data-lesson="10">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выход
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-wrapper">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="index.html">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15,18 9,12 15,6"/>
+              </svg>
+              Назад к модулю
+            </a>
+            <a href="lesson-2.html">
+              Следующий урок
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9,18 15,12 9,6"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="lesson-title-section">
+            <span class="lesson-badge git">1</span>
+            <div>
+              <h1>Что такое Git и зачем он нужен</h1>
+              <p style="color: var(--text-secondary); margin: 0;">20 минут</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson Content -->
+        <section class="content-section">
+          <h2>Аналогия "Сохранение в игре"</h2>
+
+          <p>Представьте, что вы играете в сложную игру:</p>
+          <ul>
+            <li>Перед боссом вы <strong>сохраняетесь</strong></li>
+            <li>Если проиграли - <strong>загружаете сохранение</strong></li>
+            <li>У вас может быть <strong>несколько слотов</strong> сохранений</li>
+          </ul>
+
+          <p><strong>Git работает точно так же, но для кода!</strong></p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Git термин</th>
+                <th>Игровая аналогия</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>Commit</code></td>
+                <td>Одно сохранение</td>
+              </tr>
+              <tr>
+                <td><code>Branch</code></td>
+                <td>Слот сохранения / параллельная вселенная</td>
+              </tr>
+              <tr>
+                <td><code>Checkout</code></td>
+                <td>Загрузить сохранение</td>
+              </tr>
+              <tr>
+                <td><code>Push</code></td>
+                <td>Отправить сохранения в облако</td>
+              </tr>
+              <tr>
+                <td><code>Pull</code></td>
+                <td>Скачать сохранения из облака</td>
+              </tr>
+              <tr>
+                <td><code>Merge</code></td>
+                <td>Объединить два прохождения</td>
+              </tr>
+              <tr>
+                <td><code>Repository</code></td>
+                <td>Папка со всеми сохранениями</td>
+              </tr>
+              <tr>
+                <td><code>GitHub</code></td>
+                <td>Облачное хранилище сохранений</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="content-section">
+          <h2>Зачем Git вайбкодеру?</h2>
+
+          <div class="info-box warning">
+            <div class="info-box-title">Проблема без Git</div>
+            <p>Попросили AI "улучшить код"...<br>
+            AI переписал половину проекта...<br>
+            Вы: "Эээ... верни как было!"<br>
+            AI: "Не помню как было :("</p>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">С Git</div>
+            <p><code>git checkout main</code><br>
+            Код вернулся к последнему сохранению!<br>
+            Вы счастливы!</p>
+          </div>
+
+          <h3>Причины использовать Git:</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Причина</th>
+                <th>Объяснение</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Безопасность</strong></td>
+                <td>AI иногда ломает код - можно откатиться</td>
+              </tr>
+              <tr>
+                <td><strong>Эксперименты</strong></td>
+                <td>Пробуем новые идеи без страха</td>
+              </tr>
+              <tr>
+                <td><strong>Бекап</strong></td>
+                <td>Код хранится в облаке (GitHub)</td>
+              </tr>
+              <tr>
+                <td><strong>Портфолио</strong></td>
+                <td>GitHub профиль = резюме разработчика</td>
+              </tr>
+              <tr>
+                <td><strong>Деплой</strong></td>
+                <td>Vercel/Netlify работают с GitHub</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="content-section">
+          <h2>Git vs GitHub</h2>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+            <div style="background: var(--bg-card); padding: 1.5rem; border-radius: var(--radius-lg); border: 2px solid var(--git-color);">
+              <h3 style="color: var(--git-color); margin-bottom: 0.5rem;">Git</h3>
+              <p style="margin: 0;">Программа на вашем компьютере</p>
+              <p style="color: var(--text-muted); margin: 0.5rem 0 0 0; font-size: 0.9rem;">Как Microsoft Word</p>
+            </div>
+            <div style="background: var(--bg-card); padding: 1.5rem; border-radius: var(--radius-lg); border: 2px solid var(--text-primary);">
+              <h3 style="margin-bottom: 0.5rem;">GitHub</h3>
+              <p style="margin: 0;">Сайт для хранения кода в облаке</p>
+              <p style="color: var(--text-muted); margin: 0.5rem 0 0 0; font-size: 0.9rem;">Как OneDrive / Google Drive</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Что такое Push и Pull</h2>
+
+          <p><strong>Push и Pull — это "мост" между вашим компьютером и GitHub:</strong></p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+            <div style="background: var(--bg-card); padding: 1.5rem; border-radius: var(--radius-lg); border: 2px solid var(--accent);">
+              <h3 style="color: var(--accent); margin-bottom: 0.5rem;">Push</h3>
+              <p style="margin: 0;">Отправить код на GitHub</p>
+              <p style="color: var(--text-muted); margin: 0.5rem 0 0 0; font-size: 0.9rem;">Компьютер → Облако</p>
+            </div>
+            <div style="background: var(--bg-card); padding: 1.5rem; border-radius: var(--radius-lg); border: 2px solid var(--primary);">
+              <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Pull</h3>
+              <p style="margin: 0;">Скачать код с GitHub</p>
+              <p style="color: var(--text-muted); margin: 0.5rem 0 0 0; font-size: 0.9rem;">Облако → Компьютер</p>
+            </div>
+          </div>
+
+          <div class="info-box warning">
+            <div class="info-box-title">Commit vs Push — в чём разница?</div>
+            <p><strong>Commit без Push</strong> = Сохранили файл, но НЕ загрузили в облако. Если компьютер сломается — код пропадёт!<br><br>
+            <strong>Commit + Push</strong> = Сохранили файл И загрузили в облако. Код в безопасности!</p>
+          </div>
+
+          <h3>Полный цикл работы:</h3>
+          <pre><code>1. Написал код
+2. Commit  → Сохранил локально (на компьютере)
+3. Push    → Отправил в облако (на GitHub)
+
+На другом компьютере:
+4. Pull    → Скачал из облака
+5. Написал код
+6. Commit + Push → Отправил обратно</code></pre>
+        </section>
+
+        <section class="content-section">
+          <h2>Демонстрация: проблема без Git</h2>
+
+          <h3>Сценарий 1: AI сломал код</h3>
+          <pre><code>До:    Рабочее приложение
+После: Белый экран, 50 ошибок
+
+Без Git: "Всё пропало! Начинаем заново..."
+С Git:   git checkout . -> Всё работает за 1 секунду</code></pre>
+
+          <h3>Сценарий 2: Хочу попробовать новую идею</h3>
+          <pre><code>Без Git: "А вдруг сломаю? Лучше не буду..."
+
+С Git:
+1. Создаю ветку
+2. Экспериментирую
+3. Получилось? Merge!
+4. Не получилось? Удаляю ветку, main не пострадал</code></pre>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz-section">
+          <h2>Проверьте себя</h2>
+
+          <div class="quiz-question">
+            <h4>Вопрос 1: Что такое commit в Git?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="false">
+                <span>Папка с файлами</span>
+              </div>
+              <div class="quiz-option" data-correct="true">
+                <span>Сохранение текущего состояния кода</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>Облачный сервер</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>Команда для удаления кода</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="quiz-question" style="margin-top: 2rem;">
+            <h4>Вопрос 2: Что такое Push?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="false">
+                <span>Сохранение файла на компьютере</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>Скачивание кода из интернета</span>
+              </div>
+              <div class="quiz-option" data-correct="true">
+                <span>Отправка commits на GitHub (из компьютера в облако)</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>Удаление файлов</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="quiz-question" style="margin-top: 2rem;">
+            <h4>Вопрос 3: Чем Commit отличается от Push?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="false">
+                <span>Ничем, это одно и то же</span>
+              </div>
+              <div class="quiz-option" data-correct="true">
+                <span>Commit сохраняет локально, Push отправляет на GitHub</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>Push сохраняет локально, Commit отправляет на GitHub</span>
+              </div>
+              <div class="quiz-option" data-correct="false">
+                <span>Оба отправляют код на GitHub</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="content-section">
+          <h2>Чеклист урока</h2>
+          <div class="checklist">
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Понимаю зачем нужен Git</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Знаю разницу между Git и GitHub</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Понимаю аналогию с сохранениями в игре</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Готов начать использовать Git</span>
+            </label>
+          </div>
+        </section>
+
+        <!-- Next Lesson -->
+        <section class="start-section">
+          <h2>Готовы к практике?</h2>
+          <p>В следующем уроке научимся использовать Git через Cursor</p>
+          <a href="lesson-2.html" class="btn-start">
+            Перейти к уроку 2
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12,5 19,12 12,19"/>
+            </svg>
+          </a>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 10: Git, API и Payments | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 10</div>
+
+        <a href="index.html" class="nav-item active">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Git</div>
+
+        <a href="lesson-1.html" class="nav-item" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Что такое Git
+        </a>
+
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          Git через Cursor
+        </a>
+
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          GitHub
+        </a>
+
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Ветки
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: API</div>
+
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Внешние API
+        </a>
+
+        <a href="lesson-6.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">6</span>
+          Интеграция API
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Stripe</div>
+
+        <a href="lesson-7.html" class="nav-item" data-lesson="7">
+          <span class="nav-item-number">7</span>
+          Настройка Stripe
+        </a>
+
+        <a href="lesson-8.html" class="nav-item" data-lesson="8">
+          <span class="nav-item-number">8</span>
+          Checkout Session
+        </a>
+
+        <a href="lesson-9.html" class="nav-item" data-lesson="9">
+          <span class="nav-item-number">9</span>
+          Webhooks
+        </a>
+
+        <a href="project.html" class="nav-item" data-lesson="10">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выход
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-wrapper">
+        <!-- Hero -->
+        <section class="hero-section">
+          <div class="hero-badge">Модуль 10</div>
+          <h1>Git, API и Payments</h1>
+          <p class="hero-subtitle">Версионный контроль, интеграция внешних API и приём платежей со Stripe</p>
+        </section>
+
+        <!-- Module Stats -->
+        <section class="module-stats">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12,6 12,12 16,14"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-value">4.5 часа</div>
+              <div class="stat-label">Продолжительность</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-value">9 уроков</div>
+              <div class="stat-label">+ проект</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <div class="stat-value">3 части</div>
+              <div class="stat-label">Git + API + Stripe</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Learning Objectives -->
+        <section class="content-section">
+          <h2>Что вы изучите</h2>
+          <div class="objectives-grid">
+            <div class="objective-card">
+              <div class="objective-icon git-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="18" cy="18" r="3"/>
+                  <circle cx="6" cy="6" r="3"/>
+                  <path d="M6 21V9a9 9 0 0 0 9 9"/>
+                </svg>
+              </div>
+              <h3>Git и GitHub</h3>
+              <ul>
+                <li>Версионный контроль через Cursor</li>
+                <li>Commits, branches, merge</li>
+                <li>Работа с GitHub</li>
+                <li>Безопасные эксперименты с AI</li>
+              </ul>
+            </div>
+
+            <div class="objective-card">
+              <div class="objective-icon api-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                </svg>
+              </div>
+              <h3>Внешние API</h3>
+              <ul>
+                <li>Интеграция OpenWeatherMap</li>
+                <li>Курсы валют API</li>
+                <li>Loading и error states</li>
+                <li>Безопасное хранение ключей</li>
+              </ul>
+            </div>
+
+            <div class="objective-card">
+              <div class="objective-icon stripe-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                  <line x1="1" y1="10" x2="23" y2="10"/>
+                </svg>
+              </div>
+              <h3>Stripe Payments</h3>
+              <ul>
+                <li>Настройка Stripe аккаунта</li>
+                <li>Checkout Sessions</li>
+                <li>Webhooks</li>
+                <li>Подписки</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Module Structure -->
+        <section class="content-section">
+          <h2>Структура модуля</h2>
+
+          <div class="structure-part">
+            <div class="part-header">
+              <span class="part-badge git">Часть A</span>
+              <h3>Git и GitHub</h3>
+            </div>
+            <div class="lessons-list">
+              <a href="lesson-1.html" class="lesson-item">
+                <span class="lesson-number">1</span>
+                <div class="lesson-info">
+                  <div class="lesson-title">Что такое Git и зачем он нужен</div>
+                  <div class="lesson-meta">20 мин</div>
+                </div>
+              </a>
+              <a href="lesson-2.html" class="lesson-item">
+                <span class="lesson-number">2</span>
+                <div class="lesson-info">
+                  <div class="lesson-title">Git через Cursor - базовые операции</div>
+                  <div class="lesson-meta">30 мин</div>
+                </div>
+              </a>
+              <a href="lesson-3.html" class="lesson-item">
+                <span class="lesson-number">3</span>
+                <div class="lesson-info">
+                  <div class="lesson-title">GitHub - облачное хранилище кода</div>
+                  <div class="lesson-meta">25 мин</div>
+                </div>
+              </a>
+              <a href="lesson-4.html" class="lesson-item">
+                <span class="lesson-number">4</span>
+                <div class="lesson-info">
+                  <div class="lesson-title">Ветки и работа с изменениями</div>
+                  <div class="lesson-meta">25 мин</div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="structure-part">
+            <div class="part-header">
+              <span class="part-badge api">Часть B</span>
+              <h3>Внешние API</h3>
+            </div>
+            <div class="lessons-list">
+              <a href="lesson-5.html" class="lesson-item">
+                <span class="lesson-number">5</span>
+                <div class="lesson-info">
+                  <div class="lesson-title">Что такое внешние API</div>
+                  <div class="lesson-meta">20 мин</div>
+                </div>
+              </a>
+              <a href="lesson-6.html" class="lesson-item">
+                <span class="lesson-number">6</span>
+                <div class="lesson-info">
+                  <div class="lesson-title">Интеграция API в Next.js</div>
+                  <div class="lesson-meta">35 мин</div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="structure-part">
+            <div class="part-header">
+              <span class="part-badge stripe">Часть C</span>
+              <h3>Stripe Payments</h3>
+            </div>
+            <div class="lessons-list">
+              <a href="lesson-7.html" class="lesson-item">
+                <span class="lesson-number">7</span>
+                <div class="lesson-info">
+                  <div class="lesson-title">Stripe - настройка и основы</div>
+                  <div class="lesson-meta">25 мин</div>
+                </div>
+              </a>
+              <a href="lesson-8.html" class="lesson-item">
+                <span class="lesson-number">8</span>
+                <div class="lesson-info">
+                  <div class="lesson-title">Checkout Session и приём платежей</div>
+                  <div class="lesson-meta">30 мин</div>
+                </div>
+              </a>
+              <a href="lesson-9.html" class="lesson-item">
+                <span class="lesson-number">9</span>
+                <div class="lesson-info">
+                  <div class="lesson-title">Webhooks и статус подписки</div>
+                  <div class="lesson-meta">30 мин</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Final Project -->
+        <section class="content-section">
+          <h2>Итоговый проект: Data Aggregator</h2>
+          <div class="project-card">
+            <div class="project-preview">
+              <div class="project-mockup">
+                <div class="mockup-header">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <div class="mockup-content">
+                  <div class="mockup-widget weather">
+                    <div class="widget-icon">O</div>
+                    <div class="widget-temp">+5</div>
+                    <div class="widget-city">Москва</div>
+                  </div>
+                  <div class="mockup-widget exchange">
+                    <div class="rate">$ 1 = 92.5 RUB</div>
+                    <div class="rate">$ 1 = 0.92 EUR</div>
+                  </div>
+                  <div class="mockup-premium">
+                    <button>Premium $9.99/мес</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-info">
+              <h3>Что создадите</h3>
+              <p>Веб-приложение, которое агрегирует данные из внешних API и предлагает Premium подписку:</p>
+              <ul>
+                <li>Виджет погоды (OpenWeatherMap)</li>
+                <li>Виджет курсов валют</li>
+                <li>Free / Premium тарифы</li>
+                <li>Оплата через Stripe</li>
+                <li>Код на GitHub</li>
+              </ul>
+              <a href="project.html" class="btn-primary">Подробнее о проекте</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Start Learning -->
+        <section class="start-section">
+          <h2>Готовы начать?</h2>
+          <p>Начните с первого урока о Git и версионном контроле</p>
+          <a href="lesson-1.html" class="btn-start">
+            Начать урок 1
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12,5 19,12 12,19"/>
+            </svg>
+          </a>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

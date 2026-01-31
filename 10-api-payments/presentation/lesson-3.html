@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 10.3: GitHub | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>VibeCoding</div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 20%"></div></div>
+        <div class="progress-text">2 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 10</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Git</div>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое Git</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Git через Cursor</a>
+        <a href="lesson-3.html" class="nav-item active" data-lesson="3"><span class="nav-item-number">3</span>GitHub</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Ветки</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: API</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Внешние API</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Интеграция API</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Stripe</div>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Настройка Stripe</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Checkout Session</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Webhooks</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="content-wrapper">
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="lesson-2.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg> Предыдущий урок</a>
+            <a href="lesson-4.html">Следующий урок <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg></a>
+          </div>
+          <div class="lesson-title-section">
+            <span class="lesson-badge git">3</span>
+            <div>
+              <h1>GitHub - облачное хранилище кода</h1>
+              <p style="color: var(--text-secondary); margin: 0;">25 минут</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="content-section">
+          <h2>Регистрация на GitHub</h2>
+          <ol>
+            <li>Переходим на <a href="https://github.com" target="_blank">github.com</a></li>
+            <li>Нажимаем "Sign up"</li>
+            <li>Вводим email, пароль, username</li>
+            <li>Подтверждаем email</li>
+            <li>Выбираем Free план</li>
+          </ol>
+
+          <div class="info-box warning">
+            <div class="info-box-title">Важно: выбор username</div>
+            <p>Это ваше профессиональное имя! Работодатели смотрят GitHub.</p>
+            <p><strong>Хорошо:</strong> ivan-petrov, maria-dev, alex-frontend</p>
+            <p><strong>Плохо:</strong> xXx_killer_xXx, qwerty123, test12345</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Создание репозитория</h2>
+          <ol>
+            <li>Нажимаем <code>+</code> в правом верхнем углу</li>
+            <li>"New repository"</li>
+            <li>Заполняем:
+              <ul>
+                <li><strong>Repository name:</strong> data-aggregator</li>
+                <li><strong>Description:</strong> Агрегатор данных - курс Vibecoding</li>
+                <li><strong>Public</strong> (чтобы показать работодателям)</li>
+                <li><strong>НЕ ставим галочки</strong> (README, .gitignore) - у нас уже есть!</li>
+              </ul>
+            </li>
+            <li>Create repository</li>
+          </ol>
+        </section>
+
+        <section class="content-section">
+          <h2>Подключаем GitHub к Cursor</h2>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Промпт для Cursor</div>
+            <pre><code>Подключи мой локальный Git репозиторий к GitHub.
+URL репозитория: https://github.com/username/data-aggregator.git
+Покажи шаги и выполни команды.</code></pre>
+          </div>
+
+          <p>Cursor выполнит:</p>
+          <pre><code>git remote add origin https://github.com/username/data-aggregator.git
+git branch -M main
+git push -u origin main</code></pre>
+        </section>
+
+        <section class="content-section">
+          <h2>Первый Push</h2>
+          <p><strong>Push</strong> = отправить commits на GitHub</p>
+
+          <h3>Способ 1: Через интерфейс</h3>
+          <p>Source Control → три точки ... → "Push"</p>
+
+          <h3>Способ 2: Горячие клавиши</h3>
+          <p><code>Cmd+Shift+P</code> → "Git: Push" → Enter</p>
+
+          <h3>Проверяем:</h3>
+          <ol>
+            <li>Открываем github.com/username/data-aggregator</li>
+            <li>Обновляем страницу</li>
+            <li>Видим все наши файлы!</li>
+          </ol>
+        </section>
+
+        <section class="content-section">
+          <h2>Чеклист урока</h2>
+          <div class="checklist">
+            <label class="checklist-item"><input type="checkbox"><span>Аккаунт GitHub создан</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Username профессиональный</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Репозиторий создан на GitHub</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Локальный проект связан с GitHub</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Первый push выполнен</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Код виден на GitHub</span></label>
+          </div>
+        </section>
+
+        <section class="start-section">
+          <h2>Код в облаке!</h2>
+          <p>Теперь изучим работу с ветками для безопасных экспериментов</p>
+          <a href="lesson-4.html" class="btn-start">Перейти к уроку 4 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

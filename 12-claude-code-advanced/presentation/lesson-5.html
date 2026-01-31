@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 12.5: Dashboard | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 7 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 12</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Интеграции</div>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>MCP серверы</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Custom Skills</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Автоматизация</div>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Субагенты</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Hooks</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
+        <a href="lesson-5.html" class="nav-item active" data-lesson="5"><span class="nav-item-number">5</span>Dashboard</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Best Practices</a>
+        <a href="project.html" class="nav-item" data-lesson="7"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="content-wrapper">
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="lesson-4.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>Предыдущий урок</a>
+            <a href="lesson-6.html">Следующий урок<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg></a>
+          </div>
+          <div class="lesson-title-section">
+            <span class="lesson-badge practice">5</span>
+            <div>
+              <h1>Финальный спринт - Dashboard</h1>
+              <p style="color: var(--text-secondary); margin: 0;">45 минут</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="content-section">
+          <h2>План Dashboard</h2>
+          <pre><code>Dashboard Layout
+├── Sidebar (навигация)
+├── Header (профиль, уведомления)
+└── Main Content
+    ├── Overview (метрики)
+    ├── Analytics (графики)
+    ├── Reports (таблицы)
+    └── Settings (настройки)</code></pre>
+        </section>
+
+        <section class="content-section">
+          <h2>Основной промпт</h2>
+          <pre><code>Создай Dashboard для SaaS Analytics:
+
+## Layout
+- Sidebar слева с навигацией
+- Header сверху с профилем
+- Main content area
+
+## Страницы
+1. Overview — 4 карточки метрик + график
+2. Analytics — интерактивные графики
+3. Reports — таблица с данными
+4. Settings — форма настроек
+
+## Компоненты
+- Карточка метрики (иконка, значение, изменение)
+- Линейный график (Recharts)
+- Круговая диаграмма
+- Таблица с сортировкой
+- Форма с валидацией
+
+## Дизайн
+- Цвета как на Landing
+- Тёмный sidebar
+- Светлый main content
+
+Используй Next.js 14, TypeScript, Tailwind, Recharts.</code></pre>
+        </section>
+
+        <section class="content-section">
+          <h2>Интеграция инструментов</h2>
+
+          <h3>Используем MCP для GitHub:</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="output">> Создай репозиторий saas-dashboard на GitHub</span><br>
+              <span class="output">> Сделай initial commit</span>
+            </div>
+          </div>
+
+          <h3>Используем Skills:</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="output">> /test</span><br>
+              <span class="output">> /deploy</span>
+            </div>
+          </div>
+
+          <h3>Используем субагенты:</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="output">> Параллельно проверь:</span><br>
+              <span class="output">   1. Все ли страницы рендерятся</span><br>
+              <span class="output">   2. Есть ли TypeScript ошибки</span><br>
+              <span class="output">   3. Корректен ли адаптив</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Деплой</h2>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="output">> Задеплой проект на Vercel и верни URL</span><br><br>
+              <span class="comment"># Claude:</span><br>
+              <span class="comment"># 1. Проверит build</span><br>
+              <span class="comment"># 2. Подключит репозиторий</span><br>
+              <span class="comment"># 3. Запустит деплой</span><br>
+              <span class="comment"># 4. Вернёт URL</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Результат</h2>
+          <p>После урока у вас есть:</p>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0;">
+            <div style="background: var(--bg-card); padding: 1rem; border-radius: var(--radius-lg); border: 2px solid var(--terminal-color);">
+              <h4 style="color: var(--terminal-color);">SaaS Dashboard</h4>
+              <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">4+ страницы с графиками</p>
+            </div>
+            <div style="background: var(--bg-card); padding: 1rem; border-radius: var(--radius-lg); border: 2px solid var(--claude-color);">
+              <h4 style="color: var(--claude-color);">GitHub репозиторий</h4>
+              <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">С историей коммитов</p>
+            </div>
+            <div style="background: var(--bg-card); padding: 1rem; border-radius: var(--radius-lg); border: 2px solid var(--accent);">
+              <h4 style="color: var(--accent);">Vercel деплой</h4>
+              <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">Рабочий URL</p>
+            </div>
+            <div style="background: var(--bg-card); padding: 1rem; border-radius: var(--radius-lg); border: 2px solid var(--config-color);">
+              <h4 style="color: var(--config-color);">Skills + Hooks</h4>
+              <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">Автоматизация</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Чеклист урока</h2>
+          <div class="checklist">
+            <label class="checklist-item"><input type="checkbox"><span>Создал Dashboard с 4+ страницами</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Добавил графики (Recharts)</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Залил на GitHub через MCP</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Задеплоил на Vercel</span></label>
+          </div>
+        </section>
+
+        <section class="start-section">
+          <h2>Почти готово!</h2>
+          <p>Последний урок — Best Practices и советы</p>
+          <a href="lesson-6.html" class="btn-start">Перейти к уроку 6<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

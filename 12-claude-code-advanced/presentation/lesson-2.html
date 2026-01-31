@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 12.2: Custom Skills | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 7 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 12</div>
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>
+          Главная
+        </a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Интеграции</div>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>MCP серверы</a>
+        <a href="lesson-2.html" class="nav-item active" data-lesson="2"><span class="nav-item-number">2</span>Custom Skills</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Автоматизация</div>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Субагенты</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Hooks</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Dashboard</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Best Practices</a>
+        <a href="project.html" class="nav-item" data-lesson="7"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="content-wrapper">
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="lesson-1.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>Предыдущий урок</a>
+            <a href="lesson-3.html">Следующий урок<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg></a>
+          </div>
+          <div class="lesson-title-section">
+            <span class="lesson-badge basics">2</span>
+            <div>
+              <h1>Custom Skills - свои команды</h1>
+              <p style="color: var(--text-secondary); margin: 0;">45 минут</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="content-section">
+          <h2>Что такое Skills?</h2>
+          <p><strong>Skills — это переиспользуемые команды для Claude Code.</strong></p>
+          <div class="info-box claude">
+            <div class="info-box-title">Пример</div>
+            <p><code>/deploy</code> → SKILL.md с инструкциями для деплоя<br>
+            <code>/test</code> → SKILL.md с инструкциями для тестов<br>
+            <code>/review</code> → SKILL.md с инструкциями для code review</p>
+          </div>
+          <p><strong>Преимущества:</strong></p>
+          <ul>
+            <li>Сохраняют промпты в файлах</li>
+            <li>Можно шарить между проектами</li>
+            <li>Hot reload — обновляются без перезапуска</li>
+          </ul>
+        </section>
+
+        <section class="content-section">
+          <h2>Структура SKILL.md</h2>
+          <h3>Расположение:</h3>
+          <pre><code>.claude/skills/
+├── deploy/
+│   └── SKILL.md
+├── test/
+│   └── SKILL.md
+└── review/
+    └── SKILL.md</code></pre>
+
+          <h3>Формат файла:</h3>
+          <pre><code>---
+name: deploy
+description: Deploy the application to production
+disable-model-invocation: true
+allowed-tools: Bash(npm *), Bash(vercel *)
+---
+
+Deploy the application:
+
+1. Run the test suite
+2. Build with `npm run build`
+3. Deploy with `vercel --prod`
+4. Return the deployment URL</code></pre>
+
+          <h3>Frontmatter опции:</h3>
+          <table>
+            <thead>
+              <tr><th>Опция</th><th>Описание</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>name</code></td><td>Имя = /команда</td></tr>
+              <tr><td><code>description</code></td><td>Когда использовать</td></tr>
+              <tr><td><code>disable-model-invocation</code></td><td>Только ручной вызов</td></tr>
+              <tr><td><code>allowed-tools</code></td><td>Разрешённые инструменты</td></tr>
+              <tr><td><code>context: fork</code></td><td>Запуск в subagent</td></tr>
+              <tr><td><code>agent</code></td><td>Тип агента (Explore, Plan)</td></tr>
+            </tbody>
+          </table>
+
+          <div class="info-box warning">
+            <div class="info-box-title">Важно: disable-model-invocation</div>
+            <p>Используйте <code>disable-model-invocation: true</code> для skills с side effects: деплой, коммит, отправка сообщений.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Примеры полезных Skills</h2>
+
+          <h3>Skill: /deploy (с защитой)</h3>
+          <pre><code>---
+name: deploy
+description: Deploy to production
+disable-model-invocation: true
+allowed-tools: Bash(npm *), Bash(vercel *)
+---
+
+Deploy $ARGUMENTS to production:
+
+1. Run `npm run build`
+2. If successful, run `vercel --prod`
+3. Return the deployment URL</code></pre>
+
+          <h3>Skill: /review (в subagent)</h3>
+          <pre><code>---
+name: review
+description: Code review with security focus
+context: fork
+agent: Explore
+---
+
+Review the code for:
+1. Security issues (injection, XSS)
+2. Performance problems
+3. Code style violations
+
+Provide specific line references.</code></pre>
+
+          <h3>Skill: /fix-issue (с аргументами)</h3>
+          <pre><code>---
+name: fix-issue
+description: Fix a GitHub issue
+disable-model-invocation: true
+---
+
+Fix GitHub issue $ARGUMENTS:
+
+1. Use `gh issue view` to get details
+2. Understand the problem
+3. Implement the fix
+4. Write tests
+5. Create a commit</code></pre>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Переменные</div>
+            <p><code>$ARGUMENTS</code> — всё после /команды<br>
+            <code>$ARGUMENTS[0]</code>, <code>$0</code> — первый аргумент</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Практика: Создаём Skills</h2>
+
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Terminal</span>
+            </div>
+            <div class="terminal-body">
+              <span class="prompt">$</span> <span class="command">mkdir -p .claude/skills/deploy</span><br>
+              <span class="prompt">$</span> <span class="command">mkdir -p .claude/skills/test</span>
+            </div>
+          </div>
+
+          <h3>Тестируем:</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="prompt">$</span> <span class="command">claude</span><br>
+              <span class="output">> /deploy</span><br>
+              <span class="comment"># Claude выполнит инструкции из SKILL.md</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="quiz-section">
+          <h2>Проверьте себя</h2>
+          <div class="quiz-question">
+            <h4>Где хранятся Custom Skills?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="true"><span>.claude/skills/</span></div>
+              <div class="quiz-option" data-correct="false"><span>CLAUDE.md</span></div>
+              <div class="quiz-option" data-correct="false"><span>package.json</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Чеклист урока</h2>
+          <div class="checklist">
+            <label class="checklist-item"><input type="checkbox"><span>Понимаю что такое Skills</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Знаю структуру SKILL.md</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Создал минимум 2 своих Skills</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Протестировал Skills в проекте</span></label>
+          </div>
+        </section>
+
+        <section class="start-section">
+          <h2>Следующий шаг</h2>
+          <p>Изучим субагенты и параллельное выполнение задач</p>
+          <a href="lesson-3.html" class="btn-start">Перейти к уроку 3<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

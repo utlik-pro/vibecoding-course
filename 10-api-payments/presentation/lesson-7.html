@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 10.7: Настройка Stripe | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header"><div class="sidebar-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>VibeCoding</div></div>
+      <div class="progress-container"><div class="progress-bar"><div class="progress-fill" style="width: 60%"></div></div><div class="progress-text">6 из 10 уроков</div></div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 10</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Git</div>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое Git</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Git через Cursor</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>GitHub</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Ветки</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: API</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Внешние API</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Интеграция API</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Stripe</div>
+        <a href="lesson-7.html" class="nav-item active" data-lesson="7"><span class="nav-item-number">7</span>Настройка Stripe</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Checkout Session</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Webhooks</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="content-wrapper">
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="lesson-6.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg> Предыдущий урок</a>
+            <a href="lesson-8.html">Следующий урок <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg></a>
+          </div>
+          <div class="lesson-title-section">
+            <span class="lesson-badge stripe">7</span>
+            <div>
+              <h1>Stripe - настройка и основы</h1>
+              <p style="color: var(--text-secondary); margin: 0;">25 минут</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="content-section">
+          <h2>Что такое Stripe</h2>
+          <p><strong>Stripe</strong> = платёжная система для разработчиков</p>
+          <ul>
+            <li>Принимает карты со всего мира</li>
+            <li>Автоматически конвертирует валюту</li>
+            <li>Обрабатывает подписки</li>
+            <li>Безопасно хранит данные карт</li>
+          </ul>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Почему Stripe?</div>
+            <p>Самая популярная в мире, отличная документация, работает с Next.js из коробки.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Регистрация и Test Mode</h2>
+          <ol>
+            <li>Переходим на <a href="https://stripe.com" target="_blank">stripe.com</a></li>
+            <li>"Start now" → Create account</li>
+            <li>Подтверждаем email</li>
+            <li><strong>ВАЖНО: Остаёмся в Test mode!</strong></li>
+          </ol>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+            <div class="info-box tip" style="margin: 0;">
+              <div class="info-box-title">TEST MODE</div>
+              <p>Карты НЕ списывают реальные деньги<br>
+              Тестовая карта: 4242 4242 4242 4242<br>
+              Идеально для обучения</p>
+            </div>
+            <div class="info-box danger" style="margin: 0;">
+              <div class="info-box-title">LIVE MODE</div>
+              <p>Настоящие деньги!<br>
+              Нужна верификация бизнеса<br>
+              НЕ включаем пока не готовы!</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Получение API ключей</h2>
+          <p>Dashboard → Developers → API keys</p>
+          <pre><code>Publishable key: pk_test_51ABC...
+(можно показывать в браузере)
+
+Secret key: sk_test_51XYZ...
+(ТОЛЬКО на сервере!)</code></pre>
+
+          <h3>Добавляем в .env.local:</h3>
+          <pre><code># Stripe (Test Mode)
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_ваш_ключ
+STRIPE_SECRET_KEY=sk_test_ваш_ключ</code></pre>
+        </section>
+
+        <section class="content-section">
+          <h2>Установка Stripe</h2>
+          <pre><code>npm install stripe @stripe/stripe-js</code></pre>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Промпт для настройки</div>
+            <pre><code>Настрой Stripe в Next.js проекте:
+1. Создай lib/stripe.ts — серверный клиент
+2. Создай lib/stripe-client.ts — клиентский клиент
+3. Используй environment variables</code></pre>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Чеклист урока</h2>
+          <div class="checklist">
+            <label class="checklist-item"><input type="checkbox"><span>Аккаунт Stripe создан</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Находимся в Test Mode</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>API ключи в .env.local</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Пакеты stripe установлены</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>lib/stripe.ts создан</span></label>
+          </div>
+        </section>
+
+        <section class="start-section">
+          <h2>Stripe готов!</h2>
+          <p>Создадим форму оплаты и примем первый тестовый платёж</p>
+          <a href="lesson-8.html" class="btn-start">Перейти к уроку 8 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

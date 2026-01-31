@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 12.6: Best Practices | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 7 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 12</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Интеграции</div>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>MCP серверы</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Custom Skills</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Автоматизация</div>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Субагенты</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Hooks</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Dashboard</a>
+        <a href="lesson-6.html" class="nav-item active" data-lesson="6"><span class="nav-item-number">6</span>Best Practices</a>
+        <a href="project.html" class="nav-item" data-lesson="7"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="content-wrapper">
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="lesson-5.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>Предыдущий урок</a>
+            <a href="project.html">Итоговый проект<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg></a>
+          </div>
+          <div class="lesson-title-section">
+            <span class="lesson-badge practice">6</span>
+            <div>
+              <h1>Best Practices и Tips</h1>
+              <p style="color: var(--text-secondary); margin: 0;">15 минут</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="content-section">
+          <h2>Оптимизация промптов</h2>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Будь конкретен</div>
+            <p><strong>Хорошо:</strong> "Добавь кнопку 'Сохранить' синего цвета (#3B82F6) справа от заголовка формы"</p>
+            <p><strong>Плохо:</strong> "Добавь кнопку где-нибудь"</p>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Указывай контекст</div>
+            <p><strong>Хорошо:</strong> "В файле components/Header.tsx добавь..."</p>
+            <p><strong>Плохо:</strong> "Добавь в хедер..." (какой хедер?)</p>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Разбивай задачи</div>
+            <p><strong>Хорошо:</strong> 1. Сначала создай структуру → 2. Потом стили → 3. Потом логику</p>
+            <p><strong>Плохо:</strong> "Создай полное приложение за один промпт"</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Управление контекстом</h2>
+
+          <h3>Полезные команды:</h3>
+          <table>
+            <thead><tr><th>Команда</th><th>Что делает</th></tr></thead>
+            <tbody>
+              <tr><td><code>/clear</code></td><td>Очистка контекста между задачами</td></tr>
+              <tr><td><code>/compact</code></td><td>Сжатие контекста без потери смысла</td></tr>
+              <tr><td><code>/rewind</code></td><td>Откат к предыдущему checkpoint</td></tr>
+              <tr><td><code>Esc+Esc</code></td><td>Быстрый откат изменений</td></tr>
+            </tbody>
+          </table>
+
+          <h3>Когда использовать /clear:</h3>
+          <ul>
+            <li>После завершения большой задачи</li>
+            <li>При переключении между частями проекта</li>
+            <li>Когда Claude начинает путаться</li>
+          </ul>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Checkpoints</div>
+            <p>Claude автоматически сохраняет checkpoints. Используйте <code>/rewind</code> чтобы откатить изменения к предыдущему состоянию.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Работа с большими проектами</h2>
+
+          <h3>1. Разделяйте на модули</h3>
+          <ul>
+            <li>Отдельный CLAUDE.md для каждого модуля</li>
+            <li>Работайте с одним модулем за раз</li>
+          </ul>
+
+          <h3>2. Используйте субагенты</h3>
+          <ul>
+            <li>Explore для поиска</li>
+            <li>Plan для планирования</li>
+            <li>Параллельные задачи для анализа</li>
+          </ul>
+
+          <h3>3. Коммитьте часто</h3>
+          <ul>
+            <li>После каждой законченной фичи</li>
+            <li>Перед большими изменениями</li>
+            <li>Легче откатиться при проблемах</li>
+          </ul>
+        </section>
+
+        <section class="content-section">
+          <h2>Headless режим</h2>
+
+          <p><strong>Запуск Claude без интерактивной сессии:</strong></p>
+
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="prompt">$</span> <span class="command">claude -p "Run tests and fix any failures"</span><br><br>
+              <span class="prompt">$</span> <span class="command">claude -p "Generate API docs" --output docs/api.md</span>
+            </div>
+          </div>
+
+          <h3>Использование в CI/CD:</h3>
+          <pre><code># GitHub Actions
+- name: Run Claude Code
+  run: claude -p "Check for security issues"</code></pre>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Автоматизация</div>
+            <p>Headless режим идеален для pre-commit hooks, CI/CD pipelines, и автоматизированных проверок.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Параллельная работа</h2>
+
+          <h3>Git Worktrees:</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="prompt">$</span> <span class="command">git worktree add ../project-auth feature/auth</span><br>
+              <span class="prompt">$</span> <span class="command">cd ../project-auth && claude</span>
+            </div>
+          </div>
+
+          <p>Запустите несколько Claude Code сессий в разных worktrees для параллельной работы над фичами.</p>
+
+          <h3>Writer/Reviewer паттерн:</h3>
+          <ul>
+            <li><strong>Writer:</strong> Пишет код</li>
+            <li><strong>Reviewer:</strong> Проверяет код в отдельной сессии</li>
+          </ul>
+        </section>
+
+        <section class="content-section">
+          <h2>Полезные ресурсы</h2>
+
+          <h3>Документация</h3>
+          <ul>
+            <li><a href="https://code.claude.com/docs" target="_blank">Claude Code Docs (официальная)</a></li>
+            <li><a href="https://github.com/modelcontextprotocol" target="_blank">MCP Servers</a></li>
+          </ul>
+
+          <h3>Сообщество</h3>
+          <ul>
+            <li>GitHub: awesome-claude-code</li>
+            <li>Reddit: r/ClaudeAI</li>
+            <li>Discord: Anthropic</li>
+          </ul>
+        </section>
+
+        <section class="content-section">
+          <h2>Чеклист урока</h2>
+          <div class="checklist">
+            <label class="checklist-item"><input type="checkbox"><span>Понимаю как писать хорошие промпты</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Знаю когда использовать /clear</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Понимаю стратегии для больших проектов</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Сохранил полезные ресурсы</span></label>
+          </div>
+        </section>
+
+        <section class="start-section">
+          <h2>Поздравляем!</h2>
+          <p>Вы прошли весь курс по Claude Code. Переходите к итоговому проекту!</p>
+          <a href="project.html" class="btn-start">Итоговый проект<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 8.7: Агрегация и GROUP BY | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 8</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>SQL основы</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Фильтрация WHERE</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Сортировка и лимиты</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>UPDATE и DELETE</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Связи таблиц</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>JOIN запросы</a>
+        <a href="lesson-7.html" class="nav-item active" data-lesson="7"><span class="nav-item-number">7</span>Агрегация GROUP BY</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Интеграция в приложение</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Продвинутые техники</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>SQL Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 8</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 8.7</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 8.7</span>
+            <span class="lesson-duration">⏱ 25 минут</span>
+          </div>
+          <h1 class="lesson-title">Агрегация и GROUP BY</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Считаем, суммируем и группируем данные для статистики
+          </p>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Важно:</strong> Агрегатные функции - мощный инструмент для аналитики. Покажите реальные сценарии: сколько задач выполнено, статистика по категориям.</p>
+            <p><strong>Совет:</strong> Объясните разницу между WHERE и HAVING через примеры - это частая путаница у новичков.</p>
+          </div>
+        </div>
+
+        <!-- What are Aggregate Functions -->
+        <section class="card">
+          <div class="card-header">Агрегатные функции = статистика по данным</div>
+          <div class="card-body">
+            <p>Агрегатные функции позволяют получить <strong>сводную информацию</strong> из множества строк:</p>
+
+            <div class="service-cards" style="margin-top: 1.5rem;">
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem;">📊</div>
+                <h4>COUNT</h4>
+                <p class="service-card-desc">Сколько записей?</p>
+              </div>
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem;">➕</div>
+                <h4>SUM</h4>
+                <p class="service-card-desc">Сумма значений</p>
+              </div>
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem;">📈</div>
+                <h4>AVG</h4>
+                <p class="service-card-desc">Среднее значение</p>
+              </div>
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem;">⬆️</div>
+                <h4>MAX / MIN</h4>
+                <p class="service-card-desc">Максимум / Минимум</p>
+              </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Главное отличие:</strong> Обычный SELECT возвращает много строк, агрегатные функции возвращают <strong>одно значение</strong> (или по одному на группу).
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 1: COUNT(*) -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 1: COUNT(*) - считаем все записи</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Узнаем, сколько всего задач в таблице:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Сколько всего задач в таблице?
+SELECT COUNT(*) FROM tasks;
+
+-- Результат: одно число, например 10</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;">Можно дать имя результату:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- С понятным названием колонки
+SELECT COUNT(*) AS total_tasks FROM tasks;
+
+-- Результат:
+-- | total_tasks |
+-- |-------------|
+-- | 10          |</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>COUNT(*)</strong> считает все строки, включая NULL значения.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 2: COUNT with WHERE -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 2: COUNT с WHERE - считаем с фильтром</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Считаем только выполненные задачи:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Сколько выполненных задач?
+SELECT COUNT(*) AS completed_tasks
+FROM tasks
+WHERE completed = true;
+
+-- Сколько задач высокого приоритета?
+SELECT COUNT(*) AS high_priority
+FROM tasks
+WHERE priority = 'high';
+
+-- Сколько невыполненных задач высокого приоритета?
+SELECT COUNT(*) AS urgent_tasks
+FROM tasks
+WHERE completed = false AND priority = 'high';</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Практическое применение:</strong> показать пользователю "У вас 5 невыполненных задач" или "3 срочных дела".
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 3: SUM, AVG, MIN, MAX -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 3: SUM, AVG, MIN, MAX</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Для демонстрации добавим числовое поле - время выполнения:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Добавляем колонку "время в минутах"
+ALTER TABLE tasks ADD COLUMN estimated_minutes INTEGER;
+
+-- Обновляем несколько задач
+UPDATE tasks SET estimated_minutes = 30 WHERE id = 1;
+UPDATE tasks SET estimated_minutes = 5 WHERE id = 2;
+UPDATE tasks SET estimated_minutes = 60 WHERE id = 3;
+UPDATE tasks SET estimated_minutes = 45 WHERE id = 4;
+UPDATE tasks SET estimated_minutes = 20 WHERE id = 5;
+UPDATE tasks SET estimated_minutes = 10 WHERE id = 6;
+UPDATE tasks SET estimated_minutes = 30 WHERE id = 7;</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;">Теперь используем агрегатные функции:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Общее время на все задачи
+SELECT SUM(estimated_minutes) AS total_minutes FROM tasks;
+
+-- Среднее время на задачу
+SELECT AVG(estimated_minutes) AS avg_minutes FROM tasks;
+
+-- Округлённое среднее
+SELECT ROUND(AVG(estimated_minutes)) AS avg_minutes FROM tasks;
+
+-- Самая быстрая и самая долгая задача
+SELECT
+  MIN(estimated_minutes) AS fastest,
+  MAX(estimated_minutes) AS longest
+FROM tasks;
+
+-- Всё вместе - сводная статистика
+SELECT
+  COUNT(*) AS total_tasks,
+  SUM(estimated_minutes) AS total_minutes,
+  ROUND(AVG(estimated_minutes)) AS avg_minutes,
+  MIN(estimated_minutes) AS min_minutes,
+  MAX(estimated_minutes) AS max_minutes
+FROM tasks
+WHERE estimated_minutes IS NOT NULL;</code></pre>
+            </div>
+
+            <div class="table-container" style="margin-top: 1.5rem;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Функция</th>
+                    <th>Что делает</th>
+                    <th>Пример результата</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>SUM()</code></td>
+                    <td>Сумма всех значений</td>
+                    <td>200 минут</td>
+                  </tr>
+                  <tr>
+                    <td><code>AVG()</code></td>
+                    <td>Среднее арифметическое</td>
+                    <td>28.57 минут</td>
+                  </tr>
+                  <tr>
+                    <td><code>MIN()</code></td>
+                    <td>Минимальное значение</td>
+                    <td>5 минут</td>
+                  </tr>
+                  <tr>
+                    <td><code>MAX()</code></td>
+                    <td>Максимальное значение</td>
+                    <td>60 минут</td>
+                  </tr>
+                  <tr>
+                    <td><code>ROUND()</code></td>
+                    <td>Округление числа</td>
+                    <td>29 минут</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 4: GROUP BY basics -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 4: GROUP BY - группировка данных</div>
+          <div class="card-body">
+            <p><strong>GROUP BY</strong> позволяет разбить данные на группы и посчитать статистику <strong>по каждой группе отдельно</strong>.</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Сколько задач каждого приоритета?
+SELECT
+  priority,
+  COUNT(*) AS count
+FROM tasks
+GROUP BY priority;
+
+-- Результат:
+-- | priority | count |
+-- |----------|-------|
+-- | high     | 3     |
+-- | medium   | 4     |
+-- | low      | 3     |</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;">Группировка по категориям:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Сколько задач в каждой категории?
+SELECT
+  category_id,
+  COUNT(*) AS tasks_count
+FROM tasks
+GROUP BY category_id
+ORDER BY tasks_count DESC;
+
+-- Статистика по приоритету с временем
+SELECT
+  priority,
+  COUNT(*) AS count,
+  SUM(estimated_minutes) AS total_time,
+  ROUND(AVG(estimated_minutes)) AS avg_time
+FROM tasks
+WHERE estimated_minutes IS NOT NULL
+GROUP BY priority
+ORDER BY count DESC;</code></pre>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Правило GROUP BY:</strong> В SELECT можно указывать только колонки из GROUP BY или агрегатные функции. Нельзя написать <code>SELECT title, COUNT(*) GROUP BY priority</code> - это ошибка!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 5: GROUP BY with JOIN -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 5: GROUP BY + JOIN - статистика с названиями</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Получим статистику по категориям с их названиями (не id):</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Статистика по категориям с названиями
+SELECT
+  c.name AS category,
+  c.color,
+  COUNT(t.id) AS tasks_count,
+  SUM(t.estimated_minutes) AS total_minutes
+FROM categories c
+LEFT JOIN tasks t ON t.category_id = c.id
+GROUP BY c.id, c.name, c.color
+ORDER BY tasks_count DESC;
+
+-- Результат:
+-- | category | color   | tasks_count | total_minutes |
+-- |----------|---------|-------------|---------------|
+-- | Учёба    | #3B82F6 | 2           | 105           |
+-- | Личное   | #EC4899 | 2           | 35            |
+-- | Покупки  | #8B5CF6 | 1           | 30            |
+-- | Дом      | #10B981 | 1           | 10            |
+-- | Здоровье | #F59E0B | 1           | 20            |
+-- | Работа   | #EF4444 | 0           | NULL          |</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>LEFT JOIN</strong> показывает все категории, даже если в них нет задач (tasks_count = 0).
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 6: HAVING -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 6: HAVING - фильтрация групп</div>
+          <div class="card-body">
+            <p><strong>HAVING</strong> фильтрует <strong>после группировки</strong>, в отличие от WHERE (до группировки).</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Категории, в которых больше 1 задачи
+SELECT
+  c.name AS category,
+  COUNT(t.id) AS tasks_count
+FROM categories c
+LEFT JOIN tasks t ON t.category_id = c.id
+GROUP BY c.id, c.name
+HAVING COUNT(t.id) > 1;
+
+-- Приоритеты с общим временем > 30 минут
+SELECT
+  priority,
+  COUNT(*) AS count,
+  SUM(estimated_minutes) AS total_time
+FROM tasks
+WHERE estimated_minutes IS NOT NULL
+GROUP BY priority
+HAVING SUM(estimated_minutes) > 30;</code></pre>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Типичная ошибка:</strong> Нельзя использовать агрегатные функции в WHERE! <code>WHERE COUNT(*) > 1</code> - ошибка. Используйте HAVING.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- WHERE vs HAVING table -->
+        <section class="card">
+          <div class="card-header">WHERE vs HAVING - в чём разница?</div>
+          <div class="card-body">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Аспект</th>
+                    <th>WHERE</th>
+                    <th>HAVING</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Когда выполняется</strong></td>
+                    <td>ДО группировки</td>
+                    <td>ПОСЛЕ группировки</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Что фильтрует</strong></td>
+                    <td>Отдельные строки</td>
+                    <td>Группы строк</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Агрегатные функции</strong></td>
+                    <td>Нельзя использовать</td>
+                    <td>Можно использовать</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Пример</strong></td>
+                    <td><code>WHERE priority = 'high'</code></td>
+                    <td><code>HAVING COUNT(*) > 5</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="code-block" style="margin-top: 1.5rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Порядок выполнения SQL</span>
+              </div>
+              <pre><code>SELECT ...
+FROM ...
+WHERE ...      -- 1. Сначала фильтруем строки
+GROUP BY ...   -- 2. Потом группируем
+HAVING ...     -- 3. Потом фильтруем группы
+ORDER BY ...   -- 4. Потом сортируем
+LIMIT ...      -- 5. В конце ограничиваем</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 7: Real Statistics -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 7: Полезная статистика для приложения</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Создадим запросы, которые реально пригодятся в приложении:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Статистика выполнения по категориям
+SELECT
+  c.name AS category,
+  c.color,
+  COUNT(t.id) AS total,
+  COUNT(CASE WHEN t.completed = true THEN 1 END) AS done,
+  COUNT(CASE WHEN t.completed = false THEN 1 END) AS pending
+FROM categories c
+LEFT JOIN tasks t ON t.category_id = c.id
+GROUP BY c.id, c.name, c.color
+ORDER BY total DESC;
+
+-- Результат:
+-- | category | color   | total | done | pending |
+-- |----------|---------|-------|------|---------|
+-- | Учёба    | #3B82F6 | 2     | 0    | 2       |
+-- | Личное   | #EC4899 | 2     | 1    | 1       |
+-- | Покупки  | #8B5CF6 | 1     | 0    | 1       |</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;">Процент выполнения:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Процент выполнения по категориям
+SELECT
+  c.name AS category,
+  COUNT(t.id) AS total,
+  COUNT(CASE WHEN t.completed = true THEN 1 END) AS done,
+  ROUND(
+    100.0 * COUNT(CASE WHEN t.completed = true THEN 1 END) /
+    NULLIF(COUNT(t.id), 0)
+  ) AS percent_done
+FROM categories c
+LEFT JOIN tasks t ON t.category_id = c.id
+GROUP BY c.id, c.name
+HAVING COUNT(t.id) > 0
+ORDER BY percent_done DESC;</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;">Общая статистика для дашборда:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Сводка для главной страницы приложения
+SELECT
+  COUNT(*) AS total_tasks,
+  COUNT(CASE WHEN completed = true THEN 1 END) AS completed,
+  COUNT(CASE WHEN completed = false THEN 1 END) AS pending,
+  COUNT(CASE WHEN priority = 'high' AND completed = false THEN 1 END) AS urgent,
+  SUM(estimated_minutes) AS total_minutes,
+  ROUND(100.0 * COUNT(CASE WHEN completed = true THEN 1 END) / COUNT(*)) AS percent_done
+FROM tasks;</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Результат:</strong> Один запрос - и у вас вся статистика для дашборда: общее количество, выполнено, осталось, срочных, время, процент.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson7">
+              <p><strong>Когда использовать HAVING вместо WHERE?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Когда нужно отфильтровать строки</div>
+                <div class="quiz-option" data-correct="false">Когда используется ORDER BY</div>
+                <div class="quiz-option" data-correct="true">Когда нужно отфильтровать по результату агрегатной функции</div>
+                <div class="quiz-option" data-correct="false">Когда используется JOIN</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mini-task -->
+        <section class="card">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Мини-задание</div>
+          <div class="card-body">
+            <p><strong>Напишите запрос</strong>, который покажет только те приоритеты, где среднее время выполнения задачи больше 20 минут.</p>
+            <p>Подсказка: используйте GROUP BY, AVG и HAVING.</p>
+
+            <details style="margin-top: 1rem;">
+              <summary style="cursor: pointer; color: var(--primary-color);">Показать решение</summary>
+              <div class="code-block" style="margin-top: 0.5rem;">
+                <div class="code-block-header">
+                  <span class="code-block-lang">SQL</span>
+                </div>
+                <pre><code>SELECT
+  priority,
+  ROUND(AVG(estimated_minutes)) AS avg_time
+FROM tasks
+WHERE estimated_minutes IS NOT NULL
+GROUP BY priority
+HAVING AVG(estimated_minutes) > 20;</code></pre>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="card">
+          <div class="card-header">Шпаргалка по агрегатным функциям</div>
+          <div class="card-body">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Функция</th>
+                    <th>Описание</th>
+                    <th>Пример</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>COUNT(*)</code></td>
+                    <td>Количество строк</td>
+                    <td><code>SELECT COUNT(*) FROM tasks</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>COUNT(column)</code></td>
+                    <td>Количество не-NULL значений</td>
+                    <td><code>SELECT COUNT(description) FROM tasks</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>SUM(column)</code></td>
+                    <td>Сумма значений</td>
+                    <td><code>SELECT SUM(estimated_minutes) FROM tasks</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>AVG(column)</code></td>
+                    <td>Среднее значение</td>
+                    <td><code>SELECT AVG(estimated_minutes) FROM tasks</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>MIN(column)</code></td>
+                    <td>Минимальное значение</td>
+                    <td><code>SELECT MIN(created_at) FROM tasks</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>MAX(column)</code></td>
+                    <td>Максимальное значение</td>
+                    <td><code>SELECT MAX(estimated_minutes) FROM tasks</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>GROUP BY</code></td>
+                    <td>Группировка строк</td>
+                    <td><code>SELECT priority, COUNT(*) FROM tasks GROUP BY priority</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>HAVING</code></td>
+                    <td>Фильтр после группировки</td>
+                    <td><code>... GROUP BY priority HAVING COUNT(*) > 2</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-count"></span>
+                <span class="checklist-text">Использовал COUNT(*) для подсчёта записей</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-countwhere"></span>
+                <span class="checklist-text">Использовал COUNT с WHERE для фильтрации</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-aggregate"></span>
+                <span class="checklist-text">Попробовал SUM, AVG, MIN, MAX</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-groupby"></span>
+                <span class="checklist-text">Освоил GROUP BY для группировки</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-join"></span>
+                <span class="checklist-text">Объединил GROUP BY с JOIN</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-having"></span>
+                <span class="checklist-text">Понял разницу между WHERE и HAVING</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-stats"></span>
+                <span class="checklist-text">Создал запрос для статистики приложения</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-6.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">JOIN запросы</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="7">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-8.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Интеграция в приложение</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

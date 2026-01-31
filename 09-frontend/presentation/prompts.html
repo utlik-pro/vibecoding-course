@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Все промпты | VibeCoding - Модуль 9</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">Справочник промптов</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 9: Фронтенд</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Структура и роутинг</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Компоненты</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Формы</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Анимации</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Landing Page</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Dashboard</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Оптимизация</a>
+        <a href="project.html" class="nav-item" data-lesson="8"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="prompts.html" class="nav-item active"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Все промпты</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 9</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Справочник промптов</span>
+        </div>
+        <div class="header-actions">
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <h1 class="lesson-title">Все промпты модуля</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Быстрый доступ ко всем AI-промптам для копирования
+          </p>
+        </div>
+
+        <!-- TOC -->
+        <section class="card">
+          <div class="card-header">Содержание</div>
+          <div class="card-body">
+            <ul style="columns: 2; column-gap: 2rem;">
+              <li><a href="#structure">Структура проекта</a></li>
+              <li><a href="#components">Компоненты</a></li>
+              <li><a href="#forms">Формы</a></li>
+              <li><a href="#animations">Анимации</a></li>
+              <li><a href="#landing">Landing Page</a></li>
+              <li><a href="#dashboard">Dashboard</a></li>
+              <li><a href="#optimization">Оптимизация</a></li>
+              <li><a href="#v0dev">v0.dev промпты</a></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Structure -->
+        <section class="card" id="structure">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Структура проекта (Урок 9.1)</div>
+          <div class="card-body">
+
+            <h4>Создание структуры страниц</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай структуру Next.js App Router для SaaS приложения:
+
+Публичные страницы:
+- / (главная - лендинг)
+- /pricing (тарифы)
+- /about (о нас)
+- /blog (блог)
+- /blog/[slug] (статья блога)
+
+Защищённые страницы (после авторизации):
+- /dashboard (главная панель)
+- /dashboard/settings (настройки)
+- /dashboard/profile (профиль)
+
+Создай layout.tsx с Header и Footer.
+Используй TypeScript и Tailwind CSS.</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Header компонент</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай компонент Header для SaaS:
+- Логотип слева
+- Навигация: Главная, Тарифы, О нас, Блог
+- Кнопки справа: Войти, Попробовать бесплатно
+- Мобильное меню (бургер)
+- Используй shadcn/ui и Tailwind
+- При скролле добавь backdrop-blur эффект</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">SEO метаданные</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Добавь metadata для всех страниц:
+- Главная: "TaskFlow - Управляй задачами с AI"
+- Pricing: "Тарифы - TaskFlow"
+- И так далее
+
+Включи:
+- title, description
+- Open Graph теги
+- Twitter карточки</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Components -->
+        <section class="card" id="components">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Компоненты (Урок 9.2)</div>
+          <div class="card-body">
+
+            <h4>Accordion (FAQ)</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай компонент Accordion для FAQ секции:
+- Принимает массив {question, answer}
+- Плавная анимация раскрытия (Framer Motion)
+- Иконка + или стрелка поворачивается
+- Только один item может быть открыт
+- Tailwind стили, тёмная тема поддержка</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Tabs</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай компонент Tabs:
+- Принимает массив {label, content}
+- Анимированный индикатор под активным табом
+- Плавная смена контента (fade)
+- Поддержка клавиатурной навигации
+- Variant: "underline" и "pills"</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Modal</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай переиспользуемый Modal компонент:
+- Props: isOpen, onClose, title, children
+- Затемнение фона с blur
+- Закрытие по Escape и клику вне окна
+- Анимация появления (scale + fade)
+- Кнопка закрытия в углу
+- Используй Radix UI Dialog как основу</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Tooltip</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай Tooltip компонент:
+- Появляется при hover
+- Позиции: top, bottom, left, right
+- Задержка появления 200ms
+- Стрелочка указывает на элемент
+- Тёмный фон, белый текст</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Dropdown</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай Dropdown компонент:
+- Trigger кнопка с иконкой шеврона
+- Список опций с иконками
+- Разделители между группами
+- Выделение при hover
+- Закрытие при клике вне
+- Поддержка клавиатуры (стрелки, Enter, Escape)</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Forms -->
+        <section class="card" id="forms">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Формы (Урок 9.3)</div>
+          <div class="card-body">
+
+            <h4>Форма регистрации</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай форму регистрации с полями:
+- Имя (обязательно, мин 2 символа)
+- Email (обязательно, валидный email)
+- Пароль (мин 8 символов, буквы + цифры)
+- Подтверждение пароля (должен совпадать)
+- Checkbox "Согласен с условиями"
+
+Требования:
+- React Hook Form + Zod валидация
+- Красивые сообщения об ошибках на русском
+- Loading состояние при отправке
+- Успешное сообщение после отправки
+- shadcn/ui Input, Button компоненты</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Форма контакта</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай Contact форму:
+- Имя
+- Email
+- Тема (Select из списка)
+- Сообщение (Textarea)
+- Загрузка файла (опционально)
+
+Добавь:
+- Валидация всех полей
+- Предпросмотр загруженного файла
+- Toast уведомление об успехе</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Форма профиля</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай форму редактирования профиля:
+- Аватар (загрузка изображения с превью)
+- Имя и Фамилия
+- Bio (Textarea, макс 500 символов, показывать счётчик)
+- Сайт (URL валидация)
+- Социальные сети (Twitter, LinkedIn)
+- Кнопки: Сохранить, Отмена
+
+Добавь unsaved changes предупреждение при уходе со страницы.</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Переиспользуемые компоненты форм</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай переиспользуемые компоненты форм:
+- FormInput с label, error, helper text
+- FormTextarea с счётчиком символов
+- FormSelect с поиском
+- FormCheckbox
+- FormRadioGroup
+- FormSwitch (toggle)
+- FileUpload с drag-n-drop
+
+Все с поддержкой React Hook Form.</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Animations -->
+        <section class="card" id="animations">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Анимации (Урок 9.4)</div>
+          <div class="card-body">
+
+            <h4>AnimatedSection</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Настрой Framer Motion в Next.js проекте.
+
+Создай компонент AnimatedSection:
+- Появление при скролле (fade + slide up)
+- Использует Intersection Observer
+- Анимируется только первый раз
+- Настраиваемая задержка и длительность</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">AnimatedCard</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай компонент AnimatedCard:
+- При появлении: fade in + scale from 0.95
+- При hover: небольшое увеличение + тень
+- При клике: быстрый scale эффект
+- Stagger эффект для списка карточек (каждая следующая с задержкой)</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Page Transitions</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Добавь анимации переходов между страницами:
+- Fade out текущей страницы
+- Fade in новой страницы
+- Опционально: slide эффект
+- Используй framer-motion AnimatePresence</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Микро-анимации</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай набор микро-анимаций:
+
+1. Кнопка с pulse эффектом при hover
+2. Иконка загрузки (spinning)
+3. Checkbox с checkmark анимацией
+4. Success/Error shake анимация для форм
+5. Typing эффект для текста
+6. Counter анимация (числа увеличиваются)</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Hero анимации</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай анимированный Hero блок:
+- Заголовок появляется по буквам (или словам)
+- Подзаголовок fade in с задержкой
+- Кнопки slide up
+- Фоновый gradient анимируется
+- Floating элементы (иконки летают)</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Landing -->
+        <section class="card" id="landing">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Landing Page (Урок 9.5)</div>
+          <div class="card-body">
+
+            <h4>Hero секция</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай Hero секцию для SaaS лендинга TaskFlow:
+
+Контент:
+- Заголовок: "Управляй задачами с помощью AI"
+- Подзаголовок: "TaskFlow автоматизирует рутину и помогает фокусироваться на важном"
+- Кнопки: "Начать бесплатно" (primary), "Смотреть демо" (secondary)
+- Справа: скриншот/mockup приложения или анимированная иллюстрация
+
+Дизайн:
+- Gradient фон (синий -> фиолетовый)
+- Анимации при загрузке
+- Responsive (на мобильном картинка под текстом)</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Features секция</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай Features секцию с 6 фичами:
+
+1. AI Приоритизация - "AI автоматически определяет важность задач"
+2. Умные напоминания - "Напоминания в нужное время"
+3. Командная работа - "Совместная работа над проектами"
+4. Интеграции - "Подключение к 50+ сервисам"
+5. Аналитика - "Отчёты по продуктивности"
+6. Мобильное приложение - "Работайте откуда угодно"
+
+Дизайн:
+- Сетка 3x2 на десктопе
+- Каждая карточка с иконкой (Lucide)
+- Hover эффект
+- Анимация появления при скролле</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Pricing секция</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай Pricing секцию с 3 тарифами:
+
+Free:
+- Цена: 0₽
+- До 10 задач
+- 1 проект
+- Базовые фичи
+
+Pro:
+- Цена: 990₽/мес (популярный - выделить!)
+- Безлимит задач
+- 10 проектов
+- AI функции
+- Приоритетная поддержка
+
+Team:
+- Цена: 2990₽/мес
+- Всё из Pro
+- До 10 участников
+- Admin панель
+- API доступ
+
+Дизайн:
+- Центральный (Pro) выше и с бейджем "Популярный"
+- Toggle: месяц/год (скидка 20% за год)
+- Кнопка CTA на каждом</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Testimonials секция</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай секцию отзывов:
+
+5 отзывов с:
+- Аватар
+- Имя и должность
+- Компания
+- Текст отзыва
+- Рейтинг (звёзды)
+
+Примеры:
+1. "TaskFlow сэкономил нам 10 часов в неделю" - Анна, CEO StartupX
+2. "Лучший инструмент для управления задачами" - Михаил, PM TechCorp
+...
+
+Дизайн:
+- Карусель или masonry grid
+- Плавная анимация
+- Кавычки как декор</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">FAQ секция</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай FAQ с аккордеоном:
+
+8 вопросов:
+1. Как начать использовать TaskFlow?
+2. Есть ли бесплатный период?
+3. Как работает AI приоритизация?
+4. Можно ли импортировать задачи?
+5. Как добавить команду?
+6. Какие интеграции доступны?
+7. Как отменить подписку?
+8. Есть ли мобильное приложение?
+
+Придумай релевантные ответы для каждого.</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">CTA секция</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай финальный CTA блок перед Footer:
+- Заголовок: "Готовы повысить продуктивность?"
+- Подзаголовок: "Присоединяйтесь к 10,000+ пользователей"
+- Большая кнопка "Начать бесплатно"
+- Текст: "Без кредитной карты • Настройка за 2 минуты"
+- Gradient фон</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Footer</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай Footer:
+
+Колонки:
+- Продукт: Фичи, Цены, Интеграции, Changelog
+- Компания: О нас, Блог, Карьера, Контакты
+- Ресурсы: Документация, API, Статус, Поддержка
+- Legal: Условия, Приватность, Cookies
+
+Внизу:
+- Логотип
+- © 2024 TaskFlow
+- Соц сети: Twitter, LinkedIn, GitHub</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Dashboard -->
+        <section class="card" id="dashboard">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Dashboard (Урок 9.6)</div>
+          <div class="card-body">
+
+            <h4>Layout с Sidebar</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай Dashboard layout:
+
+Sidebar (слева, 250px):
+- Логотип вверху
+- Навигация с иконками:
+  - Dashboard (главная)
+  - Задачи
+  - Проекты
+  - Команда
+  - Аналитика
+  - Настройки
+- Разделитель
+- Профиль пользователя внизу
+- Кнопка collapse (свернуть в иконки)
+
+Header (сверху):
+- Breadcrumbs
+- Search
+- Notifications (колокольчик с badge)
+- User dropdown
+
+Main content area справа.</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Stats Cards</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай 4 Stats карточки для dashboard:
+
+1. Всего задач - число, иконка clipboard
+2. Выполнено - число + процент от общего, зелёная иконка check
+3. В работе - число, синяя иконка clock
+4. Просрочено - число, красная иконка alert (если есть)
+
+Каждая карточка:
+- Иконка с цветным фоном
+- Число большим шрифтом
+- Label мелким
+- Изменение за неделю (+12% или -5%)
+- Hover эффект</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Data Table</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай DataTable для задач:
+
+Колонки:
+- Checkbox (множественный выбор)
+- Название задачи
+- Статус (badge: new, in progress, done)
+- Приоритет (high/medium/low с цветом)
+- Исполнитель (avatar + имя)
+- Дедлайн
+- Actions (edit, delete)
+
+Функции:
+- Сортировка по любой колонке
+- Поиск по названию
+- Фильтр по статусу
+- Pagination (10/25/50 на страницу)
+- Bulk actions для выбранных</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Графики</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай секцию с графиками (используй Recharts):
+
+1. Line Chart - "Выполненные задачи за месяц"
+   - Ось X: дни месяца
+   - Ось Y: количество
+   - Tooltip с деталями
+
+2. Bar Chart - "Задачи по проектам"
+   - Горизонтальные бары
+   - 5 проектов
+   - Цветовая кодировка
+
+3. Pie/Donut Chart - "Распределение по статусам"
+   - Done, In Progress, Todo
+   - Легенда справа
+   - Проценты
+
+Добавь переключатель периода: Неделя / Месяц / Год</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Activity Feed</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай компонент Activity Feed:
+
+Список последних действий:
+- Иконка действия (создал, завершил, комментировал)
+- Текст: "Анна завершила задачу 'Дизайн главной'"
+- Время: "2 часа назад"
+- Аватар пользователя
+
+Показывать последние 10.
+Кнопка "Показать все".
+Real-time обновление (визуально).</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Optimization -->
+        <section class="card" id="optimization">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Оптимизация (Урок 9.7)</div>
+          <div class="card-body">
+
+            <h4>Loading States</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Добавь loading состояния:
+
+1. Skeleton для карточек (пульсирующий placeholder)
+2. Skeleton для таблицы
+3. Spinner для кнопок при отправке
+4. Progress bar для загрузки страницы
+5. Skeleton для графиков
+
+Используй Tailwind animate-pulse или framer-motion.</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Error States</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Создай компоненты для ошибок:
+
+1. ErrorBoundary - ловит ошибки React
+2. Empty State - "Нет задач" с иллюстрацией и CTA
+3. 404 страница - дружелюбная с кнопкой домой
+4. Network Error - "Проверьте соединение" с retry
+5. Form Error - красивый alert с описанием
+
+Все с возможностью retry и понятным текстом.</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Dark Mode</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Промпт</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Добавь поддержку тёмной темы:
+
+1. Toggle в header
+2. Сохранение в localStorage
+3. System preference detection
+4. Все компоненты адаптированы
+5. Плавный transition при переключении
+
+Используй Tailwind dark: классы.</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- v0.dev -->
+        <section class="card" id="v0dev">
+          <div class="card-header" style="background: #0ea5e9; color: white;">v0.dev промпты</div>
+          <div class="card-body">
+            <p><strong>Английские промпты для v0.dev:</strong></p>
+
+            <h4>Pricing Section</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">v0.dev</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Create a SaaS pricing section with 3 tiers: Free, Pro ($29/mo), Enterprise.
+Include feature comparison, popular badge on Pro, and annual discount toggle.
+Use modern design with gradients and shadows.</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Dashboard Sidebar</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">v0.dev</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Create a dashboard sidebar with:
+- Logo at top
+- Navigation items with icons (Dashboard, Tasks, Projects, Team, Settings)
+- Collapsible
+- User profile at bottom with avatar and dropdown
+Dark theme support.</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Data Table</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">v0.dev</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>Create a data table for tasks with:
+- Columns: checkbox, title, status badge, priority, assignee avatar, due date, actions
+- Sorting, filtering, search
+- Pagination
+- Bulk actions toolbar
+Shadcn/ui style.</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Back to top -->
+        <div style="text-align: center; margin-top: 2rem;">
+          <a href="#" class="btn btn-secondary">↑ Наверх</a>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

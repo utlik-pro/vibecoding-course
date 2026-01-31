@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 10.2: Git через Cursor | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 10%"></div></div>
+        <div class="progress-text">1 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 10</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Git</div>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое Git</a>
+        <a href="lesson-2.html" class="nav-item active" data-lesson="2"><span class="nav-item-number">2</span>Git через Cursor</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>GitHub</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Ветки</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: API</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Внешние API</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Интеграция API</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Stripe</div>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Настройка Stripe</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Checkout Session</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Webhooks</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="content-wrapper">
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="lesson-1.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg> Предыдущий урок</a>
+            <a href="lesson-3.html">Следующий урок <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg></a>
+          </div>
+          <div class="lesson-title-section">
+            <span class="lesson-badge git">2</span>
+            <div>
+              <h1>Git через Cursor - базовые операции</h1>
+              <p style="color: var(--text-secondary); margin: 0;">30 минут</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="content-section">
+          <h2>Открываем Git в Cursor</h2>
+          <p>Нажмите на иконку с веточками слева (Source Control) или используйте горячую клавишу:</p>
+          <ul>
+            <li><strong>Windows:</strong> <code>Ctrl+Shift+G</code></li>
+            <li><strong>Mac:</strong> <code>Cmd+Shift+G</code></li>
+          </ul>
+
+          <h3>Что вы увидите:</h3>
+          <pre><code>SOURCE CONTROL
+─────────────────
+📁 Changes (3)
+  M  app/page.tsx    ← M = Modified (изменён)
+  U  lib/utils.ts    ← U = Untracked (новый файл)
+  D  old-file.ts     ← D = Deleted (удалён)</code></pre>
+        </section>
+
+        <section class="content-section">
+          <h2>Инициализация репозитория</h2>
+
+          <h3>Способ 1: Через интерфейс</h3>
+          <p>Source Control → "Initialize Repository"</p>
+
+          <h3>Способ 2: Через AI (рекомендуется)</h3>
+          <div class="info-box tip">
+            <div class="info-box-title">Промпт для Cursor</div>
+            <pre><code>Инициализируй Git репозиторий в текущей папке
+и создай .gitignore для Next.js проекта</code></pre>
+          </div>
+
+          <h3>Результат:</h3>
+          <ul>
+            <li>Появится скрытая папка <code>.git</code></li>
+            <li>Создастся файл <code>.gitignore</code></li>
+          </ul>
+
+          <h3>Пример .gitignore для Next.js:</h3>
+          <pre><code># dependencies
+node_modules/
+
+# next.js
+.next/
+out/
+
+# environment
+.env
+.env.local
+.env*.local
+
+# misc
+.DS_Store
+*.log</code></pre>
+        </section>
+
+        <section class="content-section">
+          <h2>Первый commit</h2>
+
+          <h3>Шаг 1: Смотрим изменения</h3>
+          <p>В Source Control видим список файлов. Кликаем на файл - видим что изменилось (diff).</p>
+
+          <h3>Шаг 2: Добавляем файлы (Stage)</h3>
+          <ul>
+            <li>Наводим на файл → нажимаем <code>+</code></li>
+            <li>Или наводим на "Changes" → <code>+</code> (добавить все)</li>
+          </ul>
+
+          <h3>Шаг 3: Пишем сообщение</h3>
+          <p>В поле сверху пишем что сделали.</p>
+
+          <h3>Шаг 4: Commit</h3>
+          <p>Нажимаем галочку ✓ (или <code>Ctrl+Enter</code>)</p>
+
+          <h3>Правила хороших сообщений:</h3>
+          <table>
+            <thead>
+              <tr><th>Хорошо</th><th>Плохо</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Добавил форму регистрации</td><td>fix</td></tr>
+              <tr><td>Исправил баг с отображением цены</td><td>update</td></tr>
+              <tr><td>Обновил стили кнопок</td><td>asdfasdf</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="content-section">
+          <h2>Практика: делаем 3 commits</h2>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Commit 1: README</div>
+            <p>Создайте файл README.md и сделайте commit: <code>"Добавил README с описанием проекта"</code></p>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Commit 2: Обновление README</div>
+            <p>Добавьте секцию "Установка" и сделайте commit: <code>"Добавил инструкции по установке"</code></p>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Commit 3: Gitignore</div>
+            <p>Создайте/обновите .gitignore и сделайте commit: <code>"Добавил .gitignore для Next.js"</code></p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Чеклист урока</h2>
+          <div class="checklist">
+            <label class="checklist-item"><input type="checkbox"><span>Source Control открывается</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Git инициализирован в проекте</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>.gitignore создан</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Сделано минимум 3 commits</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>История коммитов видна</span></label>
+          </div>
+        </section>
+
+        <section class="start-section">
+          <h2>Отлично!</h2>
+          <p>Теперь научимся отправлять код на GitHub</p>
+          <a href="lesson-3.html" class="btn-start">Перейти к уроку 3 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

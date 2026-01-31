@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 8.4: UPDATE и DELETE | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 8</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>SQL основы</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Фильтрация WHERE</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Сортировка и лимиты</a>
+        <a href="lesson-4.html" class="nav-item active" data-lesson="4"><span class="nav-item-number">4</span>UPDATE и DELETE</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Связи таблиц</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>JOIN запросы</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Агрегация GROUP BY</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Интеграция в приложение</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Продвинутые техники</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>SQL Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 8</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 8.4</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 8.4</span>
+            <span class="lesson-duration">⏱ 20 минут</span>
+          </div>
+          <h1 class="lesson-title">UPDATE и DELETE — изменение и удаление данных</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Учимся безопасно обновлять и удалять записи в базе данных
+          </p>
+        </div>
+
+        <!-- Danger Warning -->
+        <div class="alert alert-warning" style="margin-bottom: 2rem; border: 2px solid #F59E0B;">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <div>
+            <strong>ВНИМАНИЕ!</strong> UPDATE и DELETE — это "опасные" команды. Без WHERE они затронут ВСЕ записи в таблице. Всегда проверяйте запросы перед выполнением!
+          </div>
+        </div>
+
+        <!-- Practice 1: UPDATE single field -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 1: UPDATE одного поля</div>
+          <div class="card-body">
+            <p>UPDATE изменяет существующие записи. Синтаксис:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Отметить задачу с id=1 как выполненную
+UPDATE tasks
+SET completed = true
+WHERE id = 1;</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Разбор:</strong></p>
+            <ul>
+              <li><code>UPDATE tasks</code> — какую таблицу обновляем</li>
+              <li><code>SET completed = true</code> — какое поле меняем и на что</li>
+              <li><code>WHERE id = 1</code> — какую запись (ОБЯЗАТЕЛЬНО!)</li>
+            </ul>
+
+            <div class="code-block" style="margin-top: 1.5rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Проверяем результат
+SELECT * FROM tasks WHERE id = 1;</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 2: UPDATE multiple fields -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 2: UPDATE нескольких полей</div>
+          <div class="card-body">
+            <p>Можно обновить сразу несколько полей через запятую:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Обновляем название, описание и приоритет
+UPDATE tasks
+SET title = 'Срочно купить продукты',
+    description = 'Молоко, хлеб, яйца, сыр',
+    priority = 'high'
+WHERE id = 1;</code></pre>
+            </div>
+
+            <div class="code-block" style="margin-top: 1.5rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Ещё пример: изменить приоритет и описание задачи 3
+UPDATE tasks
+SET priority = 'high',
+    description = 'Срочно! Дедлайн завтра'
+WHERE id = 3;</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Совет:</strong> После каждого UPDATE делайте SELECT чтобы убедиться, что изменения верные.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 3: Mass UPDATE -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 3: Массовый UPDATE с WHERE</div>
+          <div class="card-body">
+            <p>WHERE может выбрать несколько записей для обновления:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Все задачи с низким приоритетом сделать средним
+UPDATE tasks
+SET priority = 'medium'
+WHERE priority = 'low';
+
+-- Проверяем: задач с low больше нет
+SELECT * FROM tasks WHERE priority = 'low';</code></pre>
+            </div>
+
+            <div class="code-block" style="margin-top: 1.5rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Отметить все важные задачи как невыполненные (сброс)
+UPDATE tasks
+SET completed = false
+WHERE priority = 'high';
+
+-- Обновить все задачи с id от 1 до 3
+UPDATE tasks
+SET description = 'Обновлено!'
+WHERE id IN (1, 2, 3);</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                После выполнения UPDATE вы увидите сообщение "Success. X rows affected" — сколько записей было изменено.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 4: DELETE -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 4: DELETE — удаление записи</div>
+          <div class="card-body">
+            <p>DELETE удаляет записи из таблицы. Синтаксис:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Удалить задачу с id = 7
+DELETE FROM tasks
+WHERE id = 7;</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Разбор:</strong></p>
+            <ul>
+              <li><code>DELETE FROM tasks</code> — из какой таблицы удаляем</li>
+              <li><code>WHERE id = 7</code> — какую запись (КРИТИЧЕСКИ ВАЖНО!)</li>
+            </ul>
+
+            <div class="code-block" style="margin-top: 1.5rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Удалить все выполненные задачи
+DELETE FROM tasks
+WHERE completed = true;
+
+-- Удалить задачи с определёнными id
+DELETE FROM tasks
+WHERE id IN (5, 6);</code></pre>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Важно:</strong> DELETE безвозвратен! Удалённые данные нельзя восстановить (без бэкапа).
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 5: DANGER - Without WHERE -->
+        <section class="card" style="border: 2px solid #EF4444;">
+          <div class="card-header" style="background: #EF4444; color: white;">Практика 5: ОПАСНОСТЬ — что будет без WHERE</div>
+          <div class="card-body">
+            <div class="alert alert-warning" style="background: #FEF2F2; border-color: #EF4444; margin-bottom: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div style="color: #EF4444;">
+                <strong>НЕ ВЫПОЛНЯЙТЕ ЭТИ КОМАНДЫ!</strong> Это только для демонстрации опасности.
+              </div>
+            </div>
+
+            <p><strong>Что произойдёт если забыть WHERE:</strong></p>
+
+            <div class="code-block" style="border: 2px dashed #EF4444;">
+              <div class="code-block-header" style="background: #FEF2F2;">
+                <span class="code-block-lang" style="color: #EF4444;">ОПАСНО - НЕ ВЫПОЛНЯТЬ!</span>
+              </div>
+              <pre><code>-- ОПАСНО: Обновит ВСЕ записи в таблице!
+UPDATE tasks SET completed = true;
+-- Все задачи станут выполненными
+
+-- КАТАСТРОФА: Удалит ВСЕ записи!
+DELETE FROM tasks;
+-- Таблица станет пустой!</code></pre>
+            </div>
+
+            <div class="service-cards" style="margin-top: 1.5rem;">
+              <div class="service-card" style="text-align: center; border-color: #EF4444; background: #FEF2F2;">
+                <div style="font-size: 2.5rem;">UPDATE без WHERE</div>
+                <h4 style="color: #EF4444;">Изменит ВСЕ записи</h4>
+                <p class="service-card-desc">Все поля станут одинаковыми</p>
+              </div>
+              <div class="service-card" style="text-align: center; border-color: #EF4444; background: #FEF2F2;">
+                <div style="font-size: 2.5rem;">DELETE без WHERE</div>
+                <h4 style="color: #EF4444;">Удалит ВСЕ записи</h4>
+                <p class="service-card-desc">Таблица станет пустой</p>
+              </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Правило:</strong> Перед UPDATE/DELETE ВСЕГДА проверяйте WHERE дважды!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 6: Safety tip -->
+        <section class="card">
+          <div class="card-header" style="background: #3B82F6; color: white;">Практика 6: Безопасный подход — SELECT перед UPDATE/DELETE</div>
+          <div class="card-body">
+            <p><strong>Золотое правило:</strong> Сначала SELECT, потом UPDATE/DELETE</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- ШАГ 1: Сначала смотрим что будет затронуто
+SELECT * FROM tasks WHERE priority = 'medium';
+
+-- ШАГ 2: Убедились что это нужные записи? Только тогда UPDATE
+UPDATE tasks SET priority = 'low' WHERE priority = 'medium';</code></pre>
+            </div>
+
+            <div class="code-block" style="margin-top: 1.5rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Пример для DELETE:
+
+-- ШАГ 1: Смотрим что удалим
+SELECT * FROM tasks WHERE completed = true AND id > 5;
+
+-- ШАГ 2: Убедились? Удаляем
+DELETE FROM tasks WHERE completed = true AND id > 5;</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Лайфхак:</strong> Скопируйте WHERE часть из SELECT в UPDATE/DELETE. Так вы точно не ошибётесь!
+              </div>
+            </div>
+
+            <div class="table-container" style="margin-top: 1.5rem;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Действие</th>
+                    <th>Безопасный способ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Обновить запись</td>
+                    <td>1. SELECT ... WHERE ... 2. UPDATE ... WHERE ...</td>
+                  </tr>
+                  <tr>
+                    <td>Удалить запись</td>
+                    <td>1. SELECT ... WHERE ... 2. DELETE ... WHERE ...</td>
+                  </tr>
+                  <tr>
+                    <td>Массовое изменение</td>
+                    <td>1. SELECT COUNT(*) WHERE ... 2. Проверить число 3. Выполнить</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quick Reference -->
+        <section class="card">
+          <div class="card-header">Шпаргалка: UPDATE и DELETE</div>
+          <div class="card-body">
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- UPDATE: изменение данных
+UPDATE таблица SET поле = значение WHERE условие;
+UPDATE таблица SET поле1 = знач1, поле2 = знач2 WHERE условие;
+
+-- DELETE: удаление данных
+DELETE FROM таблица WHERE условие;
+
+-- RETURNING: вернуть изменённые/удалённые записи (PostgreSQL)
+UPDATE tasks SET completed = true WHERE id = 1 RETURNING *;
+DELETE FROM tasks WHERE id = 5 RETURNING *;</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson4">
+              <p><strong>Что произойдёт при выполнении: DELETE FROM tasks;</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Удалится одна случайная запись</div>
+                <div class="quiz-option" data-correct="false">Ничего не произойдёт, команда неполная</div>
+                <div class="quiz-option" data-correct="true">Удалятся ВСЕ записи из таблицы tasks</div>
+                <div class="quiz-option" data-correct="false">Удалится сама таблица tasks</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mini-tasks -->
+        <section class="card">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Мини-задания (делаем вместе)</div>
+          <div class="card-body">
+            <p><strong>Сначала добавим тестовые данные:</strong></p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Добавляем задачи для практики
+INSERT INTO tasks (title, description, priority, completed) VALUES
+  ('Тестовая задача 1', 'Для практики UPDATE', 'low', false),
+  ('Тестовая задача 2', 'Для практики DELETE', 'medium', false),
+  ('Тестовая задача 3', 'Удалить потом', 'low', true);</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Задания:</strong></p>
+            <ol>
+              <li>Измените приоритет "Тестовая задача 1" на high</li>
+              <li>Отметьте "Тестовая задача 2" как выполненную</li>
+              <li>Удалите "Тестовая задача 3"</li>
+            </ol>
+
+            <details style="margin-top: 1rem;">
+              <summary style="cursor: pointer; color: var(--primary);">Показать решения</summary>
+              <div class="code-block" style="margin-top: 0.5rem;">
+                <pre><code>-- 1. Изменить приоритет (сначала SELECT!)
+SELECT * FROM tasks WHERE title = 'Тестовая задача 1';
+UPDATE tasks SET priority = 'high' WHERE title = 'Тестовая задача 1';
+
+-- 2. Отметить выполненной
+SELECT * FROM tasks WHERE title = 'Тестовая задача 2';
+UPDATE tasks SET completed = true WHERE title = 'Тестовая задача 2';
+
+-- 3. Удалить задачу
+SELECT * FROM tasks WHERE title = 'Тестовая задача 3';
+DELETE FROM tasks WHERE title = 'Тестовая задача 3';</code></pre>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson4-update-single"></span>
+                <span class="checklist-text">Обновил одно поле через UPDATE</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson4-update-multi"></span>
+                <span class="checklist-text">Обновил несколько полей одновременно</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson4-update-mass"></span>
+                <span class="checklist-text">Выполнил массовый UPDATE с WHERE</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson4-delete"></span>
+                <span class="checklist-text">Удалил запись через DELETE</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson4-danger"></span>
+                <span class="checklist-text">Понял опасность UPDATE/DELETE без WHERE</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson4-safety"></span>
+                <span class="checklist-text">Практикую SELECT перед UPDATE/DELETE</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-3.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Сортировка и лимиты</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="4">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-5.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Связи таблиц</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

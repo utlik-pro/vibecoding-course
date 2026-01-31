@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 5.6: Интеграция сервисов | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 8 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 5</div>
+
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <a href="lesson-1.html" class="nav-item" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Создание Next.js проекта
+        </a>
+
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          Настройка Cursor
+        </a>
+
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          CLAUDE.md
+        </a>
+
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Деплой на Vercel
+        </a>
+
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Промпт-инженеринг
+        </a>
+
+        <a href="lesson-6.html" class="nav-item active" data-lesson="6">
+          <span class="nav-item-number">6</span>
+          Интеграция сервисов
+        </a>
+
+        <a href="lesson-7.html" class="nav-item" data-lesson="7">
+          <span class="nav-item-number">7</span>
+          Готовность к вайбкодингу
+        </a>
+
+        <a href="project.html" class="nav-item" data-lesson="8">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выйти из модуля
+        </a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 5</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 5.6</span>
+        </div>
+
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 5.6</span>
+            <span class="lesson-duration">⏱ 30 минут</span>
+          </div>
+          <h1 class="lesson-title">Интеграция сервисов</h1>
+
+          <div class="lesson-objectives">
+            <h4>Цели урока:</h4>
+            <ul>
+              <li>Подключить Supabase к проекту</li>
+              <li>Настроить OpenAI API</li>
+              <li>Создать health check endpoint</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Section 1: Supabase -->
+        <section class="card">
+          <div class="card-header">1. Supabase интеграция</div>
+          <div class="card-body">
+            <h4>Установка:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code>npm install @supabase/supabase-js</code></pre>
+            </div>
+
+            <h4>Создание клиента:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">typescript</span>
+              </div>
+              <pre><code>// src/lib/supabase.ts
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+// Для серверных операций (с полными правами)
+export const supabaseAdmin = createClient(
+  supabaseUrl,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);</code></pre>
+            </div>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Важно:</strong> <code>supabaseAdmin</code> имеет полный доступ к БД. Используйте только на сервере!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: OpenAI -->
+        <section class="card">
+          <div class="card-header">2. OpenAI API</div>
+          <div class="card-body">
+            <h4>Установка:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code>npm install openai</code></pre>
+            </div>
+
+            <h4>Создание клиента:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">typescript</span>
+              </div>
+              <pre><code>// src/lib/openai.ts
+import OpenAI from 'openai';
+
+export const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});</code></pre>
+            </div>
+
+            <h4>Пример API Route:</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">typescript</span>
+              </div>
+              <pre><code>// src/app/api/chat/route.ts
+import { openai } from '@/lib/openai';
+import { NextResponse } from 'next/server';
+
+export async function POST(request: Request) {
+  try {
+    const { message } = await request.json();
+
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [{ role: 'user', content: message }],
+    });
+
+    return NextResponse.json({
+      reply: completion.choices[0].message.content
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Failed to process request' },
+      { status: 500 }
+    );
+  }
+}</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Health Check -->
+        <section class="card">
+          <div class="card-header">3. Health Check Endpoint</div>
+          <div class="card-body">
+            <p>Создайте endpoint для проверки всех интеграций:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">typescript</span>
+              </div>
+              <pre><code>// src/app/api/health/route.ts
+import { supabase } from '@/lib/supabase';
+import { openai } from '@/lib/openai';
+import { NextResponse } from 'next/server';
+
+export async function GET() {
+  const checks = {
+    supabase: false,
+    openai: false,
+    timestamp: new Date().toISOString(),
+  };
+
+  // Check Supabase
+  try {
+    const { error } = await supabase.from('_test').select().limit(1);
+    // Даже если таблица не существует, соединение работает
+    checks.supabase = !error || error.code === 'PGRST116';
+  } catch {
+    checks.supabase = false;
+  }
+
+  // Check OpenAI
+  try {
+    const models = await openai.models.list();
+    checks.openai = models.data.length &gt; 0;
+  } catch {
+    checks.openai = false;
+  }
+
+  const allHealthy = checks.supabase && checks.openai;
+
+  return NextResponse.json(checks, {
+    status: allHealthy ? 200 : 503
+  });
+}</code></pre>
+            </div>
+
+            <p>Проверьте: <code>http://localhost:3000/api/health</code></p>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Отлично!</strong> Если видите <code>{"supabase": true, "openai": true}</code> — всё работает!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-supabase"></span>
+                <span class="checklist-text">Supabase клиент создан</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-openai"></span>
+                <span class="checklist-text">OpenAI клиент создан</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-health"></span>
+                <span class="checklist-text">Health check endpoint работает</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-test"></span>
+                <span class="checklist-text">Все интеграции проверены</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <nav class="lesson-nav">
+          <a href="lesson-5.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Промпт-инженеринг</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="6">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-7.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Готовность к вайбкодингу</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 8.5: Связи таблиц | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 8</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>SQL основы</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Фильтрация WHERE</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Сортировка и лимиты</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>UPDATE и DELETE</a>
+        <a href="lesson-5.html" class="nav-item active" data-lesson="5"><span class="nav-item-number">5</span>Связи таблиц</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>JOIN запросы</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Агрегация GROUP BY</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Интеграция в приложение</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Продвинутые техники</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>SQL Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 8</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 8.5</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 8.5</span>
+            <span class="lesson-duration">⏱ 30 минут</span>
+          </div>
+          <h1 class="lesson-title">Связи между таблицами — Foreign Key</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Создаём категории и связываем их с задачами
+          </p>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Важно:</strong> Это ключевой урок! Связи между таблицами — фундамент реляционных баз данных.</p>
+            <p><strong>Совет:</strong> Используйте аналогию с Excel: вместо повторения "Работа" в каждой строке, храним только номер категории.</p>
+          </div>
+        </div>
+
+        <!-- Theory: Why Relations -->
+        <section class="card">
+          <div class="card-header">Зачем нужны связи между таблицами?</div>
+          <div class="card-body">
+            <p>Представим, что мы хотим добавить категории к задачам. Можно сделать так:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Плохой способ</span>
+              </div>
+              <pre><code>-- Категория как текст в каждой задаче
+| id | title              | category  |
+|----|--------------------| ---------|
+| 1  | Купить продукты    | Дом       |
+| 2  | Позвонить маме     | Дом       |
+| 3  | Сдать отчёт        | Работа    |
+| 4  | Оплатить интернет  | Дом       |</code></pre>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Проблемы такого подхода:</strong>
+                <ul style="margin: 0.5rem 0 0 1rem;">
+                  <li>Дублирование данных (слово "Дом" повторяется 3 раза)</li>
+                  <li>Опечатки ("Дом" vs "дом" vs "Домашние")</li>
+                  <li>Сложно переименовать категорию (менять везде!)</li>
+                  <li>Нельзя хранить доп. информацию о категории (цвет, иконка)</li>
+                </ul>
+              </div>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Решение:</strong> Создать отдельную таблицу для категорий!</p>
+
+            <div class="service-cards" style="margin-top: 1rem;">
+              <div class="service-card" style="text-align: center;">
+                <h4>Таблица categories</h4>
+                <p class="service-card-desc">id, name, color, icon</p>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Хранит информацию о категориях</p>
+              </div>
+              <div style="display: flex; align-items: center; font-size: 2rem; color: var(--text-secondary);">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </div>
+              <div class="service-card" style="text-align: center;">
+                <h4>Таблица tasks</h4>
+                <p class="service-card-desc">... + category_id</p>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Ссылается на категорию по id</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- What is Foreign Key -->
+        <section class="card">
+          <div class="card-header">Foreign Key — ключ к связям</div>
+          <div class="card-body">
+            <p><strong>Foreign Key (внешний ключ)</strong> — это колонка, которая ссылается на PRIMARY KEY другой таблицы.</p>
+
+            <div class="code-block" style="margin-top: 1rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Схема связи</span>
+              </div>
+              <pre><code>categories                    tasks
++----+--------+              +----+----------------+-------------+
+| id | name   |              | id | title          | category_id |
++----+--------+              +----+----------------+-------------+
+| 1  | Работа | <----------- | 1  | Сдать отчёт    | 1           |
+| 2  | Дом    | <----------- | 2  | Купить продукты| 2           |
+| 3  | Учёба  |              | 3  | Позвонить маме | 2           |
++----+--------+              +----+----------------+-------------+
+     ^                                                   |
+     |                                                   |
+     +----------------- FOREIGN KEY ---------------------+</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Что даёт Foreign Key:</strong>
+                <ul style="margin: 0.5rem 0 0 1rem;">
+                  <li>Гарантирует, что category_id существует в таблице categories</li>
+                  <li>Не даст удалить категорию, пока есть связанные задачи</li>
+                  <li>Защита целостности данных на уровне базы</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 1: Create categories table -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 1: Создаём таблицу categories</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Создайте таблицу для категорий задач:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>CREATE TABLE categories (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL UNIQUE,
+  color TEXT DEFAULT '#6B7280',
+  icon TEXT DEFAULT 'folder'
+);</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Разбор полей:</strong></p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Поле</th>
+                    <th>Тип</th>
+                    <th>Описание</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>id</code></td>
+                    <td>SERIAL PRIMARY KEY</td>
+                    <td>Уникальный номер категории (1, 2, 3...)</td>
+                  </tr>
+                  <tr>
+                    <td><code>name</code></td>
+                    <td>TEXT NOT NULL UNIQUE</td>
+                    <td>Название (обязательное, уникальное)</td>
+                  </tr>
+                  <tr>
+                    <td><code>color</code></td>
+                    <td>TEXT</td>
+                    <td>Цвет для UI (HEX-код)</td>
+                  </tr>
+                  <tr>
+                    <td><code>icon</code></td>
+                    <td>TEXT</td>
+                    <td>Иконка для отображения</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>UNIQUE</strong> — гарантирует, что нельзя создать две категории с одинаковым именем.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 2: Add sample categories -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 2: Добавляем категории</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Заполните таблицу тестовыми категориями:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>INSERT INTO categories (name, color, icon) VALUES
+  ('Работа', '#EF4444', 'briefcase'),
+  ('Дом', '#10B981', 'home'),
+  ('Учёба', '#3B82F6', 'book'),
+  ('Здоровье', '#F59E0B', 'heart'),
+  ('Покупки', '#8B5CF6', 'shopping-cart'),
+  ('Личное', '#EC4899', 'user');</code></pre>
+            </div>
+
+            <p style="margin-top: 1rem;">Проверьте, что категории добавились:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>SELECT * FROM categories;</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                Должно появиться 6 категорий с id от 1 до 6.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 3: Add category_id column -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 3: Добавляем колонку category_id</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Добавьте колонку для связи с категориями в таблицу tasks:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Добавляем новую колонку в существующую таблицу
+ALTER TABLE tasks
+ADD COLUMN category_id INTEGER;</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Синтаксис ALTER TABLE:</strong></p>
+            <ul>
+              <li><code>ALTER TABLE tasks</code> — изменить таблицу tasks</li>
+              <li><code>ADD COLUMN</code> — добавить колонку</li>
+              <li><code>category_id INTEGER</code> — имя и тип колонки</li>
+            </ul>
+
+            <p style="margin-top: 1rem;">Проверьте структуру таблицы:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>SELECT * FROM tasks;</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                Теперь в таблице tasks появилась колонка <code>category_id</code> со значением NULL для всех записей.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 4: Create Foreign Key -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 4: Создаём Foreign Key</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Добавьте ограничение Foreign Key для защиты данных:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Добавляем Foreign Key constraint
+ALTER TABLE tasks
+ADD CONSTRAINT fk_tasks_category
+FOREIGN KEY (category_id)
+REFERENCES categories(id);</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Разбор команды:</strong></p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Часть команды</th>
+                    <th>Что делает</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>ADD CONSTRAINT fk_tasks_category</code></td>
+                    <td>Создаём ограничение с именем fk_tasks_category</td>
+                  </tr>
+                  <tr>
+                    <td><code>FOREIGN KEY (category_id)</code></td>
+                    <td>Указываем, какая колонка будет внешним ключом</td>
+                  </tr>
+                  <tr>
+                    <td><code>REFERENCES categories(id)</code></td>
+                    <td>На какую таблицу и колонку ссылаемся</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Теперь база данных защищена:</strong>
+                <ul style="margin: 0.5rem 0 0 1rem;">
+                  <li>Нельзя записать несуществующий category_id</li>
+                  <li>Нельзя удалить категорию, если есть связанные задачи</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 5: Link tasks to categories -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 5: Связываем задачи с категориями</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Присвоим категории существующим задачам:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Сначала посмотрим id категорий
+SELECT id, name FROM categories;
+
+-- Работа = 1, Дом = 2, Учёба = 3, Здоровье = 4, Покупки = 5, Личное = 6
+
+-- Присваиваем категории задачам
+UPDATE tasks SET category_id = 5 WHERE title LIKE '%продукты%';
+UPDATE tasks SET category_id = 6 WHERE title LIKE '%маме%';
+UPDATE tasks SET category_id = 3 WHERE title LIKE '%домашк%';
+UPDATE tasks SET category_id = 3 WHERE title LIKE '%курс%';
+UPDATE tasks SET category_id = 4 WHERE title LIKE '%собак%';
+UPDATE tasks SET category_id = 2 WHERE title LIKE '%интернет%';
+UPDATE tasks SET category_id = 6 WHERE title LIKE '%книг%';</code></pre>
+            </div>
+
+            <p style="margin-top: 1rem;">Проверьте результат:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>SELECT id, title, category_id FROM tasks;</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Отлично!</strong> Теперь задачи связаны с категориями через category_id. В следующем уроке мы научимся объединять эти таблицы с помощью JOIN!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Test Foreign Key -->
+        <section class="card">
+          <div class="card-header" style="background: #F59E0B; color: white;">Проверяем работу Foreign Key</div>
+          <div class="card-body">
+            <p>Попробуем нарушить целостность данных:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Попытка добавить несуществующую категорию (id = 999)
+INSERT INTO tasks (title, category_id)
+VALUES ('Тестовая задача', 999);
+
+-- Результат: ОШИБКА!
+-- ERROR: insert or update on table "tasks" violates foreign key constraint</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Foreign Key защитил данные!</strong> База не позволила создать задачу с несуществующей категорией.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson5">
+              <p><strong>Что гарантирует Foreign Key?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Автоматическое увеличение id</div>
+                <div class="quiz-option" data-correct="false">Уникальность значений в колонке</div>
+                <div class="quiz-option" data-correct="true">Что значение существует в связанной таблице</div>
+                <div class="quiz-option" data-correct="false">Что поле не может быть NULL</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="card">
+          <div class="card-header">Итоги урока</div>
+          <div class="card-body">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Команда</th>
+                    <th>Что делает</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>CREATE TABLE</code></td>
+                    <td>Создаёт новую таблицу</td>
+                  </tr>
+                  <tr>
+                    <td><code>ALTER TABLE ... ADD COLUMN</code></td>
+                    <td>Добавляет колонку в существующую таблицу</td>
+                  </tr>
+                  <tr>
+                    <td><code>ADD CONSTRAINT ... FOREIGN KEY</code></td>
+                    <td>Создаёт связь между таблицами</td>
+                  </tr>
+                  <tr>
+                    <td><code>REFERENCES</code></td>
+                    <td>Указывает на какую таблицу ссылаемся</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-theory"></span>
+                <span class="checklist-text">Понял зачем нужны связи между таблицами</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-categories"></span>
+                <span class="checklist-text">Создал таблицу categories</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-insert"></span>
+                <span class="checklist-text">Добавил 6 категорий</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-alter"></span>
+                <span class="checklist-text">Добавил колонку category_id через ALTER TABLE</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-fk"></span>
+                <span class="checklist-text">Создал Foreign Key constraint</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson5-update"></span>
+                <span class="checklist-text">Связал задачи с категориями через UPDATE</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-4.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">UPDATE и DELETE</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="5">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-6.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">JOIN запросы</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

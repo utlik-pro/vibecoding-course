@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Итоговый проект: SaaS Dashboard | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 7 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 12</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Интеграции</div>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>MCP серверы</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Custom Skills</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Автоматизация</div>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Субагенты</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Hooks</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Dashboard</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Best Practices</a>
+        <a href="project.html" class="nav-item active" data-lesson="7"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="content-wrapper">
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="lesson-6.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>Предыдущий урок</a>
+            <span></span>
+          </div>
+          <div class="lesson-title-section">
+            <span class="lesson-badge practice">P</span>
+            <div>
+              <h1>Итоговый проект: SaaS Dashboard</h1>
+              <p style="color: var(--text-secondary); margin: 0;">Финальное задание</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="content-section">
+          <h2>Задание</h2>
+          <p>Создайте полноценный SaaS Dashboard с использованием всех изученных инструментов Claude Code.</p>
+          <div class="info-box claude">
+            <div class="info-box-title">Важно</div>
+            <p>Это финальный проект курса. Объедините Landing Page из модуля 11 и Dashboard из модуля 12 в единый продукт.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Требования</h2>
+
+          <h3>Dashboard (обязательно):</h3>
+          <ul>
+            <li>Минимум 4 страницы (Overview, Analytics, Reports, Settings)</li>
+            <li>Интерактивные графики (Recharts)</li>
+            <li>Таблицы с данными</li>
+            <li>Формы с валидацией</li>
+          </ul>
+
+          <h3>Интеграции (обязательно):</h3>
+          <ul>
+            <li>Подключен GitHub MCP</li>
+            <li>Минимум 3 Custom Skills</li>
+            <li>Настроены Hooks</li>
+          </ul>
+
+          <h3>Деплой (обязательно):</h3>
+          <ul>
+            <li>Репозиторий на GitHub</li>
+            <li>Деплой на Vercel</li>
+            <li>Рабочий URL</li>
+          </ul>
+        </section>
+
+        <section class="content-section">
+          <h2>Критерии оценки</h2>
+          <table>
+            <thead><tr><th>Критерий</th><th>Баллы</th></tr></thead>
+            <tbody>
+              <tr><td>Dashboard функционален</td><td>30</td></tr>
+              <tr><td>MCP интеграция работает</td><td>20</td></tr>
+              <tr><td>Skills созданы и работают</td><td>20</td></tr>
+              <tr><td>Hooks настроены</td><td>15</td></tr>
+              <tr><td>Проект задеплоен</td><td>15</td></tr>
+              <tr><td><strong>Итого</strong></td><td><strong>100</strong></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="content-section">
+          <h2>Бонусные задания</h2>
+          <ul>
+            <li><strong>+10:</strong> Тёмная тема</li>
+            <li><strong>+10:</strong> Экспорт данных в CSV</li>
+            <li><strong>+10:</strong> Уведомления в реальном времени</li>
+            <li><strong>+10:</strong> Интеграция с Figma MCP</li>
+          </ul>
+        </section>
+
+        <section class="content-section">
+          <h2>Структура проекта</h2>
+          <pre><code>saas-dashboard/
+├── CLAUDE.md
+├── .claude/
+│   ├── settings.json
+│   └── skills/
+│       ├── deploy/SKILL.md
+│       ├── test/SKILL.md
+│       └── review/SKILL.md
+├── .mcp.json
+├── src/
+│   ├── app/
+│   │   ├── page.tsx           # Landing
+│   │   ├── dashboard/
+│   │   │   ├── page.tsx       # Overview
+│   │   │   ├── analytics/
+│   │   │   ├── reports/
+│   │   │   └── settings/
+│   │   └── layout.tsx
+│   └── components/
+│       ├── landing/
+│       ├── dashboard/
+│       └── ui/
+└── package.json</code></pre>
+        </section>
+
+        <section class="content-section">
+          <h2>Чеклист проекта</h2>
+          <div class="checklist">
+            <label class="checklist-item"><input type="checkbox"><span>Landing Page из модуля 11</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Dashboard с 4+ страницами</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Графики Recharts</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>GitHub MCP подключен</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>3+ Custom Skills</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Hooks настроены</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Репозиторий на GitHub</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Деплой на Vercel</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>README.md с описанием</span></label>
+          </div>
+        </section>
+
+        <section class="start-section">
+          <h2>Поздравляем с завершением курса!</h2>
+          <p>Вы освоили Claude Code на продвинутом уровне. Теперь вы можете создавать полноценные проекты с AI-ассистентом.</p>
+          <div style="margin-top: 1.5rem;">
+            <h3>Что вы теперь умеете:</h3>
+            <ul style="text-align: left; display: inline-block;">
+              <li>Устанавливать и настраивать Claude Code</li>
+              <li>Подключать MCP серверы</li>
+              <li>Создавать Custom Skills</li>
+              <li>Использовать субагенты</li>
+              <li>Настраивать Hooks</li>
+              <li>Деплоить проекты</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

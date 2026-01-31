@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 8.6: JOIN запросы | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 8</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>SQL основы</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Фильтрация WHERE</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Сортировка и лимиты</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>UPDATE и DELETE</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Связи таблиц</a>
+        <a href="lesson-6.html" class="nav-item active" data-lesson="6"><span class="nav-item-number">6</span>JOIN запросы</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Агрегация GROUP BY</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Интеграция в приложение</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Продвинутые техники</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>SQL Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 8</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 8.6</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 8.6</span>
+            <span class="lesson-duration">⏱ 30 минут</span>
+          </div>
+          <h1 class="lesson-title">JOIN — объединяем таблицы</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Получаем данные из нескольких таблиц одним запросом
+          </p>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Важно:</strong> JOIN — один из самых важных концептов в SQL. Уделите время визуальной диаграмме!</p>
+            <p><strong>Совет:</strong> Используйте аналогию со "склеиванием" таблиц. Две таблицы становятся одной по общему полю.</p>
+          </div>
+        </div>
+
+        <!-- Theory: What is JOIN -->
+        <section class="card">
+          <div class="card-header">Что делает JOIN?</div>
+          <div class="card-body">
+            <p>В прошлом уроке мы создали связь между <code>tasks</code> и <code>categories</code>. Но как получить название категории вместе с задачей?</p>
+
+            <div class="code-block" style="margin-top: 1rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Проблема</span>
+              </div>
+              <pre><code>-- Это даёт только ID категории, а не название!
+SELECT * FROM tasks;
+
+| id | title              | category_id |
+|----|--------------------| ------------|
+| 1  | Купить продукты    | 5           |  <-- Что такое 5?
+| 2  | Позвонить маме     | 6           |  <-- Что такое 6?</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>JOIN</strong> "склеивает" две таблицы по общему полю:</p>
+
+            <div class="code-block" style="margin-top: 1rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Визуальная схема JOIN</span>
+              </div>
+              <pre><code>     TASKS                          CATEGORIES
++----+----------------+-----+     +----+----------+
+| id | title          | c_id|     | id | name     |
++----+----------------+-----+     +----+----------+
+| 1  | Купить продукты| 5   |---->| 5  | Покупки  |
+| 2  | Позвонить маме | 6   |---->| 6  | Личное   |
+| 3  | Сдать отчёт    | 1   |---->| 1  | Работа   |
++----+----------------+-----+     +----+----------+
+              |                         |
+              +-----------JOIN----------+
+                          |
+                          v
+              РЕЗУЛЬТАТ ПОСЛЕ JOIN
++----+----------------+----------+
+| id | title          | name     |
++----+----------------+----------+
+| 1  | Купить продукты| Покупки  |  <-- Название вместо ID!
+| 2  | Позвонить маме | Личное   |
+| 3  | Сдать отчёт    | Работа   |
++----+----------------+----------+</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Главное:</strong> JOIN соединяет строки из разных таблиц, когда значения в указанных колонках совпадают (tasks.category_id = categories.id).
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 1: INNER JOIN -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 1: Первый INNER JOIN</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Получите задачи вместе с названиями категорий:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>SELECT tasks.title, categories.name
+FROM tasks
+INNER JOIN categories ON tasks.category_id = categories.id;</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Разбор синтаксиса:</strong></p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Часть запроса</th>
+                    <th>Что делает</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>SELECT tasks.title, categories.name</code></td>
+                    <td>Какие колонки берём (из обеих таблиц)</td>
+                  </tr>
+                  <tr>
+                    <td><code>FROM tasks</code></td>
+                    <td>Основная таблица</td>
+                  </tr>
+                  <tr>
+                    <td><code>INNER JOIN categories</code></td>
+                    <td>Присоединяем таблицу categories</td>
+                  </tr>
+                  <tr>
+                    <td><code>ON tasks.category_id = categories.id</code></td>
+                    <td>Условие соединения (по какому полю)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Запустите запрос!</strong> Вы должны увидеть названия задач и категорий в одной таблице.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 2: Table Aliases -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 2: Псевдонимы таблиц (Aliases)</div>
+          <div class="card-body">
+            <p>Писать <code>tasks.title</code> и <code>categories.name</code> долго. Используем короткие псевдонимы:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- t = tasks, c = categories (псевдонимы)
+SELECT t.title, c.name
+FROM tasks t
+INNER JOIN categories c ON t.category_id = c.id;</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Как работают псевдонимы:</strong></p>
+            <ul>
+              <li><code>FROM tasks t</code> — теперь tasks можно писать как t</li>
+              <li><code>JOIN categories c</code> — categories можно писать как c</li>
+              <li>Результат идентичен, но запрос короче!</li>
+            </ul>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Совет:</strong> Псевдонимы обычно — первая буква таблицы (t, c, u для users). Это стандартная практика.
+              </div>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Попробуйте:</strong> Добавьте больше полей в SELECT:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>SELECT t.id, t.title, t.priority, c.name, c.color
+FROM tasks t
+INNER JOIN categories c ON t.category_id = c.id;</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 3: LEFT JOIN -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 3: LEFT JOIN — включаем все задачи</div>
+          <div class="card-body">
+            <p><strong>Проблема:</strong> INNER JOIN показывает только задачи, у которых ЕСТЬ категория. А если category_id = NULL?</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Добавим задачу без категории
+INSERT INTO tasks (title, priority) VALUES ('Задача без категории', 'low');
+
+-- INNER JOIN НЕ покажет эту задачу!
+SELECT t.title, c.name
+FROM tasks t
+INNER JOIN categories c ON t.category_id = c.id;</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Решение — LEFT JOIN:</strong></p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- LEFT JOIN покажет ВСЕ задачи, даже без категории
+SELECT t.title, c.name
+FROM tasks t
+LEFT JOIN categories c ON t.category_id = c.id;</code></pre>
+            </div>
+
+            <div class="code-block" style="margin-top: 1.5rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Разница INNER vs LEFT JOIN</span>
+              </div>
+              <pre><code>INNER JOIN (только совпадения):      LEFT JOIN (все из левой таблицы):
+
+| title              | name     |    | title                 | name     |
+|--------------------|----------|    |-----------------------|----------|
+| Купить продукты    | Покупки  |    | Купить продукты       | Покупки  |
+| Позвонить маме     | Личное   |    | Позвонить маме        | Личное   |
+| Сдать отчёт        | Работа   |    | Сдать отчёт           | Работа   |
+                                      | Задача без категории  | NULL     | <-- Есть!</code></pre>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Когда что использовать:</strong>
+                <ul style="margin: 0.5rem 0 0 1rem;">
+                  <li><strong>INNER JOIN</strong> — когда связь обязательна (показать только задачи С категорией)</li>
+                  <li><strong>LEFT JOIN</strong> — когда нужны все записи из левой таблицы (все задачи)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 4: Filtering with JOIN -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 4: Фильтрация с JOIN (WHERE)</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Получите только задачи из категории "Работа":</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Фильтруем по названию категории
+SELECT t.title, t.priority, c.name
+FROM tasks t
+INNER JOIN categories c ON t.category_id = c.id
+WHERE c.name = 'Работа';</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Попробуйте разные фильтры:</strong></p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Задачи с высоким приоритетом в любой категории
+SELECT t.title, c.name, c.color
+FROM tasks t
+INNER JOIN categories c ON t.category_id = c.id
+WHERE t.priority = 'high';
+
+-- Несколько условий
+SELECT t.title, c.name
+FROM tasks t
+INNER JOIN categories c ON t.category_id = c.id
+WHERE c.name IN ('Работа', 'Учёба') AND t.completed = false;</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Порядок:</strong> FROM -> JOIN -> WHERE. Сначала объединяем таблицы, потом фильтруем результат.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 5: Sorting with JOIN -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 5: Сортировка с JOIN (ORDER BY)</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Отсортируйте задачи по категории, затем по названию:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Сортировка по названию категории
+SELECT t.title, c.name AS category
+FROM tasks t
+INNER JOIN categories c ON t.category_id = c.id
+ORDER BY c.name;</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Комбинируем несколько сортировок:</strong></p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Сначала по категории, потом по приоритету
+SELECT t.title, t.priority, c.name AS category
+FROM tasks t
+INNER JOIN categories c ON t.category_id = c.id
+ORDER BY c.name ASC, t.priority DESC;
+
+-- Можно сортировать и по полям из обеих таблиц!
+SELECT t.title, c.name, c.color
+FROM tasks t
+INNER JOIN categories c ON t.category_id = c.id
+ORDER BY c.color, t.title;</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 6: Real Example -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 6: Реальный пример — полный список задач</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Создайте запрос для отображения задач в приложении (как на реальном сайте):</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Полный запрос для UI приложения
+SELECT
+  t.id,
+  t.title,
+  t.description,
+  t.completed,
+  t.priority,
+  t.created_at,
+  c.name AS category_name,
+  c.icon AS category_icon,
+  c.color AS category_color
+FROM tasks t
+LEFT JOIN categories c ON t.category_id = c.id
+WHERE t.completed = false
+ORDER BY
+  CASE t.priority
+    WHEN 'high' THEN 1
+    WHEN 'medium' THEN 2
+    WHEN 'low' THEN 3
+  END,
+  t.created_at DESC;</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Что делает этот запрос:</strong></p>
+            <ul>
+              <li>Получает все поля задачи + название, иконку и цвет категории</li>
+              <li>LEFT JOIN — показывает задачи даже без категории</li>
+              <li>WHERE — только невыполненные задачи</li>
+              <li>ORDER BY с CASE — сначала high, потом medium, потом low</li>
+              <li>Вторичная сортировка — новые задачи выше</li>
+            </ul>
+
+            <div class="alert alert-success" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Это реальный запрос!</strong> Именно так получают данные для списка задач в настоящих приложениях.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mini-task -->
+        <section class="card">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Мини-задание</div>
+          <div class="card-body">
+            <p><strong>Напишите запрос, который покажет:</strong></p>
+            <ul>
+              <li>Все задачи из категории "Учёба"</li>
+              <li>Поля: title, priority, category_name</li>
+              <li>Сортировка по дате создания (новые первыми)</li>
+            </ul>
+
+            <details style="margin-top: 1rem;">
+              <summary style="cursor: pointer; color: var(--primary);">Показать решение</summary>
+              <div class="code-block" style="margin-top: 1rem;">
+                <div class="code-block-header">
+                  <span class="code-block-lang">SQL</span>
+                </div>
+                <pre><code>SELECT t.title, t.priority, c.name AS category_name
+FROM tasks t
+INNER JOIN categories c ON t.category_id = c.id
+WHERE c.name = 'Учёба'
+ORDER BY t.created_at DESC;</code></pre>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson6">
+              <p><strong>В чём разница между INNER JOIN и LEFT JOIN?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">INNER JOIN быстрее, LEFT JOIN медленнее</div>
+                <div class="quiz-option" data-correct="false">INNER JOIN для двух таблиц, LEFT JOIN для трёх</div>
+                <div class="quiz-option" data-correct="true">INNER JOIN показывает только совпадения, LEFT JOIN — все записи из левой таблицы</div>
+                <div class="quiz-option" data-correct="false">Разницы нет, это синонимы</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="card">
+          <div class="card-header">Итоги урока</div>
+          <div class="card-body">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Тип JOIN</th>
+                    <th>Что делает</th>
+                    <th>Когда использовать</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>INNER JOIN</code></td>
+                    <td>Только совпадающие строки</td>
+                    <td>Связь обязательна</td>
+                  </tr>
+                  <tr>
+                    <td><code>LEFT JOIN</code></td>
+                    <td>Все из левой + совпадения</td>
+                    <td>Связь опциональна</td>
+                  </tr>
+                  <tr>
+                    <td><code>t, c</code> (aliases)</td>
+                    <td>Короткие имена таблиц</td>
+                    <td>Для читаемости кода</td>
+                  </tr>
+                  <tr>
+                    <td><code>ON ... = ...</code></td>
+                    <td>Условие соединения</td>
+                    <td>Указывает как связать</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-inner"></span>
+                <span class="checklist-text">Выполнил INNER JOIN между tasks и categories</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-aliases"></span>
+                <span class="checklist-text">Использовал псевдонимы таблиц (t, c)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-left"></span>
+                <span class="checklist-text">Понял разницу между INNER JOIN и LEFT JOIN</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-where"></span>
+                <span class="checklist-text">Отфильтровал данные с WHERE после JOIN</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-order"></span>
+                <span class="checklist-text">Отсортировал результаты с ORDER BY</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-real"></span>
+                <span class="checklist-text">Написал реальный запрос для UI приложения</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-5.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Связи таблиц</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="6">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-7.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Агрегация GROUP BY</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

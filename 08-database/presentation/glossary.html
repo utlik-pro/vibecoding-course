@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Глоссарий SQL терминов | Базы данных для вайбкодера</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .glossary-search {
+      position: sticky;
+      top: 0;
+      background: var(--bg-primary);
+      padding: 1rem 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 1.5rem;
+    }
+    .glossary-search input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 1rem;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+    .glossary-search input:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    .glossary-category {
+      margin-bottom: 2rem;
+    }
+    .glossary-category-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--accent-color);
+    }
+    .glossary-term {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+      transition: all 0.2s;
+    }
+    .glossary-term:hover {
+      border-color: var(--accent-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    .glossary-term-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .glossary-term-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+    }
+    .glossary-term-full {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      background: var(--bg-primary);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .glossary-term-definition {
+      color: var(--text-primary);
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+    .glossary-term-example {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      background: var(--bg-primary);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      border-left: 3px solid var(--accent-color);
+    }
+    .glossary-term-example code {
+      background: var(--bg-secondary);
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85em;
+    }
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-secondary);
+    }
+    .term-count {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+    .highlight {
+      background: rgba(99, 102, 241, 0.2);
+      padding: 1px 2px;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 8</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>SQL основы</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Фильтрация WHERE</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Сортировка и лимиты</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>UPDATE и DELETE</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Связи таблиц</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>JOIN запросы</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Агрегация GROUP BY</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Интеграция в приложение</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Продвинутые техники</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item active"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>SQL Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 8</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Глоссарий</span>
+        </div>
+        <div class="header-actions">
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <h1 class="lesson-title">Глоссарий SQL терминов</h1>
+          <p style="color: var(--text-secondary); margin-top: 0.5rem;">
+            Справочник SQL терминов, используемых в модуле. Не нужно запоминать все - возвращайтесь сюда когда встретите незнакомое слово.
+          </p>
+        </div>
+
+        <div class="glossary-search">
+          <input type="text" id="glossary-search-input" placeholder="Поиск термина... (например: SELECT, JOIN, INDEX)">
+          <div class="term-count" id="term-count"></div>
+        </div>
+
+        <div id="glossary-content">
+          <!-- Контент генерируется JavaScript -->
+        </div>
+
+        <div id="no-results" class="no-results" style="display: none;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 1rem; opacity: 0.5;">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="M21 21l-4.35-4.35"/>
+          </svg>
+          <p>Термин не найден</p>
+          <p style="font-size: 0.9rem; margin-top: 0.5rem;">Попробуйте другой запрос</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Категории терминов для SQL-модуля
+    const CATEGORIES = {
+      'SQL Basics': ['SELECT', 'INSERT', 'UPDATE', 'DELETE', 'WHERE', 'ORDER BY', 'LIMIT'],
+      'Joins': ['JOIN', 'INNER JOIN', 'LEFT JOIN'],
+      'Aggregation': ['COUNT', 'SUM', 'AVG', 'GROUP BY', 'HAVING'],
+      'Data Types': ['TEXT', 'INTEGER', 'BOOLEAN', 'TIMESTAMP', 'SERIAL', 'NUMERIC'],
+      'Constraints': ['NOT NULL', 'DEFAULT', 'UNIQUE', 'Primary Key', 'Foreign Key'],
+      'Advanced': ['Index', 'View', 'Transaction', 'NULL', 'COALESCE'],
+      'Supabase': ['Supabase', 'PostgreSQL', 'SQL Editor', 'RLS', 'Relations'],
+      'Other': [] // Остальные термины
+    };
+
+    // Термины важные для этого модуля (показываем первыми)
+    const PRIORITY_TERMS = [
+      'SELECT', 'INSERT', 'UPDATE', 'DELETE', 'WHERE', 'ORDER BY', 'LIMIT',
+      'JOIN', 'INNER JOIN', 'LEFT JOIN', 'COUNT', 'SUM', 'AVG', 'GROUP BY',
+      'Primary Key', 'Foreign Key', 'Index', 'NULL', 'PostgreSQL', 'Supabase'
+    ];
+
+    function renderGlossary(filter = '') {
+      const container = document.getElementById('glossary-content');
+      const noResults = document.getElementById('no-results');
+      const termCount = document.getElementById('term-count');
+
+      const filterLower = filter.toLowerCase().trim();
+
+      // Фильтруем термины
+      let filteredTerms = Object.entries(GLOSSARY).filter(([key, value]) => {
+        if (!filterLower) return true;
+        return key.toLowerCase().includes(filterLower) ||
+               value.full.toLowerCase().includes(filterLower) ||
+               value.definition.toLowerCase().includes(filterLower);
+      });
+
+      if (filteredTerms.length === 0) {
+        container.innerHTML = '';
+        noResults.style.display = 'block';
+        termCount.textContent = '';
+        return;
+      }
+
+      noResults.style.display = 'none';
+      termCount.textContent = `Найдено: ${filteredTerms.length} терминов`;
+
+      // Сортируем: приоритетные термины первыми
+      filteredTerms.sort((a, b) => {
+        const aPriority = PRIORITY_TERMS.includes(a[0]) ? 0 : 1;
+        const bPriority = PRIORITY_TERMS.includes(b[0]) ? 0 : 1;
+        if (aPriority !== bPriority) return aPriority - bPriority;
+        return a[0].localeCompare(b[0]);
+      });
+
+      // Группируем по категориям если нет фильтра
+      let html = '';
+
+      if (!filterLower) {
+        // Показываем по категориям
+        for (const [category, terms] of Object.entries(CATEGORIES)) {
+          const categoryTerms = filteredTerms.filter(([key]) => terms.includes(key));
+          if (categoryTerms.length === 0) continue;
+
+          html += `<div class="glossary-category">
+            <div class="glossary-category-title">${category}</div>`;
+
+          for (const [key, value] of categoryTerms) {
+            html += renderTerm(key, value, filterLower);
+          }
+
+          html += '</div>';
+        }
+
+        // Остальные термины
+        const usedTerms = Object.values(CATEGORIES).flat();
+        const otherTerms = filteredTerms.filter(([key]) => !usedTerms.includes(key));
+
+        if (otherTerms.length > 0) {
+          html += `<div class="glossary-category">
+            <div class="glossary-category-title">Другие термины</div>`;
+          for (const [key, value] of otherTerms) {
+            html += renderTerm(key, value, filterLower);
+          }
+          html += '</div>';
+        }
+      } else {
+        // При поиске показываем плоским списком
+        html = '<div class="glossary-category">';
+        for (const [key, value] of filteredTerms) {
+          html += renderTerm(key, value, filterLower);
+        }
+        html += '</div>';
+      }
+
+      container.innerHTML = html;
+    }
+
+    function renderTerm(key, value, filter) {
+      const highlightText = (text) => {
+        if (!filter) return text;
+        const regex = new RegExp(`(${filter})`, 'gi');
+        return text.replace(regex, '<span class="highlight">$1</span>');
+      };
+
+      return `
+        <div class="glossary-term">
+          <div class="glossary-term-header">
+            <span class="glossary-term-name">${highlightText(value.term)}</span>
+            ${value.full !== value.term ? `<span class="glossary-term-full">${highlightText(value.full)}</span>` : ''}
+          </div>
+          <div class="glossary-term-definition">${highlightText(value.definition)}</div>
+          ${value.example ? `<div class="glossary-term-example"><strong>Пример:</strong> ${highlightText(value.example)}</div>` : ''}
+        </div>
+      `;
+    }
+
+    // Инициализация
+    function initGlossary() {
+      renderGlossary();
+
+      const searchInput = document.getElementById('glossary-search-input');
+      let debounceTimer;
+
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          renderGlossary(e.target.value);
+        }, 150);
+      });
+
+      // Фокус на поиск при нажатии /
+      document.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement !== searchInput) {
+          e.preventDefault();
+          searchInput.focus();
+        }
+      });
+    }
+
+    // Запускаем сразу, т.к. скрипт в конце body и DOM уже готов
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initGlossary);
+    } else {
+      initGlossary();
+    }
+  </script>
+</body>
+</html>

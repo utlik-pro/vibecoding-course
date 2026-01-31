@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 11.5: Практический спринт - Landing Page | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 6 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 11</div>
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Основы</div>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Установка
+        </a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          CLAUDE.md
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Работа</div>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          Файлы и код
+        </a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Настройки
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
+        <a href="lesson-5.html" class="nav-item active" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Landing Page
+        </a>
+        <a href="project.html" class="nav-item" data-lesson="6">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выход
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-wrapper">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="lesson-4.html">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15,18 9,12 15,6"/>
+              </svg>
+              Предыдущий урок
+            </a>
+            <a href="project.html">
+              Итоговый проект
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9,18 15,12 9,6"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="lesson-title-section">
+            <span class="lesson-badge practice">5</span>
+            <div>
+              <h1>Практический спринт - Landing Page</h1>
+              <p style="color: var(--text-secondary); margin: 0;">45 минут</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson Content -->
+        <section class="content-section">
+          <h2>План Landing Page</h2>
+
+          <div class="info-box claude">
+            <div class="info-box-title">Что создаём</div>
+            <p>Полноценный landing page для SaaS Analytics Dashboard. Это будет основа для Dashboard в модуле 12.</p>
+          </div>
+
+          <h3>Структура страницы:</h3>
+          <pre><code>Hero Section
+├── Заголовок + подзаголовок
+├── CTA кнопка
+└── Скриншот продукта
+
+Features Section
+├── Карточка 1: Аналитика в реальном времени
+├── Карточка 2: Простые отчёты
+└── Карточка 3: Интеграции
+
+Pricing Section
+├── Free план (0₽)
+├── Pro план (1490₽/мес)
+└── Enterprise (по запросу)
+
+Testimonials Section
+├── Отзыв 1
+├── Отзыв 2
+└── Отзыв 3
+
+Footer
+├── Ссылки
+└── Копирайт</code></pre>
+        </section>
+
+        <section class="content-section">
+          <h2>Шаг 1: Инициализация проекта</h2>
+
+          <h3>Создаём проект и инициализируем Claude:</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Terminal</span>
+            </div>
+            <div class="terminal-body">
+              <span class="prompt">$</span> <span class="command">mkdir saas-landing && cd saas-landing</span><br>
+              <span class="prompt">$</span> <span class="command">npx create-next-app@latest . --typescript --tailwind</span><br>
+              <span class="prompt">$</span> <span class="command">claude</span><br>
+              <span class="output">> /init</span><br><br>
+              <span class="comment"># Claude создаст CLAUDE.md для проекта</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Шаг 2: Создание Landing Page</h2>
+
+          <h3>Основной промпт для Claude</h3>
+          <pre><code>Создай landing page для SaaS Analytics Dashboard.
+
+## Дизайн
+- Современный, минималистичный
+- Основной цвет: синий (#3B82F6)
+- Акцент: зелёный (#10B981)
+- Тёмный текст на светлом фоне
+
+## Hero секция
+Заголовок: "Аналитика, которая работает на вас"
+Подзаголовок: "Отслеживайте метрики, создавайте
+отчёты, принимайте решения на основе данных"
+CTA: "Начать бесплатно" + "Посмотреть демо"
+
+## Features (3 карточки)
+1. Дашборд в реальном времени
+   - Иконка: график
+   - Описание: Следите за ключевыми метриками
+
+2. Простые отчёты
+   - Иконка: документ
+   - Описание: Создавайте отчёты в один клик
+
+3. Интеграции
+   - Иконка: пазл
+   - Описание: Подключите инструменты
+
+## Pricing
+- Free: 0₽/мес - базовая аналитика
+- Pro: 1490₽/мес - расширенные функции
+- Enterprise: по запросу - для больших команд
+
+Используй Next.js 14, TypeScript, Tailwind CSS.</code></pre>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Совет</div>
+            <p>Чем детальнее промпт — тем лучше результат. Не стесняйтесь указывать цвета, тексты, структуру.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Шаг 3: Итерации и улучшения</h2>
+
+          <h3>Типичные доработки:</h3>
+
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Добавь анимации при скролле</span><br><br>
+              <span class="output">> Сделай адаптив для мобильных</span><br><br>
+              <span class="output">> Добавь градиент в hero секцию</span><br><br>
+              <span class="output">> Замени placeholder на SVG иллюстрации</span><br><br>
+              <span class="output">> Добавь форму подписки в footer</span>
+            </div>
+          </div>
+
+          <h3>Улучшение дизайна:</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Сделай карточки с hover эффектом</span><br><br>
+              <span class="output">> Добавь тени к секциям</span><br><br>
+              <span class="output">> Pricing карточку Pro выдели как популярную</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Шаг 4: Финальные штрихи</h2>
+
+          <h3>SEO и метаданные</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Добавь метаданные для SEO:</span><br>
+              <span class="output">   title, description, og:image</span>
+            </div>
+          </div>
+
+          <h3>Проверка</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Проверь что все ссылки работают</span><br><br>
+              <span class="output">> Убедись что страница корректна на мобильных</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Шаг 5: Сохранение результата</h2>
+
+          <h3>Git коммит</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Создай коммит: feat: landing page для SaaS Dashboard</span>
+            </div>
+          </div>
+
+          <h3>Деплой (опционально)</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="output">> Как задеплоить этот проект на Vercel?</span>
+            </div>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Vercel Deploy</div>
+            <p>Если проект на GitHub, просто подключите репозиторий к Vercel — деплой произойдёт автоматически при каждом push.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Результат модуля</h2>
+
+          <p>После модуля 11 у вас есть:</p>
+
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0;">
+            <div style="background: var(--bg-card); padding: 1.5rem; border-radius: var(--radius-lg); border: 2px solid var(--terminal-color);">
+              <h4 style="color: var(--terminal-color); margin-bottom: 0.5rem;">Установленный Claude Code</h4>
+              <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">С настроенными разрешениями</p>
+            </div>
+            <div style="background: var(--bg-card); padding: 1.5rem; border-radius: var(--radius-lg); border: 2px solid var(--claude-color);">
+              <h4 style="color: var(--claude-color); margin-bottom: 0.5rem;">CLAUDE.md файл</h4>
+              <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">Контекст для проекта</p>
+            </div>
+            <div style="background: var(--bg-card); padding: 1.5rem; border-radius: var(--radius-lg); border: 2px solid var(--accent);">
+              <h4 style="color: var(--accent); margin-bottom: 0.5rem;">Landing Page</h4>
+              <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">Готовый SaaS лендинг</p>
+            </div>
+            <div style="background: var(--bg-card); padding: 1.5rem; border-radius: var(--radius-lg); border: 2px solid var(--config-color);">
+              <h4 style="color: var(--config-color); margin-bottom: 0.5rem;">Понимание основ</h4>
+              <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">Read, Write, Edit, Git</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="content-section">
+          <h2>Чеклист урока</h2>
+          <div class="checklist">
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Создал базовый landing page</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Добавил все секции (Hero, Features, Pricing, Footer)</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Сделал итерации и улучшения</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Закоммитил результат в git</span>
+            </label>
+          </div>
+        </section>
+
+        <!-- Next Lesson -->
+        <section class="start-section">
+          <h2>Модуль 11 завершён!</h2>
+          <p>Переходите к итоговому проекту или сразу к модулю 12 для продвинутых возможностей</p>
+          <a href="project.html" class="btn-start">
+            Итоговый проект
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12,5 19,12 12,19"/>
+            </svg>
+          </a>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

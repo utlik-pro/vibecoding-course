@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 8.1: SQL — язык запросов | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 8</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item active" data-lesson="1"><span class="nav-item-number">1</span>SQL основы</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Фильтрация WHERE</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Сортировка и лимиты</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>UPDATE и DELETE</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Связи таблиц</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>JOIN запросы</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Агрегация GROUP BY</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Интеграция в приложение</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Продвинутые техники</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>SQL Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 8</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 8.1</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 8.1</span>
+            <span class="lesson-duration">⏱ 20 минут</span>
+          </div>
+          <h1 class="lesson-title">SQL — язык запросов к базе данных</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Пишем первые SQL запросы в Supabase SQL Editor
+          </p>
+        </div>
+
+        <!-- Teacher Note -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Важно:</strong> Студенты должны повторять каждый запрос за вами. Показывайте экран и вводите SQL вместе.</p>
+            <p><strong>Совет:</strong> SQL нечувствителен к регистру, но принято писать ключевые слова ЗАГЛАВНЫМИ для читаемости.</p>
+          </div>
+        </div>
+
+        <!-- What is SQL -->
+        <section class="card">
+          <div class="card-header">SQL = язык вопросов к базе данных</div>
+          <div class="card-body">
+            <p>SQL (Structured Query Language) — это язык, на котором вы "разговариваете" с базой данных:</p>
+
+            <div class="service-cards">
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem;">🗣️</div>
+                <h4>Вы спрашиваете</h4>
+                <p class="service-card-desc">"Покажи все задачи"</p>
+              </div>
+              <div style="display: flex; align-items: center; font-size: 2rem; color: var(--text-secondary);">→</div>
+              <div class="service-card" style="text-align: center;">
+                <div style="font-size: 2.5rem;">💾</div>
+                <h4>База отвечает</h4>
+                <p class="service-card-desc">Список всех задач</p>
+              </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Хорошая новость:</strong> SQL похож на английский язык. SELECT = выбрать, FROM = из, WHERE = где.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 1: Open SQL Editor -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 1: Открываем SQL Editor</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Откройте Supabase и найдите SQL Editor.</p>
+
+            <ol style="margin: 1rem 0;">
+              <li>Зайдите на <a href="https://supabase.com" target="_blank">supabase.com</a></li>
+              <li>Откройте ваш проект</li>
+              <li>В левом меню найдите <strong>SQL Editor</strong> (иконка терминала)</li>
+              <li>Нажмите <strong>New Query</strong></li>
+            </ol>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                SQL Editor — это "консоль" для базы данных. Здесь вы будете писать и выполнять SQL запросы.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 2: Create Table -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 2: Создаём таблицу tasks</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Скопируйте этот код в SQL Editor и нажмите <strong>Run</strong> (или Ctrl+Enter):</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>CREATE TABLE tasks (
+  id SERIAL PRIMARY KEY,
+  title TEXT NOT NULL,
+  description TEXT,
+  completed BOOLEAN DEFAULT false,
+  priority TEXT DEFAULT 'medium',
+  created_at TIMESTAMP DEFAULT NOW()
+);</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Разбор каждой строки:</strong></p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Код</th>
+                    <th>Что делает</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>CREATE TABLE tasks</code></td>
+                    <td>Создать новую таблицу с именем "tasks"</td>
+                  </tr>
+                  <tr>
+                    <td><code>id SERIAL PRIMARY KEY</code></td>
+                    <td>Автоматический уникальный номер (1, 2, 3...)</td>
+                  </tr>
+                  <tr>
+                    <td><code>title TEXT NOT NULL</code></td>
+                    <td>Текстовое поле, обязательное (NOT NULL)</td>
+                  </tr>
+                  <tr>
+                    <td><code>description TEXT</code></td>
+                    <td>Текстовое поле, необязательное</td>
+                  </tr>
+                  <tr>
+                    <td><code>completed BOOLEAN DEFAULT false</code></td>
+                    <td>Да/Нет, по умолчанию "нет"</td>
+                  </tr>
+                  <tr>
+                    <td><code>priority TEXT DEFAULT 'medium'</code></td>
+                    <td>Текст, по умолчанию "medium"</td>
+                  </tr>
+                  <tr>
+                    <td><code>created_at TIMESTAMP DEFAULT NOW()</code></td>
+                    <td>Дата/время создания, автоматически</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 3: Insert Data -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 3: Добавляем задачи</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Выполните этот запрос для добавления тестовых данных:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>INSERT INTO tasks (title, description, priority) VALUES
+  ('Купить продукты', 'Молоко, хлеб, яйца', 'high'),
+  ('Позвонить маме', NULL, 'high'),
+  ('Сделать домашку', 'Математика и физика', 'medium'),
+  ('Посмотреть курс', 'Вайбкодинг модуль 8', 'medium'),
+  ('Погулять с собакой', NULL, 'low'),
+  ('Оплатить интернет', 'До 15 числа', 'high'),
+  ('Прочитать книгу', '30 минут', 'low');</code></pre>
+            </div>
+
+            <p style="margin-top: 1.5rem;"><strong>Синтаксис INSERT:</strong></p>
+            <ul>
+              <li><code>INSERT INTO tasks</code> — в какую таблицу</li>
+              <li><code>(title, description, priority)</code> — какие колонки заполняем</li>
+              <li><code>VALUES (...)</code> — значения для каждой записи</li>
+              <li><code>NULL</code> — пустое значение (нет описания)</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Practice 4: First SELECT -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 4: Первый SELECT — получаем данные</div>
+          <div class="card-body">
+            <p><strong>Задание:</strong> Выполните запрос для просмотра всех задач:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>SELECT * FROM tasks;</code></pre>
+            </div>
+
+            <p style="margin-top: 1rem;"><strong>Расшифровка:</strong></p>
+            <ul>
+              <li><code>SELECT</code> — выбрать (получить)</li>
+              <li><code>*</code> — все колонки</li>
+              <li><code>FROM tasks</code> — из таблицы tasks</li>
+            </ul>
+
+            <div class="alert alert-success" style="margin-top: 1.5rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Поздравляем!</strong> Вы только что выполнили свой первый SQL запрос! В результате должны появиться 7 задач.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 5: Select specific columns -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 5: Выбираем конкретные колонки</div>
+          <div class="card-body">
+            <p>Не всегда нужны все колонки. Попробуйте:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Только название и приоритет
+SELECT title, priority FROM tasks;
+
+-- Переименование колонок в результате
+SELECT title AS "Задача", priority AS "Важность" FROM tasks;</code></pre>
+            </div>
+
+            <p style="margin-top: 1rem;"><strong>Заметки:</strong></p>
+            <ul>
+              <li><code>--</code> — комментарий в SQL (игнорируется)</li>
+              <li><code>AS "Название"</code> — псевдоним (alias) для колонки</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson1">
+              <p><strong>Что делает запрос SELECT * FROM tasks?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Создаёт новую таблицу tasks</div>
+                <div class="quiz-option" data-correct="false">Удаляет все записи из tasks</div>
+                <div class="quiz-option" data-correct="true">Получает все колонки из таблицы tasks</div>
+                <div class="quiz-option" data-correct="false">Добавляет новую запись в tasks</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mini-task -->
+        <section class="card">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Мини-задание</div>
+          <div class="card-body">
+            <p><strong>Добавьте ещё 3 своих задачи</strong> используя INSERT.</p>
+            <p>Подсказка: используйте такой формат:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+              </div>
+              <pre><code>INSERT INTO tasks (title, description, priority) VALUES
+  ('Ваша задача 1', 'Описание', 'high'),
+  ('Ваша задача 2', NULL, 'medium'),
+  ('Ваша задача 3', 'Описание', 'low');</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson1-sqleditor"></span>
+                <span class="checklist-text">Открыл SQL Editor в Supabase</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson1-create"></span>
+                <span class="checklist-text">Создал таблицу tasks</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson1-insert"></span>
+                <span class="checklist-text">Добавил 7 тестовых задач</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson1-select"></span>
+                <span class="checklist-text">Выполнил SELECT * FROM tasks</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson1-own"></span>
+                <span class="checklist-text">Добавил 3 своих задачи</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="index.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Главная</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="1">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-2.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Фильтрация WHERE</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

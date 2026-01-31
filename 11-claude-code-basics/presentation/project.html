@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Итоговый проект: SaaS Landing Page | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0 из 6 уроков</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 11</div>
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Основы</div>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1">
+          <span class="nav-item-number">1</span>
+          Установка
+        </a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2">
+          <span class="nav-item-number">2</span>
+          CLAUDE.md
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Работа</div>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3">
+          <span class="nav-item-number">3</span>
+          Файлы и код
+        </a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4">
+          <span class="nav-item-number">4</span>
+          Настройки
+        </a>
+
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5">
+          <span class="nav-item-number">5</span>
+          Landing Page
+        </a>
+        <a href="project.html" class="nav-item active" data-lesson="6">
+          <span class="nav-item-number">P</span>
+          Итоговый проект
+        </a>
+
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Выход
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-wrapper">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+          <div class="lesson-nav">
+            <a href="lesson-5.html">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15,18 9,12 15,6"/>
+              </svg>
+              Предыдущий урок
+            </a>
+            <a href="../../12-claude-code-advanced/presentation/index.html">
+              Модуль 12
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9,18 15,12 9,6"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="lesson-title-section">
+            <span class="lesson-badge practice">P</span>
+            <div>
+              <h1>Итоговый проект: SaaS Landing Page</h1>
+              <p style="color: var(--text-secondary); margin: 0;">Самостоятельная работа</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Content -->
+        <section class="content-section">
+          <h2>Задание</h2>
+
+          <p>Создайте landing page для SaaS Analytics Dashboard, используя Claude Code.</p>
+
+          <div class="info-box claude">
+            <div class="info-box-title">Важно</div>
+            <p>Весь код должен быть создан через Claude Code, не вручную. Это главное условие проекта!</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Требования</h2>
+
+          <h3>Обязательные секции:</h3>
+          <ul>
+            <li><strong>Hero секция</strong> — заголовок, подзаголовок, CTA кнопка</li>
+            <li><strong>Features</strong> — минимум 3 карточки с преимуществами</li>
+            <li><strong>Pricing</strong> — минимум 2 тарифа (Free и Pro)</li>
+            <li><strong>Testimonials</strong> — минимум 2 отзыва</li>
+            <li><strong>Footer</strong> — навигация и копирайт</li>
+          </ul>
+
+          <h3>Технические требования:</h3>
+          <ul>
+            <li>Next.js 14 или обычный HTML/CSS</li>
+            <li>Tailwind CSS для стилей</li>
+            <li>Адаптивный дизайн (mobile-first)</li>
+            <li>Код на GitHub</li>
+          </ul>
+
+          <h3>Файлы проекта:</h3>
+          <ul>
+            <li><code>CLAUDE.md</code> — описание проекта для Claude</li>
+            <li><code>.claude/settings.json</code> — настройки разрешений</li>
+            <li>Минимум 3 git коммита</li>
+          </ul>
+        </section>
+
+        <section class="content-section">
+          <h2>Критерии оценки</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Критерий</th>
+                <th>Баллы</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Код создан через Claude Code</td>
+                <td>20</td>
+              </tr>
+              <tr>
+                <td>Есть CLAUDE.md файл</td>
+                <td>15</td>
+              </tr>
+              <tr>
+                <td>Настроены разрешения</td>
+                <td>15</td>
+              </tr>
+              <tr>
+                <td>Все секции присутствуют</td>
+                <td>20</td>
+              </tr>
+              <tr>
+                <td>Адаптивный дизайн</td>
+                <td>15</td>
+              </tr>
+              <tr>
+                <td>Git история (3+ коммита)</td>
+                <td>15</td>
+              </tr>
+              <tr>
+                <td><strong>Итого</strong></td>
+                <td><strong>100</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="content-section">
+          <h2>Бонусные задания</h2>
+
+          <p>За дополнительные баллы:</p>
+          <ul>
+            <li><strong>+10:</strong> Анимации при скролле</li>
+            <li><strong>+10:</strong> Тёмная тема</li>
+            <li><strong>+10:</strong> Форма подписки с валидацией</li>
+            <li><strong>+10:</strong> Деплой на Vercel</li>
+          </ul>
+        </section>
+
+        <section class="content-section">
+          <h2>Пример структуры проекта</h2>
+
+          <pre><code>saas-landing/
+├── CLAUDE.md
+├── .claude/
+│   └── settings.json
+├── src/
+│   ├── app/
+│   │   ├── page.tsx
+│   │   ├── layout.tsx
+│   │   └── globals.css
+│   └── components/
+│       ├── Hero.tsx
+│       ├── Features.tsx
+│       ├── Pricing.tsx
+│       ├── Testimonials.tsx
+│       └── Footer.tsx
+├── package.json
+├── tailwind.config.ts
+└── README.md</code></pre>
+        </section>
+
+        <section class="content-section">
+          <h2>Подсказки</h2>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Начните с CLAUDE.md</div>
+            <p>Первым делом создайте CLAUDE.md с описанием проекта. Это поможет Claude лучше понимать контекст.</p>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Итерируйте</div>
+            <p>Не пытайтесь создать идеальную страницу с первого промпта. Создайте базу, затем улучшайте по частям.</p>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Коммитьте часто</div>
+            <p>Делайте коммит после каждой законченной секции. Это и для git истории, и для безопасности.</p>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="content-section">
+          <h2>Чеклист проекта</h2>
+          <div class="checklist">
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Создан CLAUDE.md файл</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Настроены разрешения в .claude/settings.json</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Hero секция готова</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Features секция готова (3+ карточки)</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Pricing секция готова (2+ тарифа)</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Testimonials секция готова</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Footer готов</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Страница адаптивна для мобильных</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Сделано 3+ коммита</span>
+            </label>
+            <label class="checklist-item">
+              <input type="checkbox">
+              <span>Код залит на GitHub</span>
+            </label>
+          </div>
+        </section>
+
+        <!-- Next Module -->
+        <section class="start-section">
+          <h2>Готовы к продвинутому уровню?</h2>
+          <p>В модуле 12 изучим MCP серверы, Custom Skills, субагенты и hooks</p>
+          <a href="../../12-claude-code-advanced/presentation/index.html" class="btn-start">
+            Перейти к модулю 12
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12,5 19,12 12,19"/>
+            </svg>
+          </a>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

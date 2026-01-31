@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Урок 8.2: Фильтрация WHERE | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 10 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Модуль 8</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>SQL основы</a>
+        <a href="lesson-2.html" class="nav-item active" data-lesson="2"><span class="nav-item-number">2</span>Фильтрация WHERE</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Сортировка и лимиты</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>UPDATE и DELETE</a>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Связи таблиц</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>JOIN запросы</a>
+        <a href="lesson-7.html" class="nav-item" data-lesson="7"><span class="nav-item-number">7</span>Агрегация GROUP BY</a>
+        <a href="lesson-8.html" class="nav-item" data-lesson="8"><span class="nav-item-number">8</span>Интеграция в приложение</a>
+        <a href="lesson-9.html" class="nav-item" data-lesson="9"><span class="nav-item-number">9</span>Продвинутые техники</a>
+        <a href="project.html" class="nav-item" data-lesson="10"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <div class="nav-section" style="margin-top: 1rem;">Справочник</div>
+        <a href="glossary.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>SQL Глоссарий</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выйти из модуля</a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Модуль 8</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 8.2</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Урок 8.2</span>
+            <span class="lesson-duration">⏱ 20 минут</span>
+          </div>
+          <h1 class="lesson-title">Фильтрация данных — WHERE</h1>
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Выбираем только нужные записи из таблицы
+          </p>
+        </div>
+
+        <!-- Practice 1: Simple filter -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 1: Простая фильтрация</div>
+          <div class="card-body">
+            <p>WHERE позволяет выбрать только записи, соответствующие условию:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Только важные задачи
+SELECT * FROM tasks WHERE priority = 'high';
+
+-- Только невыполненные
+SELECT * FROM tasks WHERE completed = false;</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Запомните:</strong> Текстовые значения пишем в одинарных кавычках: <code>'high'</code>, а не <code>"high"</code>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 2: Comparison operators -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 2: Операторы сравнения</div>
+          <div class="card-body">
+            <p>SQL поддерживает стандартные операторы сравнения:</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Оператор</th>
+                    <th>Значение</th>
+                    <th>Пример</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>=</code></td><td>Равно</td><td><code>priority = 'high'</code></td></tr>
+                  <tr><td><code>!=</code> или <code>&lt;&gt;</code></td><td>Не равно</td><td><code>priority != 'low'</code></td></tr>
+                  <tr><td><code>&gt;</code></td><td>Больше</td><td><code>id > 5</code></td></tr>
+                  <tr><td><code>&lt;</code></td><td>Меньше</td><td><code>id < 3</code></td></tr>
+                  <tr><td><code>&gt;=</code></td><td>Больше или равно</td><td><code>id >= 2</code></td></tr>
+                  <tr><td><code>&lt;=</code></td><td>Меньше или равно</td><td><code>id <= 5</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="code-block" style="margin-top: 1rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Задачи с id больше 3
+SELECT * FROM tasks WHERE id > 3;
+
+-- Все кроме низкого приоритета
+SELECT * FROM tasks WHERE priority != 'low';</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 3: AND/OR -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 3: Комбинируем условия (AND / OR)</div>
+          <div class="card-body">
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Важные И невыполненные (оба условия должны быть true)
+SELECT * FROM tasks
+WHERE priority = 'high' AND completed = false;
+
+-- Важные ИЛИ средние (хотя бы одно условие true)
+SELECT * FROM tasks
+WHERE priority = 'high' OR priority = 'medium';</code></pre>
+            </div>
+
+            <div class="service-cards" style="margin-top: 1.5rem;">
+              <div class="service-card" style="text-align: center; border-color: #3B82F6;">
+                <h4 style="color: #3B82F6;">AND</h4>
+                <p class="service-card-desc">ОБА условия должны быть true</p>
+                <p style="font-size: 0.85rem;">high AND not completed</p>
+              </div>
+              <div class="service-card" style="text-align: center; border-color: #F59E0B;">
+                <h4 style="color: #F59E0B;">OR</h4>
+                <p class="service-card-desc">ХОТЯ БЫ ОДНО условие true</p>
+                <p style="font-size: 0.85rem;">high OR medium</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 4: IN -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 4: Оператор IN</div>
+          <div class="card-body">
+            <p>IN — удобная замена нескольким OR:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Вместо: priority = 'high' OR priority = 'medium'
+SELECT * FROM tasks
+WHERE priority IN ('high', 'medium');
+
+-- Задачи с определёнными id
+SELECT * FROM tasks
+WHERE id IN (1, 3, 5, 7);</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 5: LIKE -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 5: Поиск по тексту (LIKE)</div>
+          <div class="card-body">
+            <p>LIKE ищет по шаблону в текстовых полях:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Задачи со словом "книг" в названии (в любом месте)
+SELECT * FROM tasks WHERE title LIKE '%книг%';
+
+-- Задачи начинающиеся на "По"
+SELECT * FROM tasks WHERE title LIKE 'По%';
+
+-- Задачи заканчивающиеся на "ку"
+SELECT * FROM tasks WHERE title LIKE '%ку';</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Шпаргалка:</strong>
+                <ul style="margin: 0.5rem 0 0 1rem;">
+                  <li><code>%</code> — любые символы (ноль или больше)</li>
+                  <li><code>_</code> — ровно один символ</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Practice 6: NULL -->
+        <section class="card">
+          <div class="card-header" style="background: #10B981; color: white;">Практика 6: Работа с NULL</div>
+          <div class="card-body">
+            <p>NULL — специальное значение "нет данных". Проверяется через IS NULL:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">SQL</span>
+                <button class="code-block-copy" onclick="navigator.clipboard.writeText(this.closest('.code-block').querySelector('code').textContent)">Копировать</button>
+              </div>
+              <pre><code>-- Задачи БЕЗ описания
+SELECT * FROM tasks WHERE description IS NULL;
+
+-- Задачи С описанием
+SELECT * FROM tasks WHERE description IS NOT NULL;</code></pre>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Важно:</strong> <code>description = NULL</code> НЕ РАБОТАЕТ! Используйте только <code>IS NULL</code>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="lesson2">
+              <p><strong>Как найти задачи с высоким ИЛИ средним приоритетом?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">WHERE priority = 'high' AND priority = 'medium'</div>
+                <div class="quiz-option" data-correct="true">WHERE priority IN ('high', 'medium')</div>
+                <div class="quiz-option" data-correct="false">WHERE priority = 'high, medium'</div>
+                <div class="quiz-option" data-correct="false">WHERE priority LIKE 'high%medium'</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mini-tasks -->
+        <section class="card">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Мини-задания (делаем вместе)</div>
+          <div class="card-body">
+            <ol>
+              <li>Найдите все задачи с низким приоритетом</li>
+              <li>Найдите невыполненные задачи с описанием</li>
+              <li>Найдите задачи где в названии есть буква "а"</li>
+            </ol>
+
+            <details style="margin-top: 1rem;">
+              <summary style="cursor: pointer; color: var(--primary);">Показать решения</summary>
+              <div class="code-block" style="margin-top: 0.5rem;">
+                <pre><code>-- 1. Низкий приоритет
+SELECT * FROM tasks WHERE priority = 'low';
+
+-- 2. Невыполненные с описанием
+SELECT * FROM tasks WHERE completed = false AND description IS NOT NULL;
+
+-- 3. Буква "а" в названии
+SELECT * FROM tasks WHERE title LIKE '%а%';</code></pre>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson2-where"></span>
+                <span class="checklist-text">Понял синтаксис WHERE</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson2-andor"></span>
+                <span class="checklist-text">Использовал AND и OR</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson2-in"></span>
+                <span class="checklist-text">Попробовал оператор IN</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson2-like"></span>
+                <span class="checklist-text">Нашёл записи через LIKE</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson2-null"></span>
+                <span class="checklist-text">Понял работу с NULL</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="lesson-nav">
+          <a href="lesson-1.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">SQL основы</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="2">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-3.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Сортировка и лимиты</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>
