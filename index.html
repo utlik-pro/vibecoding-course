@@ -390,7 +390,7 @@
             <div class="progress-container">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
-            <p class="progress-text">Пройдено <span id="completedCount">0</span> из <span>14</span> модулей</p>
+            <p class="progress-text">Пройдено <span id="completedCount">0</span> из <span>12</span> модулей</p>
         </header>
 
         <div class="lessons-container" id="lessonsGrid">
@@ -537,24 +537,6 @@
                 topics: ["MCP", "Хуки", "Автоматизация"],
                 duration: "4-5 часов",
                 link: "12-claude-code-advanced/presentation/index.html"
-            },
-            {
-                id: 13,
-                title: "Финальная интеграция",
-                icon: "🔗",
-                description: "Сборка, тестирование и production деплой приложения",
-                topics: ["OpenAI API", "Деплой", "Мониторинг"],
-                duration: "4-5 часов",
-                link: "13-integration/lesson-plan.md"
-            },
-            {
-                id: 14,
-                title: "Финальный проект",
-                icon: "🏆",
-                description: "Проверка качества, тестирование и презентация проектов",
-                topics: ["Code Review", "Тесты", "Презентация"],
-                duration: "6-8 часов",
-                link: "14-final-project/lesson-plan.md"
             }
         ];
 
@@ -643,8 +625,8 @@
         // Update progress bar
         function updateProgress() {
             const completed = completedLessons.length;
-            const progress = (completed / 14) * 100;
-            document.getElementById('progressBar').style.width = `${Math.max(progress, 7.14)}%`;
+            const progress = (completed / 12) * 100;
+            document.getElementById('progressBar').style.width = `${Math.max(progress, 8.33)}%`;
             document.getElementById('completedCount').textContent = completed;
         }
 
@@ -680,7 +662,7 @@
             const nextToComplete = completedLessons.length > 0
                 ? Math.max(...completedLessons) + 1
                 : 1;
-            if (nextToComplete <= 14) {
+            if (nextToComplete <= 12) {
                 completeLesson(nextToComplete);
             }
         }
