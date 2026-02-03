@@ -70,7 +70,8 @@ const COURSE_CONFIG = {
         { email: 'Sergejsputalov@gmail.com', name: 'Шпуталов Сергей Витальевич', active: true },
         { email: 'rei.sheko@gmail.com', name: 'Шеко Андрей Иванович', active: true },
         { email: 'nmedvedeva312@gmail.com', name: 'Медведева Н.', active: true },
-        { email: 'kwazi@tut.by', name: 'Kwazi', active: true }
+        { email: 'kwazi@tut.by', name: 'Kwazi', active: true },
+        { email: 'fvojtov@gmail.com', name: 'Vojtov F.', active: true }
       ]
     }
   ],
