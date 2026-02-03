@@ -1,24 +1,34 @@
-// Auth Check for Module 12
+/**
+ * Проверка доступа к страницам модуля
+ * Редирект на главную если пользователь не в whitelist
+ */
+
 (function() {
-  const isAuthenticated = () => {
-    const authToken = localStorage.getItem('vibecoding_auth');
-    return true;
-  };
+  // Загружаем конфиг
+  const configScript = document.createElement('script');
+  configScript.src = '../../js/config.js';
+  document.head.appendChild(configScript);
 
-  const hasModuleAccess = () => {
-    const moduleAccess = localStorage.getItem('vibecoding_modules');
-    if (moduleAccess) {
-      const modules = JSON.parse(moduleAccess);
-      return modules.includes(12) || modules.includes('all');
+  configScript.onload = function() {
+    const savedEmail = localStorage.getItem('userEmail');
+
+    if (!savedEmail) {
+      // Нет email - на главную
+      window.location.href = '../../index.html';
+      return;
     }
-    return true;
+
+    const whitelist = COURSE_CONFIG.whitelist.map(e => e.toLowerCase());
+
+    if (!whitelist.includes(savedEmail.toLowerCase())) {
+      // Email не в whitelist - на главную
+      localStorage.removeItem('userEmail');
+      window.location.href = '../../index.html';
+    }
   };
 
-  if (!isAuthenticated()) {
-    // window.location.href = '/login';
-  }
-
-  if (!hasModuleAccess()) {
-    // window.location.href = '/upgrade';
-  }
+  configScript.onerror = function() {
+    // Конфиг не загрузился - на главную
+    window.location.href = '../../index.html';
+  };
 })();

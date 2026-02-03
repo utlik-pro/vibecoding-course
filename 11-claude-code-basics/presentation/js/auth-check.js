@@ -1,33 +1,34 @@
-// Auth Check for Module 11
-// This file checks if user has access to the course
+/**
+ * Проверка доступа к страницам модуля
+ * Редирект на главную если пользователь не в whitelist
+ */
 
 (function() {
-  // Simple auth check - can be expanded with actual auth logic
-  const isAuthenticated = () => {
-    // Check localStorage for auth token or session
-    const authToken = localStorage.getItem('vibecoding_auth');
-    return true; // For now, allow all access
-  };
+  // Загружаем конфиг
+  const configScript = document.createElement('script');
+  configScript.src = '../../js/config.js';
+  document.head.appendChild(configScript);
 
-  // Module access check
-  const hasModuleAccess = () => {
-    // Check if user has access to module 11
-    const moduleAccess = localStorage.getItem('vibecoding_modules');
-    if (moduleAccess) {
-      const modules = JSON.parse(moduleAccess);
-      return modules.includes(11) || modules.includes('all');
+  configScript.onload = function() {
+    const savedEmail = localStorage.getItem('userEmail');
+
+    if (!savedEmail) {
+      // Нет email - на главную
+      window.location.href = '../../index.html';
+      return;
     }
-    return true; // Default: allow access
+
+    const whitelist = COURSE_CONFIG.whitelist.map(e => e.toLowerCase());
+
+    if (!whitelist.includes(savedEmail.toLowerCase())) {
+      // Email не в whitelist - на главную
+      localStorage.removeItem('userEmail');
+      window.location.href = '../../index.html';
+    }
   };
 
-  // Run checks
-  if (!isAuthenticated()) {
-    // Redirect to login
-    // window.location.href = '/login';
-  }
-
-  if (!hasModuleAccess()) {
-    // Show upgrade prompt or redirect
-    // window.location.href = '/upgrade';
-  }
+  configScript.onerror = function() {
+    // Конфиг не загрузился - на главную
+    window.location.href = '../../index.html';
+  };
 })();
