@@ -378,6 +378,191 @@
             border-radius: 50%;
             opacity: 0;
         }
+
+        /* Email Modal Styles */
+        .email-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .email-modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .email-modal-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .email-modal h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .email-modal-subtitle {
+            color: #a0aec0;
+            margin-bottom: 1.5rem;
+        }
+
+        .email-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .email-input.error {
+            border-color: #ef4444;
+        }
+
+        .email-submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .email-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .email-submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .email-status {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #a0aec0;
+        }
+
+        .email-status.error {
+            color: #ef4444;
+        }
+
+        .email-status.success {
+            color: #10b981;
+        }
+
+        /* Check Email View */
+        .check-email-view {
+            display: none;
+        }
+
+        .check-email-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .check-email-title {
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+
+        .back-to-login {
+            background: none;
+            border: none;
+            color: #667eea;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .back-to-login:hover {
+            text-decoration: underline;
+        }
+
+        /* User Badge */
+        .user-badge {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            z-index: 100;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .user-badge.admin {
+            border-color: #f59e0b;
+            background: rgba(245, 158, 11, 0.2);
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0 0.25rem;
+        }
+
+        .logout-btn:hover {
+            color: #ff6b6b;
+        }
+
+        /* Admin Link */
+        .admin-link {
+            margin-left: 0.5rem;
+            color: #f59e0b;
+            text-decoration: none;
+        }
+
+        .admin-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -403,158 +588,418 @@
     </div>
 
     <!-- Email Login Modal -->
-    <div id="emailModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;">
-        <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2.5rem; max-width: 400px; width: 90%; text-align: center;">
-            <div style="font-size: 3rem; margin-bottom: 1rem;">👋</div>
-            <h2 style="margin-bottom: 0.5rem;">Добро пожаловать!</h2>
-            <p style="color: #a0aec0; margin-bottom: 1.5rem;">Введите email для доступа к курсу</p>
-            <input type="email" id="emailInput" placeholder="your@email.com" style="width: 100%; padding: 1rem; border: 2px solid rgba(255,255,255,0.2); border-radius: 12px; background: rgba(255,255,255,0.1); color: #fff; font-size: 1rem; margin-bottom: 1rem;">
-            <button id="emailSubmit" style="width: 100%; padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; border-radius: 12px; color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer;">Войти</button>
-            <p id="emailStatus" style="margin-top: 1rem; font-size: 0.9rem; color: #a0aec0;"></p>
+    <div class="email-modal" id="emailModal">
+        <div class="email-modal-content">
+            <!-- Login View -->
+            <div id="loginView">
+                <div class="email-modal-icon">👋</div>
+                <h2>Добро пожаловать!</h2>
+                <p class="email-modal-subtitle">Введите email для доступа к курсу</p>
+                <input type="email" id="emailInput" class="email-input" placeholder="your@email.com" autocomplete="email">
+                <button id="emailSubmit" class="email-submit-btn">Войти</button>
+                <p id="emailStatus" class="email-status"></p>
+            </div>
+
+            <!-- Check Email View (Magic Link sent) -->
+            <div id="checkEmailView" class="check-email-view">
+                <div class="check-email-icon">📨</div>
+                <h2 class="check-email-title">Проверьте почту!</h2>
+                <p class="email-modal-subtitle">
+                    Мы отправили ссылку для входа на<br>
+                    <strong id="sentToEmail"></strong>
+                </p>
+                <p style="color: #6b7280; font-size: 0.85rem;">
+                    Перейдите по ссылке из письма, чтобы войти в курс.
+                    Если письмо не пришло, проверьте папку Спам.
+                </p>
+                <button id="backToLogin" class="back-to-login">← Ввести другой email</button>
+            </div>
         </div>
     </div>
 
     <!-- User Badge -->
-    <div id="userBadge" style="display: none; position: fixed; top: 1rem; right: 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 30px; padding: 0.5rem 1rem; font-size: 0.85rem; z-index: 100;">
+    <div id="userBadge" class="user-badge">
         <span id="userEmail"></span>
-        <button id="logoutBtn" style="background: none; border: none; color: #ef4444; cursor: pointer; margin-left: 0.5rem;">✕</button>
+        <a href="/admin/" id="adminLink" class="admin-link" style="display: none;">Админка</a>
+        <button id="logoutBtn" class="logout-btn">✕</button>
     </div>
 
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Course Scripts -->
     <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/course-api.js"></script>
+
     <script>
+        // =============================================
+        // CONFIGURATION
+        // =============================================
+
         // Проверка загрузки конфига
         if (typeof COURSE_CONFIG === 'undefined') {
             console.error('COURSE_CONFIG не загружен!');
-            alert('Ошибка загрузки конфигурации. Обновите страницу.');
         }
 
-        // Course lessons data
-        const lessons = [
-            {
-                id: 1,
-                title: "Введение в Vibecoding",
-                icon: "🎯",
+        // Определяем, используем ли Supabase
+        const USE_SUPABASE = typeof SupabaseClient !== 'undefined' && SupabaseClient.isSupabaseConfigured();
+        console.log('Supabase mode:', USE_SUPABASE);
+
+        // =============================================
+        // COURSE DATA (дополнительная информация к модулям из config.js)
+        // =============================================
+
+        const lessonExtras = {
+            1: {
                 description: "Знакомство с философией \"кодить через вайб\" и современными ИИ-инструментами",
                 topics: ["Философия vibecoding", "ИИ-инструменты", "Первое приложение"],
                 duration: "2-3 часа",
                 link: "01-introduction/presentation/index.html"
             },
-            {
-                id: 2,
-                title: "Cursor - ваш ИИ-помощник",
-                icon: "🖥️",
+            2: {
                 description: "Полный курс по Cursor для начинающих - от установки до создания сайтов",
                 topics: ["Установка Cursor", "Chat & Composer", "HTML & CSS"],
                 duration: "20 часов",
                 link: "02-cursor-training/presentation/index.html"
             },
-            {
-                id: 3,
-                title: "Claude Code",
-                icon: "🧠",
+            3: {
                 description: "Альтернативный мощный ИИ-инструмент для архитектуры и планирования",
                 topics: ["Artifacts", "Гибридный подход", "Agent Mode"],
                 duration: "2-3 часа",
                 link: "lessons/lesson-03.html"
             },
-            {
-                id: 4,
-                title: "Современный веб-стек",
-                icon: "🌐",
+            4: {
                 description: "Изучение технологий для создания современных веб-приложений",
                 topics: ["TypeScript", "Next.js", "PostgreSQL"],
                 duration: "3-4 часа",
                 link: "04-tech-stack-overview/presentation/index.html"
             },
-            {
-                id: 5,
-                title: "Настройка проекта",
-                icon: "⚙️",
+            5: {
                 description: "Настройка полного технологического стека для разработки",
                 topics: ["Next.js setup", "Vercel", "Environment vars"],
                 duration: "2-3 часа",
                 link: "05-tech-stack-setup/presentation/index.html"
             },
-            {
-                id: 6,
-                title: "Backend для вайбкодера",
-                icon: "🗄️",
+            6: {
                 description: "Создание серверной части приложения с базой данных Supabase",
                 topics: ["API Routes", "Supabase", "CRUD"],
                 duration: "3 часа",
                 link: "06-backend-basics/presentation/index.html"
             },
-            {
-                id: 7,
-                title: "Аутентификация",
-                icon: "🔐",
+            7: {
                 description: "Простая система регистрации и входа через Supabase Auth - для полных новичков",
                 topics: ["Supabase Auth", "Social login", "Защита страниц", "RLS"],
                 duration: "3-4 часа",
                 link: "07-auth/presentation/index.html"
             },
-            {
-                id: 8,
-                title: "База данных",
-                icon: "🗄️",
+            8: {
                 description: "Глубокое погружение в Supabase и управление данными",
                 topics: ["SQL Editor", "Real-time", "RLS"],
                 duration: "3-4 часа",
                 link: "08-database/presentation/index.html"
             },
-            {
-                id: 9,
-                title: "Фронтенд",
-                icon: "🎨",
+            9: {
                 description: "Создание красивого интерактивного UI с лендингом и админкой",
                 topics: ["Landing Page", "Dashboard", "shadcn/ui"],
                 duration: "5-6 часов",
                 link: "09-frontend/presentation/index.html"
             },
-            {
-                id: 10,
-                title: "API и платежи",
-                icon: "💳",
+            10: {
                 description: "Интеграция платежной системы Stripe и внешних API",
                 topics: ["Stripe", "Webhooks", "Подписки"],
                 duration: "4-5 часов",
                 link: "10-api-payments/presentation/index.html"
             },
-            {
-                id: 11,
-                title: "Claude Code: Основы",
-                icon: "🤖",
+            11: {
                 description: "Введение в Claude Code - мощный терминальный ИИ-помощник",
                 topics: ["Установка", "Команды", "Настройка"],
                 duration: "3-4 часа",
                 link: "11-claude-code-basics/presentation/index.html"
             },
-            {
-                id: 12,
-                title: "Claude Code: Продвинутый",
-                icon: "🚀",
+            12: {
                 description: "Продвинутые техники работы с Claude Code",
                 topics: ["MCP", "Хуки", "Автоматизация"],
                 duration: "4-5 часов",
                 link: "12-claude-code-advanced/presentation/index.html"
             }
-        ];
+        };
 
-        // Load progress from localStorage
+        // Генерируем lessons из COURSE_CONFIG.modules + lessonExtras
+        const lessons = COURSE_CONFIG.modules.map(m => ({
+            id: m.id,
+            title: m.title,
+            icon: m.icon,
+            ...lessonExtras[m.id]
+        }));
+
+        // =============================================
+        // STATE
+        // =============================================
+
         let completedLessons = JSON.parse(localStorage.getItem('completedLessons')) || [];
         let currentLesson = parseInt(localStorage.getItem('currentLesson')) || 1;
+        let unlockedModules = [];
+        let isAuthenticated = false;
+        let isAdmin = false;
 
-        // Проверка доступа через config
+        // =============================================
+        // DOM ELEMENTS
+        // =============================================
+
+        const emailModal = document.getElementById('emailModal');
+        const loginView = document.getElementById('loginView');
+        const checkEmailView = document.getElementById('checkEmailView');
+        const emailInputEl = document.getElementById('emailInput');
+        const emailSubmit = document.getElementById('emailSubmit');
+        const emailStatus = document.getElementById('emailStatus');
+        const sentToEmail = document.getElementById('sentToEmail');
+        const backToLogin = document.getElementById('backToLogin');
+        const userBadge = document.getElementById('userBadge');
+        const userEmailSpan = document.getElementById('userEmail');
+        const adminLink = document.getElementById('adminLink');
+        const logoutBtnEl = document.getElementById('logoutBtn');
+
+        // =============================================
+        // INITIALIZATION
+        // =============================================
+
+        async function init() {
+            // Проверяем URL на наличие токенов от Magic Link
+            await handleMagicLinkCallback();
+
+            if (USE_SUPABASE) {
+                // Supabase mode
+                await initSupabaseAuth();
+            } else {
+                // Fallback mode (whitelist)
+                initFallbackAuth();
+            }
+        }
+
+        async function handleMagicLinkCallback() {
+            // Supabase добавляет hash с токенами после возврата по Magic Link
+            const hash = window.location.hash;
+            if (hash && hash.includes('access_token')) {
+                // Supabase SDK автоматически обработает токены
+                console.log('Processing Magic Link callback...');
+                // Очищаем hash из URL
+                history.replaceState(null, '', window.location.pathname);
+            }
+        }
+
+        async function initSupabaseAuth() {
+            try {
+                await CourseAPI.init();
+
+                // Подписываемся на изменения авторизации
+                CourseAPI.onAuthChange(async (event, user) => {
+                    if (event === 'signed_in' && user) {
+                        await onUserSignedIn(user.email);
+                    } else if (event === 'signed_out') {
+                        onUserSignedOut();
+                    }
+                });
+
+                // Проверяем текущую сессию
+                const user = CourseAPI.getCurrentUser();
+                if (user) {
+                    await onUserSignedIn(user.email);
+                } else {
+                    showLoginModal();
+                }
+            } catch (err) {
+                console.error('Supabase init error:', err);
+                // Fallback to whitelist mode
+                initFallbackAuth();
+            }
+        }
+
+        function initFallbackAuth() {
+            const savedEmail = localStorage.getItem('userEmail');
+
+            // Используем новый метод isWhitelisted из config.js
+            if (savedEmail && COURSE_CONFIG.isWhitelisted(savedEmail)) {
+                onUserSignedIn(savedEmail, true);
+            } else {
+                localStorage.removeItem('userEmail');
+                showLoginModal();
+            }
+        }
+
+        async function onUserSignedIn(email, isFallback = false) {
+            isAuthenticated = true;
+            emailModal.style.display = 'none';
+
+            // Загружаем данные пользователя
+            if (!isFallback && USE_SUPABASE) {
+                const profile = CourseAPI.getUserProfile();
+                isAdmin = profile?.role === 'admin' || profile?.role === 'instructor';
+
+                // Загружаем открытые модули
+                unlockedModules = await CourseAPI.getUnlockedModules();
+
+                // Синхронизируем прогресс из localStorage (миграция)
+                const hasSynced = localStorage.getItem('supabaseSynced');
+                if (!hasSynced) {
+                    await CourseAPI.syncFromLocalStorage();
+                    localStorage.setItem('supabaseSynced', 'true');
+                }
+
+                // Загружаем прогресс из Supabase
+                const progress = await CourseAPI.getProgress();
+                // Обновляем completedLessons из progress
+                completedLessons = [];
+                for (const [moduleId, lessons] of Object.entries(progress)) {
+                    // Проверяем, завершён ли модуль (упрощённо: есть хотя бы один урок)
+                    if (lessons.length > 0) {
+                        // Для главной страницы считаем модуль завершённым
+                        // когда пройдены все его уроки (логика в app.js модуля)
+                        const mainCompleted = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+                        if (mainCompleted.includes(parseInt(moduleId))) {
+                            completedLessons.push(parseInt(moduleId));
+                        }
+                    }
+                }
+            } else {
+                // Fallback mode: используем потоки из config.js
+                isAdmin = COURSE_CONFIG.isAdmin(email);
+                unlockedModules = COURSE_CONFIG.getUnlockedModulesForUser(email);
+
+                // Показываем поток в консоли для отладки
+                const cohort = COURSE_CONFIG.getCohortByEmail(email);
+                console.log('Fallback mode - User cohort:', cohort?.name || 'Admin/No cohort');
+                console.log('Unlocked modules:', unlockedModules);
+            }
+
+            showUserBadge(email);
+            renderLessons();
+        }
+
+        function onUserSignedOut() {
+            isAuthenticated = false;
+            isAdmin = false;
+            unlockedModules = [];
+            showLoginModal();
+        }
+
+        // =============================================
+        // LOGIN MODAL
+        // =============================================
+
+        function showLoginModal() {
+            emailModal.style.display = 'flex';
+            loginView.style.display = 'block';
+            checkEmailView.style.display = 'none';
+            emailStatus.textContent = '';
+            emailStatus.className = 'email-status';
+            emailInputEl.value = '';
+            emailInputEl.classList.remove('error');
+        }
+
+        function showCheckEmailView(email) {
+            loginView.style.display = 'none';
+            checkEmailView.style.display = 'block';
+            sentToEmail.textContent = email;
+        }
+
+        emailSubmit.addEventListener('click', handleLogin);
+        emailInputEl.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleLogin();
+        });
+
+        async function handleLogin() {
+            const email = emailInputEl.value.trim().toLowerCase();
+
+            if (!email || !email.includes('@')) {
+                showError('Введите корректный email');
+                return;
+            }
+
+            // Disable button and show loading
+            emailSubmit.disabled = true;
+            emailSubmit.innerHTML = '<span class="spinner"></span>';
+            emailStatus.textContent = '';
+
+            if (USE_SUPABASE) {
+                // Supabase Magic Link
+                const exists = await CourseAPI.checkUserExists(email);
+                if (!exists) {
+                    showError('Доступ закрыт. Ваш email не в списке курса.');
+                    resetButton();
+                    return;
+                }
+
+                const result = await CourseAPI.signIn(email);
+                if (result.success) {
+                    showCheckEmailView(email);
+                } else {
+                    showError(result.error || 'Ошибка отправки ссылки');
+                }
+                resetButton();
+            } else {
+                // Fallback: проверка через COURSE_CONFIG
+                if (COURSE_CONFIG.isWhitelisted(email)) {
+                    localStorage.setItem('userEmail', email);
+                    await onUserSignedIn(email, true);
+                } else {
+                    showError('Доступ закрыт. Ваш email не в списке.');
+                }
+                resetButton();
+            }
+        }
+
+        function showError(message) {
+            emailStatus.textContent = message;
+            emailStatus.className = 'email-status error';
+            emailInputEl.classList.add('error');
+        }
+
+        function resetButton() {
+            emailSubmit.disabled = false;
+            emailSubmit.textContent = 'Войти';
+        }
+
+        backToLogin.addEventListener('click', showLoginModal);
+
+        // =============================================
+        // USER BADGE
+        // =============================================
+
+        function showUserBadge(email) {
+            userEmailSpan.textContent = isAdmin ? `👑 ${email}` : `📧 ${email}`;
+            userBadge.style.display = 'flex';
+            userBadge.classList.toggle('admin', isAdmin);
+
+            if (isAdmin) {
+                adminLink.style.display = 'inline';
+            } else {
+                adminLink.style.display = 'none';
+            }
+        }
+
+        logoutBtnEl.addEventListener('click', async () => {
+            if (USE_SUPABASE) {
+                await CourseAPI.signOut();
+            }
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('supabaseSynced');
+            location.reload();
+        });
+
+        // =============================================
+        // LESSONS RENDERING
+        // =============================================
+
         function isUnlocked(lessonId) {
             // Модуль открыт если он в списке открытых или предыдущий завершён
-            return COURSE_CONFIG.unlockedModules.includes(lessonId) || completedLessons.includes(lessonId - 1);
+            return unlockedModules.includes(lessonId) || completedLessons.includes(lessonId - 1);
         }
 
         function isCompleted(lessonId) {
             return completedLessons.includes(lessonId);
         }
 
-        // Render lessons
         function renderLessons() {
             const grid = document.getElementById('lessonsGrid');
             grid.innerHTML = '';
@@ -622,7 +1067,6 @@
             updateProgress();
         }
 
-        // Update progress bar
         function updateProgress() {
             const completed = completedLessons.length;
             const progress = (completed / 12) * 100;
@@ -630,12 +1074,14 @@
             document.getElementById('completedCount').textContent = completed;
         }
 
-        // Show locked message
         function showLockedMessage(lessonId) {
             alert(`🔒 Урок ${lessonId} заблокирован!\n\nЗавершите урок ${lessonId - 1}, чтобы разблокировать.`);
         }
 
-        // Mark lesson as complete (can be called from lesson pages)
+        // =============================================
+        // GLOBAL FUNCTIONS
+        // =============================================
+
         function completeLesson(lessonId) {
             if (!completedLessons.includes(lessonId)) {
                 completedLessons.push(lessonId);
@@ -648,7 +1094,6 @@
             }
         }
 
-        // Reset progress (for testing)
         function resetProgress() {
             localStorage.removeItem('completedLessons');
             localStorage.removeItem('currentLesson');
@@ -657,7 +1102,6 @@
             renderLessons();
         }
 
-        // Demo: Complete lesson 1 for demonstration
         function demoUnlockNext() {
             const nextToComplete = completedLessons.length > 0
                 ? Math.max(...completedLessons) + 1
@@ -667,79 +1111,14 @@
             }
         }
 
-        // Expose functions globally
         window.completeLesson = completeLesson;
         window.resetProgress = resetProgress;
         window.demoUnlockNext = demoUnlockNext;
 
-        // Email login logic
-        const emailModal = document.getElementById('emailModal');
-        const emailInputEl = document.getElementById('emailInput');
-        const emailSubmit = document.getElementById('emailSubmit');
-        const emailStatus = document.getElementById('emailStatus');
-        const userBadge = document.getElementById('userBadge');
-        const userEmailSpan = document.getElementById('userEmail');
-        const logoutBtnEl = document.getElementById('logoutBtn');
+        // =============================================
+        // KEYBOARD SHORTCUTS
+        // =============================================
 
-        function checkUserEmail() {
-            const savedEmail = localStorage.getItem('userEmail');
-            const whitelist = COURSE_CONFIG.whitelist.map(e => e.toLowerCase());
-            if (savedEmail && whitelist.includes(savedEmail.toLowerCase())) {
-                showUserBadge(savedEmail);
-                renderLessons();
-            } else {
-                localStorage.removeItem('userEmail');
-                emailModal.style.display = 'flex';
-            }
-        }
-
-        function showUserBadge(email) {
-            const isWhitelisted = COURSE_CONFIG.whitelist.includes(email.toLowerCase());
-            userEmailSpan.textContent = isWhitelisted ? `👑 ${email}` : `📧 ${email}`;
-            userBadge.style.display = 'block';
-            if (isWhitelisted) {
-                userBadge.style.borderColor = '#f59e0b';
-                userBadge.style.background = 'rgba(245, 158, 11, 0.2)';
-            }
-        }
-
-        emailSubmit.addEventListener('click', () => {
-            const email = emailInputEl.value.trim().toLowerCase();
-            console.log('Попытка входа:', email);
-            console.log('Whitelist:', COURSE_CONFIG.whitelist);
-            console.log('В списке?:', COURSE_CONFIG.whitelist.map(e => e.toLowerCase()).includes(email));
-
-            if (email && email.includes('@')) {
-                const whitelist = COURSE_CONFIG.whitelist.map(e => e.toLowerCase());
-                if (whitelist.includes(email)) {
-                    localStorage.setItem('userEmail', email);
-                    emailModal.style.display = 'none';
-                    showUserBadge(email);
-                    renderLessons();
-                } else {
-                    emailStatus.textContent = '🚫 Доступ закрыт. Ваш email не в списке.';
-                    emailStatus.style.color = '#ef4444';
-                    emailInputEl.style.borderColor = '#ef4444';
-                }
-            } else {
-                emailStatus.textContent = 'Введите корректный email';
-                emailStatus.style.color = '#ef4444';
-            }
-        });
-
-        emailInputEl.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') emailSubmit.click();
-        });
-
-        logoutBtnEl.addEventListener('click', () => {
-            localStorage.removeItem('userEmail');
-            location.reload();
-        });
-
-        // Initial render
-        checkUserEmail();
-
-        // Add keyboard shortcuts for demo
         document.addEventListener('keydown', (e) => {
             if (e.key === 'n' && e.ctrlKey) {
                 e.preventDefault();
@@ -752,6 +1131,12 @@
                 }
             }
         });
+
+        // =============================================
+        // START
+        // =============================================
+
+        init();
     </script>
 </body>
 </html>

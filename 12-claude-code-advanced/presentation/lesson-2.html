@@ -13,35 +13,26 @@
       <div class="sidebar-header">
         <div class="sidebar-logo">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
           </svg>
           VibeCoding
         </div>
       </div>
-
       <div class="progress-container">
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: 0%"></div>
-        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
         <div class="progress-text">0 из 7 уроков</div>
       </div>
-
       <nav class="sidebar-nav">
         <div class="nav-section">Модуль 12</div>
-        <a href="index.html" class="nav-item">
-          <span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>
-          Главная
-        </a>
-        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Интеграции</div>
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Подключения</div>
         <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>MCP серверы</a>
         <a href="lesson-2.html" class="nav-item active" data-lesson="2"><span class="nav-item-number">2</span>Custom Skills</a>
         <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Автоматизация</div>
         <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Субагенты</a>
         <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Hooks</a>
-        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
-        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Dashboard</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Продвинутые</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Headless и Платформы</a>
         <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Best Practices</a>
         <a href="project.html" class="nav-item" data-lesson="7"><span class="nav-item-number">P</span>Итоговый проект</a>
         <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
@@ -58,7 +49,7 @@
           <div class="lesson-title-section">
             <span class="lesson-badge basics">2</span>
             <div>
-              <h1>Custom Skills - свои команды</h1>
+              <h1>Skills - свои команды для Claude</h1>
               <p style="color: var(--text-secondary); margin: 0;">45 минут</p>
             </div>
           </div>
@@ -66,150 +57,232 @@
 
         <section class="content-section">
           <h2>Что такое Skills?</h2>
-          <p><strong>Skills — это переиспользуемые команды для Claude Code.</strong></p>
+
           <div class="info-box claude">
-            <div class="info-box-title">Пример</div>
-            <p><code>/deploy</code> → SKILL.md с инструкциями для деплоя<br>
-            <code>/test</code> → SKILL.md с инструкциями для тестов<br>
-            <code>/review</code> → SKILL.md с инструкциями для code review</p>
+            <div class="info-box-title">Аналогия</div>
+            <p>Skills - это как "рецепты" для Claude. Вместо того чтобы каждый раз объяснять что делать, вы записываете инструкцию один раз и вызываете её одной командой <code>/имя</code>.</p>
           </div>
-          <p><strong>Преимущества:</strong></p>
-          <ul>
-            <li>Сохраняют промпты в файлах</li>
-            <li>Можно шарить между проектами</li>
-            <li>Hot reload — обновляются без перезапуска</li>
-          </ul>
+
+          <p><strong>Без Skills:</strong></p>
+          <pre><code>Вы: "Запусти тесты, потом собери проект, потом задеплой на Vercel,
+     и верни мне ссылку. Используй npm run test, npm run build,
+     vercel --prod"</code></pre>
+
+          <p><strong>С Skills (один раз написали инструкцию):</strong></p>
+          <pre><code>Вы: /deploy
+Claude: Выполняю деплой... Готово! URL: myapp.vercel.app</code></pre>
+
+          <h3>Два типа контента Skills:</h3>
+          <table>
+            <thead><tr><th>Тип</th><th>Что делает</th><th>Пример</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Reference</strong></td><td>Знания, которые Claude применяет автоматически</td><td>Стиль кода, правила API, конвенции</td></tr>
+              <tr><td><strong>Task</strong></td><td>Команда, которую вы вызываете через <code>/имя</code></td><td>/deploy, /test, /review</td></tr>
+            </tbody>
+          </table>
         </section>
 
         <section class="content-section">
-          <h2>Структура SKILL.md</h2>
-          <h3>Расположение:</h3>
+          <h2>Встроенные Skills</h2>
+          <p>Claude Code уже идёт с полезными Skills из коробки:</p>
+
+          <table>
+            <thead><tr><th>Команда</th><th>Что делает</th></tr></thead>
+            <tbody>
+              <tr><td><code>/simplify</code></td><td>Проверяет ваш код на качество, повторы и эффективность. Запускает 3 агента параллельно!</td></tr>
+              <tr><td><code>/batch</code></td><td>Массовые изменения в проекте. Разбивает работу на части и делает параллельно</td></tr>
+              <tr><td><code>/debug</code></td><td>Диагностика текущей сессии Claude Code</td></tr>
+              <tr><td><code>/loop</code></td><td>Повторяет команду по расписанию (например, каждые 5 минут проверять деплой)</td></tr>
+            </tbody>
+          </table>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Примеры встроенных Skills</div>
+            <p><strong>/simplify</strong> - Написали новый модуль? Запустите <code>/simplify</code> и три агента параллельно проверят: повторяющийся код, качество, эффективность. Результат - чистый код.<br><br>
+            <strong>/batch</strong> - <code>/batch migrate src/ from JavaScript to TypeScript</code> - Claude сам разобьёт на задачи, создаст для каждой отдельную ветку, и сделает всё параллельно!<br><br>
+            <strong>/loop</strong> - <code>/loop 5m check if deploy succeeded</code> - каждые 5 минут проверяет статус деплоя и уведомляет вас.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Как создать свой Skill</h2>
+
+          <h3>Структура файлов:</h3>
           <pre><code>.claude/skills/
 ├── deploy/
-│   └── SKILL.md
+│   └── SKILL.md       -> вызов через /deploy
 ├── test/
-│   └── SKILL.md
+│   └── SKILL.md       -> вызов через /test
 └── review/
-    └── SKILL.md</code></pre>
+    └── SKILL.md       -> вызов через /review</code></pre>
 
-          <h3>Формат файла:</h3>
+          <h3>Формат SKILL.md:</h3>
+          <p>Файл состоит из двух частей: <strong>Frontmatter</strong> (шапка между <code>---</code>) и <strong>Содержимое</strong> (инструкции для Claude).</p>
           <pre><code>---
 name: deploy
-description: Deploy the application to production
+description: Задеплоить приложение на Vercel
 disable-model-invocation: true
-allowed-tools: Bash(npm *), Bash(vercel *)
 ---
 
-Deploy the application:
+Задеплой приложение:
 
-1. Run the test suite
-2. Build with `npm run build`
-3. Deploy with `vercel --prod`
-4. Return the deployment URL</code></pre>
+1. Запусти тесты: `npm run test`
+2. Если тесты прошли, собери: `npm run build`
+3. Задеплой: `vercel --prod`
+4. Верни ссылку на деплой</code></pre>
 
-          <h3>Frontmatter опции:</h3>
+          <h3>Важные настройки (Frontmatter):</h3>
           <table>
-            <thead>
-              <tr><th>Опция</th><th>Описание</th></tr>
-            </thead>
+            <thead><tr><th>Настройка</th><th>Что делает</th><th>Пример</th></tr></thead>
             <tbody>
-              <tr><td><code>name</code></td><td>Имя = /команда</td></tr>
-              <tr><td><code>description</code></td><td>Когда использовать</td></tr>
-              <tr><td><code>disable-model-invocation</code></td><td>Только ручной вызов</td></tr>
-              <tr><td><code>allowed-tools</code></td><td>Разрешённые инструменты</td></tr>
-              <tr><td><code>context: fork</code></td><td>Запуск в subagent</td></tr>
-              <tr><td><code>agent</code></td><td>Тип агента (Explore, Plan)</td></tr>
+              <tr><td><code>name</code></td><td>Имя команды</td><td><code>deploy</code> -> <code>/deploy</code></td></tr>
+              <tr><td><code>description</code></td><td>Когда использовать (Claude читает это!)</td><td>"Deploy app to Vercel"</td></tr>
+              <tr><td><code>disable-model-invocation</code></td><td>Только ручной вызов</td><td><code>true</code> для /deploy</td></tr>
+              <tr><td><code>user-invocable</code></td><td>Скрыть из меню <code>/</code></td><td><code>false</code> для фоновых знаний</td></tr>
+              <tr><td><code>allowed-tools</code></td><td>Разрешённые инструменты</td><td><code>Read, Grep, Bash</code></td></tr>
+              <tr><td><code>context: fork</code></td><td>Запуск в отдельном субагенте</td><td>Для изолированных задач</td></tr>
             </tbody>
           </table>
 
           <div class="info-box warning">
-            <div class="info-box-title">Важно: disable-model-invocation</div>
-            <p>Используйте <code>disable-model-invocation: true</code> для skills с side effects: деплой, коммит, отправка сообщений.</p>
+            <div class="info-box-title">Важное правило</div>
+            <p><code>disable-model-invocation: true</code> - используйте для команд с "побочными эффектами": деплой, коммит, отправка сообщений. Иначе Claude может случайно их вызвать сам!</p>
+          </div>
+
+          <div class="info-box claude">
+            <div class="info-box-title">Примеры популярных Skills</div>
+            <p><strong>/deploy</strong> - тесты → сборка → деплой на Vercel, одной командой<br>
+            <strong>/review</strong> - проверка кода на баги, безопасность и стиль<br>
+            <strong>/fix-issue 42</strong> - берёт issue из GitHub и автоматически чинит<br>
+            <strong>/pr-summary</strong> - генерирует описание для пул-реквеста<br>
+            <strong>/migrate-component Button React Vue</strong> - мигрирует компонент между фреймворками<br>
+            <strong>/changelog</strong> - генерирует список изменений из коммитов</p>
           </div>
         </section>
 
         <section class="content-section">
-          <h2>Примеры полезных Skills</h2>
+          <h2>Кто может вызвать Skill?</h2>
 
-          <h3>Skill: /deploy (с защитой)</h3>
+          <table>
+            <thead><tr><th>Настройка</th><th>Вы можете?</th><th>Claude может?</th><th>Для чего</th></tr></thead>
+            <tbody>
+              <tr><td>(по умолчанию)</td><td>Да</td><td>Да</td><td>Обычные навыки</td></tr>
+              <tr><td><code>disable-model-invocation: true</code></td><td>Да</td><td>Нет</td><td>Деплой, коммит, рассылка</td></tr>
+              <tr><td><code>user-invocable: false</code></td><td>Нет</td><td>Да</td><td>Фоновые знания</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="content-section">
+          <h2>Переменные и аргументы</h2>
+
+          <p><code>$ARGUMENTS</code> - всё что вы пишете после команды:</p>
           <pre><code>---
-name: deploy
-description: Deploy to production
+name: fix-issue
+description: Починить баг из GitHub issue
 disable-model-invocation: true
-allowed-tools: Bash(npm *), Bash(vercel *)
 ---
 
-Deploy $ARGUMENTS to production:
+Почини баг из GitHub issue $ARGUMENTS:
 
-1. Run `npm run build`
-2. If successful, run `vercel --prod`
-3. Return the deployment URL</code></pre>
+1. Посмотри описание: `gh issue view $ARGUMENTS`
+2. Найди и пойми проблему
+3. Исправь баг
+4. Напиши тесты
+5. Создай коммит</code></pre>
 
-          <h3>Skill: /review (в subagent)</h3>
+          <p><strong>Использование:</strong></p>
+          <pre><code>/fix-issue 42
+# Claude получит: "Почини баг из GitHub issue 42..."</code></pre>
+
+          <h3>Динамический контекст:</h3>
+          <p><code>!</code><code>`команда`</code> - выполняется ДО того как Claude увидит инструкцию:</p>
           <pre><code>---
-name: review
-description: Code review with security focus
+name: pr-summary
+description: Описание пул-реквеста
 context: fork
 agent: Explore
 ---
 
-Review the code for:
-1. Security issues (injection, XSS)
-2. Performance problems
-3. Code style violations
+## Данные PR
+- Изменения: !`gh pr diff`
+- Файлы: !`gh pr diff --name-only`
 
-Provide specific line references.</code></pre>
-
-          <h3>Skill: /fix-issue (с аргументами)</h3>
-          <pre><code>---
-name: fix-issue
-description: Fix a GitHub issue
-disable-model-invocation: true
----
-
-Fix GitHub issue $ARGUMENTS:
-
-1. Use `gh issue view` to get details
-2. Understand the problem
-3. Implement the fix
-4. Write tests
-5. Create a commit</code></pre>
+## Задание
+Сделай краткое описание этого пул-реквеста.</code></pre>
 
           <div class="info-box tip">
-            <div class="info-box-title">Переменные</div>
-            <p><code>$ARGUMENTS</code> — всё после /команды<br>
-            <code>$ARGUMENTS[0]</code>, <code>$0</code> — первый аргумент</p>
+            <div class="info-box-title">Отдельные аргументы</div>
+            <p><code>$ARGUMENTS[0]</code> или <code>$0</code> - первый аргумент<br>
+            <code>$ARGUMENTS[1]</code> или <code>$1</code> - второй аргумент<br>
+            Пример: <code>/migrate-component SearchBar React Vue</code></p>
           </div>
         </section>
 
         <section class="content-section">
-          <h2>Практика: Создаём Skills</h2>
+          <h2>Где хранить Skills</h2>
+          <table>
+            <thead><tr><th>Расположение</th><th>Доступность</th></tr></thead>
+            <tbody>
+              <tr><td><code>~/.claude/skills/</code></td><td>Все ваши проекты (личные)</td></tr>
+              <tr><td><code>.claude/skills/</code></td><td>Этот проект (можно в git для команды)</td></tr>
+            </tbody>
+          </table>
 
+          <h3>Дополнительные файлы в Skill:</h3>
+          <pre><code>deploy/
+├── SKILL.md           # Основные инструкции (обязательно)
+├── template.md        # Шаблон для Claude
+├── examples/
+│   └── sample.md      # Примеры
+└── scripts/
+    └── validate.sh    # Скрипт для проверки</code></pre>
+        </section>
+
+        <section class="content-section">
+          <h2>Практика</h2>
+
+          <h3>Создаём /deploy:</h3>
           <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">Terminal</span>
-            </div>
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="terminal-title">Terminal</span></div>
             <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">mkdir -p .claude/skills/deploy</span><br>
-              <span class="prompt">$</span> <span class="command">mkdir -p .claude/skills/test</span>
+              <span class="prompt">$</span> <span class="command">mkdir -p .claude/skills/deploy</span>
             </div>
           </div>
+          <pre><code># .claude/skills/deploy/SKILL.md
+---
+name: deploy
+description: Deploy to Vercel
+disable-model-invocation: true
+---
+
+1. Запусти `npm run build`
+2. Если OK, запусти `vercel --prod`
+3. Верни URL</code></pre>
+
+          <h3>Создаём /review (в субагенте):</h3>
+          <pre><code># .claude/skills/review/SKILL.md
+---
+name: review
+description: Code review
+context: fork
+agent: Explore
+allowed-tools: Read, Grep, Glob
+---
+
+Проверь код на:
+1. Баги и ошибки
+2. Проблемы безопасности
+3. Стиль кода
+Укажи конкретные файлы и строки.</code></pre>
 
           <h3>Тестируем:</h3>
           <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">Claude Code</span>
-            </div>
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="terminal-title">Claude Code</span></div>
             <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">claude</span><br>
               <span class="output">> /deploy</span><br>
-              <span class="comment"># Claude выполнит инструкции из SKILL.md</span>
+              <span class="output">> /review</span><br>
+              <span class="output">> /fix-issue 42</span>
             </div>
           </div>
         </section>
@@ -224,6 +297,14 @@ Fix GitHub issue $ARGUMENTS:
               <div class="quiz-option" data-correct="false"><span>package.json</span></div>
             </div>
           </div>
+          <div class="quiz-question" style="margin-top: 2rem;">
+            <h4>Для чего нужен disable-model-invocation: true?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="false"><span>Ускоряет работу</span></div>
+              <div class="quiz-option" data-correct="true"><span>Чтобы Claude не вызвал команду случайно</span></div>
+              <div class="quiz-option" data-correct="false"><span>Отключает AI</span></div>
+            </div>
+          </div>
         </section>
 
         <section class="content-section">
@@ -231,14 +312,14 @@ Fix GitHub issue $ARGUMENTS:
           <div class="checklist">
             <label class="checklist-item"><input type="checkbox"><span>Понимаю что такое Skills</span></label>
             <label class="checklist-item"><input type="checkbox"><span>Знаю структуру SKILL.md</span></label>
-            <label class="checklist-item"><input type="checkbox"><span>Создал минимум 2 своих Skills</span></label>
-            <label class="checklist-item"><input type="checkbox"><span>Протестировал Skills в проекте</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Попробовал встроенные Skills (/simplify, /batch)</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Создал минимум 1 свой Skill</span></label>
           </div>
         </section>
 
         <section class="start-section">
           <h2>Следующий шаг</h2>
-          <p>Изучим субагенты и параллельное выполнение задач</p>
+          <p>Изучим субагенты - специализированных помощников Claude</p>
           <a href="lesson-3.html" class="btn-start">Перейти к уроку 3<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
         </section>
       </div>

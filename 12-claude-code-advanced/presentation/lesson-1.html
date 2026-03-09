@@ -9,105 +9,43 @@
 </head>
 <body>
   <div class="app-container">
-    <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-header">
         <div class="sidebar-logo">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
           </svg>
           VibeCoding
         </div>
       </div>
-
       <div class="progress-container">
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: 0%"></div>
-        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
         <div class="progress-text">0 из 7 уроков</div>
       </div>
-
       <nav class="sidebar-nav">
         <div class="nav-section">Модуль 12</div>
-        <a href="index.html" class="nav-item">
-          <span class="nav-item-number">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-              <polyline points="9,22 9,12 15,12 15,22"/>
-            </svg>
-          </span>
-          Главная
-        </a>
-
-        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Интеграции</div>
-        <a href="lesson-1.html" class="nav-item active" data-lesson="1">
-          <span class="nav-item-number">1</span>
-          MCP серверы
-        </a>
-        <a href="lesson-2.html" class="nav-item" data-lesson="2">
-          <span class="nav-item-number">2</span>
-          Custom Skills
-        </a>
-
+        <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Подключения</div>
+        <a href="lesson-1.html" class="nav-item active" data-lesson="1"><span class="nav-item-number">1</span>MCP серверы</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Custom Skills</a>
         <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Автоматизация</div>
-        <a href="lesson-3.html" class="nav-item" data-lesson="3">
-          <span class="nav-item-number">3</span>
-          Субагенты
-        </a>
-        <a href="lesson-4.html" class="nav-item" data-lesson="4">
-          <span class="nav-item-number">4</span>
-          Hooks
-        </a>
-
-        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
-        <a href="lesson-5.html" class="nav-item" data-lesson="5">
-          <span class="nav-item-number">5</span>
-          Dashboard
-        </a>
-        <a href="lesson-6.html" class="nav-item" data-lesson="6">
-          <span class="nav-item-number">6</span>
-          Best Practices
-        </a>
-        <a href="project.html" class="nav-item" data-lesson="7">
-          <span class="nav-item-number">P</span>
-          Итоговый проект
-        </a>
-
-        <a href="../../index.html" class="nav-item exit-btn">
-          <span class="nav-item-number">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-              <polyline points="16,17 21,12 16,7"/>
-              <line x1="21" y1="12" x2="9" y2="12"/>
-            </svg>
-          </span>
-          Выход
-        </a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Субагенты</a>
+        <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Hooks</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Продвинутые</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Headless и Платформы</a>
+        <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Best Practices</a>
+        <a href="project.html" class="nav-item" data-lesson="7"><span class="nav-item-number">P</span>Итоговый проект</a>
+        <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
       </nav>
     </aside>
 
-    <!-- Main Content -->
     <main class="main-content">
       <div class="content-wrapper">
-        <!-- Lesson Header -->
         <div class="lesson-header">
           <div class="lesson-nav">
-            <a href="index.html">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="15,18 9,12 15,6"/>
-              </svg>
-              Назад к модулю
-            </a>
-            <a href="lesson-2.html">
-              Следующий урок
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="9,18 15,12 9,6"/>
-              </svg>
-            </a>
+            <a href="index.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>Назад к модулю</a>
+            <a href="lesson-2.html">Следующий урок<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg></a>
           </div>
-
           <div class="lesson-title-section">
             <span class="lesson-badge basics">1</span>
             <div>
@@ -117,255 +55,218 @@
           </div>
         </div>
 
-        <!-- Lesson Content -->
         <section class="content-section">
           <h2>Что такое MCP?</h2>
-
-          <p><strong>MCP (Model Context Protocol) — протокол для подключения внешних инструментов к Claude.</strong></p>
+          <p><strong>MCP (Model Context Protocol) - открытый стандарт для подключения внешних инструментов к Claude.</strong></p>
 
           <div class="info-box claude">
             <div class="info-box-title">Аналогия</div>
-            <p>MCP серверы = Плагины для браузера</p>
-            <p>Claude + GitHub MCP = Claude может создавать PR напрямую<br>
-            Claude + Figma MCP = Claude может читать дизайн</p>
+            <p>MCP - это как USB-порт для Claude. Обычный Claude умеет читать и писать файлы. А через MCP он получает "суперсилы" - может работать с GitHub, базами данных, Figma, Slack и десятками других сервисов.</p>
           </div>
 
           <table>
             <thead>
-              <tr>
-                <th>Без MCP</th>
-                <th>С MCP</th>
-              </tr>
+              <tr><th>Без MCP</th><th>С MCP</th></tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Читает/пишет файлы</td>
-                <td>+ работает с GitHub</td>
-              </tr>
-              <tr>
-                <td>Выполняет bash</td>
-                <td>+ читает Figma дизайн</td>
-              </tr>
-              <tr>
-                <td>Поиск по проекту</td>
-                <td>+ SQL запросы</td>
-              </tr>
+              <tr><td>Читает/пишет файлы</td><td>+ работает с GitHub (issues, PR)</td></tr>
+              <tr><td>Выполняет bash</td><td>+ читает Figma дизайн</td></tr>
+              <tr><td>Поиск по проекту</td><td>+ SQL запросы к базе</td></tr>
+              <tr><td>Работает только локально</td><td>+ Notion, Sentry, Jira, Slack</td></tr>
             </tbody>
           </table>
         </section>
 
         <section class="content-section">
-          <h2>Подключение MCP серверов</h2>
+          <h2>Как подключить MCP сервер</h2>
 
-          <p><strong>Используйте команду <code>claude mcp add</code>:</strong></p>
-
-          <h3>HTTP сервер (рекомендуется):</h3>
+          <h3>Способ 1: HTTP сервер (облачный) - рекомендуется</h3>
+          <p>Сервер работает в облаке. Вы просто подключаетесь к нему по URL. Как зайти на сайт - ввели адрес и работаете.</p>
           <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">Terminal</span>
-            </div>
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="terminal-title">Terminal</span></div>
             <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">claude mcp add --transport http github https://api.githubcopilot.com/mcp/</span>
+              <span class="comment"># Подключить GitHub</span><br>
+              <span class="prompt">$</span> <span class="command">claude mcp add --transport http github https://api.githubcopilot.com/mcp/</span><br><br>
+              <span class="comment"># Подключить Notion</span><br>
+              <span class="prompt">$</span> <span class="command">claude mcp add --transport http notion https://mcp.notion.com/mcp</span><br><br>
+              <span class="comment"># Подключить Sentry (мониторинг ошибок)</span><br>
+              <span class="prompt">$</span> <span class="command">claude mcp add --transport http sentry https://mcp.sentry.dev/mcp</span>
             </div>
           </div>
 
-          <h3>Stdio сервер (локальный):</h3>
+          <h3>Способ 2: Stdio сервер (локальный)</h3>
+          <p>Программа, которая запускается на вашем компьютере. Как установить приложение - оно работает локально. Для баз данных, файловых систем.</p>
           <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">Terminal</span>
-            </div>
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="terminal-title">Terminal</span></div>
             <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">claude mcp add --transport stdio db -- npx -y @bytebase/dbhub --dsn "..."</span>
+              <span class="comment"># Подключить PostgreSQL базу данных</span><br>
+              <span class="prompt">$</span> <span class="command">claude mcp add --transport stdio db -- npx -y @bytebase/dbhub --dsn "postgresql://user:pass@localhost/mydb"</span>
             </div>
+          </div>
+
+          <div class="info-box warning">
+            <div class="info-box-title">Порядок аргументов</div>
+            <p>Все опции (<code>--transport</code>, <code>--env</code>, <code>--scope</code>) идут ПЕРЕД именем сервера. Двойной дефис <code>--</code> отделяет имя от команды запуска.</p>
           </div>
 
           <h3>Управление серверами:</h3>
-          <ul>
-            <li><code>claude mcp list</code> — список серверов</li>
-            <li><code>claude mcp get github</code> — детали сервера</li>
-            <li><code>claude mcp remove github</code> — удаление</li>
-            <li><code>/mcp</code> — статус в Claude Code</li>
-          </ul>
+          <table>
+            <thead><tr><th>Команда</th><th>Что делает</th></tr></thead>
+            <tbody>
+              <tr><td><code>claude mcp list</code></td><td>Показать все подключённые серверы</td></tr>
+              <tr><td><code>claude mcp get github</code></td><td>Детали конкретного сервера</td></tr>
+              <tr><td><code>claude mcp remove github</code></td><td>Удалить сервер</td></tr>
+              <tr><td><code>/mcp</code></td><td>Статус серверов внутри Claude Code</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="content-section">
+          <h2>Области видимости (Scopes)</h2>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Аналогия</div>
+            <p>Как настройки Wi-Fi - можно подключить для себя, а можно для всей семьи через роутер.</p>
+          </div>
+
+          <table>
+            <thead><tr><th>Scope</th><th>Где хранится</th><th>Для кого</th></tr></thead>
+            <tbody>
+              <tr><td><code>local</code> (по умолчанию)</td><td><code>~/.claude.json</code></td><td>Только вы, только этот проект</td></tr>
+              <tr><td><code>project</code></td><td><code>.mcp.json</code> (в git)</td><td>Вся команда - файл попадает в репозиторий</td></tr>
+              <tr><td><code>user</code></td><td><code>~/.claude.json</code></td><td>Вы во всех ваших проектах</td></tr>
+            </tbody>
+          </table>
+
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="comment"># Подключить для всей команды (сохраняется в .mcp.json)</span><br>
+              <span class="prompt">$</span> <span class="command">claude mcp add --scope project --transport http github https://api.githubcopilot.com/mcp/</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Аутентификация</h2>
+
+          <p>Многие облачные MCP серверы требуют входа в аккаунт (OAuth).</p>
+
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="terminal-title">Claude Code</span></div>
+            <div class="terminal-body">
+              <span class="comment"># 1. Добавляем сервер</span><br>
+              <span class="prompt">$</span> <span class="command">claude mcp add --transport http sentry https://mcp.sentry.dev/mcp</span><br><br>
+              <span class="comment"># 2. Внутри Claude Code - аутентификация</span><br>
+              <span class="output">> /mcp</span><br>
+              <span class="comment"># Выбираем сервер → Authenticate</span><br>
+              <span class="comment"># Откроется браузер для входа в аккаунт</span>
+            </div>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Как это работает</div>
+            <p>Токены аутентификации хранятся безопасно и обновляются автоматически. Через <code>/mcp</code> можно также отозвать доступ (Clear authentication).</p>
+          </div>
         </section>
 
         <section class="content-section">
           <h2>Популярные MCP серверы</h2>
 
-          <h3>GitHub</h3>
-          <div class="terminal-demo">
-            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
-            <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">claude mcp add --transport http github https://api.githubcopilot.com/mcp/</span>
-            </div>
-          </div>
-          <p><strong>Возможности:</strong> Issues, PR, коммиты, ветки, code review</p>
+          <table>
+            <thead><tr><th>Сервис</th><th>Что умеет Claude с ним</th></tr></thead>
+            <tbody>
+              <tr><td><strong>GitHub</strong></td><td>Создавать issues, ревьюить PR, искать код</td></tr>
+              <tr><td><strong>Sentry</strong></td><td>Анализировать ошибки, искать баги в продакшне</td></tr>
+              <tr><td><strong>Notion</strong></td><td>Читать и обновлять документы</td></tr>
+              <tr><td><strong>Figma</strong></td><td>Читать дизайн-макеты, извлекать стили</td></tr>
+              <tr><td><strong>Slack</strong></td><td>Читать каналы, отправлять сообщения</td></tr>
+              <tr><td><strong>PostgreSQL</strong></td><td>SQL запросы к базе данных</td></tr>
+              <tr><td><strong>Supabase</strong></td><td>Управление базой и авторизацией</td></tr>
+              <tr><td><strong>Vercel</strong></td><td>Деплой и мониторинг</td></tr>
+            </tbody>
+          </table>
 
-          <h3>Sentry (мониторинг ошибок)</h3>
-          <div class="terminal-demo">
-            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
-            <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">claude mcp add --transport http sentry https://mcp.sentry.dev/mcp</span>
-            </div>
+          <div class="info-box claude">
+            <div class="info-box-title">Реальные примеры</div>
+            <p><strong>GitHub MCP:</strong> "Посмотри открытые issues с лейблом bug и создай для каждого ветку с фиксом" - Claude сам найдёт issues, прочитает описание, создаст ветки и исправит код!<br><br>
+            <strong>Sentry MCP:</strong> "Какие ошибки были в продакшне за последние 24 часа? Почини самую частую" - Claude проанализирует логи, найдёт root cause и исправит.<br><br>
+            <strong>PostgreSQL MCP:</strong> "Какие пользователи зарегистрировались сегодня? Создай отчёт" - Claude напишет SQL запрос и покажет результат.<br><br>
+            <strong>Figma MCP:</strong> "Посмотри дизайн главной страницы и создай компонент по макету" - Claude прочитает стили и размеры из Figma.</p>
           </div>
-          <p><strong>Возможности:</strong> Ошибки, стектрейсы, дебаг production</p>
-
-          <h3>PostgreSQL</h3>
-          <div class="terminal-demo">
-            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
-            <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">claude mcp add --transport stdio db -- npx -y @bytebase/dbhub --dsn "postgresql://..."</span>
-            </div>
-          </div>
-          <p><strong>Возможности:</strong> SQL на естественном языке, анализ схемы</p>
-
-          <h3>Notion</h3>
-          <div class="terminal-demo">
-            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
-            <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">claude mcp add --transport http notion https://mcp.notion.com/mcp</span>
-            </div>
-          </div>
-          <p><strong>Возможности:</strong> Работа с документами, базами знаний</p>
         </section>
 
         <section class="content-section">
-          <h2>Практика: Подключаем GitHub MCP</h2>
+          <h2>Практика</h2>
 
-          <h3>Шаг 1: Добавляем GitHub MCP</h3>
+          <h3>Задание 1: Подключаем GitHub MCP</h3>
           <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">Terminal</span>
-            </div>
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="terminal-title">Terminal</span></div>
             <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">claude mcp add --transport http github https://api.githubcopilot.com/mcp/</span>
-            </div>
-          </div>
-
-          <h3>Шаг 2: Запускаем Claude Code</h3>
-          <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">Terminal</span>
-            </div>
-            <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">claude</span>
-            </div>
-          </div>
-
-          <h3>Шаг 3: Аутентификация</h3>
-          <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">Claude Code</span>
-            </div>
-            <div class="terminal-body">
+              <span class="comment"># 1. Добавляем</span><br>
+              <span class="prompt">$</span> <span class="command">claude mcp add --transport http github https://api.githubcopilot.com/mcp/</span><br><br>
+              <span class="comment"># 2. Запускаем Claude Code</span><br>
+              <span class="prompt">$</span> <span class="command">claude</span><br><br>
+              <span class="comment"># 3. Аутентификация</span><br>
               <span class="output">> /mcp</span><br>
-              <span class="comment"># Выберите "Authenticate" для GitHub</span>
+              <span class="comment"># Выберите "Authenticate" для GitHub</span><br><br>
+              <span class="comment"># 4. Тестируем</span><br>
+              <span class="output">> Покажи мои репозитории</span><br>
+              <span class="output">> Создай issue: "Добавить тёмную тему"</span>
             </div>
           </div>
 
-          <h3>Шаг 4: Тестируем</h3>
+          <h3>Задание 2: Подключаем базу данных</h3>
           <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">Claude Code</span>
-            </div>
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
             <div class="terminal-body">
-              <span class="output">> Show me my recent repositories</span><br><br>
-              <span class="output">> Create an issue in my-project: "Bug fix needed"</span>
+              <span class="comment"># Если у вас есть PostgreSQL:</span><br>
+              <span class="prompt">$</span> <span class="command">claude mcp add --transport stdio db -- npx -y @bytebase/dbhub --dsn "postgresql://user:pass@localhost/mydb"</span><br><br>
+              <span class="comment"># Теперь в Claude Code:</span><br>
+              <span class="output">> Какие таблицы есть в базе?</span><br>
+              <span class="output">> Покажи 10 последних заказов</span>
             </div>
           </div>
         </section>
 
-        <!-- Quiz -->
         <section class="quiz-section">
           <h2>Проверьте себя</h2>
-
           <div class="quiz-question">
             <h4>Вопрос 1: Что такое MCP?</h4>
             <div class="quiz-options">
-              <div class="quiz-option" data-correct="false">
-                <span>Язык программирования</span>
-              </div>
-              <div class="quiz-option" data-correct="true">
-                <span>Протокол для подключения внешних инструментов</span>
-              </div>
-              <div class="quiz-option" data-correct="false">
-                <span>Модель Claude</span>
-              </div>
+              <div class="quiz-option" data-correct="false"><span>Язык программирования</span></div>
+              <div class="quiz-option" data-correct="true"><span>Открытый стандарт для подключения внешних инструментов к AI</span></div>
+              <div class="quiz-option" data-correct="false"><span>Модель Claude</span></div>
             </div>
           </div>
-
           <div class="quiz-question" style="margin-top: 2rem;">
-            <h4>Вопрос 2: Какая команда добавляет MCP сервер?</h4>
+            <h4>Вопрос 2: Какой транспорт рекомендуется для облачных серверов?</h4>
             <div class="quiz-options">
-              <div class="quiz-option" data-correct="false">
-                <span>claude install mcp</span>
-              </div>
-              <div class="quiz-option" data-correct="true">
-                <span>claude mcp add</span>
-              </div>
-              <div class="quiz-option" data-correct="false">
-                <span>npm install mcp</span>
-              </div>
+              <div class="quiz-option" data-correct="false"><span>stdio</span></div>
+              <div class="quiz-option" data-correct="true"><span>HTTP</span></div>
+              <div class="quiz-option" data-correct="false"><span>WebSocket</span></div>
             </div>
           </div>
         </section>
 
-        <!-- Checklist -->
         <section class="content-section">
           <h2>Чеклист урока</h2>
           <div class="checklist">
-            <label class="checklist-item">
-              <input type="checkbox">
-              <span>Понимаю что такое MCP</span>
-            </label>
-            <label class="checklist-item">
-              <input type="checkbox">
-              <span>Знаю команду claude mcp add</span>
-            </label>
-            <label class="checklist-item">
-              <input type="checkbox">
-              <span>Подключил GitHub MCP</span>
-            </label>
-            <label class="checklist-item">
-              <input type="checkbox">
-              <span>Прошёл аутентификацию через /mcp</span>
-            </label>
+            <label class="checklist-item"><input type="checkbox"><span>Понимаю что такое MCP и зачем он нужен</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Знаю команду claude mcp add</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Понимаю разницу HTTP и stdio серверов</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Подключил GitHub MCP или другой сервер</span></label>
           </div>
         </section>
 
-        <!-- Next Lesson -->
         <section class="start-section">
           <h2>Следующий шаг</h2>
-          <p>В следующем уроке создадим собственные Custom Skills</p>
-          <a href="lesson-2.html" class="btn-start">
-            Перейти к уроку 2
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="5" y1="12" x2="19" y2="12"/>
-              <polyline points="12,5 19,12 12,19"/>
-            </svg>
-          </a>
+          <p>В следующем уроке создадим собственные Custom Skills - команды для Claude</p>
+          <a href="lesson-2.html" class="btn-start">Перейти к уроку 2<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
         </section>
       </div>
     </main>
   </div>
-
   <script src="js/app.js"></script>
 </body>
 </html>

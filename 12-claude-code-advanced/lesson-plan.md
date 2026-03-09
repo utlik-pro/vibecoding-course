@@ -4,163 +4,233 @@
 - **Длительность:** ~3 часа (6 уроков)
 - **Уровень:** Продвинутый
 - **Практический проект:** SaaS Dashboard
-- **Источник:** Официальная документация https://code.claude.com/docs
+- **Источники:** Официальная документация https://code.claude.com/docs
 
 ## Цели обучения
 После завершения модуля студенты смогут:
-1. Подключать и использовать MCP серверы
-2. Создавать собственные Skills
-3. Работать с субагентами
+1. Подключать внешние инструменты через MCP и плагины
+2. Создавать собственные Skills (команды)
+3. Работать с субагентами и их памятью
 4. Настраивать Hooks для автоматизации
-5. Применять Best Practices из официальной документации
+5. Менять стиль работы Claude через Output Styles
+6. Запускать команды агентов (Agent Teams)
+7. Использовать Headless режим для автоматизации
+8. Решать типичные проблемы (Troubleshooting)
 
 ## Структура модуля
 
 | Часть | Уроки | Тема |
 |-------|-------|------|
-| A | 12.1 - 12.2 | MCP серверы и Skills |
-| B | 12.3 - 12.4 | Субагенты и Hooks |
-| C | 12.5 - 12.6 | Практика и Best Practices |
+| A | 12.1 - 12.2 | MCP + Плагины, Skills |
+| B | 12.3 - 12.4 | Субагенты, Hooks + Output Styles |
+| C | 12.5 - 12.6 | Agent Teams + Headless, Best Practices + Troubleshooting |
 
 ---
 
-# Часть A: Расширение возможностей
+# Часть A: Подключения и команды
 
 ---
 
-## Урок 12.1: MCP серверы (45 мин)
-**Источник:** https://code.claude.com/docs/en/mcp
+## Урок 12.1: MCP серверы и Плагины (45 мин)
+**Источники:**
+- https://code.claude.com/docs/en/mcp
+- https://code.claude.com/docs/en/plugins
+- https://code.claude.com/docs/en/discover-plugins
 
 ### Цели урока
-- Понять что такое MCP (Model Context Protocol)
-- Научиться подключать MCP серверы через CLI
-- Использовать популярные интеграции
+- Понять что такое MCP простым языком
+- Научиться подключать внешние инструменты
+- Узнать про плагины — готовые расширения
 
 ### Содержание
 
 #### 1. Что такое MCP? (10 мин)
 
-**MCP (Model Context Protocol) — открытый стандарт для подключения AI к внешним инструментам.**
+**Простая аналогия:**
+MCP — это как App Store для Claude Code. Обычный Claude умеет читать и писать файлы. А с MCP он получает "суперсилы" — может работать с GitHub, базами данных, Figma и другими сервисами.
 
-С MCP Claude Code может:
-- Работать с GitHub (создавать PR, issues)
-- Подключаться к базам данных
-- Интегрироваться с Figma, Notion, Slack
+**Пример из жизни:**
+Без MCP:
+```
+Вы: "Создай issue на GitHub"
+Claude: "Я не могу работать с GitHub напрямую"
+```
+
+С MCP:
+```
+Вы: "Создай issue на GitHub: баг в логине"
+Claude: "Готово! Issue #42 создан в вашем репозитории"
+```
+
+**Что можно делать с MCP:**
+- Работать с GitHub (создавать PR, issues, смотреть код)
+- Запрашивать базы данных на обычном языке
+- Читать документы из Notion
 - Мониторить ошибки через Sentry
-
-**Примеры использования:**
-```
-"Add the feature described in JIRA issue ENG-4521"
-"Query our PostgreSQL database for active users"
-"Update the email template based on Figma designs"
-```
+- Работать с задачами в Jira, Asana, Linear
 
 #### 2. Подключение MCP серверов (15 мин)
 
-**Способ 1: HTTP сервер (рекомендуется)**
-```bash
-claude mcp add --transport http <name> <url>
+**Два способа подключения:**
 
-# Пример: GitHub
+**Способ 1: HTTP сервер (облачный) — рекомендуется**
+Это как подключение к сайту. Сервер работает где-то в интернете.
+
+```bash
+# Формат команды
+claude mcp add --transport http <название> <адрес>
+
+# Пример: подключаем GitHub
 claude mcp add --transport http github https://api.githubcopilot.com/mcp/
 
-# С авторизацией
+# Пример: подключаем Notion
+claude mcp add --transport http notion https://mcp.notion.com/mcp
+
+# Пример: подключаем Sentry (мониторинг ошибок)
 claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
 ```
 
 **Способ 2: Stdio сервер (локальный)**
+Это программа, которая запускается на вашем компьютере.
+
 ```bash
-claude mcp add --transport stdio <name> -- <command>
+# Формат: двойной дефис -- отделяет команду запуска
+claude mcp add --transport stdio <название> -- <команда запуска>
 
-# Пример: PostgreSQL
+# Пример: подключаем базу данных PostgreSQL
 claude mcp add --transport stdio db -- npx -y @bytebase/dbhub \
-  --dsn "postgresql://user:pass@localhost/db"
+  --dsn "postgresql://user:pass@localhost/mydb"
 
-# С переменными окружения
+# Пример: с переменными окружения (API ключами)
 claude mcp add --transport stdio airtable \
-  --env AIRTABLE_API_KEY=YOUR_KEY \
+  --env AIRTABLE_API_KEY=ваш_ключ \
   -- npx -y airtable-mcp-server
 ```
 
 **Управление серверами:**
 ```bash
-# Список серверов
-claude mcp list
-
-# Детали сервера
-claude mcp get github
-
-# Удаление
-claude mcp remove github
-
-# Статус в Claude Code
-/mcp
+claude mcp list              # Показать все подключённые серверы
+claude mcp get github        # Детали конкретного сервера
+claude mcp remove github     # Удалить сервер
+# Внутри Claude Code:
+/mcp                         # Статус всех серверов + аутентификация
 ```
 
-#### 3. Scopes (области видимости) (5 мин)
+#### 3. Области видимости (Scopes) (5 мин)
 
-| Scope | Расположение | Описание |
+**Аналогия:** Как настройки в телефоне — можно для одного приложения, а можно для всех.
+
+| Scope | Где хранится | Для кого |
 |-------|-------------|----------|
-| `local` | `~/.claude.json` (проект) | Только для вас в этом проекте |
-| `project` | `.mcp.json` | Для всей команды (в git) |
-| `user` | `~/.claude.json` | Для вас во всех проектах |
+| `local` | На вашем компьютере | Только вы, только этот проект |
+| `project` | В файле `.mcp.json` | Вся команда (файл в git) |
+| `user` | В `~/.claude.json` | Вы во всех проектах |
 
 ```bash
-# Добавить как project-scope
-claude mcp add --scope project --transport http github https://...
+# Подключить для всей команды
+claude mcp add --scope project --transport http github https://api.githubcopilot.com/mcp/
 ```
 
-#### 4. Популярные MCP серверы (10 мин)
+#### 4. Плагины — готовые расширения (10 мин)
 
-**GitHub:**
+**Что такое плагины?**
+Плагины — это "пакеты" готовых расширений. Вместо того чтобы настраивать всё вручную, можно просто установить плагин и сразу получить новые команды, агентов и MCP серверы.
+
+**Аналогия:** MCP — это как отдельные приложения. Плагин — это как набор приложений в комплекте (например, Microsoft Office = Word + Excel + PowerPoint).
+
+**Официальные плагины Anthropic:**
+
+Категория "Код":
+- `typescript-lsp` — подсказки TypeScript для Claude
+- `pyright-lsp` — подсказки Python
+- `rust-analyzer-lsp` — подсказки Rust
+
+Категория "Интеграции":
+- `github` — работа с GitHub
+- `slack` — работа со Slack
+- `notion` — работа с Notion
+- `figma` — работа с Figma
+- `sentry` — мониторинг ошибок
+- `supabase` — база данных
+- `vercel` — деплой
+
+Категория "Рабочие процессы":
+- `commit-commands` — команды для коммитов
+- `pr-review-toolkit` — инструменты code review
+
+Категория "Стили":
+- `explanatory-output-style` — Claude объясняет свои решения
+- `learning-output-style` — режим обучения
+
+**Установка плагинов:**
 ```bash
-claude mcp add --transport http github https://api.githubcopilot.com/mcp/
+# Внутри Claude Code:
+/plugin                                    # Открыть менеджер плагинов
+
+# Вкладки в менеджере:
+# Discover — найти и установить
+# Installed — управлять установленными
+# Marketplaces — добавить источники плагинов
+
+# Установка конкретного плагина
+/plugin install github@claude-plugins-official
 ```
-- Создание PR и issues
-- Просмотр коммитов
-- Code review
 
-**Sentry (мониторинг ошибок):**
+**Маркетплейсы (магазины плагинов):**
 ```bash
-claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
-# Затем в Claude Code:
-/mcp
-# Выбрать "Authenticate" для Sentry
+# Добавить маркетплейс Anthropic (демо-плагины)
+/plugin marketplace add anthropics/claude-code
+
+# Добавить маркетплейс с GitHub
+/plugin marketplace add owner/repo
+
+# Обновить плагины
+/plugin marketplace update marketplace-name
 ```
 
-**PostgreSQL:**
-```bash
-claude mcp add --transport stdio db -- npx -y @bytebase/dbhub \
-  --dsn "postgresql://readonly:pass@prod.db.com:5432/analytics"
+**Создание своего плагина (для продвинутых):**
+```
+мой-плагин/
+├── .claude-plugin/
+│   └── plugin.json          # Описание плагина
+├── skills/                  # Команды
+│   └── hello/
+│       └── SKILL.md
+├── agents/                  # Агенты
+├── hooks/                   # Автоматизация
+│   └── hooks.json
+└── .mcp.json               # MCP серверы
 ```
 
-**Notion:**
-```bash
-claude mcp add --transport http notion https://mcp.notion.com/mcp
-```
+#### 5. Практика (5 мин)
 
-#### 5. Практика: Подключаем GitHub (5 мин)
-
+**Задание 1: Подключаем GitHub MCP**
 ```bash
-# 1. Добавляем GitHub MCP
+# 1. Добавляем
 claude mcp add --transport http github https://api.githubcopilot.com/mcp/
 
 # 2. Запускаем Claude Code
 claude
 
-# 3. Аутентификация
+# 3. Аутентификация (вход)
 /mcp
-# Выбираем "Authenticate" для GitHub
+# Выбрать "Authenticate" для GitHub
 
 # 4. Тестируем
-> Show me my recent repositories
-> Create an issue in my-project: "Fix login bug"
+> Покажи мои репозитории
+> Создай issue в моём проекте: "Добавить тёмную тему"
+```
+
+**Задание 2: Устанавливаем плагин**
+```bash
+/plugin install commit-commands@claude-plugins-official
+# Теперь доступна команда /commit-commands:commit
 ```
 
 ### Домашнее задание
-1. Подключите GitHub MCP
-2. Создайте issue через Claude Code
-3. Попробуйте другой MCP сервер
+1. Подключите GitHub MCP и создайте issue
+2. Установите 2 плагина из официального маркетплейса
+3. Попробуйте подключить Notion или другой MCP сервер
 
 ---
 
@@ -168,607 +238,1064 @@ claude
 **Источник:** https://code.claude.com/docs/en/skills
 
 ### Цели урока
-- Понять структуру SKILL.md
-- Создать собственные slash-команды
-- Использовать frontmatter опции
+- Понять что такое Skills простым языком
+- Создать свои slash-команды
+- Научиться использовать переменные и аргументы
 
 ### Содержание
 
-#### 1. Что такое Skills? (5 мин)
+#### 1. Что такое Skills? (10 мин)
 
-**Skills — расширения возможностей Claude через markdown файлы.**
+**Простая аналогия:**
+Skills — это как "рецепты" для Claude. Вместо того чтобы каждый раз объяснять Claude что делать, вы записываете инструкцию один раз и потом вызываете её одной командой.
 
-Два типа:
-- **Reference** — знания, которые Claude применяет автоматически
-- **Task** — команды, которые вы вызываете через `/name`
-
+**Пример:**
+Без Skills:
 ```
-.claude/skills/deploy/SKILL.md → вызов через /deploy
-.claude/skills/api-conventions/SKILL.md → Claude использует автоматически
+Вы: "Запусти тесты, потом собери проект, потом задеплой на Vercel,
+     и верни мне ссылку. Используй npm run test, npm run build,
+     vercel --prod"
 ```
 
-#### 2. Структура SKILL.md (10 мин)
+С Skills (один раз написали инструкцию):
+```
+Вы: /deploy
+Claude: Выполняю деплой... Готово! URL: myapp.vercel.app
+```
 
-**Расположение:**
+**Два типа Skills:**
+
+| Тип | Что делает | Пример |
+|-----|-----------|--------|
+| Reference | Знания, которые Claude использует автоматически | Стиль кода, правила API |
+| Task | Команда, которую вы вызываете через `/имя` | /deploy, /test, /review |
+
+#### 2. Как создать Skill (15 мин)
+
+**Шаг 1: Создаём папку**
+```bash
+mkdir -p .claude/skills/deploy
+```
+
+**Шаг 2: Создаём файл SKILL.md**
+
+Каждый Skill — это файл `SKILL.md` внутри папки с названием команды:
 ```
 .claude/skills/
 ├── deploy/
-│   └── SKILL.md
+│   └── SKILL.md       → вызов через /deploy
 ├── test/
-│   └── SKILL.md
+│   └── SKILL.md       → вызов через /test
 └── review/
-    └── SKILL.md
+    └── SKILL.md       → вызов через /review
 ```
 
-**Формат файла:**
+**Шаг 3: Пишем содержимое**
+
+Файл состоит из двух частей:
+1. **Frontmatter** (шапка между `---`) — настройки
+2. **Содержимое** (после `---`) — инструкции для Claude
+
 ```yaml
 ---
 name: deploy
-description: Deploy the application to production
+description: Задеплоить приложение на Vercel
 disable-model-invocation: true
-allowed-tools: Bash(npm *), Bash(vercel *)
 ---
 
-Deploy the application:
+Задеплой приложение:
 
-1. Run the test suite
-2. Build the application
-3. Deploy to Vercel with `vercel --prod`
-4. Return the deployment URL
+1. Запусти тесты: `npm run test`
+2. Если тесты прошли, собери: `npm run build`
+3. Задеплой: `vercel --prod`
+4. Верни ссылку на деплой
 ```
 
-#### 3. Frontmatter опции (10 мин)
+#### 3. Настройки (Frontmatter) (5 мин)
 
-| Опция | Описание | Пример |
-|-------|----------|--------|
-| `name` | Имя skill (= /команда) | `deploy` |
-| `description` | Когда использовать | `Deploy the app` |
-| `disable-model-invocation` | Только ручной вызов | `true` |
-| `allowed-tools` | Разрешённые инструменты | `Bash(npm *)` |
-| `context` | Запуск в subagent | `fork` |
-| `agent` | Тип агента при context: fork | `Explore` |
+| Настройка | Что делает | Пример |
+|-----------|-----------|--------|
+| `name` | Имя команды | `deploy` → `/deploy` |
+| `description` | Когда Claude должен использовать | "Deploy app to Vercel" |
+| `disable-model-invocation` | Claude НЕ запускает сам | `true` для /deploy |
+| `user-invocable` | Скрыть из меню `/` | `false` для фоновых знаний |
+| `allowed-tools` | Какие инструменты разрешены | `Bash(npm *)` |
+| `context: fork` | Запуск в отдельном агенте | Для изолированных задач |
+| `agent` | Тип агента при fork | `Explore`, `Plan` |
 
-**`disable-model-invocation: true`** — важно для skills с side effects:
-- `/deploy` — деплой не должен запускаться случайно
-- `/commit` — коммит только по команде
-- `/send-slack` — отправка сообщений
+**Важное правило:**
+`disable-model-invocation: true` — используйте для команд с "побочными эффектами":
+- `/deploy` — деплой не должен случиться случайно
+- `/commit` — коммит только по вашей команде
+- `/send-message` — отправка сообщений
 
-#### 4. Примеры Skills (10 мин)
+#### 4. Переменные и аргументы (5 мин)
 
-**Skill: /deploy**
+**$ARGUMENTS — всё что вы пишете после команды:**
 ```yaml
 ---
-name: deploy
-description: Deploy the application to production
+name: fix-issue
+description: Починить баг из GitHub issue
 disable-model-invocation: true
-allowed-tools: Bash(npm *), Bash(vercel *)
 ---
 
-Deploy $ARGUMENTS to production:
+Почини баг из GitHub issue $ARGUMENTS:
 
-1. Run `npm run build`
-2. If successful, run `vercel --prod`
-3. Return the deployment URL
+1. Посмотри описание issue через `gh issue view $ARGUMENTS`
+2. Найди и пойми проблему
+3. Исправь баг
+4. Напиши тесты
+5. Создай коммит
 ```
 
-**Skill: /review (в subagent)**
+**Пример использования:**
+```
+/fix-issue 42
+# Claude получит: "Почини баг из GitHub issue 42..."
+```
+
+**Доступ к отдельным аргументам:**
+```
+$ARGUMENTS[0] или $0  — первый аргумент
+$ARGUMENTS[1] или $1  — второй аргумент
+```
+
+**Динамический контекст (вставка данных):**
 ```yaml
 ---
-name: review
-description: Code review with security focus
+name: pr-summary
+description: Описание пул-реквеста
 context: fork
 agent: Explore
 ---
 
-Review the code for:
-1. Security issues (injection, XSS)
-2. Performance problems
-3. Code style violations
+## Данные PR
+- Изменения: !`gh pr diff`
+- Файлы: !`gh pr diff --name-only`
 
-Provide specific line references.
+## Задание
+Сделай краткое описание этого пул-реквеста.
 ```
 
-**Skill: /fix-issue**
-```yaml
----
-name: fix-issue
-description: Fix a GitHub issue
-disable-model-invocation: true
----
+`!`команда`` — выполняется ДО того как Claude увидит инструкцию, и результат подставляется в текст.
 
-Fix GitHub issue $ARGUMENTS:
+#### 5. Где хранить Skills (5 мин)
 
-1. Use `gh issue view` to get details
-2. Understand the problem
-3. Implement the fix
-4. Write tests
-5. Create a commit
-6. Push and create a PR
+| Расположение | Доступность |
+|-------------|-------------|
+| `~/.claude/skills/` | Все ваши проекты (личные) |
+| `.claude/skills/` | Только этот проект |
+| Внутри плагина | Где плагин установлен |
+
+**Дополнительные файлы в Skill:**
+```
+deploy/
+├── SKILL.md           # Основные инструкции (обязательно)
+├── template.md        # Шаблон для Claude
+├── examples/
+│   └── sample.md      # Примеры
+└── scripts/
+    └── validate.sh    # Скрипт для проверки
 ```
 
-**Переменные:**
-- `$ARGUMENTS` — всё после /команды
-- `$ARGUMENTS[0]`, `$ARGUMENTS[1]` — по индексу
-- `$0`, `$1` — сокращённая форма
+#### 6. Практика (5 мин)
 
-#### 5. Практика: Создаём Skills (10 мин)
+**Создаём три Skills:**
 
-**Создаём структуру:**
+**1. /deploy — деплой проекта:**
 ```bash
 mkdir -p .claude/skills/deploy
-mkdir -p .claude/skills/test
-mkdir -p .claude/skills/review
 ```
-
-**Создаём .claude/skills/deploy/SKILL.md:**
+Содержимое `.claude/skills/deploy/SKILL.md`:
 ```yaml
 ---
 name: deploy
 description: Deploy to Vercel
 disable-model-invocation: true
-allowed-tools: Bash(npm *), Bash(vercel *)
 ---
 
-# Deploy
+1. Запусти `npm run build`
+2. Если OK, запусти `vercel --prod`
+3. Верни URL
+```
 
-1. Run `npm run build`
-2. If successful, run `vercel --prod`
-3. Return the URL
+**2. /review — проверка кода (в субагенте):**
+```bash
+mkdir -p .claude/skills/review
+```
+Содержимое `.claude/skills/review/SKILL.md`:
+```yaml
+---
+name: review
+description: Code review
+context: fork
+agent: Explore
+---
+
+Проверь код на:
+1. Баги и ошибки
+2. Проблемы безопасности
+3. Стиль кода
+Укажи конкретные файлы и строки.
+```
+
+**3. /explain — объяснение кода:**
+```bash
+mkdir -p ~/.claude/skills/explain-code
+```
+Содержимое `~/.claude/skills/explain-code/SKILL.md`:
+```yaml
+---
+name: explain-code
+description: Объясняет код с аналогиями и диаграммами
+---
+
+При объяснении кода:
+1. Начни с аналогии из повседневной жизни
+2. Нарисуй схему (ASCII-art)
+3. Пройди по коду пошагово
+4. Покажи частую ошибку новичка
 ```
 
 **Тестируем:**
 ```bash
 claude
 > /deploy
+> /review
+> /explain-code src/auth.ts
 ```
 
 ### Домашнее задание
-1. Создайте минимум 3 Skills
-2. Используйте `disable-model-invocation` для одного
-3. Попробуйте `context: fork`
+1. Создайте 3 собственных Skills
+2. Используйте `$ARGUMENTS` в одном из них
+3. Попробуйте `context: fork` для запуска в субагенте
 
 ---
 
-# Часть B: Продвинутые возможности
+# Часть B: Помощники и автоматизация
 
 ---
 
-## Урок 12.3: Субагенты (45 мин)
+## Урок 12.3: Субагенты — помощники Claude (45 мин)
 **Источник:** https://code.claude.com/docs/en/sub-agents
 
 ### Цели урока
-- Понять концепцию субагентов
-- Создать собственных агентов
-- Использовать для изоляции контекста
+- Понять что такое субагенты простым языком
+- Научиться создавать своих агентов
+- Узнать про память агентов и параллельную работу
 
 ### Содержание
 
-#### 1. Зачем нужны субагенты? (10 мин)
+#### 1. Что такое субагенты? (10 мин)
 
-**Субагенты — изолированные контексты для выполнения задач.**
+**Простая аналогия:**
+Представьте, что вы — руководитель проекта. Вместо того чтобы делать всё самому, вы отправляете помощников:
+- Одного — исследовать проблему
+- Другого — проверить код
+- Третьего — написать тесты
 
-Преимущества:
-- **Изоляция** — не засоряют основной контекст
-- **Специализация** — настроены под конкретные задачи
-- **Параллельность** — могут работать одновременно
+Каждый работает самостоятельно и возвращает результат.
 
-**Когда использовать:**
-- Исследование кодбейза (много файлов)
-- Code review
-- Параллельные проверки
+**Так же работают субагенты в Claude Code:**
+- Каждый имеет свой контекст (не видит весь разговор)
+- Специализируется на конкретной задаче
+- Может работать параллельно с другими
+
+**Зачем это нужно?**
+- **Экономия контекста** — исследование не засоряет основной разговор
+- **Специализация** — агент настроен под задачу
+- **Параллельность** — несколько агентов работают одновременно
+- **Экономия** — можно использовать дешёвые модели для простых задач
 
 #### 2. Встроенные субагенты (10 мин)
 
-| Тип | Описание | Инструменты |
-|-----|----------|-------------|
-| `Explore` | Исследование кода | Read, Glob, Grep |
-| `Plan` | Планирование | Read, Glob, Grep |
-| `general-purpose` | Универсальный | Все |
+Claude Code уже имеет несколько встроенных агентов:
 
-**Использование:**
+| Агент | Модель | Что делает | Инструменты |
+|-------|--------|-----------|-------------|
+| `Explore` | Haiku (быстрый) | Исследует код, ищет файлы | Только чтение |
+| `Plan` | Как у вас | Планирует реализацию | Только чтение |
+| `general-purpose` | Как у вас | Сложные задачи | Все |
+| `Bash` | Как у вас | Выполняет команды | Bash |
+
+**Как Claude использует субагентов:**
 ```
-> Use a subagent to analyze how authentication works
+Вы: "Как работает авторизация в проекте?"
 
-> Use subagents in parallel:
-  1. Check all API endpoints
-  2. Find security issues
-  3. Look for unused code
-```
-
-#### 3. Создание своих субагентов (15 мин)
-
-**Расположение:** `.claude/agents/`
-
-**Формат:**
-```markdown
-# .claude/agents/security-reviewer.md
----
-name: security-reviewer
-description: Reviews code for security vulnerabilities
-tools: Read, Grep, Glob, Bash
-model: opus
----
-
-You are a senior security engineer.
-
-Review code for:
-- Injection vulnerabilities (SQL, XSS, command injection)
-- Authentication and authorization flaws
-- Secrets or credentials in code
-- Insecure data handling
-
-Provide specific line references and suggested fixes.
+Claude автоматически:
+1. Запускает Explore агента
+2. Агент ищет файлы, связанные с auth
+3. Агент читает и анализирует код
+4. Возвращает краткое резюме
+5. Claude показывает вам результат
 ```
 
-**Frontmatter опции:**
-| Опция | Описание |
-|-------|----------|
-| `name` | Имя агента |
-| `description` | Когда использовать |
-| `tools` | Доступные инструменты |
-| `model` | Модель (sonnet, opus, haiku) |
-
-**Использование:**
+**Явный вызов:**
 ```
-> Use security-reviewer subagent to review the auth module
+> Используй субагент для анализа модуля авторизации
+> Run parallel subagents to check auth, database, and API modules
 ```
 
-#### 4. Skills с subagents (5 мин)
+#### 3. Создание своих субагентов (10 мин)
 
-**Skill может запускаться в subagent:**
+**Два способа создания:**
 
-```yaml
----
-name: deep-research
-description: Research a topic thoroughly
-context: fork
-agent: Explore
----
-
-Research $ARGUMENTS thoroughly:
-
-1. Find relevant files using Glob and Grep
-2. Read and analyze the code
-3. Summarize findings with file references
+**Способ 1: Через команду /agents (рекомендуется)**
+```
+/agents
+# Выбрать "Create new agent"
+# Выбрать уровень (User или Project)
+# Описать агента или сгенерировать с Claude
 ```
 
-`context: fork` — skill работает в изолированном контексте.
+**Способ 2: Вручную — файл в `.claude/agents/`**
 
-#### 5. Практика: Создаём агента (5 мин)
-
-**Создаём .claude/agents/code-reviewer.md:**
+Файл: `.claude/agents/code-reviewer.md`
 ```markdown
 ---
 name: code-reviewer
-description: Expert code reviewer
-tools: Read, Grep, Glob
+description: Expert code reviewer. Use proactively after code changes.
+tools: Read, Grep, Glob, Bash
 model: sonnet
 ---
 
-You are a senior code reviewer.
+Ты — senior code reviewer. Проверяй код на:
 
-Review for:
-- Code quality
-- Best practices
-- Potential bugs
-- Performance issues
+1. Качество и читаемость
+2. Безопасность (SQL injection, XSS)
+3. Производительность
+4. Тесты
 
-Be specific with line numbers.
+Для каждой проблемы указывай:
+- Уровень: Critical / Warning / Suggestion
+- Файл и строку
+- Как исправить
 ```
 
-**Тестируем:**
+**Настройки субагента:**
+
+| Настройка | Что делает |
+|-----------|-----------|
+| `name` | Имя агента |
+| `description` | Когда Claude должен его использовать |
+| `tools` | Какие инструменты доступны |
+| `disallowedTools` | Какие запрещены |
+| `model` | Модель: `sonnet`, `opus`, `haiku`, `inherit` |
+| `permissionMode` | Режим разрешений |
+| `memory` | Постоянная память (user/project/local) |
+| `skills` | Навыки, загружаемые при старте |
+
+#### 4. Память агентов (5 мин)
+
+**Что это?**
+Агент может запоминать информацию между сессиями! Например, code-reviewer запоминает паттерны вашего кода и с каждым разом проверяет лучше.
+
+```markdown
+---
+name: code-reviewer
+description: Reviews code for quality
+memory: user
+---
+
+Ты — code reviewer. Записывай в свою память:
+- Паттерны кода этого проекта
+- Частые ошибки
+- Архитектурные решения
+
+Перед проверкой — загляни в свою память.
 ```
-> Use code-reviewer to review my recent changes
+
+**Где хранится память:**
+| Scope | Папка | Когда использовать |
+|-------|-------|-------------------|
+| `user` | `~/.claude/agent-memory/code-reviewer/` | Запоминания для всех проектов |
+| `project` | `.claude/agent-memory/code-reviewer/` | Только для этого проекта (в git) |
+| `local` | `.claude/agent-memory-local/code-reviewer/` | Только для вас в этом проекте |
+
+#### 5. Передний и задний план (5 мин)
+
+**Foreground (передний план):**
+- Блокирует основной разговор
+- Вы видите запросы разрешений
+- Можете отвечать на вопросы агента
+
+**Background (задний план):**
+- Работает пока вы продолжаете разговор
+- Нажмите `Ctrl+B` чтобы отправить задачу в фон
+- Все разрешения запрашиваются заранее
+
+```
+> Запусти в фоне проверку безопасности всего проекта
+# Вы продолжаете работать, а агент проверяет
+```
+
+#### 6. Практика (5 мин)
+
+**Задание 1: Создать своего агента**
+```bash
+mkdir -p .claude/agents
+```
+
+Файл `.claude/agents/debugger.md`:
+```markdown
+---
+name: debugger
+description: Debugging specialist for errors and test failures
+tools: Read, Edit, Bash, Grep, Glob
+---
+
+Ты — эксперт по отладке. Когда находишь баг:
+1. Воспроизведи ошибку
+2. Найди причину
+3. Исправь
+4. Проверь что работает
+```
+
+**Задание 2: Параллельные субагенты**
+```
+> Параллельно исследуй:
+  1. Все API endpoints
+  2. Все формы и их валидацию
+  3. Конфигурацию TypeScript
 ```
 
 ### Домашнее задание
-1. Создайте 2 своих субагента
-2. Используйте параллельные субагенты
-3. Создайте skill с `context: fork`
+1. Создайте code-reviewer с memory: user
+2. Создайте debugger агента
+3. Запустите 3 параллельных субагента
 
 ---
 
-## Урок 12.4: Hooks - автоматизация (30 мин)
-**Источник:** https://code.claude.com/docs/en/hooks
+## Урок 12.4: Hooks и Output Styles (40 мин)
+**Источники:**
+- https://code.claude.com/docs/en/hooks-guide
+- https://code.claude.com/docs/en/output-styles
 
 ### Цели урока
-- Понять систему Hooks
-- Настроить автоматические действия
-- Использовать `/hooks` команду
+- Настроить автоматические действия (Hooks)
+- Понять новые типы хуков (prompt, agent)
+- Изменить стиль работы Claude (Output Styles)
 
 ### Содержание
 
 #### 1. Что такое Hooks? (5 мин)
 
-**Hooks — скрипты, выполняемые автоматически на события.**
+**Простая аналогия:**
+Hooks — это как автоматические правила в вашем доме:
+- "Когда я ухожу → выключить свет" (SessionEnd)
+- "Перед готовкой → помыть руки" (PreToolUse)
+- "После уборки → проветрить" (PostToolUse)
+- "Когда звонит телефон → уведомить" (Notification)
 
-В отличие от CLAUDE.md (рекомендации), hooks **гарантированно** выполняются.
+Hooks в Claude Code работают так же — автоматически выполняют команды при определённых событиях.
 
-| Событие | Когда срабатывает |
-|---------|-------------------|
-| `PreToolUse` | Перед выполнением инструмента |
-| `PostToolUse` | После выполнения |
-| `SessionStart` | Начало сессии |
-| `SessionEnd` | Конец сессии |
+**В отличие от CLAUDE.md** (рекомендации, которые Claude может забыть), Hooks **гарантированно** выполняются каждый раз.
 
-#### 2. Конфигурация Hooks (10 мин)
+#### 2. Типы событий (10 мин)
 
-**В .claude/settings.json:**
+| Событие | Когда срабатывает | Пример использования |
+|---------|-------------------|---------------------|
+| `PreToolUse` | ПЕРЕД использованием инструмента | Заблокировать изменение файла |
+| `PostToolUse` | ПОСЛЕ использования инструмента | Отформатировать код |
+| `Notification` | Когда Claude ждёт вашего ответа | Уведомление на рабочий стол |
+| `SessionStart` | При запуске сессии | Загрузить контекст |
+| `SessionEnd` | При завершении сессии | Очистка временных файлов |
+| `Stop` | Когда Claude закончил отвечать | Проверить что задача выполнена |
+| `SubagentStart` | Запуск субагента | Настроить окружение |
+| `SubagentStop` | Завершение субагента | Очистить ресурсы |
+
+#### 3. Настройка Hooks (10 мин)
+
+**Способ 1: Через команду /hooks (рекомендуется)**
+```
+/hooks
+# Выберите событие → добавьте команду
+```
+
+**Способ 2: В .claude/settings.json:**
+
+**Уведомление когда Claude ждёт (macOS):**
 ```json
 {
   "hooks": {
-    "PostToolUse": {
-      "Edit": "npm run lint"
-    }
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude ждёт вас\" with title \"Claude Code\"'"
+          }
+        ]
+      }
+    ]
   }
 }
 ```
 
-**Или через команду `/hooks`** — интерактивная настройка.
-
-**Попросите Claude создать hook:**
-```
-> Write a hook that runs eslint after every file edit
-```
-
-#### 3. Полезные Hooks (10 мин)
-
-**Автолинтинг после редактирования:**
+**Автоформатирование после редактирования:**
 ```json
 {
   "hooks": {
-    "PostToolUse": {
-      "Edit": "npm run lint:fix"
-    }
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | xargs npx prettier --write"
+          }
+        ]
+      }
+    ]
   }
 }
 ```
 
-**Уведомление при завершении (macOS):**
+**Блокировка изменений в защищённых файлах:**
 ```json
 {
   "hooks": {
-    "SessionEnd": {
-      "*": "osascript -e 'display notification \"Done\" with title \"Claude\"'"
-    }
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/protect-files.sh"
+          }
+        ]
+      }
+    ]
   }
 }
 ```
 
-**Логирование действий:**
+**Как работает блокировка (exit code 2):**
+```bash
+#!/bin/bash
+# .claude/hooks/protect-files.sh
+INPUT=$(cat)
+FILE=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')
+
+# Список защищённых файлов
+if [[ "$FILE" == *".env"* ]] || [[ "$FILE" == *"package-lock"* ]]; then
+  echo "Заблокировано: $FILE защищён" >&2
+  exit 2   # exit 2 = заблокировать действие
+fi
+
+exit 0     # exit 0 = разрешить
+```
+
+#### 4. Умные хуки: prompt и agent (5 мин)
+
+**Prompt-хук** — спрашивает у AI "можно ли?":
 ```json
 {
   "hooks": {
-    "PostToolUse": {
-      "*": "echo \"$(date): Tool used\" >> .claude/logs/actions.log"
-    }
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Проверь, выполнены ли все задачи. Если нет — ответь {\"ok\": false, \"reason\": \"что осталось\"}"
+          }
+        ]
+      }
+    ]
   }
 }
 ```
 
-**Блокировка изменений в папке:**
+**Agent-хук** — запускает агента для проверки:
 ```json
 {
   "hooks": {
-    "PreToolUse": {
-      "Edit(./migrations/*)": "echo 'Blocked: migrations are protected' && exit 1"
-    }
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "Запусти тесты и проверь результаты. Если тесты не проходят — ответь {\"ok\": false, \"reason\": \"какие тесты упали\"}",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
   }
 }
 ```
 
-#### 4. Практика: Настраиваем Hook (5 мин)
+#### 5. Output Styles (5 мин)
 
-**Через Claude Code:**
+**Что это?**
+Output Styles меняют КАК Claude отвечает. Это как переключить режим общения.
+
+**Встроенные стили:**
+
+| Стиль | Что делает |
+|-------|-----------|
+| Default | Обычный режим — эффективная работа |
+| Explanatory | Claude объясняет ПОЧЕМУ он делает каждое действие |
+| Learning | Claude даёт вам задания — вы пишете код сами |
+
+**Переключение:**
 ```
-> Write a hook that runs prettier after every file edit
+/output-style
+# Или напрямую:
+/output-style explanatory
+/output-style learning
 ```
 
-**Или вручную в .claude/settings.json:**
-```json
-{
-  "permissions": {
-    "allow": ["Read", "Write", "Edit"]
-  },
-  "hooks": {
-    "PostToolUse": {
-      "Edit": "npx prettier --write"
-    }
-  }
+**Стиль Learning — режим обучения:**
+Claude будет оставлять в коде `TODO(human)` — места, где вы должны написать код сами:
+```typescript
+function validateEmail(email: string): boolean {
+  // TODO(human): напишите regex для проверки email
+  // Подсказка: используйте .includes('@') как минимальную проверку
 }
+```
+
+**Свой Output Style:**
+
+Файл: `.claude/output-styles/my-style.md`
+```markdown
+---
+name: Мой стиль
+description: Отвечает на русском с примерами
+keep-coding-instructions: true
+---
+
+Всегда отвечай на русском языке.
+Для каждого действия давай реальный пример.
+Если видишь потенциальную проблему — предупреди.
+```
+
+**Переключение:**
+```
+/output-style my-style
+```
+
+#### 6. Практика (5 мин)
+
+**Задание 1: Настроить уведомления**
+```
+/hooks
+# Выберите Notification → добавьте команду уведомления
+```
+
+**Задание 2: Автоформатирование**
+Добавьте в `.claude/settings.json` hook для Prettier после каждого Edit.
+
+**Задание 3: Попробовать Output Styles**
+```
+/output-style explanatory
+> Создай функцию для валидации email
+# Claude объяснит каждое решение
+
+/output-style learning
+> Создай систему авторизации
+# Claude даст вам задания
 ```
 
 ### Домашнее задание
-1. Настройте hook для автоформатирования
-2. Добавьте уведомление при завершении
-3. Создайте лог действий
+1. Настройте hook для уведомлений
+2. Настройте hook для автоформатирования
+3. Попробуйте все 3 Output Styles
 
 ---
 
-# Часть C: Практика и завершение
+# Часть C: Продвинутые возможности
 
 ---
 
-## Урок 12.5: Dashboard и деплой (45 мин)
+## Урок 12.5: Agent Teams и Headless режим (45 мин)
+**Источники:**
+- https://code.claude.com/docs/en/agent-teams
+- https://code.claude.com/docs/en/headless
 
 ### Цели урока
-- Создать полноценный Dashboard
-- Интегрировать все изученные инструменты
-- Задеплоить проект
+- Понять что такое команды агентов (Agent Teams)
+- Научиться запускать Claude без интерфейса (Headless)
+- Использовать Claude в скриптах и CI/CD
 
 ### Содержание
 
-#### 1. План Dashboard (5 мин)
+#### 1. Agent Teams — команда агентов (15 мин)
 
-```
-Dashboard Layout
-├── Sidebar (навигация)
-├── Header (профиль)
-└── Main Content
-    ├── Overview (метрики)
-    ├── Analytics (графики)
-    ├── Reports (таблицы)
-    └── Settings (форма)
-```
+**Простая аналогия:**
+Субагент — это как отправить одного помощника с заданием.
+Agent Team — это как собрать целую команду, где каждый член общается с другими и координирует работу.
 
-#### 2. Создание проекта (15 мин)
+**Разница:**
+| | Субагенты | Agent Teams |
+|-|-----------|-------------|
+| Общение | Отчитываются только вам | Общаются между собой |
+| Координация | Вы управляете | Сами координируются |
+| Контекст | Один контекст | Каждый свой |
+| Лучше для | Быстрых задач | Сложных проектов |
 
-**Основной промпт:**
-```
-Создай Dashboard для SaaS Analytics:
+**ВАЖНО: Agent Teams — экспериментальная функция!**
 
-## Layout
-- Sidebar слева с навигацией
-- Header сверху с профилем
-- Main content area
-
-## Страницы
-1. Overview — 4 карточки метрик + график
-2. Analytics — интерактивные графики (Recharts)
-3. Reports — таблица с данными
-4. Settings — форма настроек
-
-## Дизайн
-- Основной цвет: синий (#3B82F6)
-- Тёмный sidebar
-- Светлый main content
-
-Next.js 14, TypeScript, Tailwind, Recharts.
+Включение:
+```json
+// В .claude/settings.json или settings.local.json:
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  }
+}
 ```
 
-#### 3. Интеграция инструментов (15 мин)
+**Как запустить команду:**
+```
+Создай команду агентов для рефакторинга модуля авторизации:
+- Один агент анализирует текущий код
+- Второй ищет уязвимости
+- Третий проверяет тестовое покрытие
 
-**Используем MCP для GitHub:**
-```
-> Create a repository saas-dashboard on GitHub
-> Push the initial commit
-```
-
-**Используем Skills:**
-```
-> /test
-> /deploy
+Пусть обсудят между собой и дадут общие рекомендации.
 ```
 
-**Используем Subagents:**
+**Режимы отображения:**
+- **In-process** — все агенты в одном терминале (Shift+Up/Down для переключения)
+- **Split panes** — каждый агент в своём окне (нужен tmux)
+
+**Когда использовать:**
+- Параллельный code review (безопасность + производительность + тесты)
+- Исследование с конкурирующими гипотезами
+- Разработка независимых модулей
+- Отладка сложных багов
+
+**Пример: Параллельный code review**
 ```
-> Use subagents in parallel:
-  1. Check all pages render correctly
-  2. Check for TypeScript errors
-  3. Verify mobile responsiveness
+Создай команду из 3 ревьюеров:
+- Один проверяет безопасность
+- Второй — производительность
+- Третий — покрытие тестами
+
+Пусть каждый проверит PR #142 и предоставит отчёт.
 ```
 
-#### 4. Деплой на Vercel (10 мин)
+**Управление командой:**
+- `Shift+Up/Down` — переключение между агентами
+- `Shift+Tab` — режим делегирования (лид только координирует)
+- `Ctrl+T` — список задач
 
 ```
-> Deploy this project to Vercel and return the URL
+# Завершение работы:
+> Попроси всех агентов завершить работу
+> Очисти команду
 ```
 
-Claude:
-1. Проверит build
-2. Подключит репозиторий
-3. Запустит деплой
-4. Вернёт URL
+#### 2. Headless режим (15 мин)
 
-### Результат
+**Что это?**
+Headless — это запуск Claude Code БЕЗ интерактивного интерфейса. Claude получает задание, выполняет его и возвращает результат. Идеально для автоматизации.
 
-После урока:
-- SaaS Dashboard с 4+ страницами
-- Репозиторий на GitHub
-- Деплой на Vercel
-- Работающие Skills и Hooks
+**Простая аналогия:**
+Обычный Claude Code — это как разговор по телефону (диалог).
+Headless — это как отправить SMS с заданием и получить ответ (одна команда).
+
+**Базовое использование:**
+```bash
+# Просто задать вопрос
+claude -p "Что делает этот проект?"
+
+# Запустить и починить тесты
+claude -p "Запусти тесты и исправь ошибки" \
+  --allowedTools "Bash,Read,Edit"
+
+# Получить результат в JSON
+claude -p "Опиши проект" --output-format json
+
+# Получить структурированный ответ
+claude -p "Извлеки названия функций из auth.py" \
+  --output-format json \
+  --json-schema '{"type":"object","properties":{"functions":{"type":"array","items":{"type":"string"}}}}'
+```
+
+**Примеры из жизни:**
+
+**Автоматический коммит:**
+```bash
+claude -p "Посмотри staged изменения и создай коммит" \
+  --allowedTools "Bash(git diff *),Bash(git log *),Bash(git commit *)"
+```
+
+**Code review в PR:**
+```bash
+gh pr diff 123 | claude -p \
+  --append-system-prompt "Ты — security engineer. Проверь код на уязвимости." \
+  --output-format json
+```
+
+**Продолжение разговора:**
+```bash
+# Первая команда
+claude -p "Проверь проект на проблемы"
+
+# Продолжить тот же разговор
+claude -p "Теперь исправь найденные проблемы" --continue
+
+# Или по ID сессии
+session_id=$(claude -p "Начни review" --output-format json | jq -r '.session_id')
+claude -p "Продолжи review" --resume "$session_id"
+```
+
+**Использование в CI/CD (GitHub Actions):**
+```yaml
+# .github/workflows/claude-review.yml
+name: Claude Code Review
+on: [pull_request]
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Claude Review
+        run: claude -p "Check for security issues in the changed files"
+```
+
+#### 3. Стриминг ответов (5 мин)
+
+**Получить ответ по мере генерации:**
+```bash
+# Стриминг в реальном времени
+claude -p "Напиши стихотворение" \
+  --output-format stream-json \
+  --verbose \
+  --include-partial-messages
+
+# Извлечь только текст
+claude -p "Напиши стихотворение" \
+  --output-format stream-json \
+  --verbose \
+  --include-partial-messages | \
+  jq -rj 'select(.type == "stream_event" and .event.delta.type? == "text_delta") | .event.delta.text'
+```
+
+#### 4. Практика (10 мин)
+
+**Задание 1: Headless проверка**
+```bash
+claude -p "Найди все TODO комментарии в проекте и создай список"
+```
+
+**Задание 2: Автоматический коммит**
+```bash
+# Сделайте изменение в файле, потом:
+claude -p "Создай коммит с описанием изменений" \
+  --allowedTools "Bash(git *)"
+```
+
+**Задание 3: Agent Team (если включен)**
+```
+Создай команду из 2 агентов:
+1. Исследователь — изучает структуру проекта
+2. Критик — ищет проблемы в найденном
+Пусть обсудят результаты.
+```
+
+### Домашнее задание
+1. Запустите Claude в headless режиме 3 разными способами
+2. Создайте bash-скрипт с Claude для автоматизации
+3. (Бонус) Попробуйте Agent Teams
 
 ---
 
-## Урок 12.6: Best Practices (15 мин)
-**Источник:** https://code.claude.com/docs/en/best-practices
+## Урок 12.6: Best Practices и Troubleshooting (30 мин)
+**Источники:**
+- https://code.claude.com/docs/en/troubleshooting
+- Best practices из всех изученных разделов
 
 ### Цели урока
-- Применять лучшие практики
-- Управлять контекстом эффективно
-- Использовать продвинутые паттерны
+- Научиться писать эффективные промпты
+- Управлять контекстом
+- Решать типичные проблемы
 
 ### Содержание
 
-#### 1. Главный принцип (3 мин)
+#### 1. Главный принцип (5 мин)
 
-**Давай Claude способ проверить свою работу.**
+**Давай Claude способ ПРОВЕРИТЬ свою работу.**
 
 ```
-❌ "implement a function that validates email"
+Плохо:
+"Напиши функцию валидации email"
 
-✅ "write validateEmail function. Test cases:
-   - user@example.com → true
-   - invalid → false
-   Run the tests after implementing"
+Хорошо:
+"Напиши функцию validateEmail. Тест-кейсы:
+- user@example.com → true
+- invalid → false
+- @empty.com → false
+Запусти тесты после написания"
 ```
 
-#### 2. Эффективные промпты (3 мин)
+**Почему это работает?**
+Claude может сам проверить, что его код работает. Без тестов он "надеется" что всё правильно. С тестами — знает точно.
 
-**Конкретность:**
-```
-❌ "fix the login bug"
+#### 2. Эффективные промпты (5 мин)
 
-✅ "users report login fails after session timeout.
-   Check auth flow in src/auth/, especially token refresh.
-   Write a failing test first, then fix it"
+**Будь конкретен:**
 ```
+Плохо: "Почини баг в логине"
 
-**Указание источников:**
-```
-"Look through ExecutionFactory's git history
- and summarize how its API came to be"
+Хорошо: "Пользователи сообщают что логин падает
+после истечения сессии. Проверь auth flow в
+src/auth/, особенно обновление токенов.
+Сначала напиши падающий тест, потом исправь."
 ```
 
-**Ссылки на паттерны:**
+**Указывай паттерны:**
 ```
-"Look at how existing widgets are implemented.
- HotDogWidget.php is a good example.
- Follow the pattern for a new calendar widget."
+"Посмотри как реализованы существующие виджеты.
+HotDogWidget.php — хороший пример.
+Сделай новый CalendarWidget по такому же паттерну."
 ```
 
-#### 3. Управление контекстом (3 мин)
+**Используй историю:**
+```
+"Посмотри git историю файла ExecutionFactory
+и расскажи как развивался его API."
+```
 
-**`/clear`** — между несвязанными задачами
-**`/compact`** — сжатие контекста
-**Subagents** — для изоляции
+#### 3. Управление контекстом (5 мин)
 
-**Checkpointing:**
-- `Esc+Esc` или `/rewind` — откат к checkpoint
-- Checkpoints создаются автоматически
-- Можно восстановить код, разговор или оба
+| Команда | Когда использовать |
+|---------|-------------------|
+| `/clear` | Между несвязанными задачами |
+| `/compact` | Когда контекст большой, но задача та же |
+| `/rewind` | Откатить к предыдущему checkpoint |
+| `Esc+Esc` | Быстрый откат последних изменений |
+| `--continue` | Продолжить последнюю сессию |
+| `--resume` | Продолжить конкретную сессию |
 
-#### 4. Продвинутые паттерны (3 мин)
+**Правила:**
+- **`/clear` после каждой законченной задачи** — не копите контекст
+- **Субагенты для тяжёлых исследований** — не засоряйте основной контекст
+- **Коммитьте перед большими изменениями** — легче откатиться
 
-**Headless режим:**
+**Re-inject контекста после compaction:**
+```json
+// В .claude/settings.json
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Напоминание: используй Bun, не npm. Запускай тесты перед коммитом.'"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+#### 4. Типичные ошибки (5 мин)
+
+**"Каша из задач" (Kitchen Sink)**
+Проблема: Много несвязанных задач в одной сессии
+Решение: `/clear` между задачами
+
+**Бесконечные правки**
+Проблема: Claude делает 10 попыток и ходит по кругу
+Решение: `/clear` + начать с лучшего промпта
+
+**Переполненный CLAUDE.md**
+Проблема: Файл стал огромным, Claude игнорирует правила
+Решение: Перенести детали в Skills, оставить в CLAUDE.md только главное
+
+**Claude читает всё подряд**
+Проблема: Исследует весь проект вместо нужной папки
+Решение: Указать конкретные файлы/папки или использовать субагенты
+
+#### 5. Troubleshooting — решение проблем (10 мин)
+
+**Проблема: Claude Code не устанавливается**
 ```bash
-claude -p "Explain what this project does"
-claude -p "List all API endpoints" --output-format json
+# Нативная установка (рекомендуется):
+curl -fsSL https://claude.ai/install.sh | bash
+
+# Проверка:
+claude --version
+claude doctor   # Диагностика проблем
 ```
 
-**Параллельные сессии:**
-- Claude Desktop для нескольких worktrees
-- Writer/Reviewer паттерн
-
-**Resume сессий:**
+**Проблема: MCP сервер не подключается**
 ```bash
-claude --continue    # Продолжить последнюю
-claude --resume      # Выбрать из списка
+# Проверить статус:
+/mcp
+
+# Проверить конфигурацию:
+claude mcp list
+claude mcp get имя-сервера
+
+# Переподключить:
+claude mcp remove имя-сервера
+claude mcp add --transport http имя-сервера url
 ```
 
-#### 5. Типичные ошибки (3 мин)
+**Проблема: Плагин не работает**
+```bash
+# Вкладка Errors в менеджере плагинов:
+/plugin
+# Tab → Errors
 
-**Kitchen sink session** — много несвязанных задач
-→ Решение: `/clear` между задачами
+# Очистить кэш:
+rm -rf ~/.claude/plugins/cache
+# Перезапустить Claude Code
+```
 
-**Бесконечные исправления** — много неудачных попыток
-→ Решение: `/clear` + лучший начальный промпт
+**Проблема: Повторные запросы разрешений**
+```bash
+# Настроить разрешения один раз:
+/permissions
+# Добавить правила для часто используемых инструментов
+```
 
-**Переполненный CLAUDE.md** — Claude игнорирует правила
-→ Решение: Убрать лишнее, перенести в Skills
+**Проблема: Поиск и @file не работают**
+```bash
+# Установить ripgrep:
+# macOS:
+brew install ripgrep
 
-**Бесконечное исследование** — Claude читает всё подряд
-→ Решение: Ограничить scope или использовать subagents
+# Ubuntu:
+sudo apt install ripgrep
+
+# Потом в настройках:
+# USE_BUILTIN_RIPGREP=0
+```
+
+**Проблема: Ошибки аутентификации**
+```bash
+# 1. Выйти
+/logout
+
+# 2. Удалить данные авторизации
+rm -rf ~/.config/claude-code/auth.json
+
+# 3. Перезапустить
+claude
+```
+
+**Полезные файлы конфигурации:**
+| Файл | Что хранит |
+|------|-----------|
+| `~/.claude/settings.json` | Ваши настройки (хуки, разрешения) |
+| `.claude/settings.json` | Настройки проекта (в git) |
+| `.claude/settings.local.json` | Локальные настройки (не в git) |
+| `~/.claude.json` | OAuth, MCP серверы, тема |
+| `.mcp.json` | MCP серверы проекта (в git) |
+
+### Домашнее задание
+1. Запустите `claude doctor` и исправьте все предупреждения
+2. Настройте permissions через `/permissions`
+3. Попрактикуйтесь в `/clear` и `/compact`
 
 ---
 
@@ -780,24 +1307,28 @@ claude --resume      # Выбрать из списка
 1. Dashboard с 4+ страницами (Overview, Analytics, Reports, Settings)
 2. Интерактивные графики (Recharts)
 3. Подключен GitHub MCP
-4. Минимум 3 Custom Skills
-5. Настроены Hooks
-6. Деплой на Vercel
+4. Минимум 3 Custom Skills (deploy, test, review)
+5. Настроены Hooks (автоформатирование + уведомления)
+6. Создан минимум 1 субагент
+7. Деплой на Vercel
 
 **Критерии оценки:**
 | Критерий | Баллы |
 |----------|-------|
-| Dashboard функционален | 30 |
-| MCP интеграция работает | 20 |
-| Skills созданы и работают | 20 |
+| Dashboard функционален | 25 |
+| MCP интеграция работает | 15 |
+| Skills созданы и работают | 15 |
+| Субагент создан | 10 |
 | Hooks настроены | 15 |
-| Проект задеплоен | 15 |
+| Проект задеплоен | 10 |
+| Output Style попробован | 10 |
 | **Итого** | **100** |
 
 **Бонусы (+10 каждый):**
 - Тёмная тема
-- Экспорт данных в CSV
-- Уведомления в реальном времени
+- Установлен плагин из маркетплейса
+- Использован headless режим для автокоммитов
+- Agent Teams для параллельного review
 
 ---
 
@@ -805,25 +1336,33 @@ claude --resume      # Выбрать из списка
 
 - [Официальная документация](https://code.claude.com/docs)
 - [MCP серверы](https://code.claude.com/docs/en/mcp)
-- [Skills Guide](https://code.claude.com/docs/en/skills)
-- [Subagents](https://code.claude.com/docs/en/sub-agents)
-- [Best Practices](https://code.claude.com/docs/en/best-practices)
+- [Skills](https://code.claude.com/docs/en/skills)
+- [Субагенты](https://code.claude.com/docs/en/sub-agents)
+- [Agent Teams](https://code.claude.com/docs/en/agent-teams)
+- [Плагины](https://code.claude.com/docs/en/plugins)
+- [Маркетплейс плагинов](https://code.claude.com/docs/en/discover-plugins)
+- [Output Styles](https://code.claude.com/docs/en/output-styles)
+- [Hooks](https://code.claude.com/docs/en/hooks-guide)
+- [Headless режим](https://code.claude.com/docs/en/headless)
+- [Troubleshooting](https://code.claude.com/docs/en/troubleshooting)
 
 ---
 
 ## Заключение курса
 
 **Что вы теперь умеете:**
-- Устанавливать и настраивать Claude Code
-- Работать с файлами и Git
-- Подключать MCP серверы
-- Создавать Skills и субагенты
-- Настраивать Hooks
-- Применять Best Practices
+- Подключать MCP серверы и устанавливать плагины
+- Создавать Custom Skills с переменными
+- Работать с субагентами и их памятью
+- Настраивать Hooks для автоматизации
+- Использовать Output Styles
+- Управлять командами агентов
+- Запускать Claude в headless режиме
+- Решать типичные проблемы
 - Создавать полноценные проекты
 
 **Следующие шаги:**
 1. Практикуйтесь на реальных проектах
-2. Создавайте свои Skills
-3. Исследуйте новые MCP серверы
+2. Создавайте свои Skills и субагенты
+3. Исследуйте плагины из маркетплейса
 4. Следите за обновлениями на https://code.claude.com/docs

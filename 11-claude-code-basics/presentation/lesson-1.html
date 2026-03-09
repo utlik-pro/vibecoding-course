@@ -157,104 +157,185 @@
         <section class="content-section">
           <h2>Установка Claude Code</h2>
 
-          <h3>Требования</h3>
+          <h3>Перед началом</h3>
           <ul>
-            <li>macOS, Linux или Windows</li>
-            <li>Подписка Claude Pro/Max/Teams ($20+/мес) или API ключ</li>
+            <li>Открытый терминал или командная строка</li>
+            <li>Проект с кодом для работы</li>
+            <li><a href="https://claude.com/pricing">Подписка Claude</a> (Pro, Max, Teams, Enterprise) или API ключ</li>
           </ul>
 
-          <h3>Установка (выберите ваш способ)</h3>
-
-          <p><strong>macOS / Linux / WSL:</strong></p>
-          <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">Terminal</span>
-            </div>
-            <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">curl -fsSL https://claude.ai/install.sh | bash</span>
-            </div>
+          <div class="info-box claude">
+            <div class="info-box-title">Где работает Claude Code</div>
+            <p>В <strong>терминале</strong> (CLI), <strong>в браузере</strong> (claude.ai/code), <strong>Desktop приложении</strong>, <strong>VS Code</strong>, <strong>JetBrains IDE</strong>, <strong>Slack</strong>, и в CI/CD через GitHub Actions и GitLab.</p>
           </div>
 
-          <p><strong>Windows PowerShell:</strong></p>
-          <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">PowerShell</span>
-            </div>
-            <div class="terminal-body">
-              <span class="prompt">></span> <span class="command">irm https://claude.ai/install.ps1 | iex</span>
-            </div>
-          </div>
+          <h3>Выберите способ установки</h3>
 
-          <p><strong>Homebrew (macOS):</strong></p>
-          <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">Terminal</span>
+          <div class="tabs">
+            <div class="tab-buttons">
+              <button class="tab-btn active" data-tab="native">Native (рекомендуется)</button>
+              <button class="tab-btn" data-tab="homebrew">Homebrew</button>
+              <button class="tab-btn" data-tab="winget">WinGet</button>
             </div>
-            <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">brew install --cask claude-code</span>
-            </div>
-          </div>
 
-          <h3>Проверка установки</h3>
-          <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">Terminal</span>
+            <div class="tab-content active" data-tab-content="native">
+              <p><strong>macOS / Linux / WSL:</strong></p>
+              <div class="terminal-demo">
+                <div class="terminal-header">
+                  <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                  <span class="terminal-title">Terminal</span>
+                </div>
+                <div class="terminal-body">
+                  <span class="prompt">$</span> <span class="command">curl -fsSL https://claude.ai/install.sh | bash</span>
+                </div>
+              </div>
+              <p><strong>Windows PowerShell:</strong></p>
+              <div class="terminal-demo">
+                <div class="terminal-header">
+                  <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                  <span class="terminal-title">PowerShell</span>
+                </div>
+                <div class="terminal-body">
+                  <span class="prompt">></span> <span class="command">irm https://claude.ai/install.ps1 | iex</span>
+                </div>
+              </div>
+              <p><strong>Windows CMD:</strong></p>
+              <div class="terminal-demo">
+                <div class="terminal-header">
+                  <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                  <span class="terminal-title">CMD</span>
+                </div>
+                <div class="terminal-body">
+                  <span class="prompt">></span> <span class="command">curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd</span>
+                </div>
+              </div>
+              <div class="info-box tip">
+                <div class="info-box-title">Автообновление</div>
+                <p>Native-установка автоматически обновляется в фоне.</p>
+              </div>
             </div>
-            <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">claude --version</span>
+
+            <div class="tab-content" data-tab-content="homebrew">
+              <div class="terminal-demo">
+                <div class="terminal-header">
+                  <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                  <span class="terminal-title">Terminal</span>
+                </div>
+                <div class="terminal-body">
+                  <span class="prompt">$</span> <span class="command">brew install --cask claude-code</span>
+                </div>
+              </div>
+              <div class="info-box warning">
+                <div class="info-box-title">Без автообновления</div>
+                <p>Homebrew не обновляет автоматически. Запускайте <code>brew upgrade claude-code</code> периодически.</p>
+              </div>
+            </div>
+
+            <div class="tab-content" data-tab-content="winget">
+              <div class="terminal-demo">
+                <div class="terminal-header">
+                  <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                  <span class="terminal-title">PowerShell</span>
+                </div>
+                <div class="terminal-body">
+                  <span class="prompt">></span> <span class="command">winget install Anthropic.ClaudeCode</span>
+                </div>
+              </div>
+              <div class="info-box warning">
+                <div class="info-box-title">Без автообновления</div>
+                <p>Обновляйте через <code>winget upgrade Anthropic.ClaudeCode</code>.</p>
+              </div>
             </div>
           </div>
 
           <h3>Первый запуск</h3>
-          <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">Terminal</span>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-title">Перейдите в каталог проекта</div>
+              <div class="terminal-demo">
+                <div class="terminal-header">
+                  <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                  <span class="terminal-title">Terminal</span>
+                </div>
+                <div class="terminal-body">
+                  <span class="prompt">$</span> <span class="command">cd /path/to/your/project</span>
+                </div>
+              </div>
             </div>
-            <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">cd your-project && claude</span><br>
-              <span class="comment"># Откроется браузер для авторизации</span>
+
+            <div class="step">
+              <div class="step-title">Запустите Claude Code</div>
+              <div class="terminal-demo">
+                <div class="terminal-header">
+                  <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                  <span class="terminal-title">Terminal</span>
+                </div>
+                <div class="terminal-body">
+                  <span class="prompt">$</span> <span class="command">claude</span><br>
+                  <span class="comment"># При первом запуске — вход через браузер</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-title">Задайте первый вопрос</div>
+              <div class="terminal-demo">
+                <div class="terminal-header">
+                  <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                  <span class="terminal-title">Claude Code</span>
+                </div>
+                <div class="terminal-body">
+                  <span class="output">> what does this project do?</span>
+                </div>
+              </div>
             </div>
           </div>
 
           <div class="info-box tip">
             <div class="info-box-title">Подсказка</div>
-            <p>При первом запуске откроется браузер для авторизации. Поддерживаются: Claude Pro, Max, Teams, Enterprise и Console (API).</p>
+            <p>Claude Code читает файлы проекта по мере необходимости. Вам не нужно вручную добавлять контекст — просто задайте вопрос.</p>
           </div>
         </section>
 
         <section class="content-section">
-          <h2>Базовые команды</h2>
+          <h2>Основные команды</h2>
 
-          <h3>Запуск Claude Code</h3>
-          <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">Terminal</span>
-            </div>
-            <div class="terminal-body">
-              <span class="comment"># Интерактивный режим</span><br>
-              <span class="prompt">$</span> <span class="command">claude</span><br><br>
-              <span class="comment"># Одна команда без диалога</span><br>
-              <span class="prompt">$</span> <span class="command">claude -p "создай файл hello.js"</span>
-            </div>
-          </div>
+          <h3>Способы запуска Claude Code</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Команда</th>
+                <th>Что делает</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>claude</code></td>
+                <td>Интерактивный режим</td>
+              </tr>
+              <tr>
+                <td><code>claude "задача"</code></td>
+                <td>Одноразовая задача</td>
+              </tr>
+              <tr>
+                <td><code>claude -p "запрос"</code></td>
+                <td>Одноразовый запрос → выход</td>
+              </tr>
+              <tr>
+                <td><code>claude -c</code></td>
+                <td>Продолжить последний разговор</td>
+              </tr>
+              <tr>
+                <td><code>claude -r</code></td>
+                <td>Возобновить предыдущий разговор</td>
+              </tr>
+              <tr>
+                <td><code>claude commit</code></td>
+                <td>Создать Git-коммит</td>
+              </tr>
+            </tbody>
+          </table>
 
           <h3>Slash-команды внутри Claude</h3>
           <table>
@@ -265,34 +346,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><code>/help</code></td>
-                <td>Показать все команды</td>
-              </tr>
-              <tr>
-                <td><code>/clear</code></td>
-                <td>Очистить контекст (начать заново)</td>
-              </tr>
-              <tr>
-                <td><code>/init</code></td>
-                <td>Создать CLAUDE.md для проекта</td>
-              </tr>
-              <tr>
-                <td><code>/login</code></td>
-                <td>Сменить аккаунт</td>
-              </tr>
-              <tr>
-                <td><code>/compact</code></td>
-                <td>Сжать контекст</td>
-              </tr>
-              <tr>
-                <td><code>/permissions</code></td>
-                <td>Настроить разрешения</td>
-              </tr>
+              <tr><td><code>/help</code></td><td>Показать все команды</td></tr>
+              <tr><td><code>/clear</code></td><td>Очистить контекст</td></tr>
+              <tr><td><code>/init</code></td><td>Создать CLAUDE.md для проекта</td></tr>
+              <tr><td><code>/model</code></td><td>Выбрать модель и уровень усилий</td></tr>
+              <tr><td><code>/memory</code></td><td>Просмотр CLAUDE.md и авто-памяти</td></tr>
+              <tr><td><code>/compact</code></td><td>Сжать контекст</td></tr>
+              <tr><td><code>/rewind</code></td><td>Откатить к checkpoint</td></tr>
+              <tr><td><code>/resume</code></td><td>Переключиться на другой разговор</td></tr>
+              <tr><td><code>/rename</code></td><td>Дать имя текущей сессии</td></tr>
+              <tr><td><code>/permissions</code></td><td>Настроить разрешения</td></tr>
+              <tr><td><code>/agents</code></td><td>Управление субагентами</td></tr>
             </tbody>
           </table>
 
-          <h3>Навигация</h3>
+          <h3>Горячие клавиши</h3>
           <table>
             <thead>
               <tr>
@@ -301,30 +369,15 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><code>Enter</code></td>
-                <td>Отправить сообщение</td>
-              </tr>
-              <tr>
-                <td><code>Shift+Enter</code></td>
-                <td>Новая строка</td>
-              </tr>
-              <tr>
-                <td><code>Esc</code></td>
-                <td>Остановить действие</td>
-              </tr>
-              <tr>
-                <td><code>Ctrl+G</code></td>
-                <td>Plan Mode (только чтение)</td>
-              </tr>
-              <tr>
-                <td><code>?</code></td>
-                <td>Показать все shortcuts</td>
-              </tr>
-              <tr>
-                <td><code>exit</code> или <code>Ctrl+C</code></td>
-                <td>Выйти из Claude Code</td>
-              </tr>
+              <tr><td><kbd>Enter</kbd></td><td>Отправить сообщение</td></tr>
+              <tr><td><kbd>Shift+Enter</kbd></td><td>Новая строка</td></tr>
+              <tr><td><kbd>Esc</kbd></td><td>Остановить действие</td></tr>
+              <tr><td><kbd>Esc+Esc</kbd></td><td>Откатить последние изменения</td></tr>
+              <tr><td><kbd>Shift+Tab</kbd></td><td>Режим: Normal → Auto-Accept → Plan</td></tr>
+              <tr><td><kbd>Ctrl+O</kbd></td><td>Verbose mode (показать мышление)</td></tr>
+              <tr><td><kbd>Option+T</kbd> / <kbd>Alt+T</kbd></td><td>Вкл/выкл расширенное мышление</td></tr>
+              <tr><td><kbd>Tab</kbd></td><td>Автодополнение</td></tr>
+              <tr><td><kbd>?</kbd></td><td>Показать все shortcuts</td></tr>
             </tbody>
           </table>
         </section>
@@ -391,6 +444,55 @@
           <div class="info-box tip">
             <div class="info-box-title">Результат</div>
             <p>Через 2-3 минуты у вас готовый landing page! Claude сам создаст структуру файлов и напишет весь код.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Советы для начинающих</h2>
+
+          <div class="accordion">
+            <div class="accordion-item">
+              <button class="accordion-trigger">
+                Будьте конкретны в запросах
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+              </button>
+              <div class="accordion-body">
+                <p>Вместо: <em>"fix the bug"</em></p>
+                <p>Попробуйте: <em>"fix the login bug where users see a blank screen after entering wrong credentials"</em></p>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-trigger">
+                Используйте пошаговые инструкции
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+              </button>
+              <div class="accordion-body">
+                <p>Разбивайте сложные задачи на этапы:</p>
+                <pre><code>1. create a new database table for user profiles
+2. create an API endpoint to get and update profiles
+3. build a webpage for viewing and editing profiles</code></pre>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-trigger">
+                Позвольте Claude сначала исследовать
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+              </button>
+              <div class="accordion-body">
+                <p>Перед внесением изменений дайте Claude понять код:</p>
+                <pre><code>analyze the database schema</code></pre>
+                <pre><code>explain the folder structure</code></pre>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-trigger">
+                Сэкономьте время с ярлыками
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+              </button>
+              <div class="accordion-body">
+                <p><kbd>?</kbd> — все сочетания клавиш, <kbd>Tab</kbd> — автодополнение, <kbd>↑</kbd> — история команд, <code>/</code> — все команды и skills.</p>
+              </div>
+            </div>
           </div>
         </section>
 

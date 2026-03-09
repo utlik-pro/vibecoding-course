@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админка - Vibecoding</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <!-- Login Screen -->
+  <div class="login-container" id="loginScreen">
+    <div class="login-card">
+      <div class="login-icon">🔐</div>
+      <h1 class="login-title">Админ-панель</h1>
+      <p class="login-subtitle">Войдите для управления курсом</p>
+      <div class="loading" id="loginLoading">
+        <div class="spinner"></div>
+      </div>
+      <p class="login-error" id="loginError">Доступ запрещён. Только для администраторов.</p>
+      <a href="../index.html" style="color: #667eea; text-decoration: none; margin-top: 1rem; display: inline-block;">← Вернуться на курс</a>
+    </div>
+  </div>
+
+  <!-- Admin Layout -->
+  <div class="admin-layout" id="adminLayout" style="display: none;">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-logo">
+        <span class="admin-logo-icon">👑</span>
+        <span class="admin-logo-text">Админка</span>
+      </div>
+
+      <nav>
+        <ul class="admin-nav">
+          <li class="admin-nav-item">
+            <a href="index.html" class="admin-nav-link active">
+              <span class="admin-nav-icon">📊</span>
+              <span class="admin-nav-label">Дашборд</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="users.html" class="admin-nav-link">
+              <span class="admin-nav-icon">👥</span>
+              <span class="admin-nav-label">Пользователи</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="cohorts.html" class="admin-nav-link">
+              <span class="admin-nav-icon">🎓</span>
+              <span class="admin-nav-label">Потоки</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="modules.html" class="admin-nav-link">
+              <span class="admin-nav-icon">📚</span>
+              <span class="admin-nav-label">Модули</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        <a href="../index.html" class="admin-back-link">
+          ← <span>Вернуться на курс</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <h1 class="admin-page-title">Дашборд</h1>
+        <div class="admin-user">
+          <span class="admin-user-email" id="adminEmail"></span>
+          <button class="admin-logout-btn" id="logoutBtn">Выйти</button>
+        </div>
+      </header>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon users">👥</div>
+          <div class="stat-content">
+            <div class="stat-value" id="statUsers">-</div>
+            <div class="stat-label">Пользователей</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon cohorts">🎓</div>
+          <div class="stat-content">
+            <div class="stat-value" id="statCohorts">-</div>
+            <div class="stat-label">Активных потоков</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon modules">📚</div>
+          <div class="stat-content">
+            <div class="stat-value" id="statModules">-</div>
+            <div class="stat-label">Модулей</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon progress">✅</div>
+          <div class="stat-content">
+            <div class="stat-value" id="statLessons">-</div>
+            <div class="stat-label">Уроков пройдено</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">📈 Последняя активность</h2>
+        </div>
+        <div class="table-container">
+          <table class="table" id="activityTable">
+            <thead>
+              <tr>
+                <th>Пользователь</th>
+                <th>Модуль</th>
+                <th>Урок</th>
+                <th>Время</th>
+              </tr>
+            </thead>
+            <tbody id="activityBody">
+              <tr>
+                <td colspan="4" class="loading">
+                  <div class="spinner"></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">⚡ Быстрые действия</h2>
+        </div>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="users.html" class="btn btn-primary">
+            ➕ Добавить пользователя
+          </a>
+          <a href="cohorts.html" class="btn btn-secondary">
+            🎓 Создать поток
+          </a>
+          <a href="modules.html" class="btn btn-secondary">
+            📚 Управление модулями
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script src="js/admin-api.js"></script>
+
+  <script>
+    // Elements
+    const loginScreen = document.getElementById('loginScreen');
+    const loginLoading = document.getElementById('loginLoading');
+    const loginError = document.getElementById('loginError');
+    const adminLayout = document.getElementById('adminLayout');
+    const adminEmail = document.getElementById('adminEmail');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const toast = document.getElementById('toast');
+
+    // Module names from config (единый источник)
+    function getModuleName(id) {
+      return COURSE_CONFIG.getModuleTitle(id);
+    }
+
+    async function init() {
+      // Check if Supabase is configured
+      if (!SupabaseClient.isSupabaseConfigured()) {
+        showFallbackMode();
+        return;
+      }
+
+      const isAuthorized = await AdminAPI.init();
+
+      if (!isAuthorized) {
+        loginLoading.style.display = 'none';
+        loginError.classList.add('show');
+        return;
+      }
+
+      // Show admin panel
+      loginScreen.style.display = 'none';
+      adminLayout.style.display = 'flex';
+
+      const admin = AdminAPI.getCurrentAdmin();
+      adminEmail.textContent = admin.email;
+
+      await loadDashboard();
+    }
+
+    function showFallbackMode() {
+      // Fallback: use password-based admin with full functionality
+      loginLoading.style.display = 'none';
+
+      const loginCard = document.querySelector('.login-card');
+      loginCard.innerHTML = `
+        <div class="login-icon">🔐</div>
+        <h1 class="login-title">Админ-панель</h1>
+        <p class="login-subtitle">Введите пароль администратора</p>
+        <form id="passwordForm" style="margin-top: 1.5rem;">
+          <input type="password" class="form-input" id="passwordInput" placeholder="Пароль" autofocus>
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Войти</button>
+          <p class="login-error" id="passwordError">Неверный пароль</p>
+        </form>
+        <a href="../index.html" style="color: #667eea; text-decoration: none; margin-top: 1rem; display: inline-block;">← Вернуться на курс</a>
+      `;
+
+      document.getElementById('passwordForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const password = document.getElementById('passwordInput').value;
+
+        if (password === COURSE_CONFIG.adminPassword) {
+          localStorage.setItem('adminAuth', 'true');
+          showFallbackAdmin();
+        } else {
+          document.getElementById('passwordError').classList.add('show');
+          setTimeout(() => {
+            document.getElementById('passwordError').classList.remove('show');
+          }, 2000);
+        }
+      });
+
+      // Проверяем, авторизован ли уже
+      if (localStorage.getItem('adminAuth') === 'true') {
+        showFallbackAdmin();
+      }
+    }
+
+    function showFallbackAdmin() {
+      loginScreen.style.display = 'none';
+      adminLayout.style.display = 'flex';
+      adminEmail.textContent = 'Администратор (локальный режим)';
+      loadFallbackDashboard();
+    }
+
+    function loadFallbackDashboard() {
+      // Статистика из config.js
+      const totalStudents = COURSE_CONFIG.getAllStudents().length;
+      const totalCohorts = COURSE_CONFIG.cohorts.length;
+      const totalModules = COURSE_CONFIG.modules.length;
+
+      document.getElementById('statUsers').textContent = totalStudents;
+      document.getElementById('statCohorts').textContent = totalCohorts;
+      document.getElementById('statModules').textContent = totalModules;
+      document.getElementById('statLessons').textContent = '-';
+
+      // Показываем информацию о потоках вместо активности
+      const tbody = document.getElementById('activityBody');
+      tbody.innerHTML = COURSE_CONFIG.cohorts.map(cohort => `
+        <tr>
+          <td><strong>${cohort.name}</strong></td>
+          <td>${cohort.students.length} учеников</td>
+          <td>Модули: ${cohort.unlockedModules.join(', ')}</td>
+          <td>${cohort.description || '-'}</td>
+        </tr>
+      `).join('');
+
+      // Обновляем заголовок таблицы
+      document.querySelector('#activityTable thead').innerHTML = `
+        <tr>
+          <th>Поток</th>
+          <th>Учеников</th>
+          <th>Доступ</th>
+          <th>Описание</th>
+        </tr>
+      `;
+    }
+
+    async function loadDashboard() {
+      // Load stats
+      const stats = await AdminAPI.getDashboardStats();
+      document.getElementById('statUsers').textContent = stats.usersCount;
+      document.getElementById('statCohorts').textContent = stats.cohortsCount;
+      document.getElementById('statModules').textContent = stats.modulesCount;
+      document.getElementById('statLessons').textContent = stats.lessonsCompleted;
+
+      // Load recent activity
+      const activity = await AdminAPI.getRecentActivity(10);
+      const tbody = document.getElementById('activityBody');
+
+      if (activity.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="4" class="empty-state">
+              <div class="empty-state-icon">📭</div>
+              <div class="empty-state-title">Нет активности</div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = activity.map(item => {
+        const date = new Date(item.completed_at);
+        const timeAgo = getTimeAgo(date);
+        const userName = item.user?.name || item.user?.email || 'Unknown';
+        const moduleName = getModuleName(item.module_id);
+
+        return `
+          <tr>
+            <td>${userName}</td>
+            <td>${moduleName}</td>
+            <td>Урок ${item.lesson_id}</td>
+            <td>${timeAgo}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function getTimeAgo(date) {
+      const seconds = Math.floor((new Date() - date) / 1000);
+
+      if (seconds < 60) return 'только что';
+      if (seconds < 3600) return `${Math.floor(seconds / 60)} мин назад`;
+      if (seconds < 86400) return `${Math.floor(seconds / 3600)} ч назад`;
+      if (seconds < 604800) return `${Math.floor(seconds / 86400)} дн назад`;
+
+      return date.toLocaleDateString('ru-RU');
+    }
+
+    function showToast(message, isError = false) {
+      toast.textContent = message;
+      toast.className = 'toast show' + (isError ? ' error' : '');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // Logout
+    logoutBtn.addEventListener('click', async () => {
+      if (SupabaseClient.isSupabaseConfigured()) {
+        await AdminAPI.signOut();
+      }
+      localStorage.removeItem('adminAuth');
+      localStorage.removeItem('bossAuth');
+      window.location.reload();
+    });
+
+    // Init
+    init();
+  </script>
+</body>
+</html>

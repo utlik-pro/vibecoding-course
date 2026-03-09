@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модули - Админка Vibecoding</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <!-- Login Screen -->
+  <div class="login-container" id="loginScreen">
+    <div class="login-card">
+      <div class="login-icon">🔐</div>
+      <h1 class="login-title">Админ-панель</h1>
+      <p class="login-subtitle">Проверка доступа...</p>
+      <div class="loading">
+        <div class="spinner"></div>
+      </div>
+      <p class="login-error" id="loginError">Доступ запрещён</p>
+    </div>
+  </div>
+
+  <!-- Admin Layout -->
+  <div class="admin-layout" id="adminLayout" style="display: none;">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-logo">
+        <span class="admin-logo-icon">👑</span>
+        <span class="admin-logo-text">Админка</span>
+      </div>
+
+      <nav>
+        <ul class="admin-nav">
+          <li class="admin-nav-item">
+            <a href="index.html" class="admin-nav-link">
+              <span class="admin-nav-icon">📊</span>
+              <span class="admin-nav-label">Дашборд</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="users.html" class="admin-nav-link">
+              <span class="admin-nav-icon">👥</span>
+              <span class="admin-nav-label">Пользователи</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="cohorts.html" class="admin-nav-link">
+              <span class="admin-nav-icon">🎓</span>
+              <span class="admin-nav-label">Потоки</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="modules.html" class="admin-nav-link active">
+              <span class="admin-nav-icon">📚</span>
+              <span class="admin-nav-label">Модули</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        <a href="../index.html" class="admin-back-link">
+          ← <span>Вернуться на курс</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <h1 class="admin-page-title">Модули</h1>
+        <div class="admin-user">
+          <span class="admin-user-email" id="adminEmail"></span>
+          <button class="admin-logout-btn" id="logoutBtn">Выйти</button>
+        </div>
+      </header>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="cohort-access">По потокам</button>
+        <button class="tab-btn" data-tab="individual-access">Индивидуальный доступ</button>
+      </div>
+
+      <!-- Cohort Access Tab -->
+      <div class="tab-content active" id="cohort-access">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">🎓 Выберите поток</h2>
+          </div>
+          <select class="form-select" id="cohortSelect" style="max-width: 300px;">
+            <option value="">Выберите поток...</option>
+          </select>
+        </div>
+
+        <div class="card" id="cohortModulesCard" style="display: none;">
+          <div class="card-header">
+            <h2 class="card-title">📚 Модули для потока: <span id="selectedCohortName"></span></h2>
+            <div class="card-actions">
+              <button class="btn btn-sm btn-secondary" id="selectAllCohort">Выбрать все</button>
+              <button class="btn btn-sm btn-secondary" id="deselectAllCohort">Снять все</button>
+              <button class="btn btn-sm btn-success" id="saveCohortAccess">💾 Сохранить</button>
+            </div>
+          </div>
+          <div class="modules-grid" id="cohortModulesGrid"></div>
+        </div>
+      </div>
+
+      <!-- Individual Access Tab -->
+      <div class="tab-content" id="individual-access">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">👤 Выберите пользователя</h2>
+          </div>
+          <div class="search-box" style="margin-bottom: 1rem;">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="userSearch" placeholder="Поиск по email...">
+          </div>
+          <select class="form-select" id="userSelect" style="max-width: 400px;">
+            <option value="">Выберите пользователя...</option>
+          </select>
+        </div>
+
+        <div class="card" id="userModulesCard" style="display: none;">
+          <div class="card-header">
+            <h2 class="card-title">📚 Модули для: <span id="selectedUserName"></span></h2>
+            <div class="card-actions">
+              <button class="btn btn-sm btn-secondary" id="resetUserAccess">🔄 Сбросить</button>
+              <button class="btn btn-sm btn-success" id="saveUserAccess">💾 Сохранить</button>
+            </div>
+          </div>
+          <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 1rem;">
+            Индивидуальные настройки переопределяют настройки потока.<br>
+            <span style="color: #10b981;">✓ Зелёный</span> = открыт,
+            <span style="color: #ef4444;">✗ Красный</span> = закрыт,
+            <span style="color: #6b7280;">○ Серый</span> = по потоку
+          </p>
+          <div class="modules-grid" id="userModulesGrid"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script src="js/admin-api.js"></script>
+
+  <script>
+    // State
+    let cohorts = [];
+    let users = [];
+    let modules = [];
+    let cohortModulesState = new Set();
+    let userModulesState = new Map(); // module_id -> true/false/null
+
+    // Elements
+    const loginScreen = document.getElementById('loginScreen');
+    const loginError = document.getElementById('loginError');
+    const adminLayout = document.getElementById('adminLayout');
+    const adminEmail = document.getElementById('adminEmail');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const toast = document.getElementById('toast');
+
+    // Cohort elements
+    const cohortSelect = document.getElementById('cohortSelect');
+    const cohortModulesCard = document.getElementById('cohortModulesCard');
+    const selectedCohortName = document.getElementById('selectedCohortName');
+    const cohortModulesGrid = document.getElementById('cohortModulesGrid');
+    const selectAllCohort = document.getElementById('selectAllCohort');
+    const deselectAllCohort = document.getElementById('deselectAllCohort');
+    const saveCohortAccess = document.getElementById('saveCohortAccess');
+
+    // User elements
+    const userSearch = document.getElementById('userSearch');
+    const userSelect = document.getElementById('userSelect');
+    const userModulesCard = document.getElementById('userModulesCard');
+    const selectedUserName = document.getElementById('selectedUserName');
+    const userModulesGrid = document.getElementById('userModulesGrid');
+    const resetUserAccess = document.getElementById('resetUserAccess');
+    const saveUserAccess = document.getElementById('saveUserAccess');
+
+    async function init() {
+      if (!SupabaseClient.isSupabaseConfigured()) {
+        // Fallback mode
+        if (localStorage.getItem('adminAuth') !== 'true') {
+          window.location.href = 'index.html';
+          return;
+        }
+        showFallbackModules();
+        return;
+      }
+
+      const isAuthorized = await AdminAPI.init();
+
+      if (!isAuthorized) {
+        loginError.classList.add('show');
+        return;
+      }
+
+      loginScreen.style.display = 'none';
+      adminLayout.style.display = 'flex';
+
+      const admin = AdminAPI.getCurrentAdmin();
+      adminEmail.textContent = admin.email;
+
+      await loadData();
+      setupTabs();
+    }
+
+    function showFallbackModules() {
+      loginScreen.style.display = 'none';
+      adminLayout.style.display = 'flex';
+      adminEmail.textContent = 'Администратор (локальный режим)';
+
+      // Загружаем данные из config.js
+      cohorts = COURSE_CONFIG.cohorts.map(c => ({
+        id: c.id,
+        name: c.name,
+        unlockedModules: c.unlockedModules
+      }));
+
+      users = [];
+      COURSE_CONFIG.cohorts.forEach(cohort => {
+        cohort.students.forEach(email => {
+          users.push({
+            id: email,
+            email: email,
+            name: null,
+            cohort_id: cohort.id
+          });
+        });
+      });
+
+      modules = COURSE_CONFIG.modules.map(m => ({
+        id: m.id,
+        title: m.title
+      }));
+
+      populateCohortSelect();
+      populateUserSelect();
+      setupTabs();
+
+      // Показываем предупреждение о fallback режиме
+      const warning = document.createElement('div');
+      warning.className = 'card';
+      warning.style.cssText = 'background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); margin-bottom: 1rem;';
+      warning.innerHTML = `
+        <p style="color: #f59e0b; margin: 0;">
+          ⚠️ <strong>Локальный режим:</strong> Изменения не сохраняются.
+          Для редактирования измените файл <code>js/config.js</code>
+        </p>
+      `;
+
+      const tabs = document.querySelector('.tabs');
+      tabs.parentNode.insertBefore(warning, tabs);
+
+      // Отключаем кнопки сохранения
+      saveCohortAccess.innerHTML = '📋 Только просмотр';
+      saveCohortAccess.disabled = true;
+      saveCohortAccess.style.opacity = '0.5';
+
+      saveUserAccess.innerHTML = '📋 Только просмотр';
+      saveUserAccess.disabled = true;
+      saveUserAccess.style.opacity = '0.5';
+    }
+
+    // Переопределяем загрузку доступа для fallback
+    const originalCohortSelectChange = cohortSelect.onchange;
+
+    cohortSelect.addEventListener('change', async function() {
+      if (!SupabaseClient.isSupabaseConfigured()) {
+        const cohortId = cohortSelect.value;
+        if (!cohortId) {
+          cohortModulesCard.style.display = 'none';
+          return;
+        }
+
+        const cohort = cohorts.find(c => c.id === cohortId);
+        selectedCohortName.textContent = cohort?.name || '';
+        cohortModulesState = new Set(cohort?.unlockedModules || []);
+
+        renderCohortModules();
+        cohortModulesCard.style.display = 'block';
+      }
+    });
+
+    userSelect.addEventListener('change', async function() {
+      if (!SupabaseClient.isSupabaseConfigured()) {
+        const userId = userSelect.value;
+        if (!userId) {
+          userModulesCard.style.display = 'none';
+          return;
+        }
+
+        const user = users.find(u => u.id === userId);
+        selectedUserName.textContent = user?.email || '';
+
+        // В fallback нет индивидуальных переопределений
+        const cohort = cohorts.find(c => c.id === user?.cohort_id);
+        const cohortUnlocked = new Set(cohort?.unlockedModules || []);
+
+        userModulesState = new Map();
+        modules.forEach(m => {
+          userModulesState.set(m.id, { override: null, cohort: cohortUnlocked.has(m.id) });
+        });
+
+        renderUserModules();
+        userModulesCard.style.display = 'block';
+      }
+    });
+
+    async function loadData() {
+      [cohorts, users, modules] = await Promise.all([
+        AdminAPI.getCohorts(),
+        AdminAPI.getUsers(),
+        AdminAPI.getModules()
+      ]);
+
+      populateCohortSelect();
+      populateUserSelect();
+    }
+
+    function populateCohortSelect() {
+      cohortSelect.innerHTML = '<option value="">Выберите поток...</option>' +
+        cohorts.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+    }
+
+    function populateUserSelect(filter = '') {
+      const filtered = filter
+        ? users.filter(u => u.email.toLowerCase().includes(filter))
+        : users;
+
+      userSelect.innerHTML = '<option value="">Выберите пользователя...</option>' +
+        filtered.map(u => `<option value="${u.id}">${u.email} ${u.name ? `(${u.name})` : ''}</option>`).join('');
+    }
+
+    // =============================================
+    // TABS
+    // =============================================
+
+    function setupTabs() {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tabId = btn.dataset.tab;
+
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+          btn.classList.add('active');
+          document.getElementById(tabId).classList.add('active');
+        });
+      });
+    }
+
+    // =============================================
+    // COHORT ACCESS
+    // =============================================
+
+    cohortSelect.addEventListener('change', async () => {
+      const cohortId = cohortSelect.value;
+      if (!cohortId) {
+        cohortModulesCard.style.display = 'none';
+        return;
+      }
+
+      const cohort = cohorts.find(c => c.id === cohortId);
+      selectedCohortName.textContent = cohort?.name || '';
+
+      // Load current access
+      const access = await AdminAPI.getCohortModuleAccess(cohortId);
+      cohortModulesState = new Set(
+        access.filter(a => a.is_unlocked).map(a => a.module_id)
+      );
+
+      renderCohortModules();
+      cohortModulesCard.style.display = 'block';
+    });
+
+    function renderCohortModules() {
+      cohortModulesGrid.innerHTML = modules.map(m => `
+        <div class="module-item ${cohortModulesState.has(m.id) ? 'active' : ''}" data-id="${m.id}">
+          <div class="module-checkbox"></div>
+          <div class="module-info">
+            <span class="module-num">${m.id}.</span>
+            <span class="module-name">${m.title}</span>
+          </div>
+        </div>
+      `).join('');
+
+      cohortModulesGrid.querySelectorAll('.module-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const id = parseInt(item.dataset.id);
+          if (cohortModulesState.has(id)) {
+            cohortModulesState.delete(id);
+            item.classList.remove('active');
+          } else {
+            cohortModulesState.add(id);
+            item.classList.add('active');
+          }
+        });
+      });
+    }
+
+    selectAllCohort.addEventListener('click', () => {
+      modules.forEach(m => cohortModulesState.add(m.id));
+      renderCohortModules();
+    });
+
+    deselectAllCohort.addEventListener('click', () => {
+      cohortModulesState.clear();
+      renderCohortModules();
+    });
+
+    saveCohortAccess.addEventListener('click', async () => {
+      const cohortId = cohortSelect.value;
+      if (!cohortId) return;
+
+      const allModuleIds = modules.map(m => m.id);
+      const unlockIds = Array.from(cohortModulesState);
+      const lockIds = allModuleIds.filter(id => !cohortModulesState.has(id));
+
+      await AdminAPI.setCohortModuleAccess(cohortId, unlockIds, true);
+      await AdminAPI.setCohortModuleAccess(cohortId, lockIds, false);
+
+      showToast('Доступ сохранён');
+    });
+
+    // =============================================
+    // USER ACCESS
+    // =============================================
+
+    userSearch.addEventListener('input', () => {
+      populateUserSelect(userSearch.value.toLowerCase());
+    });
+
+    userSelect.addEventListener('change', async () => {
+      const userId = userSelect.value;
+      if (!userId) {
+        userModulesCard.style.display = 'none';
+        return;
+      }
+
+      const user = users.find(u => u.id === userId);
+      selectedUserName.textContent = user?.name || user?.email || '';
+
+      // Load cohort access first (as base)
+      let cohortAccess = [];
+      if (user?.cohort_id) {
+        cohortAccess = await AdminAPI.getCohortModuleAccess(user.cohort_id);
+      }
+      const cohortUnlocked = new Set(
+        cohortAccess.filter(a => a.is_unlocked).map(a => a.module_id)
+      );
+
+      // Load individual overrides
+      const userAccess = await AdminAPI.getUserModuleAccess(userId);
+
+      // Build state: null = no override, true = unlocked, false = locked
+      userModulesState = new Map();
+      modules.forEach(m => {
+        const override = userAccess.find(a => a.module_id === m.id);
+        if (override !== undefined) {
+          userModulesState.set(m.id, { override: override.is_unlocked, cohort: cohortUnlocked.has(m.id) });
+        } else {
+          userModulesState.set(m.id, { override: null, cohort: cohortUnlocked.has(m.id) });
+        }
+      });
+
+      renderUserModules();
+      userModulesCard.style.display = 'block';
+    });
+
+    function renderUserModules() {
+      userModulesGrid.innerHTML = modules.map(m => {
+        const state = userModulesState.get(m.id);
+        let statusClass = '';
+        let statusIcon = '○';
+
+        if (state.override === true) {
+          statusClass = 'active';
+          statusIcon = '✓';
+        } else if (state.override === false) {
+          statusClass = 'locked';
+          statusIcon = '✗';
+        } else if (state.cohort) {
+          statusClass = 'cohort-active';
+          statusIcon = '○';
+        }
+
+        return `
+          <div class="module-item ${statusClass}" data-id="${m.id}" style="${state.override === false ? 'border-color: #ef4444; background: rgba(239,68,68,0.1);' : ''}">
+            <div class="module-checkbox" style="${state.override === null ? 'background: transparent; border-color: #6b7280;' : state.override === false ? 'background: #ef4444; border-color: #ef4444;' : ''}">
+              ${state.override === false ? '<span style="color: #fff;">✗</span>' : ''}
+            </div>
+            <div class="module-info">
+              <span class="module-num">${m.id}.</span>
+              <span class="module-name">${m.title}</span>
+              ${state.cohort && state.override === null ? '<span style="color: #6b7280; font-size: 0.75rem; margin-left: 0.5rem;">(по потоку)</span>' : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Three-state toggle: null -> true -> false -> null
+      userModulesGrid.querySelectorAll('.module-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const id = parseInt(item.dataset.id);
+          const state = userModulesState.get(id);
+
+          if (state.override === null) {
+            state.override = true;
+          } else if (state.override === true) {
+            state.override = false;
+          } else {
+            state.override = null;
+          }
+
+          userModulesState.set(id, state);
+          renderUserModules();
+        });
+      });
+    }
+
+    resetUserAccess.addEventListener('click', () => {
+      modules.forEach(m => {
+        const state = userModulesState.get(m.id);
+        state.override = null;
+        userModulesState.set(m.id, state);
+      });
+      renderUserModules();
+    });
+
+    saveUserAccess.addEventListener('click', async () => {
+      const userId = userSelect.value;
+      if (!userId) return;
+
+      for (const [moduleId, state] of userModulesState) {
+        await AdminAPI.setUserModuleAccess(userId, moduleId, state.override);
+      }
+
+      showToast('Индивидуальный доступ сохранён');
+    });
+
+    // =============================================
+    // COMMON
+    // =============================================
+
+    logoutBtn.addEventListener('click', async () => {
+      if (SupabaseClient.isSupabaseConfigured()) {
+        await AdminAPI.signOut();
+      }
+      localStorage.removeItem('adminAuth');
+      localStorage.removeItem('bossAuth');
+      window.location.reload();
+    });
+
+    function showToast(message, isError = false) {
+      toast.textContent = message;
+      toast.className = 'toast show' + (isError ? ' error' : '');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    init();
+  </script>
+
+  <style>
+    .module-item.cohort-active {
+      border-color: rgba(102, 126, 234, 0.3);
+      background: rgba(102, 126, 234, 0.05);
+    }
+
+    .module-item.locked .module-checkbox::after {
+      content: '';
+    }
+  </style>
+</body>
+</html>

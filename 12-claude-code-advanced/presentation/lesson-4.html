@@ -25,14 +25,14 @@
       <nav class="sidebar-nav">
         <div class="nav-section">Модуль 12</div>
         <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
-        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Интеграции</div>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Подключения</div>
         <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>MCP серверы</a>
         <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Custom Skills</a>
         <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Автоматизация</div>
         <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Субагенты</a>
         <a href="lesson-4.html" class="nav-item active" data-lesson="4"><span class="nav-item-number">4</span>Hooks</a>
-        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
-        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Dashboard</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Продвинутые</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Headless и Платформы</a>
         <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Best Practices</a>
         <a href="project.html" class="nav-item" data-lesson="7"><span class="nav-item-number">P</span>Итоговый проект</a>
         <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
@@ -50,141 +50,198 @@
             <span class="lesson-badge files">4</span>
             <div>
               <h1>Hooks - автоматизация workflow</h1>
-              <p style="color: var(--text-secondary); margin: 0;">30 минут</p>
+              <p style="color: var(--text-secondary); margin: 0;">40 минут</p>
             </div>
           </div>
         </div>
 
         <section class="content-section">
           <h2>Что такое Hooks?</h2>
-          <p><strong>Hooks — это скрипты, которые запускаются автоматически при определённых событиях.</strong></p>
-
-          <table>
-            <thead><tr><th>Hook</th><th>Когда срабатывает</th></tr></thead>
-            <tbody>
-              <tr><td><code>PreToolUse</code></td><td>Перед выполнением инструмента</td></tr>
-              <tr><td><code>PostToolUse</code></td><td>После выполнения</td></tr>
-              <tr><td><code>PermissionRequest</code></td><td>При запросе разрешения</td></tr>
-              <tr><td><code>SessionEnd</code></td><td>При завершении сессии</td></tr>
-            </tbody>
-          </table>
 
           <div class="info-box claude">
             <div class="info-box-title">Аналогия</div>
-            <p>Hooks = Git hooks, но для Claude Code</p>
-            <p><code>pre-commit</code> в Git = <code>PreToolUse</code> в Claude</p>
+            <p>Hooks - это как автоматические правила в вашем доме:<br>
+            "Когда я ухожу - выключить свет" (SessionEnd)<br>
+            "Перед готовкой - помыть руки" (PreToolUse)<br>
+            "После уборки - проветрить" (PostToolUse)<br>
+            "Когда звонит телефон - уведомить" (Notification)</p>
           </div>
+
+          <p><strong>Главное отличие от CLAUDE.md:</strong> инструкции в CLAUDE.md - это рекомендации (Claude может "забыть" или проигнорировать). Hooks - это <strong>гарантированные</strong> действия, которые выполняются КАЖДЫЙ раз. Это не просьба - это правило, которое невозможно обойти.</p>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Простой пример</div>
+            <p>В CLAUDE.md написано "форматируй код через Prettier". Claude может забыть.<br>
+            Hook на PostToolUse с Prettier запустится автоматически после каждого редактирования - 100% гарантия.</p>
+          </div>
+
+          <h3>Типы событий:</h3>
+          <table>
+            <thead><tr><th>Событие</th><th>Когда срабатывает</th><th>Пример использования</th></tr></thead>
+            <tbody>
+              <tr><td><code>PreToolUse</code></td><td>ПЕРЕД использованием инструмента</td><td>Заблокировать изменение .env</td></tr>
+              <tr><td><code>PostToolUse</code></td><td>ПОСЛЕ использования инструмента</td><td>Автоформатирование кода</td></tr>
+              <tr><td><code>Notification</code></td><td>Когда Claude ждёт вашего ответа</td><td>Уведомление на экран</td></tr>
+              <tr><td><code>SessionStart</code></td><td>При запуске сессии</td><td>Загрузить контекст проекта</td></tr>
+              <tr><td><code>SessionEnd</code></td><td>При завершении сессии</td><td>Очистить временные файлы</td></tr>
+              <tr><td><code>Stop</code></td><td>Когда Claude закончил работу</td><td>Проверить задачу</td></tr>
+              <tr><td><code>SubagentStart</code></td><td>Когда субагент запускается</td><td>Подготовить окружение</td></tr>
+              <tr><td><code>SubagentStop</code></td><td>Когда субагент завершается</td><td>Очистить ресурсы</td></tr>
+            </tbody>
+          </table>
         </section>
 
         <section class="content-section">
-          <h2>Конфигурация Hooks</h2>
-          <p>В <code>.claude/settings.json</code>:</p>
+          <h2>Настройка Hooks</h2>
 
+          <h3>Способ 1: Через команду /hooks (рекомендуется)</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="output">> /hooks</span><br>
+              <span class="comment"># Интерактивный интерфейс:</span><br>
+              <span class="comment"># Выберите событие -> добавьте команду</span>
+            </div>
+          </div>
+
+          <h3>Способ 2: В .claude/settings.json</h3>
+
+          <p><strong>Уведомление когда Claude ждёт (macOS):</strong></p>
           <pre><code>{
   "hooks": {
-    "PreToolUse": [
+    "Notification": [
       {
-        "matcher": "Edit",
-        "command": "npm run lint:fix"
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Bash(npm run build)",
-        "command": "echo 'Build done!'"
-      }
-    ],
-    "SessionEnd": [
-      {
-        "command": "git status"
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude ждёт вас\" with title \"Claude Code\"'"
+          }
+        ]
       }
     ]
   }
 }</code></pre>
 
-          <h3>Параметры:</h3>
-          <ul>
-            <li><code>matcher</code> — когда запускать (название инструмента)</li>
-            <li><code>command</code> — bash команда для выполнения</li>
-          </ul>
-        </section>
-
-        <section class="content-section">
-          <h2>Полезные Hooks</h2>
-
-          <h3>Автоформатирование</h3>
+          <p><strong>Автоформатирование после редактирования:</strong></p>
           <pre><code>{
-  "PreToolUse": [
-    {
-      "matcher": "Edit",
-      "command": "npm run format"
-    }
-  ]
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | xargs npx prettier --write"
+          }
+        ]
+      }
+    ]
+  }
 }</code></pre>
 
-          <h3>Уведомление при завершении</h3>
-          <pre><code>{
-  "SessionEnd": [
-    {
-      "command": "osascript -e 'display notification \"Done\" with title \"Claude\"'"
-    }
-  ]
-}</code></pre>
+          <p><strong>Блокировка защищённых файлов:</strong></p>
+          <pre><code>#!/bin/bash
+# .claude/hooks/protect-files.sh
+INPUT=$(cat)
+FILE=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')
 
-          <h3>Автоматический линтинг</h3>
-          <pre><code>{
-  "PostToolUse": [
-    {
-      "matcher": "Write",
-      "command": "npm run lint"
-    }
-  ]
-}</code></pre>
+# Список защищённых файлов
+if [[ "$FILE" == *".env"* ]] || [[ "$FILE" == *"package-lock"* ]]; then
+  echo "Заблокировано: $FILE защищён" &gt;&amp;2
+  exit 2   # exit 2 = заблокировать действие
+fi
 
-          <h3>Логирование</h3>
-          <pre><code>{
-  "PostToolUse": [
-    {
-      "matcher": "*",
-      "command": "echo \"$(date): Tool used\" >> .claude/actions.log"
-    }
-  ]
-}</code></pre>
-        </section>
+exit 0     # exit 0 = разрешить</code></pre>
 
-        <section class="content-section">
-          <h2>Команда /hooks</h2>
-          <p>Используйте <code>/hooks</code> для интерактивной настройки:</p>
-          <div class="terminal-demo">
-            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
-            <div class="terminal-body">
-              <span class="output">> /hooks</span><br><br>
-              <span class="comment"># Откроется интерактивное меню настройки hooks</span>
-            </div>
+          <div class="info-box tip">
+            <div class="info-box-title">Коды выхода</div>
+            <p><code>exit 0</code> - разрешить действие<br>
+            <code>exit 2</code> - заблокировать действие (Claude увидит сообщение из stderr)</p>
           </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Три типа хуков</h2>
+
+          <h3>1. Command - запускает команду</h3>
+          <p>Самый простой тип. Запускает shell-команду.</p>
+          <pre><code>{
+  "type": "command",
+  "command": "osascript -e 'display notification \"Готово!\"'"
+}</code></pre>
+
+          <h3>2. Prompt - спрашивает у AI</h3>
+          <p>Отправляет промпт AI-модели для проверки:</p>
+          <pre><code>{
+  "type": "prompt",
+  "prompt": "Проверь, выполнены ли все задачи. Если нет - ответь что осталось."
+}</code></pre>
+
+          <h3>3. Agent - запускает агента</h3>
+          <p>Самый мощный тип. Запускает полноценного агента для проверки:</p>
+          <pre><code>{
+  "type": "agent",
+  "prompt": "Запусти тесты и проверь результаты",
+  "timeout": 120
+}</code></pre>
+
+          <div class="info-box warning">
+            <div class="info-box-title">Когда какой использовать</div>
+            <p><strong>Command</strong> - для простых действий (уведомления, форматирование)<br>
+            <strong>Prompt</strong> - для проверки условий ("правильно ли?")<br>
+            <strong>Agent</strong> - для сложных автоматических проверок</p>
+          </div>
+
+          <div class="info-box claude">
+            <div class="info-box-title">Реальные примеры хуков</div>
+            <p><strong>Уведомление на Mac:</strong> Notification хук показывает системное уведомление когда Claude ждёт вашего ответа. Можно переключиться на другую работу и не пропустить.<br><br>
+            <strong>Защита .env:</strong> PreToolUse хук проверяет, не пытается ли Claude редактировать .env файл, и блокирует действие (exit 2).<br><br>
+            <strong>Авто-Prettier:</strong> PostToolUse хук автоматически форматирует файл после каждого редактирования. Claude пишет код, хук форматирует - красиво всегда!<br><br>
+            <strong>Контроль качества:</strong> Stop хук с типом "agent" запускает проверку: "Все ли задачи выполнены? Есть ли ошибки?" Если нет - Claude продолжает работу.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Matcher - фильтрация событий</h2>
+
+          <p>Matcher определяет ДЛЯ КАКИХ инструментов срабатывает хук:</p>
+
+          <table>
+            <thead><tr><th>Matcher</th><th>Что фильтрует</th></tr></thead>
+            <tbody>
+              <tr><td><code>""</code> (пустой)</td><td>Срабатывает на ВСЁ</td></tr>
+              <tr><td><code>"Edit|Write"</code></td><td>Только при редактировании или записи файлов</td></tr>
+              <tr><td><code>"Bash"</code></td><td>Только при выполнении bash-команд</td></tr>
+              <tr><td><code>"db-agent"</code></td><td>Только для конкретного субагента (SubagentStart/Stop)</td></tr>
+            </tbody>
+          </table>
         </section>
 
         <section class="content-section">
           <h2>Практика</h2>
-          <p>Добавьте в <code>.claude/settings.json</code>:</p>
-          <pre><code>{
-  "permissions": {
-    "allow": ["Read", "Write", "Edit", "Glob", "Grep"]
-  },
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Edit",
-        "command": "npm run lint"
-      }
-    ]
-  }
-}</code></pre>
 
-          <div class="info-box warning">
-            <div class="info-box-title">Обратите внимание</div>
-            <p>Используйте <code>permissions</code> вместо устаревшего <code>allowedTools</code>.</p>
+          <h3>Задание 1: Настроить уведомления</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="output">> /hooks</span><br>
+              <span class="comment"># Выберите Notification -> добавьте команду уведомления</span>
+            </div>
           </div>
+
+          <h3>Задание 2: Защитить файлы</h3>
+          <p>Создайте PreToolUse хук который блокирует изменение <code>.env</code> файлов:</p>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="output">> /hooks</span><br>
+              <span class="comment"># PreToolUse -> Edit|Write -> скрипт проверки</span>
+            </div>
+          </div>
+
+          <h3>Задание 3: Автоформатирование</h3>
+          <p>Настройте PostToolUse хук для автоматического запуска Prettier после каждого редактирования.</p>
         </section>
 
         <section class="quiz-section">
@@ -197,21 +254,29 @@
               <div class="quiz-option" data-correct="false"><span>SessionEnd</span></div>
             </div>
           </div>
+          <div class="quiz-question" style="margin-top: 2rem;">
+            <h4>Какой exit code блокирует действие в хуке?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="false"><span>exit 0</span></div>
+              <div class="quiz-option" data-correct="true"><span>exit 2</span></div>
+              <div class="quiz-option" data-correct="false"><span>exit 1</span></div>
+            </div>
+          </div>
         </section>
 
         <section class="content-section">
           <h2>Чеклист урока</h2>
           <div class="checklist">
-            <label class="checklist-item"><input type="checkbox"><span>Понимаю что такое Hooks</span></label>
-            <label class="checklist-item"><input type="checkbox"><span>Знаю типы Hooks</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Понимаю что такое Hooks и чем они отличаются от CLAUDE.md</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Знаю типы событий (PreToolUse, PostToolUse, Notification...)</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Знаю 3 типа хуков (command, prompt, agent)</span></label>
             <label class="checklist-item"><input type="checkbox"><span>Настроил минимум 1 Hook</span></label>
-            <label class="checklist-item"><input type="checkbox"><span>Проверил что Hook работает</span></label>
           </div>
         </section>
 
         <section class="start-section">
-          <h2>Время практики!</h2>
-          <p>Создадим полноценный Dashboard с использованием всех инструментов</p>
+          <h2>Следующий шаг</h2>
+          <p>Изучим Headless режим и все платформы Claude Code</p>
           <a href="lesson-5.html" class="btn-start">Перейти к уроку 5<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
         </section>
       </div>

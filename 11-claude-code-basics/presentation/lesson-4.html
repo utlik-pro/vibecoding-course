@@ -172,7 +172,60 @@
         </section>
 
         <section class="content-section">
-          <h2>Permissions — новый формат</h2>
+          <h2>Permission Modes — режимы работы</h2>
+
+          <p><strong>Три режима (переключение <code>Shift+Tab</code>):</strong></p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Режим</th>
+                <th>Поведение</th>
+                <th>Когда использовать</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Normal</strong></td>
+                <td>Спрашивает разрешение на каждое действие</td>
+                <td>Обычная работа (по умолчанию)</td>
+              </tr>
+              <tr>
+                <td><strong>Auto-Accept</strong></td>
+                <td>Автоматически выполняет разрешённые</td>
+                <td>Быстрые итерации</td>
+              </tr>
+              <tr>
+                <td><strong>Plan</strong></td>
+                <td>Только чтение — не меняет файлы</td>
+                <td>Исследование, планирование</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">Terminal</span>
+            </div>
+            <div class="terminal-body">
+              <span class="comment"># Переключение в сессии</span><br>
+              <span class="output">Shift+Tab: Normal → Auto-Accept → Plan → Normal</span><br><br>
+              <span class="comment"># Запуск в конкретном режиме</span><br>
+              <span class="prompt">$</span> <span class="command">claude --permission-mode plan</span>
+            </div>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Рекомендация</div>
+            <p>Начинайте в <strong>Plan Mode</strong> для исследования, переключайтесь в <strong>Normal</strong> для реализации, используйте <strong>Auto-Accept</strong> для финальных правок.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Permissions — правила разрешений</h2>
 
           <p>Claude Code использует систему <strong>allow / deny / ask</strong> для управления разрешениями.</p>
 
@@ -261,31 +314,31 @@
         <section class="content-section">
           <h2>Выбор модели</h2>
 
-          <p>Claude Code поддерживает разные модели:</p>
+          <p>Claude Code поддерживает модели семейства Claude 4.5/4.6 через <strong>алиасы</strong>:</p>
 
           <table>
             <thead>
               <tr>
+                <th>Алиас</th>
                 <th>Модель</th>
                 <th>Когда использовать</th>
-                <th>Скорость</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Sonnet</strong></td>
-                <td>Быстрые задачи, рутина</td>
-                <td>Быстро</td>
+                <td><code>sonnet</code></td>
+                <td>Sonnet 4.6</td>
+                <td>Быстрые задачи, рутина (по умолчанию для Pro)</td>
               </tr>
               <tr>
-                <td><strong>Opus</strong></td>
-                <td>Сложные задачи, архитектура</td>
-                <td>Медленнее</td>
+                <td><code>opus</code></td>
+                <td>Opus 4.6</td>
+                <td>Сложные задачи, архитектура (по умолчанию для Max)</td>
               </tr>
               <tr>
-                <td><strong>Haiku</strong></td>
-                <td>Очень простые задачи</td>
-                <td>Очень быстро</td>
+                <td><code>haiku</code></td>
+                <td>Haiku 4.5</td>
+                <td>Очень простые задачи, фоновая работа</td>
               </tr>
             </tbody>
           </table>
@@ -299,17 +352,44 @@
               <span class="terminal-title">Terminal</span>
             </div>
             <div class="terminal-body">
-              <span class="comment"># В настройках</span><br>
-              <span class="output">> /config -> Model</span><br><br>
+              <span class="comment"># Через команду (рекомендуется)</span><br>
+              <span class="output">> /model</span><br><br>
               <span class="comment"># Через флаг при запуске</span><br>
               <span class="prompt">$</span> <span class="command">claude --model opus</span>
             </div>
           </div>
 
+          <h3>Уровни усилий и мышление</h3>
+          <p>Effort Level контролирует глубину размышлений Claude (особенно на Opus 4.6):</p>
+          <table>
+            <thead>
+              <tr><th>Уровень</th><th>Для чего</th><th>Настройка</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>low</code></td><td>Быстро, простые задачи</td><td rowspan="3"><code>/model</code> или <code>CLAUDE_CODE_EFFORT_LEVEL</code></td></tr>
+              <tr><td><code>medium</code></td><td>Баланс скорости и качества</td></tr>
+              <tr><td><code>high</code></td><td>Глубокий анализ (по умолчанию)</td></tr>
+            </tbody>
+          </table>
+
+          <h3>Расширенное мышление (Extended Thinking)</h3>
+          <p>Включено по умолчанию — Claude рассуждает пошагово перед ответом:</p>
+          <table>
+            <thead>
+              <tr><th>Действие</th><th>Как</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Показать мышление</td><td><kbd>Ctrl+O</kbd> (verbose mode)</td></tr>
+              <tr><td>Вкл/выкл мышление</td><td><kbd>Option+T</kbd> / <kbd>Alt+T</kbd></td></tr>
+              <tr><td>Глобально вкл/выкл</td><td><code>/config</code> → thinking mode</td></tr>
+            </tbody>
+          </table>
+
           <div class="info-box tip">
-            <div class="info-box-title">Рекомендация для вайбкодеров</div>
-            <p>Начинайте с <strong>Sonnet</strong> — быстрее и дешевле.<br>
-            Переключайтесь на <strong>Opus</strong> для сложных задач (архитектура, рефакторинг).</p>
+            <div class="info-box-title">Рекомендация</div>
+            <p>Начинайте с <strong>sonnet</strong> — быстрее и дешевле.<br>
+            Переключайтесь на <strong>opus</strong> для сложных задач (архитектура, рефакторинг).<br>
+            Используйте <strong>effort high</strong> когда Claude не справляется с первого раза.</p>
           </div>
         </section>
 

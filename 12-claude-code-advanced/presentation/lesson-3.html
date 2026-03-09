@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Урок 12.3: Субагенты и Task Tool | VibeCoding</title>
+  <title>Урок 12.3: Субагенты | VibeCoding</title>
   <script src="js/auth-check.js"></script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -25,14 +25,14 @@
       <nav class="sidebar-nav">
         <div class="nav-section">Модуль 12</div>
         <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
-        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Интеграции</div>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Подключения</div>
         <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>MCP серверы</a>
         <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Custom Skills</a>
         <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Автоматизация</div>
         <a href="lesson-3.html" class="nav-item active" data-lesson="3"><span class="nav-item-number">3</span>Субагенты</a>
         <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Hooks</a>
-        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
-        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Dashboard</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Продвинутые</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Headless и Платформы</a>
         <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Best Practices</a>
         <a href="project.html" class="nav-item" data-lesson="7"><span class="nav-item-number">P</span>Итоговый проект</a>
         <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
@@ -49,7 +49,7 @@
           <div class="lesson-title-section">
             <span class="lesson-badge files">3</span>
             <div>
-              <h1>Субагенты и Task Tool</h1>
+              <h1>Субагенты - помощники Claude</h1>
               <p style="color: var(--text-secondary); margin: 0;">45 минут</p>
             </div>
           </div>
@@ -57,50 +57,151 @@
 
         <section class="content-section">
           <h2>Что такое субагенты?</h2>
-          <p><strong>Субагенты — это специализированные "помощники" Claude.</strong></p>
-          <p>Каждый субагент:</p>
-          <ul>
-            <li>Имеет свой контекст (не видит весь разговор)</li>
-            <li>Специализируется на определённых задачах</li>
-            <li>Может работать параллельно</li>
-          </ul>
 
-          <h3>Типы субагентов:</h3>
+          <div class="info-box claude">
+            <div class="info-box-title">Аналогия</div>
+            <p>Представьте, что вы - руководитель проекта. Вместо того чтобы делать всё самому, вы отправляете помощников: одного - исследовать код, другого - спланировать архитектуру, третьего - написать тесты. Каждый работает самостоятельно в своём окружении и возвращает результат.</p>
+          </div>
+
+          <p><strong>Зачем субагенты?</strong></p>
+          <ul>
+            <li><strong>Сохраняют контекст</strong> - исследование не засоряет основной разговор</li>
+            <li><strong>Специализация</strong> - каждый агент настроен под задачу</li>
+            <li><strong>Параллельность</strong> - несколько агентов работают одновременно</li>
+            <li><strong>Экономия</strong> - можно использовать быстрые дешёвые модели для простых задач</li>
+          </ul>
+        </section>
+
+        <section class="content-section">
+          <h2>Встроенные субагенты</h2>
+
           <table>
-            <thead>
-              <tr><th>Тип</th><th>Назначение</th><th>Инструменты</th></tr>
-            </thead>
+            <thead><tr><th>Агент</th><th>Модель</th><th>Что делает</th><th>Инструменты</th></tr></thead>
             <tbody>
-              <tr><td><code>Explore</code></td><td>Исследование кодбейза</td><td>Read, Glob, Grep</td></tr>
-              <tr><td><code>Plan</code></td><td>Планирование реализации</td><td>Read, Glob, Grep</td></tr>
-              <tr><td><code>Bash</code></td><td>Выполнение команд</td><td>Bash</td></tr>
-              <tr><td><code>general-purpose</code></td><td>Универсальные задачи</td><td>Все</td></tr>
+              <tr><td><code>Explore</code></td><td>Haiku (быстрый)</td><td>Исследует код, ищет файлы</td><td>Только чтение</td></tr>
+              <tr><td><code>Plan</code></td><td>Как у вас</td><td>Исследование для планирования</td><td>Только чтение</td></tr>
+              <tr><td><code>general-purpose</code></td><td>Как у вас</td><td>Сложные многошаговые задачи</td><td>Все инструменты</td></tr>
+              <tr><td><code>Bash</code></td><td>Как у вас</td><td>Выполняет команды в терминале</td><td>Bash</td></tr>
+            </tbody>
+          </table>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Как Claude выбирает агента</div>
+            <p>Claude сам решает какого агента запустить. Для быстрого поиска по коду - Explore (Haiku). Для планирования - Plan. Для сложной работы с изменениями - general-purpose.</p>
+          </div>
+
+          <h3>Как Claude использует субагентов:</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="terminal-title">Claude Code</span></div>
+            <div class="terminal-body">
+              <span class="output">> Как работает авторизация в проекте?</span><br><br>
+              <span class="comment"># Claude автоматически:</span><br>
+              <span class="comment"># 1. Запускает Explore агента (быстрый Haiku)</span><br>
+              <span class="comment"># 2. Агент ищет файлы auth, login, session</span><br>
+              <span class="comment"># 3. Читает и анализирует код</span><br>
+              <span class="comment"># 4. Возвращает краткое резюме в основной разговор</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Создание своих субагентов</h2>
+
+          <h3>Способ 1: Через команду /agents (рекомендуется)</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="output">> /agents</span><br>
+              <span class="comment"># Create new agent -> User-level или Project</span><br>
+              <span class="comment"># Generate with Claude -> описать что нужно</span><br>
+              <span class="comment"># Выбрать инструменты и модель</span>
+            </div>
+          </div>
+
+          <h3>Способ 2: Вручную - файл в .claude/agents/</h3>
+          <pre><code># .claude/agents/code-reviewer.md
+---
+name: code-reviewer
+description: Expert code reviewer. Use proactively after code changes.
+tools: Read, Grep, Glob, Bash
+model: sonnet
+---
+
+Ты - senior code reviewer. Проверяй код на:
+
+1. Качество и читаемость
+2. Безопасность (SQL injection, XSS)
+3. Производительность
+4. Покрытие тестами
+
+Для каждой проблемы указывай:
+- Уровень: Critical / Warning / Suggestion
+- Файл и строку
+- Как исправить</code></pre>
+
+          <h3>Настройки субагента (frontmatter):</h3>
+          <table>
+            <thead><tr><th>Настройка</th><th>Что делает</th></tr></thead>
+            <tbody>
+              <tr><td><code>name</code></td><td>Уникальное имя агента</td></tr>
+              <tr><td><code>description</code></td><td>Когда Claude должен его использовать</td></tr>
+              <tr><td><code>tools</code></td><td>Доступные инструменты (Read, Edit, Bash...)</td></tr>
+              <tr><td><code>model</code></td><td>Модель: <code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>inherit</code></td></tr>
+              <tr><td><code>memory</code></td><td>Постоянная память: <code>user</code>, <code>project</code>, <code>local</code></td></tr>
+              <tr><td><code>permissionMode</code></td><td>Режим разрешений: <code>plan</code> (только чтение)</td></tr>
+              <tr><td><code>isolation</code></td><td><code>worktree</code> - изолированная копия репозитория</td></tr>
+              <tr><td><code>skills</code></td><td>Предзагруженные Skills в контекст агента</td></tr>
             </tbody>
           </table>
         </section>
 
         <section class="content-section">
-          <h2>Task Tool — оркестрация</h2>
-          <p><strong>Task Tool позволяет запускать субагентов.</strong></p>
-          <p>Когда использовать:</p>
-          <ul>
-            <li>Исследование большого кодбейза</li>
-            <li>Параллельное выполнение задач</li>
-            <li>Сложные многошаговые операции</li>
-          </ul>
+          <h2>Память агентов</h2>
 
-          <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">Claude Code</span>
-            </div>
-            <div class="terminal-body">
-              <span class="output">> Исследуй как работает авторизация в проекте</span><br><br>
-              <span class="comment"># Claude запустит Explore агента</span><br>
-              <span class="comment"># Агент найдёт файлы, прочитает и вернёт summary</span>
-            </div>
+          <div class="info-box tip">
+            <div class="info-box-title">Что это?</div>
+            <p>Агент может запоминать информацию между сессиями! Например, code-reviewer запоминает паттерны вашего кода и с каждым разом проверяет лучше.</p>
+          </div>
+
+          <pre><code>---
+name: code-reviewer
+description: Reviews code for quality
+memory: user
+---
+
+Ты - code reviewer. Записывай в свою память:
+- Паттерны кода этого проекта
+- Частые ошибки
+- Архитектурные решения
+
+Перед проверкой - загляни в свою память.</code></pre>
+
+          <h3>Где хранится память:</h3>
+          <table>
+            <thead><tr><th>Scope</th><th>Папка</th><th>Когда использовать</th></tr></thead>
+            <tbody>
+              <tr><td><code>user</code></td><td><code>~/.claude/agent-memory/</code></td><td>Знания для всех проектов (рекомендуется)</td></tr>
+              <tr><td><code>project</code></td><td><code>.claude/agent-memory/</code></td><td>Только для этого проекта (в git)</td></tr>
+              <tr><td><code>local</code></td><td><code>.claude/agent-memory-local/</code></td><td>Только для вас в этом проекте (не в git)</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="content-section">
+          <h2>Передний и задний план</h2>
+
+          <table>
+            <thead><tr><th></th><th>Foreground (передний)</th><th>Background (задний)</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Разговор</strong></td><td>Блокирует - ждёте результат</td><td>Вы продолжаете работать</td></tr>
+              <tr><td><strong>Разрешения</strong></td><td>Спрашивает у вас</td><td>Запрашиваются заранее</td></tr>
+              <tr><td><strong>Как запустить</strong></td><td>По умолчанию</td><td><code>Ctrl+B</code> или попросить "run in background"</td></tr>
+            </tbody>
+          </table>
+
+          <div class="info-box claude">
+            <div class="info-box-title">Изоляция через worktree</div>
+            <p>Параметр <code>isolation: worktree</code> даёт агенту собственную копию репозитория (через git worktree). Агент может менять файлы не мешая вашей работе. Идеально для параллельной разработки!</p>
           </div>
         </section>
 
@@ -109,105 +210,98 @@
           <p><strong>Можно запустить несколько агентов одновременно!</strong></p>
 
           <div class="terminal-demo">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-              <span class="terminal-title">Claude Code</span>
-            </div>
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="terminal-title">Claude Code</span></div>
             <div class="terminal-body">
               <span class="output">> Параллельно:</span><br>
               <span class="output">   1. Исследуй структуру API</span><br>
               <span class="output">   2. Найди все компоненты с формами</span><br>
               <span class="output">   3. Проверь конфигурацию TypeScript</span><br><br>
-              <span class="comment"># 3 Explore агента работают одновременно!</span>
+              <span class="comment"># 3 Explore агента работают одновременно!</span><br>
+              <span class="comment"># Каждый в своём контексте, не мешая друг другу</span>
             </div>
           </div>
 
           <div class="info-box tip">
             <div class="info-box-title">Когда это полезно</div>
-            <p>Анализ большого проекта, подготовка к рефакторингу, аудит кодбейза.</p>
-          </div>
-        </section>
-
-        <section class="content-section">
-          <h2>Создание своих субагентов</h2>
-
-          <p>Можно создать собственного субагента в <code>.claude/agents/</code>:</p>
-
-          <h3>Пример: Security Reviewer</h3>
-          <pre><code># .claude/agents/security-reviewer.md
----
-name: security-reviewer
-description: Reviews code for security vulnerabilities
-tools: Read, Grep, Glob
-model: opus
----
-
-You are a security engineer. Review code for:
-1. SQL injection
-2. XSS vulnerabilities
-3. Hardcoded secrets
-4. OWASP Top 10
-
-Provide specific line references.</code></pre>
-
-          <h3>Использование:</h3>
-          <div class="terminal-demo">
-            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
-            <div class="terminal-body">
-              <span class="output">> Use security-reviewer to check the auth module</span>
-            </div>
+            <p>Анализ большого проекта, подготовка к рефакторингу, аудит кодбейза, параллельный code review (безопасность + производительность + тесты).</p>
           </div>
 
-          <div class="info-box tip">
-            <div class="info-box-title">Frontmatter опции</div>
-            <p><code>name</code> — имя агента<br>
-            <code>tools</code> — доступные инструменты<br>
-            <code>model</code> — модель (sonnet, opus, haiku)</p>
+          <div class="info-box claude">
+            <div class="info-box-title">Реальные сценарии</div>
+            <p><strong>Подготовка к рефакторингу:</strong> "Параллельно: 1) найди все deprecated API, 2) найди дублирующийся код, 3) проверь покрытие тестами" - три Explore агента за минуту дадут полную картину.<br><br>
+            <strong>Онбординг в проект:</strong> "Как работает этот проект? Расскажи про архитектуру" - Explore агент обойдёт весь код и вернёт краткое описание, не засоряя ваш контекст.<br><br>
+            <strong>Безопасная правка:</strong> С <code>isolation: worktree</code> агент получит свою копию репозитория. Если что-то сломает - ваш код не пострадает.</p>
           </div>
         </section>
 
         <section class="content-section">
           <h2>Практика</h2>
 
-          <h3>Задание 1: Исследование</h3>
+          <h3>Задание 1: Создать своего агента</h3>
           <div class="terminal-demo">
             <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
             <div class="terminal-body">
-              <span class="output">> Используй Explore агента чтобы понять структуру проекта</span>
+              <span class="comment"># Через интерфейс:</span><br>
+              <span class="output">> /agents</span><br>
+              <span class="comment"># Create new agent -> описать агента</span>
+            </div>
+          </div>
+          <pre><code># Или вручную: .claude/agents/debugger.md
+---
+name: debugger
+description: Debugging specialist for errors and test failures
+tools: Read, Edit, Bash, Grep, Glob
+---
+
+Ты - эксперт по отладке. Когда находишь баг:
+1. Воспроизведи ошибку
+2. Найди причину (root cause)
+3. Исправь
+4. Проверь что работает</code></pre>
+
+          <h3>Задание 2: Параллельные субагенты</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="output">> Параллельно исследуй:</span><br>
+              <span class="output">   1. Все API endpoints</span><br>
+              <span class="output">   2. Все формы и их валидацию</span><br>
+              <span class="output">   3. Конфигурацию TypeScript</span>
             </div>
           </div>
 
-          <h3>Задание 2: Свой агент</h3>
-          <div class="terminal-demo">
-            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
-            <div class="terminal-body">
-              <span class="output">> Создай .claude/agents/code-reviewer.md</span><br>
-              <span class="output">   для проверки качества кода</span>
-            </div>
-          </div>
+          <h3>Задание 3: Агент с памятью</h3>
+          <pre><code># .claude/agents/style-guide.md
+---
+name: style-guide
+description: Enforces project code style
+memory: project
+tools: Read, Grep, Glob
+model: haiku
+---
 
-          <h3>Задание 3: Параллельные задачи</h3>
-          <div class="terminal-demo">
-            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
-            <div class="terminal-body">
-              <span class="output">> Параллельно выполни:</span><br>
-              <span class="output">   1. Найди все TODO комментарии</span><br>
-              <span class="output">   2. Найди все console.log</span><br>
-              <span class="output">   3. Проверь безопасность с security-reviewer</span>
-            </div>
-          </div>
+Ты следишь за стилем кода. Запоминай:
+- Какие паттерны используются в проекте
+- Именование переменных и функций
+- Структуру компонентов</code></pre>
         </section>
 
         <section class="quiz-section">
           <h2>Проверьте себя</h2>
           <div class="quiz-question">
-            <h4>Какой субагент используется для исследования кода?</h4>
+            <h4>Какой встроенный субагент используется для быстрого исследования кода?</h4>
             <div class="quiz-options">
-              <div class="quiz-option" data-correct="true"><span>Explore</span></div>
+              <div class="quiz-option" data-correct="true"><span>Explore (на модели Haiku)</span></div>
               <div class="quiz-option" data-correct="false"><span>Bash</span></div>
               <div class="quiz-option" data-correct="false"><span>Plan</span></div>
+            </div>
+          </div>
+          <div class="quiz-question" style="margin-top: 2rem;">
+            <h4>Что делает настройка memory: user?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="false"><span>Запоминает пароль пользователя</span></div>
+              <div class="quiz-option" data-correct="true"><span>Агент запоминает информацию между сессиями во всех проектах</span></div>
+              <div class="quiz-option" data-correct="false"><span>Увеличивает контекстное окно</span></div>
             </div>
           </div>
         </section>
@@ -215,9 +309,9 @@ Provide specific line references.</code></pre>
         <section class="content-section">
           <h2>Чеклист урока</h2>
           <div class="checklist">
-            <label class="checklist-item"><input type="checkbox"><span>Понимаю что такое субагенты</span></label>
-            <label class="checklist-item"><input type="checkbox"><span>Знаю типы субагентов</span></label>
-            <label class="checklist-item"><input type="checkbox"><span>Использовал Explore агента</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Понимаю что такое субагенты и зачем они нужны</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Знаю встроенные субагенты (Explore, Plan, general-purpose)</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Создал своего агента через /agents или файл</span></label>
             <label class="checklist-item"><input type="checkbox"><span>Запустил параллельные задачи</span></label>
           </div>
         </section>

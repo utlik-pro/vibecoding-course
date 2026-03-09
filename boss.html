@@ -15,10 +15,7 @@
       padding: 2rem;
     }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
+    .container { max-width: 1200px; margin: 0 auto; }
 
     /* Login */
     .login-container {
@@ -34,40 +31,42 @@
     .login-icon { font-size: 4rem; margin-bottom: 1rem; }
     .login-title { font-size: 1.5rem; margin-bottom: 0.5rem; }
     .login-subtitle { color: #a0aec0; margin-bottom: 2rem; }
-
     .login-form { display: flex; flex-direction: column; gap: 1rem; }
 
-    .input {
+    .input, .select {
       background: rgba(255,255,255,0.1);
       border: 2px solid rgba(255,255,255,0.2);
       border-radius: 10px;
-      padding: 0.875rem 1rem;
+      padding: 0.75rem 1rem;
       font-size: 1rem;
       color: #fff;
       transition: all 0.3s;
     }
     .input::placeholder { color: #6b7280; }
-    .input:focus { outline: none; border-color: #667eea; }
+    .input:focus, .select:focus { outline: none; border-color: #667eea; }
     .input.error { border-color: #ef4444; }
+    .select option { background: #1a1a2e; color: #fff; }
 
     .btn {
-      padding: 0.875rem 1.5rem;
+      padding: 0.75rem 1.25rem;
       border-radius: 10px;
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s;
       border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
     }
-    .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: #fff;
-    }
+    .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(102,126,234,0.4); }
     .btn-success { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; }
-    .btn-success:hover { box-shadow: 0 10px 30px rgba(16,185,129,0.4); }
     .btn-danger { background: #ef4444; color: #fff; }
+    .btn-warning { background: #f59e0b; color: #fff; }
     .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+    .btn-sm { padding: 0.4rem 0.75rem; font-size: 0.8rem; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .error-msg { color: #ef4444; font-size: 0.9rem; display: none; }
     .error-msg.show { display: block; }
@@ -93,6 +92,29 @@
       font-weight: 700;
     }
 
+    /* Tabs */
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+
+    .tab-btn {
+      padding: 0.75rem 1.25rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      color: #a0aec0;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 0.9rem;
+    }
+    .tab-btn:hover { background: rgba(255,255,255,0.1); }
+    .tab-btn.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
     .section {
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.1);
@@ -106,20 +128,48 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .section-title {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 600;
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
 
+    /* Stats */
+    .stats-row { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .stat-item {
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 10px;
+      flex: 1;
+      min-width: 120px;
+    }
+    .stat-value { font-size: 1.5rem; font-weight: 700; color: #667eea; }
+    .stat-label { font-size: 0.85rem; color: #a0aec0; }
+
+    /* Cohort badges */
+    .cohort-selector { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+    .cohort-badge {
+      padding: 0.5rem 1rem;
+      background: rgba(102,126,234,0.2);
+      border: 2px solid transparent;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 0.9rem;
+    }
+    .cohort-badge:hover { background: rgba(102,126,234,0.3); }
+    .cohort-badge.active { border-color: #667eea; background: rgba(102,126,234,0.3); }
+
     /* Modules Grid */
     .modules-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       gap: 0.75rem;
     }
 
@@ -133,89 +183,127 @@
       cursor: pointer;
       transition: all 0.3s;
       border: 2px solid transparent;
+      font-size: 0.9rem;
     }
     .module-item:hover { background: rgba(255,255,255,0.08); }
     .module-item.active { border-color: #10b981; background: rgba(16,185,129,0.1); }
+    .module-item.hidden { border-color: #ef4444; background: rgba(239,68,68,0.1); }
 
     .module-checkbox {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       border: 2px solid rgba(255,255,255,0.3);
-      border-radius: 6px;
+      border-radius: 5px;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.3s;
+      flex-shrink: 0;
+      font-size: 0.7rem;
     }
-    .module-item.active .module-checkbox {
-      background: #10b981;
-      border-color: #10b981;
-    }
-    .module-item.active .module-checkbox::after {
-      content: '✓';
-      color: #fff;
-      font-size: 0.8rem;
-      font-weight: bold;
-    }
+    .module-item.active .module-checkbox { background: #10b981; border-color: #10b981; }
+    .module-item.active .module-checkbox::after { content: '✓'; color: #fff; }
+    .module-item.hidden .module-checkbox { background: #ef4444; border-color: #ef4444; }
+    .module-item.hidden .module-checkbox::after { content: '✗'; color: #fff; }
 
-    .module-name { font-size: 0.9rem; }
+    .module-name { font-size: 0.85rem; }
     .module-num { color: #667eea; font-weight: 600; }
 
-    /* Whitelist */
-    .whitelist-input-row {
-      display: flex;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-    }
-    .whitelist-input-row .input { flex: 1; }
+    /* Table */
+    .table-container { overflow-x: auto; }
 
-    .email-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
     }
 
-    .email-tag {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(102,126,234,0.2);
-      border: 1px solid rgba(102,126,234,0.3);
-      padding: 0.5rem 0.75rem;
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    th {
+      background: rgba(255,255,255,0.05);
+      font-weight: 600;
+      color: #a0aec0;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+
+    tr:hover { background: rgba(255,255,255,0.03); }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
       border-radius: 20px;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-success { background: rgba(16,185,129,0.2); color: #10b981; }
+    .badge-danger { background: rgba(239,68,68,0.2); color: #ef4444; }
+    .badge-warning { background: rgba(245,158,11,0.2); color: #f59e0b; }
+    .badge-info { background: rgba(102,126,234,0.2); color: #a5b4fc; }
+
+    .actions { display: flex; gap: 0.5rem; }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.show { display: flex; }
+
+    .modal {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
-    .email-remove {
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-title { font-size: 1.2rem; font-weight: 600; }
+    .modal-close {
       background: none;
       border: none;
-      color: #ef4444;
-      cursor: pointer;
-      font-size: 1rem;
-      padding: 0;
-      line-height: 1;
-    }
-    .email-remove:hover { color: #ff6b6b; }
-
-    .empty-list {
       color: #6b7280;
-      font-style: italic;
-      padding: 1rem;
-      text-align: center;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
+    .modal-close:hover { color: #fff; }
 
-    /* Save Section */
-    .save-section {
-      background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%);
-      border-color: rgba(102,126,234,0.3);
-    }
+    .form-group { margin-bottom: 1rem; }
+    .form-label { display: block; margin-bottom: 0.5rem; color: #a0aec0; font-size: 0.9rem; }
+    .form-row { display: flex; gap: 1rem; }
+    .form-row .form-group { flex: 1; }
 
-    .save-actions {
+    .modal-footer {
       display: flex;
+      justify-content: flex-end;
       gap: 1rem;
-      flex-wrap: wrap;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
 
+    /* Export */
     .code-output {
       background: #0d1117;
       border: 1px solid #30363d;
@@ -223,11 +311,13 @@
       padding: 1rem;
       margin-top: 1rem;
       font-family: 'Monaco', 'Menlo', monospace;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       overflow-x: auto;
       white-space: pre;
       color: #c9d1d9;
       display: none;
+      max-height: 400px;
+      overflow-y: auto;
     }
     .code-output.show { display: block; }
 
@@ -241,7 +331,7 @@
     }
     .instructions.show { display: block; }
     .instructions-title { color: #f59e0b; font-weight: 600; margin-bottom: 0.5rem; }
-    .instructions ol { margin-left: 1.25rem; color: #a0aec0; }
+    .instructions ol { margin-left: 1.25rem; color: #a0aec0; font-size: 0.9rem; }
     .instructions li { margin-bottom: 0.5rem; }
     .instructions code { background: rgba(0,0,0,0.3); padding: 0.2rem 0.4rem; border-radius: 4px; }
 
@@ -259,10 +349,10 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       transition: all 0.3s;
       opacity: 0;
+      z-index: 100;
     }
     .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-    /* Footer */
     .footer-link {
       display: block;
       text-align: center;
@@ -272,10 +362,18 @@
     }
     .footer-link:hover { color: #a5b4fc; }
 
-    @media (max-width: 600px) {
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: #6b7280;
+    }
+
+    @media (max-width: 768px) {
       body { padding: 1rem; }
-      .modules-grid { grid-template-columns: 1fr; }
-      .save-actions { flex-direction: column; }
+      .modules-grid { grid-template-columns: 1fr 1fr; }
+      .form-row { flex-direction: column; gap: 0; }
+      th, td { padding: 0.5rem; font-size: 0.8rem; }
+      .btn-sm { padding: 0.3rem 0.5rem; }
     }
   </style>
 </head>
@@ -302,106 +400,237 @@
       <button class="btn btn-secondary" id="logoutBtn">Выйти</button>
     </div>
 
-    <!-- Modules Section -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-title">📚 Открытые модули</div>
-        <div>
-          <button class="btn btn-secondary" id="selectAllBtn" style="font-size: 0.8rem; padding: 0.5rem 0.75rem;">Выбрать все</button>
-          <button class="btn btn-secondary" id="deselectAllBtn" style="font-size: 0.8rem; padding: 0.5rem 0.75rem;">Снять все</button>
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-value" id="statCohorts">0</div>
+        <div class="stat-label">Потоков</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="statStudents">0</div>
+        <div class="stat-label">Учеников</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="statActive">0</div>
+        <div class="stat-label">Активных</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="statAdmins">0</div>
+        <div class="stat-label">Админов</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="students">👥 Ученики</button>
+      <button class="tab-btn" data-tab="cohorts">🎓 Потоки</button>
+      <button class="tab-btn" data-tab="admins">👑 Админы</button>
+      <button class="tab-btn" data-tab="export">💾 Экспорт</button>
+    </div>
+
+    <!-- Students Tab -->
+    <div class="tab-content active" id="students">
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">👥 Управление учениками</div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <select class="select" id="filterCohort" style="min-width: 150px;">
+              <option value="">Все потоки</option>
+            </select>
+            <button class="btn btn-success btn-sm" id="addStudentBtn">➕ Добавить</button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Поток</th>
+                <th>Статус</th>
+                <th>Модули</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody id="studentsTable"></tbody>
+          </table>
         </div>
       </div>
-      <div class="modules-grid" id="modulesGrid"></div>
     </div>
 
-    <!-- Whitelist Section -->
-    <div class="section">
-      <div class="section-title">📧 Белый список (полный доступ)</div>
-      <p style="color: #a0aec0; font-size: 0.9rem; margin: 0.5rem 0 1rem;">Эти пользователи видят ВСЕ модули</p>
-
-      <div class="whitelist-input-row">
-        <input type="email" class="input" id="emailInput" placeholder="email@example.com">
-        <button class="btn btn-success" id="addEmailBtn">Добавить</button>
+    <!-- Cohorts Tab -->
+    <div class="tab-content" id="cohorts">
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">🎓 Выберите поток</div>
+        </div>
+        <div class="cohort-selector" id="cohortSelector"></div>
       </div>
 
-      <div class="email-list" id="emailList"></div>
+      <div class="section" id="cohortModulesSection" style="display: none;">
+        <div class="section-header">
+          <div class="section-title">📚 Модули для <span id="selectedCohortName"></span></div>
+          <div>
+            <button class="btn btn-secondary btn-sm" id="selectAllBtn">Все</button>
+            <button class="btn btn-secondary btn-sm" id="deselectAllBtn">Снять</button>
+          </div>
+        </div>
+        <div class="modules-grid" id="modulesGrid"></div>
+      </div>
     </div>
 
-    <!-- Save Section -->
-    <div class="section save-section">
-      <div class="section-title">💾 Сохранение изменений</div>
-      <p style="color: #a0aec0; font-size: 0.9rem; margin: 0.5rem 0 1rem;">Скопируйте код и обновите файл конфигурации</p>
+    <!-- Admins Tab -->
+    <div class="tab-content" id="admins">
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">👑 Администраторы</div>
+        </div>
+        <p style="color: #a0aec0; font-size: 0.85rem; margin-bottom: 1rem;">
+          Администраторы видят все модули и имеют доступ к панели управления
+        </p>
 
-      <div class="save-actions">
-        <button class="btn btn-primary" id="generateBtn">📋 Сгенерировать код</button>
-        <button class="btn btn-success" id="copyBtn" style="display: none;">Копировать</button>
+        <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem;">
+          <input type="email" class="input" id="adminEmailInput" placeholder="admin@example.com" style="flex: 1;">
+          <button class="btn btn-success" id="addAdminBtn">Добавить</button>
+        </div>
+
+        <div id="adminsList"></div>
       </div>
+    </div>
 
-      <pre class="code-output" id="codeOutput"></pre>
+    <!-- Export Tab -->
+    <div class="tab-content" id="export">
+      <div class="section">
+        <div class="section-title">💾 Сохранение изменений</div>
+        <p style="color: #a0aec0; font-size: 0.85rem; margin: 0.5rem 0 1rem;">
+          Скопируйте код и замените содержимое файла <code>js/config.js</code>
+        </p>
 
-      <div class="instructions" id="instructions">
-        <div class="instructions-title">📝 Как применить изменения:</div>
-        <ol>
-          <li>Скопируйте код выше</li>
-          <li>Откройте файл <code>js/config.js</code></li>
-          <li>Замените содержимое на скопированный код</li>
-          <li>Сохраните и закоммитьте изменения</li>
-        </ol>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <button class="btn btn-primary" id="generateBtn">📋 Сгенерировать код</button>
+          <button class="btn btn-success" id="copyBtn" style="display: none;">Копировать</button>
+        </div>
+
+        <pre class="code-output" id="codeOutput"></pre>
+
+        <div class="instructions" id="instructions">
+          <div class="instructions-title">📝 Как применить изменения:</div>
+          <ol>
+            <li>Скопируйте код выше</li>
+            <li>Откройте файл <code>js/config.js</code></li>
+            <li>Замените содержимое на скопированный код</li>
+            <li>Сохраните и закоммитьте изменения</li>
+          </ol>
+        </div>
       </div>
     </div>
 
     <a href="index.html" class="footer-link">← Вернуться на главную</a>
   </div>
 
+  <!-- Student Modal -->
+  <div class="modal-overlay" id="studentModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="studentModalTitle">Добавить ученика</h2>
+        <button class="modal-close" id="closeStudentModal">&times;</button>
+      </div>
+
+      <form id="studentForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Email *</label>
+            <input type="email" class="input" id="studentEmail" placeholder="user@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Поток</label>
+            <select class="select" id="studentCohort"></select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Имя</label>
+          <input type="text" class="input" id="studentName" placeholder="Иван Иванов">
+        </div>
+
+        <div class="form-group">
+          <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+            <input type="checkbox" id="studentActive" checked>
+            <span>Активный (может входить в курс)</span>
+          </label>
+        </div>
+
+        <div class="form-group" id="hiddenModulesGroup" style="display: none;">
+          <label class="form-label">Скрыть модули (индивидуально)</label>
+          <div class="modules-grid" id="studentHiddenModules"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="cancelStudentBtn">Отмена</button>
+          <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
 
   <script src="js/config.js"></script>
   <script>
-    const MODULES = [
-      { id: 1, name: 'Введение в Vibecoding' },
-      { id: 2, name: 'Мастерство Cursor' },
-      { id: 3, name: 'Claude Code' },
-      { id: 4, name: 'Современный веб-стек' },
-      { id: 5, name: 'Настройка проекта' },
-      { id: 6, name: 'Бекенд' },
-      { id: 7, name: 'Аутентификация' },
-      { id: 8, name: 'База данных' },
-      { id: 9, name: 'Фронтенд' },
-      { id: 10, name: 'API и платежи' },
-      { id: 11, name: 'Финальная интеграция' },
-      { id: 12, name: 'Финальный проект' }
-    ];
+    // =============================================
+    // DATA
+    // =============================================
 
-    // State
-    let unlockedModules = [...COURSE_CONFIG.unlockedModules];
-    let whitelist = [...COURSE_CONFIG.whitelist];
+    const MODULES = COURSE_CONFIG.modules.map(m => ({
+      id: m.id,
+      title: m.title,
+      icon: m.icon
+    }));
 
-    // Elements
+    // Deep copy of cohorts with students as objects
+    let cohorts = COURSE_CONFIG.cohorts.map(c => ({
+      id: c.id,
+      name: c.name,
+      description: c.description || '',
+      unlockedModules: [...c.unlockedModules],
+      students: c.students.map(s => {
+        if (typeof s === 'string') {
+          return { email: s, name: null, active: true, hiddenModules: [] };
+        }
+        return { ...s, hiddenModules: s.hiddenModules || [] };
+      })
+    }));
+
+    let admins = [...COURSE_CONFIG.admins];
+    let selectedCohortIndex = 0;
+    let editingStudentIndex = null;
+    let editingStudentCohortIndex = null;
+
+    // =============================================
+    // ELEMENTS
+    // =============================================
+
     const loginContainer = document.getElementById('loginContainer');
     const adminPanel = document.getElementById('adminPanel');
     const loginForm = document.getElementById('loginForm');
     const passwordInput = document.getElementById('passwordInput');
     const errorMsg = document.getElementById('errorMsg');
-    const modulesGrid = document.getElementById('modulesGrid');
-    const emailList = document.getElementById('emailList');
-    const emailInput = document.getElementById('emailInput');
-    const addEmailBtn = document.getElementById('addEmailBtn');
-    const generateBtn = document.getElementById('generateBtn');
-    const copyBtn = document.getElementById('copyBtn');
-    const codeOutput = document.getElementById('codeOutput');
-    const instructions = document.getElementById('instructions');
     const toast = document.getElementById('toast');
 
-    // Auth check
-    if (localStorage.getItem('bossAuth') === 'true') {
+    // =============================================
+    // AUTH
+    // =============================================
+
+    if (localStorage.getItem('bossAuth') === 'true' || localStorage.getItem('adminAuth') === 'true') {
       showAdmin();
     }
 
-    // Login
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
       if (passwordInput.value === COURSE_CONFIG.adminPassword) {
         localStorage.setItem('bossAuth', 'true');
+        localStorage.setItem('adminAuth', 'true');
         showAdmin();
       } else {
         passwordInput.classList.add('error');
@@ -414,133 +643,559 @@
       }
     });
 
-    // Logout
     document.getElementById('logoutBtn').addEventListener('click', () => {
       localStorage.removeItem('bossAuth');
+      localStorage.removeItem('adminAuth');
       location.reload();
     });
 
     function showAdmin() {
       loginContainer.style.display = 'none';
       adminPanel.classList.add('show');
-      renderModules();
-      renderEmails();
+      updateStats();
+      setupTabs();
+      populateCohortFilter();
+      renderStudentsTable();
+      renderCohortSelector();
+      renderAdmins();
     }
 
-    // Render modules
-    function renderModules() {
-      modulesGrid.innerHTML = MODULES.map(m => `
-        <div class="module-item ${unlockedModules.includes(m.id) ? 'active' : ''}" data-id="${m.id}">
-          <div class="module-checkbox"></div>
-          <span class="module-name"><span class="module-num">${m.id}.</span> ${m.name}</span>
-        </div>
-      `).join('');
+    function updateStats() {
+      const totalStudents = cohorts.reduce((sum, c) => sum + c.students.length, 0);
+      const activeStudents = cohorts.reduce((sum, c) => sum + c.students.filter(s => s.active !== false).length, 0);
 
-      modulesGrid.querySelectorAll('.module-item').forEach(item => {
-        item.addEventListener('click', () => {
-          const id = parseInt(item.dataset.id);
-          if (unlockedModules.includes(id)) {
-            unlockedModules = unlockedModules.filter(x => x !== id);
-          } else {
-            unlockedModules.push(id);
-            unlockedModules.sort((a, b) => a - b);
-          }
-          renderModules();
+      document.getElementById('statCohorts').textContent = cohorts.length;
+      document.getElementById('statStudents').textContent = totalStudents;
+      document.getElementById('statActive').textContent = activeStudents;
+      document.getElementById('statAdmins').textContent = admins.length;
+    }
+
+    // =============================================
+    // TABS
+    // =============================================
+
+    function setupTabs() {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tabId = btn.dataset.tab;
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+          btn.classList.add('active');
+          document.getElementById(tabId).classList.add('active');
         });
       });
     }
 
-    // Select/Deselect all
+    // =============================================
+    // STUDENTS TABLE
+    // =============================================
+
+    function populateCohortFilter() {
+      const select = document.getElementById('filterCohort');
+      select.innerHTML = '<option value="">Все потоки</option>' +
+        cohorts.map((c, i) => `<option value="${i}">${c.name}</option>`).join('');
+
+      select.addEventListener('change', () => renderStudentsTable());
+    }
+
+    function renderStudentsTable() {
+      const filter = document.getElementById('filterCohort').value;
+      const tbody = document.getElementById('studentsTable');
+
+      let allStudents = [];
+      cohorts.forEach((cohort, cohortIndex) => {
+        if (filter !== '' && cohortIndex !== parseInt(filter)) return;
+
+        cohort.students.forEach((student, studentIndex) => {
+          allStudents.push({
+            ...student,
+            cohortIndex,
+            studentIndex,
+            cohortName: cohort.name,
+            cohortModules: cohort.unlockedModules
+          });
+        });
+      });
+
+      if (allStudents.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="empty-state">Нет учеников</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = allStudents.map(s => {
+        const hiddenCount = (s.hiddenModules || []).length;
+        const availableModules = s.cohortModules.length - hiddenCount;
+
+        return `
+          <tr>
+            <td>${s.name || '<span style="color:#6b7280">—</span>'}</td>
+            <td>${s.email}</td>
+            <td><span class="badge badge-info">${s.cohortName}</span></td>
+            <td>
+              ${s.active !== false
+                ? '<span class="badge badge-success">Активен</span>'
+                : '<span class="badge badge-danger">Заблокирован</span>'}
+            </td>
+            <td>
+              ${hiddenCount > 0
+                ? `<span class="badge badge-warning">${availableModules}/${s.cohortModules.length}</span>`
+                : `<span class="badge badge-success">${s.cohortModules.length}</span>`}
+            </td>
+            <td class="actions">
+              <button class="btn btn-secondary btn-sm" onclick="editStudent(${s.cohortIndex}, ${s.studentIndex})" title="Редактировать">✏️</button>
+              <button class="btn ${s.active !== false ? 'btn-warning' : 'btn-success'} btn-sm" onclick="toggleBan(${s.cohortIndex}, ${s.studentIndex})" title="${s.active !== false ? 'Заблокировать' : 'Разблокировать'}">
+                ${s.active !== false ? '🚫' : '✅'}
+              </button>
+              <button class="btn btn-danger btn-sm" onclick="deleteStudent(${s.cohortIndex}, ${s.studentIndex})" title="Удалить">🗑️</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // =============================================
+    // STUDENT MODAL
+    // =============================================
+
+    const studentModal = document.getElementById('studentModal');
+    const studentForm = document.getElementById('studentForm');
+
+    document.getElementById('addStudentBtn').addEventListener('click', () => {
+      editingStudentIndex = null;
+      editingStudentCohortIndex = null;
+      document.getElementById('studentModalTitle').textContent = 'Добавить ученика';
+      studentForm.reset();
+      document.getElementById('studentActive').checked = true;
+      document.getElementById('hiddenModulesGroup').style.display = 'none';
+      populateStudentCohortSelect();
+      studentModal.classList.add('show');
+    });
+
+    function populateStudentCohortSelect() {
+      const select = document.getElementById('studentCohort');
+      select.innerHTML = cohorts.map((c, i) => `<option value="${i}">${c.name}</option>`).join('');
+    }
+
+    window.editStudent = (cohortIndex, studentIndex) => {
+      const student = cohorts[cohortIndex].students[studentIndex];
+      editingStudentIndex = studentIndex;
+      editingStudentCohortIndex = cohortIndex;
+
+      document.getElementById('studentModalTitle').textContent = 'Редактировать ученика';
+      document.getElementById('studentEmail').value = student.email;
+      document.getElementById('studentName').value = student.name || '';
+      document.getElementById('studentActive').checked = student.active !== false;
+
+      populateStudentCohortSelect();
+      document.getElementById('studentCohort').value = cohortIndex;
+
+      // Show hidden modules
+      document.getElementById('hiddenModulesGroup').style.display = 'block';
+      renderStudentHiddenModules(cohortIndex, student.hiddenModules || []);
+
+      studentModal.classList.add('show');
+    };
+
+    function renderStudentHiddenModules(cohortIndex, hiddenModules) {
+      const cohort = cohorts[cohortIndex];
+      const grid = document.getElementById('studentHiddenModules');
+
+      grid.innerHTML = cohort.unlockedModules.map(id => {
+        const m = MODULES.find(mod => mod.id === id);
+        const isHidden = hiddenModules.includes(id);
+        return `
+          <div class="module-item ${isHidden ? 'hidden' : ''}" data-id="${id}">
+            <div class="module-checkbox"></div>
+            <span class="module-name"><span class="module-num">${id}.</span> ${m ? m.title : ''}</span>
+          </div>
+        `;
+      }).join('');
+
+      grid.querySelectorAll('.module-item').forEach(item => {
+        item.addEventListener('click', () => {
+          item.classList.toggle('hidden');
+        });
+      });
+    }
+
+    document.getElementById('studentCohort').addEventListener('change', function() {
+      if (editingStudentIndex !== null) {
+        const hiddenModules = cohorts[editingStudentCohortIndex].students[editingStudentIndex].hiddenModules || [];
+        renderStudentHiddenModules(parseInt(this.value), hiddenModules);
+      }
+    });
+
+    studentForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('studentEmail').value.trim().toLowerCase();
+      const name = document.getElementById('studentName').value.trim() || null;
+      const cohortIndex = parseInt(document.getElementById('studentCohort').value);
+      const active = document.getElementById('studentActive').checked;
+
+      // Get hidden modules
+      let hiddenModules = [];
+      document.querySelectorAll('#studentHiddenModules .module-item.hidden').forEach(item => {
+        hiddenModules.push(parseInt(item.dataset.id));
+      });
+
+      if (editingStudentIndex !== null) {
+        // Editing existing student
+        const oldCohortIndex = editingStudentCohortIndex;
+
+        if (oldCohortIndex !== cohortIndex) {
+          // Move to different cohort
+          cohorts[oldCohortIndex].students.splice(editingStudentIndex, 1);
+          cohorts[cohortIndex].students.push({ email, name, active, hiddenModules });
+        } else {
+          // Update in same cohort
+          cohorts[cohortIndex].students[editingStudentIndex] = { email, name, active, hiddenModules };
+        }
+        showToast('Ученик обновлён');
+      } else {
+        // Adding new student
+        // Check if email exists
+        for (const c of cohorts) {
+          if (c.students.some(s => s.email.toLowerCase() === email)) {
+            showToast('Email уже существует', true);
+            return;
+          }
+        }
+        cohorts[cohortIndex].students.push({ email, name, active, hiddenModules: [] });
+        showToast('Ученик добавлен');
+      }
+
+      studentModal.classList.remove('show');
+      renderStudentsTable();
+      updateStats();
+    });
+
+    window.toggleBan = (cohortIndex, studentIndex) => {
+      const student = cohorts[cohortIndex].students[studentIndex];
+      student.active = student.active === false ? true : false;
+      renderStudentsTable();
+      updateStats();
+      showToast(student.active ? 'Ученик разблокирован' : 'Ученик заблокирован');
+    };
+
+    window.deleteStudent = (cohortIndex, studentIndex) => {
+      const student = cohorts[cohortIndex].students[studentIndex];
+      if (!confirm(`Удалить ученика ${student.email}?`)) return;
+
+      cohorts[cohortIndex].students.splice(studentIndex, 1);
+      renderStudentsTable();
+      updateStats();
+      showToast('Ученик удалён');
+    };
+
+    document.getElementById('closeStudentModal').addEventListener('click', () => studentModal.classList.remove('show'));
+    document.getElementById('cancelStudentBtn').addEventListener('click', () => studentModal.classList.remove('show'));
+
+    // =============================================
+    // COHORTS
+    // =============================================
+
+    function renderCohortSelector() {
+      const selector = document.getElementById('cohortSelector');
+      selector.innerHTML = cohorts.map((c, i) => `
+        <div class="cohort-badge ${i === selectedCohortIndex ? 'active' : ''}" data-index="${i}">
+          🎓 ${c.name} (${c.students.length})
+        </div>
+      `).join('');
+
+      selector.querySelectorAll('.cohort-badge').forEach(badge => {
+        badge.addEventListener('click', () => {
+          selectedCohortIndex = parseInt(badge.dataset.index);
+          renderCohortSelector();
+          renderCohortModules();
+        });
+      });
+
+      renderCohortModules();
+    }
+
+    function renderCohortModules() {
+      const cohort = cohorts[selectedCohortIndex];
+      if (!cohort) return;
+
+      document.getElementById('selectedCohortName').textContent = cohort.name;
+      document.getElementById('cohortModulesSection').style.display = 'block';
+
+      const grid = document.getElementById('modulesGrid');
+      grid.innerHTML = MODULES.map(m => `
+        <div class="module-item ${cohort.unlockedModules.includes(m.id) ? 'active' : ''}" data-id="${m.id}">
+          <div class="module-checkbox"></div>
+          <span class="module-name"><span class="module-num">${m.id}.</span> ${m.title}</span>
+        </div>
+      `).join('');
+
+      grid.querySelectorAll('.module-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const id = parseInt(item.dataset.id);
+          const cohort = cohorts[selectedCohortIndex];
+
+          if (cohort.unlockedModules.includes(id)) {
+            cohort.unlockedModules = cohort.unlockedModules.filter(x => x !== id);
+          } else {
+            cohort.unlockedModules.push(id);
+            cohort.unlockedModules.sort((a, b) => a - b);
+          }
+          renderCohortModules();
+        });
+      });
+    }
+
     document.getElementById('selectAllBtn').addEventListener('click', () => {
-      unlockedModules = MODULES.map(m => m.id);
-      renderModules();
+      cohorts[selectedCohortIndex].unlockedModules = MODULES.map(m => m.id);
+      renderCohortModules();
     });
 
     document.getElementById('deselectAllBtn').addEventListener('click', () => {
-      unlockedModules = [];
-      renderModules();
+      cohorts[selectedCohortIndex].unlockedModules = [];
+      renderCohortModules();
     });
 
-    // Render emails
-    function renderEmails() {
-      if (whitelist.length === 0) {
-        emailList.innerHTML = '<div class="empty-list">Список пуст</div>';
+    // =============================================
+    // ADMINS
+    // =============================================
+
+    function renderAdmins() {
+      const list = document.getElementById('adminsList');
+
+      if (admins.length === 0) {
+        list.innerHTML = '<div class="empty-state">Нет администраторов</div>';
         return;
       }
-      emailList.innerHTML = whitelist.map(email => `
-        <div class="email-tag">
-          <span>${email}</span>
-          <button class="email-remove" data-email="${email}">×</button>
-        </div>
-      `).join('');
 
-      emailList.querySelectorAll('.email-remove').forEach(btn => {
-        btn.addEventListener('click', () => {
-          whitelist = whitelist.filter(e => e !== btn.dataset.email);
-          renderEmails();
-        });
-      });
+      list.innerHTML = `
+        <table style="width: 100%;">
+          <tbody>
+            ${admins.map((email, i) => `
+              <tr>
+                <td>👑 ${email}</td>
+                <td style="text-align: right;">
+                  <button class="btn btn-danger btn-sm" onclick="deleteAdmin(${i})" ${admins.length <= 1 ? 'disabled' : ''}>🗑️</button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
     }
 
-    // Add email
-    addEmailBtn.addEventListener('click', () => {
-      const email = emailInput.value.trim().toLowerCase();
-      if (email && email.includes('@') && !whitelist.includes(email)) {
-        whitelist.push(email);
-        emailInput.value = '';
-        renderEmails();
-        showToast('Email добавлен');
-      }
+    document.getElementById('addAdminBtn').addEventListener('click', addAdmin);
+    document.getElementById('adminEmailInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); addAdmin(); }
     });
 
-    emailInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        addEmailBtn.click();
-      }
-    });
+    function addAdmin() {
+      const input = document.getElementById('adminEmailInput');
+      const email = input.value.trim().toLowerCase();
 
-    // Generate code
-    generateBtn.addEventListener('click', () => {
-      const code = `/**
+      if (!email || !email.includes('@')) {
+        showToast('Введите корректный email', true);
+        return;
+      }
+
+      if (admins.map(a => a.toLowerCase()).includes(email)) {
+        showToast('Этот email уже админ', true);
+        return;
+      }
+
+      admins.push(email);
+      input.value = '';
+      renderAdmins();
+      updateStats();
+      showToast('Админ добавлен');
+    }
+
+    window.deleteAdmin = (index) => {
+      if (admins.length <= 1) {
+        showToast('Нужен хотя бы один админ', true);
+        return;
+      }
+      admins.splice(index, 1);
+      renderAdmins();
+      updateStats();
+      showToast('Админ удалён');
+    };
+
+    // =============================================
+    // EXPORT
+    // =============================================
+
+    document.getElementById('generateBtn').addEventListener('click', generateCode);
+    document.getElementById('copyBtn').addEventListener('click', copyCode);
+
+    function generateCode() {
+      const modulesStr = MODULES.map(m =>
+        `    { id: ${m.id}, title: '${m.title}', icon: '${m.icon}' }`
+      ).join(',\n');
+
+      const cohortsStr = cohorts.map(c => {
+        const studentsStr = c.students.map(s => {
+          const parts = [`email: '${s.email}'`];
+          if (s.name) parts.push(`name: '${s.name}'`);
+          parts.push(`active: ${s.active !== false}`);
+          if (s.hiddenModules && s.hiddenModules.length > 0) {
+            parts.push(`hiddenModules: [${s.hiddenModules.join(', ')}]`);
+          }
+          return `        { ${parts.join(', ')} }`;
+        }).join(',\n');
+
+        return `    {
+      id: '${c.id}',
+      name: '${c.name}',
+      description: '${c.description}',
+      unlockedModules: [${c.unlockedModules.join(', ')}],
+      students: [
+${studentsStr}
+      ]
+    }`;
+      }).join(',\n');
+
+      const adminsStr = admins.map(a => `    '${a}'`).join(',\n');
+
+      const code = generateFullConfigCode(modulesStr, cohortsStr, adminsStr);
+
+      document.getElementById('codeOutput').textContent = code;
+      document.getElementById('codeOutput').classList.add('show');
+      document.getElementById('copyBtn').style.display = 'inline-block';
+      document.getElementById('instructions').classList.add('show');
+    }
+
+    function generateFullConfigCode(modulesStr, cohortsStr, adminsStr) {
+      return `/**
  * КОНФИГУРАЦИЯ КУРСА
- * Редактируется через админку /boss.html
+ * Редактируется через админку /admin/ или /boss.html
  */
 
 const COURSE_CONFIG = {
-  // Какие модули открыты (номера 1-12)
-  unlockedModules: [${unlockedModules.join(', ')}],
-
-  // Белый список email (эти пользователи видят ВСЕ модули)
-  whitelist: [
-    ${whitelist.map(e => `'${e}'`).join(',\n    ')}
+  modules: [
+${modulesStr}
   ],
 
-  // Пароль админки
-  adminPassword: '${COURSE_CONFIG.adminPassword}'
+  cohorts: [
+${cohortsStr}
+  ],
+
+  admins: [
+${adminsStr}
+  ],
+
+  adminPassword: '${COURSE_CONFIG.adminPassword}',
+
+  // === МЕТОДЫ ===
+
+  getCohortByEmail(email) {
+    if (!email) return null;
+    const normalizedEmail = email.toLowerCase();
+    for (const cohort of this.cohorts) {
+      const found = cohort.students.find(s => {
+        const studentEmail = (typeof s === 'string' ? s : s.email).toLowerCase();
+        return studentEmail === normalizedEmail;
+      });
+      if (found) return cohort;
+    }
+    return null;
+  },
+
+  getStudentByEmail(email) {
+    if (!email) return null;
+    const normalizedEmail = email.toLowerCase();
+    for (const cohort of this.cohorts) {
+      const student = cohort.students.find(s => {
+        const studentEmail = (typeof s === 'string' ? s : s.email).toLowerCase();
+        return studentEmail === normalizedEmail;
+      });
+      if (student) {
+        if (typeof student === 'string') {
+          return { email: student, name: null, active: true, cohort, hiddenModules: [] };
+        }
+        return { ...student, cohort, hiddenModules: student.hiddenModules || [] };
+      }
+    }
+    return null;
+  },
+
+  isStudentActive(email) {
+    const student = this.getStudentByEmail(email);
+    if (!student) return false;
+    return student.active !== false;
+  },
+
+  getUnlockedModulesForUser(email) {
+    if (this.isAdmin(email)) return this.modules.map(m => m.id);
+    if (!this.isStudentActive(email)) return [];
+    const student = this.getStudentByEmail(email);
+    if (!student) return [];
+    const cohort = student.cohort;
+    if (!cohort) return [];
+    const hiddenModules = student.hiddenModules || [];
+    return cohort.unlockedModules.filter(m => !hiddenModules.includes(m));
+  },
+
+  isAdmin(email) {
+    if (!email) return false;
+    return this.admins.map(a => a.toLowerCase()).includes(email.toLowerCase());
+  },
+
+  isWhitelisted(email) {
+    if (!email) return false;
+    if (this.admins.map(a => a.toLowerCase()).includes(email.toLowerCase())) return true;
+    const student = this.getStudentByEmail(email);
+    return student !== null && student.active !== false;
+  },
+
+  getModuleTitle(moduleId) {
+    const module = this.modules.find(m => m.id === moduleId);
+    return module ? module.title : \`Модуль \${moduleId}\`;
+  },
+
+  getAllStudents() {
+    const students = [];
+    for (const cohort of this.cohorts) {
+      for (const s of cohort.students) {
+        students.push(typeof s === 'string' ? s : s.email);
+      }
+    }
+    return students;
+  },
+
+  getActiveStudents() {
+    const students = [];
+    for (const cohort of this.cohorts) {
+      for (const s of cohort.students) {
+        if (typeof s === 'string') students.push(s);
+        else if (s.active !== false) students.push(s.email);
+      }
+    }
+    return students;
+  },
+
+  get whitelist() { return [...this.admins, ...this.getAllStudents()]; },
+  get unlockedModules() { return this.modules.map(m => m.id); }
 };`;
+    }
 
-      codeOutput.textContent = code;
-      codeOutput.classList.add('show');
-      copyBtn.style.display = 'inline-block';
-      instructions.classList.add('show');
-    });
-
-    // Copy code
-    copyBtn.addEventListener('click', async () => {
+    async function copyCode() {
       try {
-        await navigator.clipboard.writeText(codeOutput.textContent);
+        await navigator.clipboard.writeText(document.getElementById('codeOutput').textContent);
         showToast('Код скопирован!');
       } catch (err) {
-        showToast('Ошибка копирования');
+        showToast('Ошибка копирования', true);
       }
-    });
+    }
 
-    // Toast
-    function showToast(msg) {
+    // =============================================
+    // UTILS
+    // =============================================
+
+    function showToast(msg, isError = false) {
       toast.textContent = msg;
+      toast.style.background = isError ? '#ef4444' : '#10b981';
       toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2000);
+      setTimeout(() => toast.classList.remove('show'), 2500);
     }
   </script>
 </body>

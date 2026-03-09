@@ -864,6 +864,236 @@ tr:last-child td {
   color: #6B7280;
 }
 
+/* Steps Component (docs-style) */
+.steps {
+  margin: 1.5rem 0;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: step-counter;
+}
+
+.step {
+  position: relative;
+  padding: 1rem 1rem 1rem 3.5rem;
+  margin-bottom: 0.5rem;
+  border-left: 2px solid var(--border);
+  margin-left: 1rem;
+}
+
+.step::before {
+  counter-increment: step-counter;
+  content: counter(step-counter);
+  position: absolute;
+  left: -14px;
+  top: 1rem;
+  width: 26px;
+  height: 26px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.step:last-child {
+  border-left-color: transparent;
+}
+
+.step-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+}
+
+/* Tabs Component */
+.tabs {
+  margin: 1.5rem 0;
+}
+
+.tab-buttons {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 0;
+}
+
+.tab-btn {
+  padding: 0.75rem 1.25rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: var(--transition);
+  font-family: inherit;
+}
+
+.tab-btn:hover {
+  color: var(--primary);
+}
+
+.tab-btn.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+  font-weight: 600;
+}
+
+.tab-content {
+  display: none;
+  padding: 1.25rem 0;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Accordion Component */
+.accordion {
+  margin: 1rem 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.accordion-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.accordion-item:last-child {
+  border-bottom: none;
+}
+
+.accordion-trigger {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: var(--bg-card);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: left;
+  font-family: inherit;
+  transition: var(--transition);
+}
+
+.accordion-trigger:hover {
+  background: var(--bg-main);
+}
+
+.accordion-trigger svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.accordion-item.open .accordion-trigger svg {
+  transform: rotate(180deg);
+}
+
+.accordion-body {
+  display: none;
+  padding: 0 1.25rem 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.accordion-item.open .accordion-body {
+  display: block;
+}
+
+/* Card Group (docs-style) */
+.card-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.card-link {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  transition: var(--transition);
+  display: block;
+  color: var(--text-primary);
+}
+
+.card-link:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.card-link h4 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.card-link p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+/* Enhanced Info Boxes with icons */
+.info-box .info-icon {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+/* Keyboard shortcut style */
+kbd {
+  display: inline-block;
+  padding: 0.15rem 0.4rem;
+  font-size: 0.8rem;
+  font-family: 'Monaco', 'Menlo', monospace;
+  background: var(--bg-main);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  color: var(--text-primary);
+}
+
+/* File tree style */
+.file-tree {
+  background: var(--bg-code);
+  border-radius: var(--radius);
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 0.85rem;
+  color: #A78BFA;
+  line-height: 1.6;
+  white-space: pre;
+}
+
+.file-tree .dir {
+  color: #60A5FA;
+}
+
+.file-tree .comment {
+  color: #6B7280;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .objectives-grid {
@@ -875,6 +1105,10 @@ tr:last-child td {
   }
 
   .module-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .card-group {
     grid-template-columns: 1fr;
   }
 }

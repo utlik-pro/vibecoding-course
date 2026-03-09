@@ -205,37 +205,121 @@ src/
         </section>
 
         <section class="content-section">
-          <h2>Иерархия CLAUDE.md файлов</h2>
+          <h2>Иерархия памяти</h2>
 
-          <p><strong>Claude читает CLAUDE.md файлы на разных уровнях:</strong></p>
+          <p>Claude Code использует несколько мест хранения памяти в иерархической структуре:</p>
 
           <table>
             <thead>
-              <tr><th>Расположение</th><th>Применение</th></tr>
+              <tr><th>Тип</th><th>Расположение</th><th>Для кого</th></tr>
             </thead>
             <tbody>
-              <tr><td><code>~/.claude/CLAUDE.md</code></td><td>Глобальные правила для всех проектов</td></tr>
-              <tr><td><code>./CLAUDE.md</code></td><td>Правила для текущего проекта</td></tr>
-              <tr><td><code>./subfolder/CLAUDE.md</code></td><td>Правила для конкретной папки</td></tr>
+              <tr><td><strong>Память пользователя</strong></td><td><code>~/.claude/CLAUDE.md</code></td><td>Вы (все проекты)</td></tr>
+              <tr><td><strong>Память проекта</strong></td><td><code>./CLAUDE.md</code> или <code>.claude/CLAUDE.md</code></td><td>Команда (в git)</td></tr>
+              <tr><td><strong>Правила проекта</strong></td><td><code>.claude/rules/*.md</code></td><td>Команда (в git)</td></tr>
+              <tr><td><strong>Локальная память</strong></td><td><code>./CLAUDE.local.md</code></td><td>Только вы (auto-gitignored)</td></tr>
+              <tr><td><strong>Авто-память</strong></td><td><code>~/.claude/projects/&lt;project&gt;/memory/</code></td><td>Только вы (автоматическая)</td></tr>
             </tbody>
           </table>
 
-          <h3>Синтаксис @imports</h3>
-          <p>Подключайте другие файлы в CLAUDE.md:</p>
-          <pre><code># Project: My App
+          <div class="info-box tip">
+            <div class="info-box-title">Приоритет</div>
+            <p>Более специфичные инструкции имеют приоритет над более общими. Файлы CLAUDE.md в дочерних каталогах загружаются по требованию.</p>
+          </div>
 
-## Style Guide
-@docs/style-guide.md
+          <h3>@imports — подключение файлов</h3>
+          <p>Файлы CLAUDE.md могут импортировать дополнительные файлы:</p>
+          <pre><code>See @README for project overview and @package.json
+for available npm commands.
 
-## API Documentation
-@docs/api.md
+# Additional Instructions
+- git workflow @docs/git-instructions.md</code></pre>
 
-## Component Examples
-@src/components/Button/README.md</code></pre>
+          <div class="info-box claude">
+            <div class="info-box-title">@imports</div>
+            <p>Пути относительные к файлу, содержащему импорт. Рекурсивный импорт поддерживается (глубина до 5). Просмотр загруженных файлов: <code>/memory</code>.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Модульные правила: .claude/rules/</h2>
+
+          <p>Организуйте инструкции в несколько файлов вместо одного большого CLAUDE.md:</p>
+
+          <div class="file-tree"><span class="dir">.claude/</span>
+├── CLAUDE.md          <span class="comment"># Основные инструкции</span>
+└── <span class="dir">rules/</span>
+    ├── code-style.md  <span class="comment"># Стиль кода</span>
+    ├── testing.md     <span class="comment"># Правила тестирования</span>
+    ├── security.md    <span class="comment"># Требования безопасности</span>
+    └── <span class="dir">frontend/</span>
+        ├── react.md   <span class="comment"># React правила</span>
+        └── styles.md  <span class="comment"># CSS правила</span></div>
+
+          <h3>Правила с привязкой к файлам (path-scoping)</h3>
+          <p>YAML frontmatter с полем <code>paths</code> ограничивает применение правила:</p>
+          <pre><code>---
+paths:
+  - "src/api/**/*.ts"
+  - "lib/**/*.ts"
+---
+
+# API Development Rules
+- Все endpoints валидируют input
+- Используй стандартный формат ошибок
+- Добавляй OpenAPI комментарии</code></pre>
+
+          <h3>Поддерживаемые glob-шаблоны:</h3>
+          <table>
+            <thead><tr><th>Шаблон</th><th>Совпадает</th></tr></thead>
+            <tbody>
+              <tr><td><code>**/*.ts</code></td><td>Все .ts файлы в любом каталоге</td></tr>
+              <tr><td><code>src/**/*</code></td><td>Все файлы в src/</td></tr>
+              <tr><td><code>src/**/*.{ts,tsx}</code></td><td>Файлы .ts и .tsx в src/</td></tr>
+            </tbody>
+          </table>
 
           <div class="info-box tip">
-            <div class="info-box-title">@imports</div>
-            <p>Используйте <code>@path/to/file</code> чтобы подключить содержимое другого файла. Claude прочитает его как часть инструкций.</p>
+            <div class="info-box-title">Лучшие практики</div>
+            <p>Каждый файл — одна тема. Описательные имена файлов. Подкаталоги для группировки. Символические ссылки для общих правил.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Auto Memory — автоматическая память</h2>
+
+          <p>Claude <strong>автоматически сохраняет</strong> полезный контекст между сессиями:</p>
+
+          <ul>
+            <li><strong>Паттерны проекта:</strong> команды сборки, соглашения тестирования, стиль кода</li>
+            <li><strong>Идеи отладки:</strong> решения сложных проблем, причины ошибок</li>
+            <li><strong>Заметки об архитектуре:</strong> ключевые файлы, отношения модулей</li>
+            <li><strong>Ваши предпочтения:</strong> стиль общения, выбор инструментов</li>
+          </ul>
+
+          <div class="file-tree"><span class="dir">~/.claude/projects/&lt;project&gt;/memory/</span>
+├── MEMORY.md          <span class="comment"># Индекс (первые 200 строк → в контекст)</span>
+├── debugging.md       <span class="comment"># Заметки об отладке</span>
+└── api-conventions.md <span class="comment"># Решения по API</span></div>
+
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="comment"># Просмотр и управление памятью</span><br>
+              <span class="output">> /memory</span><br><br>
+              <span class="comment"># Попросить запомнить</span><br>
+              <span class="output">> Запомни: мы используем pnpm, а не npm</span><br><br>
+              <span class="comment"># Claude автоматически сохранит в memory</span><br>
+              <span class="output">> Сохрани в памяти: тесты API требуют локального Redis</span>
+            </div>
+          </div>
+
+          <div class="info-box claude">
+            <div class="info-box-title">Как работает</div>
+            <p>Первые 200 строк <code>MEMORY.md</code> загружаются при старте каждой сессии. Тематические файлы читаются по требованию. Включена по умолчанию, отключить: <code>/memory</code> → переключатель.</p>
           </div>
         </section>
 

@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
   initNavigation();
   initQuiz();
   initChecklist();
+  initTabs();
+  initAccordions();
 });
 
 // Progress Tracking
@@ -257,3 +259,33 @@ function resetProgress() {
 
 // Make resetProgress available globally for admin use
 window.resetModule11Progress = resetProgress;
+
+// Tabs Functionality
+function initTabs() {
+  document.querySelectorAll('.tabs').forEach(tabsContainer => {
+    const buttons = tabsContainer.querySelectorAll('.tab-btn');
+    const contents = tabsContainer.querySelectorAll('.tab-content');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+
+        buttons.forEach(b => b.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+
+        btn.classList.add('active');
+        tabsContainer.querySelector(`[data-tab-content="${target}"]`).classList.add('active');
+      });
+    });
+  });
+}
+
+// Accordion Functionality
+function initAccordions() {
+  document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.accordion-item');
+      item.classList.toggle('open');
+    });
+  });
+}

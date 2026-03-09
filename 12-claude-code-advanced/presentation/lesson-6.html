@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Урок 12.6: Best Practices | VibeCoding</title>
+  <title>Урок 12.6: Best Practices и Troubleshooting | VibeCoding</title>
   <script src="js/auth-check.js"></script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -25,14 +25,14 @@
       <nav class="sidebar-nav">
         <div class="nav-section">Модуль 12</div>
         <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
-        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Интеграции</div>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Подключения</div>
         <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>MCP серверы</a>
         <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Custom Skills</a>
         <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Автоматизация</div>
         <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Субагенты</a>
         <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Hooks</a>
-        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
-        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Dashboard</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Продвинутые</div>
+        <a href="lesson-5.html" class="nav-item" data-lesson="5"><span class="nav-item-number">5</span>Headless и Платформы</a>
         <a href="lesson-6.html" class="nav-item active" data-lesson="6"><span class="nav-item-number">6</span>Best Practices</a>
         <a href="project.html" class="nav-item" data-lesson="7"><span class="nav-item-number">P</span>Итоговый проект</a>
         <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
@@ -49,144 +49,233 @@
           <div class="lesson-title-section">
             <span class="lesson-badge practice">6</span>
             <div>
-              <h1>Best Practices и Tips</h1>
-              <p style="color: var(--text-secondary); margin: 0;">15 минут</p>
+              <h1>Best Practices и Troubleshooting</h1>
+              <p style="color: var(--text-secondary); margin: 0;">30 минут</p>
             </div>
           </div>
         </div>
 
         <section class="content-section">
-          <h2>Оптимизация промптов</h2>
+          <h2>Главный принцип</h2>
+
+          <div class="info-box claude">
+            <div class="info-box-title">Дай Claude способ ПРОВЕРИТЬ свою работу</div>
+            <p><strong>Плохо:</strong> "Напиши функцию валидации email"<br><br>
+            <strong>Хорошо:</strong> "Напиши функцию validateEmail. Тест-кейсы: user@example.com - true, invalid - false, @empty.com - false. Запусти тесты после написания"</p>
+          </div>
+
+          <p>Claude может сам проверить, что его код работает. Без тестов он "надеется" что всё правильно. С тестами - знает точно.</p>
+        </section>
+
+        <section class="content-section">
+          <h2>Эффективные промпты</h2>
 
           <div class="info-box tip">
             <div class="info-box-title">Будь конкретен</div>
-            <p><strong>Хорошо:</strong> "Добавь кнопку 'Сохранить' синего цвета (#3B82F6) справа от заголовка формы"</p>
-            <p><strong>Плохо:</strong> "Добавь кнопку где-нибудь"</p>
+            <p><strong>Плохо:</strong> "Почини баг в логине"<br><br>
+            <strong>Хорошо:</strong> "Пользователи сообщают что логин падает после истечения сессии. Проверь auth flow в src/auth/, особенно обновление токенов. Сначала напиши падающий тест, потом исправь."</p>
           </div>
 
           <div class="info-box tip">
-            <div class="info-box-title">Указывай контекст</div>
-            <p><strong>Хорошо:</strong> "В файле components/Header.tsx добавь..."</p>
-            <p><strong>Плохо:</strong> "Добавь в хедер..." (какой хедер?)</p>
+            <div class="info-box-title">Указывай паттерны</div>
+            <p><strong>Хорошо:</strong> "Посмотри как реализованы существующие виджеты. HotDogWidget.php - хороший пример. Сделай новый CalendarWidget по такому же паттерну."</p>
           </div>
 
           <div class="info-box tip">
             <div class="info-box-title">Разбивай задачи</div>
-            <p><strong>Хорошо:</strong> 1. Сначала создай структуру → 2. Потом стили → 3. Потом логику</p>
-            <p><strong>Плохо:</strong> "Создай полное приложение за один промпт"</p>
+            <p><strong>Хорошо:</strong> 1. Сначала создай структуру -> 2. Потом стили -> 3. Потом логику<br>
+            <strong>Плохо:</strong> "Создай полное приложение за один промпт"</p>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Используй CLAUDE.md</div>
+            <p>Запишите в CLAUDE.md стиль кода, структуру проекта, часто используемые команды. Claude будет читать это в начале каждой сессии - не нужно повторять.</p>
           </div>
         </section>
 
         <section class="content-section">
           <h2>Управление контекстом</h2>
 
-          <h3>Полезные команды:</h3>
           <table>
-            <thead><tr><th>Команда</th><th>Что делает</th></tr></thead>
+            <thead><tr><th>Команда</th><th>Когда использовать</th></tr></thead>
             <tbody>
-              <tr><td><code>/clear</code></td><td>Очистка контекста между задачами</td></tr>
-              <tr><td><code>/compact</code></td><td>Сжатие контекста без потери смысла</td></tr>
-              <tr><td><code>/rewind</code></td><td>Откат к предыдущему checkpoint</td></tr>
-              <tr><td><code>Esc+Esc</code></td><td>Быстрый откат изменений</td></tr>
+              <tr><td><code>/clear</code></td><td>Между несвязанными задачами - чистый контекст</td></tr>
+              <tr><td><code>/compact</code></td><td>Когда контекст большой, но задача та же</td></tr>
+              <tr><td><code>/rewind</code></td><td>Откатить к предыдущему checkpoint</td></tr>
+              <tr><td><code>Esc+Esc</code></td><td>Быстрый откат последних изменений</td></tr>
+              <tr><td><code>--continue</code></td><td>Продолжить последнюю сессию</td></tr>
+              <tr><td><code>--resume</code></td><td>Продолжить конкретную сессию</td></tr>
+              <tr><td><code>/context</code></td><td>Посмотреть что загружено в контекст</td></tr>
             </tbody>
           </table>
 
-          <h3>Когда использовать /clear:</h3>
-          <ul>
-            <li>После завершения большой задачи</li>
-            <li>При переключении между частями проекта</li>
-            <li>Когда Claude начинает путаться</li>
-          </ul>
-
-          <div class="info-box tip">
-            <div class="info-box-title">Checkpoints</div>
-            <p>Claude автоматически сохраняет checkpoints. Используйте <code>/rewind</code> чтобы откатить изменения к предыдущему состоянию.</p>
+          <div class="info-box warning">
+            <div class="info-box-title">Золотые правила</div>
+            <p><strong>/clear после каждой законченной задачи</strong> - не копите контекст<br>
+            <strong>Субагенты для исследований</strong> - не засоряйте основной разговор<br>
+            <strong>Коммитьте перед большими изменениями</strong> - легче откатиться<br>
+            <strong>/simplify после реализации</strong> - встроенный Skill почистит код</p>
           </div>
         </section>
 
         <section class="content-section">
-          <h2>Работа с большими проектами</h2>
+          <h2>Типичные ошибки</h2>
 
-          <h3>1. Разделяйте на модули</h3>
-          <ul>
-            <li>Отдельный CLAUDE.md для каждого модуля</li>
-            <li>Работайте с одним модулем за раз</li>
-          </ul>
+          <h3>"Каша из задач"</h3>
+          <p><strong>Проблема:</strong> Много несвязанных задач в одной сессии</p>
+          <p><strong>Решение:</strong> <code>/clear</code> между задачами</p>
 
-          <h3>2. Используйте субагенты</h3>
-          <ul>
-            <li>Explore для поиска</li>
-            <li>Plan для планирования</li>
-            <li>Параллельные задачи для анализа</li>
-          </ul>
+          <h3>Бесконечные правки</h3>
+          <p><strong>Проблема:</strong> Claude делает 10 попыток и ходит по кругу</p>
+          <p><strong>Решение:</strong> <code>/clear</code> + начать с лучшего промпта. Укажите конкретные файлы и тест-кейсы.</p>
 
-          <h3>3. Коммитьте часто</h3>
-          <ul>
-            <li>После каждой законченной фичи</li>
-            <li>Перед большими изменениями</li>
-            <li>Легче откатиться при проблемах</li>
-          </ul>
+          <h3>Переполненный CLAUDE.md</h3>
+          <p><strong>Проблема:</strong> Файл стал огромным, Claude игнорирует правила</p>
+          <p><strong>Решение:</strong> Перенести детали в Skills (Reference-тип), оставить в CLAUDE.md только главное</p>
+
+          <h3>Claude читает всё подряд</h3>
+          <p><strong>Проблема:</strong> Исследует весь проект вместо нужной папки</p>
+          <p><strong>Решение:</strong> Указать конкретные файлы: "Посмотри src/auth/login.ts"</p>
         </section>
 
         <section class="content-section">
-          <h2>Headless режим</h2>
+          <h2>Память Claude Code</h2>
 
-          <p><strong>Запуск Claude без интерактивной сессии:</strong></p>
+          <p>Claude запоминает информацию двумя способами:</p>
 
+          <table>
+            <thead><tr><th></th><th>CLAUDE.md (вы пишете)</th><th>Auto Memory (Claude пишет)</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Что</strong></td><td>Правила, конвенции, архитектура</td><td>Паттерны, команды, инсайты</td></tr>
+              <tr><td><strong>Где</strong></td><td>Корень проекта (в git)</td><td>~/.claude/projects/.../memory/</td></tr>
+              <tr><td><strong>Кто управляет</strong></td><td>Вы</td><td>Claude автоматически</td></tr>
+              <tr><td><strong>Просмотр</strong></td><td>Открыть файл</td><td><code>/memory</code></td></tr>
+            </tbody>
+          </table>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Совет</div>
+            <p>Периодически проверяйте <code>/memory</code> - удаляйте устаревшее, оставляйте полезное. Auto Memory ограничена 200 строками.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Troubleshooting</h2>
+
+          <h3>Общая диагностика</h3>
           <div class="terminal-demo">
             <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
             <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">claude -p "Run tests and fix any failures"</span><br><br>
-              <span class="prompt">$</span> <span class="command">claude -p "Generate API docs" --output docs/api.md</span>
+              <span class="prompt">$</span> <span class="command">claude --version</span><br>
+              <span class="prompt">$</span> <span class="command">claude doctor</span><br>
+              <span class="comment"># Покажет проблемы с установкой и конфигурацией</span>
             </div>
           </div>
 
-          <h3>Использование в CI/CD:</h3>
-          <pre><code># GitHub Actions
-- name: Run Claude Code
-  run: claude -p "Check for security issues"</code></pre>
+          <h3>MCP сервер не подключается</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="comment"># Проверить статус:</span><br>
+              <span class="output">> /mcp</span><br><br>
+              <span class="comment"># Переподключить:</span><br>
+              <span class="prompt">$</span> <span class="command">claude mcp remove имя-сервера</span><br>
+              <span class="prompt">$</span> <span class="command">claude mcp add --transport http имя-сервера url</span>
+            </div>
+          </div>
 
-          <div class="info-box tip">
-            <div class="info-box-title">Автоматизация</div>
-            <p>Headless режим идеален для pre-commit hooks, CI/CD pipelines, и автоматизированных проверок.</p>
+          <h3>Skills не срабатывает</h3>
+          <ul>
+            <li>Проверьте description - содержит ли ключевые слова запроса</li>
+            <li>Спросите: "Какие Skills доступны?"</li>
+            <li>Вызовите напрямую: <code>/имя-skill</code></li>
+          </ul>
+
+          <h3>Повторные запросы разрешений</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="output">> /permissions</span><br>
+              <span class="comment"># Добавьте правила для часто используемых инструментов</span>
+            </div>
+          </div>
+
+          <h3>Ошибки аутентификации</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="output">> /logout</span><br>
+              <span class="prompt">$</span> <span class="command">claude</span><br>
+              <span class="comment"># Войдёт заново</span>
+            </div>
           </div>
         </section>
 
         <section class="content-section">
-          <h2>Параллельная работа</h2>
+          <h2>Когда что использовать</h2>
 
-          <h3>Git Worktrees:</h3>
-          <div class="terminal-demo">
-            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
-            <div class="terminal-body">
-              <span class="prompt">$</span> <span class="command">git worktree add ../project-auth feature/auth</span><br>
-              <span class="prompt">$</span> <span class="command">cd ../project-auth && claude</span>
-            </div>
+          <div class="info-box claude">
+            <div class="info-box-title">Простая шпаргалка</div>
+            <p><strong>"Claude должен всегда знать это"</strong> → CLAUDE.md<br>
+            <strong>"Хочу команду /deploy"</strong> → Skill<br>
+            <strong>"Нужно исследовать код, не засоряя контекст"</strong> → Субагент<br>
+            <strong>"Нужны несколько агентов, которые обсуждают между собой"</strong> → Agent Team<br>
+            <strong>"Подключить GitHub/Slack/БД"</strong> → MCP сервер<br>
+            <strong>"Гарантированно форматировать после редактирования"</strong> → Hook<br>
+            <strong>"Запустить Claude из скрипта"</strong> → Headless (claude -p)<br>
+            <strong>"Поделиться навыками с командой"</strong> → Плагин</p>
           </div>
+        </section>
 
-          <p>Запустите несколько Claude Code сессий в разных worktrees для параллельной работы над фичами.</p>
+        <section class="content-section">
+          <h2>Полезные файлы конфигурации</h2>
+          <table>
+            <thead><tr><th>Файл</th><th>Что хранит</th></tr></thead>
+            <tbody>
+              <tr><td><code>CLAUDE.md</code></td><td>Инструкции для Claude (в корне проекта)</td></tr>
+              <tr><td><code>~/.claude/settings.json</code></td><td>Ваши глобальные настройки (хуки, разрешения)</td></tr>
+              <tr><td><code>.claude/settings.json</code></td><td>Настройки проекта (в git)</td></tr>
+              <tr><td><code>.claude/settings.local.json</code></td><td>Локальные настройки (не в git)</td></tr>
+              <tr><td><code>.mcp.json</code></td><td>MCP серверы проекта (в git для команды)</td></tr>
+              <tr><td><code>.claude/skills/</code></td><td>Custom Skills проекта</td></tr>
+              <tr><td><code>.claude/agents/</code></td><td>Custom субагенты проекта</td></tr>
+            </tbody>
+          </table>
+        </section>
 
-          <h3>Writer/Reviewer паттерн:</h3>
-          <ul>
-            <li><strong>Writer:</strong> Пишет код</li>
-            <li><strong>Reviewer:</strong> Проверяет код в отдельной сессии</li>
-          </ul>
+        <section class="content-section">
+          <h2>Шпаргалка: Всё в одном месте</h2>
+          <table>
+            <thead><tr><th>Фича</th><th>Когда использовать</th></tr></thead>
+            <tbody>
+              <tr><td><strong>MCP серверы</strong></td><td>Подключить GitHub, Slack, базы данных</td></tr>
+              <tr><td><strong>Skills</strong></td><td>Свои команды (/deploy, /review, /test)</td></tr>
+              <tr><td><strong>Субагенты</strong></td><td>Параллельные задачи, изолированное исследование</td></tr>
+              <tr><td><strong>Hooks</strong></td><td>Автоматизация (форматирование, защита файлов)</td></tr>
+              <tr><td><strong>Headless</strong></td><td>Скрипты, CI/CD, автоматические проверки</td></tr>
+              <tr><td><strong>CLAUDE.md</strong></td><td>Правила проекта, конвенции, архитектура</td></tr>
+              <tr><td><strong>Auto Memory</strong></td><td>Claude сам запоминает полезное</td></tr>
+              <tr><td><strong>Worktrees</strong></td><td>Параллельная работа нескольких Claude</td></tr>
+              <tr><td><strong>Agent Teams</strong></td><td>Команда агентов, общающихся между собой (экспериментальное)</td></tr>
+              <tr><td><strong>Плагины</strong></td><td>Упаковка и шаринг расширений через маркетплейс</td></tr>
+            </tbody>
+          </table>
         </section>
 
         <section class="content-section">
           <h2>Полезные ресурсы</h2>
-
-          <h3>Документация</h3>
           <ul>
-            <li><a href="https://code.claude.com/docs" target="_blank">Claude Code Docs (официальная)</a></li>
-            <li><a href="https://github.com/modelcontextprotocol" target="_blank">MCP Servers</a></li>
-          </ul>
-
-          <h3>Сообщество</h3>
-          <ul>
-            <li>GitHub: awesome-claude-code</li>
-            <li>Reddit: r/ClaudeAI</li>
-            <li>Discord: Anthropic</li>
+            <li><a href="https://code.claude.com/docs" target="_blank">Claude Code Docs (официальная документация)</a></li>
+            <li><a href="https://code.claude.com/docs/en/mcp" target="_blank">MCP серверы</a></li>
+            <li><a href="https://code.claude.com/docs/en/skills" target="_blank">Skills</a></li>
+            <li><a href="https://code.claude.com/docs/en/sub-agents" target="_blank">Субагенты</a></li>
+            <li><a href="https://code.claude.com/docs/en/hooks" target="_blank">Hooks (референс)</a></li>
+            <li><a href="https://code.claude.com/docs/en/hooks-guide" target="_blank">Hooks (гайд с примерами)</a></li>
+            <li><a href="https://code.claude.com/docs/en/memory" target="_blank">Память (CLAUDE.md и Auto Memory)</a></li>
+            <li><a href="https://code.claude.com/docs/en/best-practices" target="_blank">Best Practices</a></li>
+            <li><a href="https://code.claude.com/docs/en/agent-teams" target="_blank">Agent Teams (оркестрация)</a></li>
+            <li><a href="https://code.claude.com/docs/en/plugins" target="_blank">Plugins (создание плагинов)</a></li>
+            <li><a href="https://code.claude.com/docs/en/plugin-marketplaces" target="_blank">Plugin Marketplaces (маркетплейс)</a></li>
           </ul>
         </section>
 
@@ -194,15 +283,15 @@
           <h2>Чеклист урока</h2>
           <div class="checklist">
             <label class="checklist-item"><input type="checkbox"><span>Понимаю как писать хорошие промпты</span></label>
-            <label class="checklist-item"><input type="checkbox"><span>Знаю когда использовать /clear</span></label>
-            <label class="checklist-item"><input type="checkbox"><span>Понимаю стратегии для больших проектов</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Знаю когда использовать /clear и /compact</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Запустил claude doctor</span></label>
             <label class="checklist-item"><input type="checkbox"><span>Сохранил полезные ресурсы</span></label>
           </div>
         </section>
 
         <section class="start-section">
-          <h2>Поздравляем!</h2>
-          <p>Вы прошли весь курс по Claude Code. Переходите к итоговому проекту!</p>
+          <h2>Время проекта!</h2>
+          <p>Вы прошли все уроки. Переходите к итоговому проекту!</p>
           <a href="project.html" class="btn-start">Итоговый проект<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
         </section>
       </div>

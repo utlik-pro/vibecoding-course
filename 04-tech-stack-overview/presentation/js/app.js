@@ -8,13 +8,18 @@
 // ==========================================
 // Уроки разблокируются последовательно при прохождении
 // Админы (из белого списка) видят все уроки
+// Ключ для хранения прогресса уроков внутри модуля 4
+const MODULE_KEY = 'completedLessons_m4';
+const MODULE_ID = 4;
+const TOTAL_LESSONS = 8;
+
 function getUnlockedLessons() {
   // Если админ — все уроки открыты
   if (typeof AdminPanel !== 'undefined' && AdminPanel.isAdmin()) {
     return [1, 2, 3, 4, 5, 6, 7, 8];
   }
 
-  const completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+  const completed = JSON.parse(localStorage.getItem(MODULE_KEY) || '[]');
   // Урок 1 всегда открыт, + все пройденные, + следующий после последнего пройденного
   const unlocked = [1];
   completed.forEach(id => {
@@ -213,7 +218,7 @@ function initTimer() {
   if (!timerDisplay) return;
 
   // Load saved time if exists
-  const savedTime = sessionStorage.getItem('lessonTimer');
+  const savedTime = sessionStorage.getItem('lessonTimer_m4');
   if (savedTime) {
     timerSeconds = parseInt(savedTime, 10);
     updateTimerDisplay(timerDisplay);
@@ -245,7 +250,7 @@ function startTimer(display) {
   timerInterval = setInterval(() => {
     timerSeconds++;
     updateTimerDisplay(display);
-    sessionStorage.setItem('lessonTimer', timerSeconds);
+    sessionStorage.setItem('lessonTimer_m4', timerSeconds);
   }, 1000);
 }
 
@@ -258,7 +263,7 @@ function resetTimer(display) {
   pauseTimer();
   timerSeconds = 0;
   updateTimerDisplay(display);
-  sessionStorage.removeItem('lessonTimer');
+  sessionStorage.removeItem('lessonTimer_m4');
   const timerBtn = document.querySelector('.timer-btn');
   if (timerBtn) {
     timerBtn.textContent = '▶';
@@ -482,7 +487,7 @@ function initChecklists() {
     // Load saved state
     const id = checkbox.dataset.id;
     if (id) {
-      const saved = localStorage.getItem(`checklist_${id}`);
+      const saved = localStorage.getItem(`checklist_m4_${id}`);
       if (saved === 'true') {
         checkbox.classList.add('checked');
         checkbox.closest('.checklist-item')?.classList.add('completed');
@@ -496,7 +501,7 @@ function initChecklists() {
 
       // Save state
       if (id) {
-        localStorage.setItem(`checklist_${id}`, isChecked);
+        localStorage.setItem(`checklist_m4_${id}`, isChecked);
       }
 
       // Update progress
@@ -571,8 +576,8 @@ function isInputFocused() {
 // ==========================================
 
 function initProgress() {
-  // Update sidebar progress indicators
-  const completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+  // Update sidebar progress indicators (используем MODULE_KEY для внутреннего прогресса)
+  const completedLessons = JSON.parse(localStorage.getItem(MODULE_KEY) || '[]');
 
   completedLessons.forEach(lessonId => {
     const navItem = document.querySelector(`.nav-item[data-lesson="${lessonId}"]`);
@@ -593,7 +598,7 @@ function initProgress() {
     completeBtn.addEventListener('click', () => {
       if (!completedLessons.includes(currentLesson)) {
         completedLessons.push(currentLesson);
-        localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+        localStorage.setItem(MODULE_KEY, JSON.stringify(completedLessons));
 
         completeBtn.textContent = 'Урок пройден ✓';
         completeBtn.classList.remove('btn-primary');
@@ -602,12 +607,28 @@ function initProgress() {
 
         const navItem = document.querySelector(`.nav-item[data-lesson="${currentLesson}"]`);
         navItem?.classList.add('completed');
+
+        // Проверяем, завершён ли весь модуль
+        checkModuleCompletion(completedLessons);
       }
     });
   }
 
   // Update overall progress
   updateOverallProgress(completedLessons.length);
+}
+
+// Проверка завершения всего модуля
+function checkModuleCompletion(completedLessons) {
+  if (completedLessons.length >= TOTAL_LESSONS) {
+    // Все уроки пройдены — отмечаем модуль как завершённый на главной странице
+    const mainCompleted = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+    if (!mainCompleted.includes(MODULE_ID)) {
+      mainCompleted.push(MODULE_ID);
+      localStorage.setItem('completedLessons', JSON.stringify(mainCompleted));
+      console.log(`Модуль ${MODULE_ID} завершён!`);
+    }
+  }
 }
 
 function updateOverallProgress(completed) {

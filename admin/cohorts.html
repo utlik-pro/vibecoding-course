@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Потоки - Админка Vibecoding</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <!-- Login Screen -->
+  <div class="login-container" id="loginScreen">
+    <div class="login-card">
+      <div class="login-icon">🔐</div>
+      <h1 class="login-title">Админ-панель</h1>
+      <p class="login-subtitle">Проверка доступа...</p>
+      <div class="loading">
+        <div class="spinner"></div>
+      </div>
+      <p class="login-error" id="loginError">Доступ запрещён</p>
+    </div>
+  </div>
+
+  <!-- Admin Layout -->
+  <div class="admin-layout" id="adminLayout" style="display: none;">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-logo">
+        <span class="admin-logo-icon">👑</span>
+        <span class="admin-logo-text">Админка</span>
+      </div>
+
+      <nav>
+        <ul class="admin-nav">
+          <li class="admin-nav-item">
+            <a href="index.html" class="admin-nav-link">
+              <span class="admin-nav-icon">📊</span>
+              <span class="admin-nav-label">Дашборд</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="users.html" class="admin-nav-link">
+              <span class="admin-nav-icon">👥</span>
+              <span class="admin-nav-label">Пользователи</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="cohorts.html" class="admin-nav-link active">
+              <span class="admin-nav-icon">🎓</span>
+              <span class="admin-nav-label">Потоки</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="modules.html" class="admin-nav-link">
+              <span class="admin-nav-icon">📚</span>
+              <span class="admin-nav-label">Модули</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        <a href="../index.html" class="admin-back-link">
+          ← <span>Вернуться на курс</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <h1 class="admin-page-title">Потоки</h1>
+        <div class="admin-user">
+          <span class="admin-user-email" id="adminEmail"></span>
+          <button class="admin-logout-btn" id="logoutBtn">Выйти</button>
+        </div>
+      </header>
+
+      <!-- Actions -->
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <button class="btn btn-primary" id="addCohortBtn">
+          ➕ Создать поток
+        </button>
+      </div>
+
+      <!-- Cohorts List -->
+      <div id="cohortsList">
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add/Edit Cohort Modal -->
+  <div class="modal-overlay" id="cohortModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Создать поток</h2>
+        <button class="modal-close" id="closeModal">&times;</button>
+      </div>
+
+      <form id="cohortForm">
+        <input type="hidden" id="cohortId">
+
+        <div class="form-group">
+          <label class="form-label">Название *</label>
+          <input type="text" class="form-input" id="cohortName" placeholder="Поток 2" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Описание</label>
+          <input type="text" class="form-input" id="cohortDescription" placeholder="Описание потока">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Дата начала</label>
+          <input type="date" class="form-input" id="cohortStartDate">
+        </div>
+
+        <div class="form-group">
+          <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+            <input type="checkbox" id="cohortActive" checked>
+            <span>Активный поток</span>
+          </label>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="cancelBtn">Отмена</button>
+          <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Module Access Modal -->
+  <div class="modal-overlay" id="accessModal">
+    <div class="modal" style="max-width: 700px;">
+      <div class="modal-header">
+        <h2 class="modal-title">Доступ к модулям: <span id="accessCohortName"></span></h2>
+        <button class="modal-close" id="closeAccessModal">&times;</button>
+      </div>
+
+      <div style="margin-bottom: 1rem;">
+        <button class="btn btn-sm btn-secondary" id="selectAllModules">Выбрать все</button>
+        <button class="btn btn-sm btn-secondary" id="deselectAllModules">Снять все</button>
+      </div>
+
+      <div class="modules-grid" id="accessModulesGrid"></div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelAccessBtn">Отмена</button>
+        <button class="btn btn-success" id="saveAccessBtn">Сохранить доступ</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script src="js/admin-api.js"></script>
+
+  <script>
+    // State
+    let cohorts = [];
+    let modules = [];
+    let editingCohortId = null;
+    let accessCohortId = null;
+    let selectedModules = new Set();
+
+    // Elements
+    const loginScreen = document.getElementById('loginScreen');
+    const loginError = document.getElementById('loginError');
+    const adminLayout = document.getElementById('adminLayout');
+    const adminEmail = document.getElementById('adminEmail');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const toast = document.getElementById('toast');
+
+    const cohortsList = document.getElementById('cohortsList');
+    const addCohortBtn = document.getElementById('addCohortBtn');
+
+    const cohortModal = document.getElementById('cohortModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const cohortForm = document.getElementById('cohortForm');
+    const closeModal = document.getElementById('closeModal');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    const accessModal = document.getElementById('accessModal');
+    const accessCohortName = document.getElementById('accessCohortName');
+    const accessModulesGrid = document.getElementById('accessModulesGrid');
+    const closeAccessModal = document.getElementById('closeAccessModal');
+    const cancelAccessBtn = document.getElementById('cancelAccessBtn');
+    const saveAccessBtn = document.getElementById('saveAccessBtn');
+    const selectAllModules = document.getElementById('selectAllModules');
+    const deselectAllModules = document.getElementById('deselectAllModules');
+
+    async function init() {
+      if (!SupabaseClient.isSupabaseConfigured()) {
+        // Fallback mode
+        if (localStorage.getItem('adminAuth') !== 'true') {
+          window.location.href = 'index.html';
+          return;
+        }
+        showFallbackCohorts();
+        return;
+      }
+
+      const isAuthorized = await AdminAPI.init();
+
+      if (!isAuthorized) {
+        loginError.classList.add('show');
+        return;
+      }
+
+      loginScreen.style.display = 'none';
+      adminLayout.style.display = 'flex';
+
+      const admin = AdminAPI.getCurrentAdmin();
+      adminEmail.textContent = admin.email;
+
+      await loadData();
+    }
+
+    function showFallbackCohorts() {
+      loginScreen.style.display = 'none';
+      adminLayout.style.display = 'flex';
+      adminEmail.textContent = 'Администратор (локальный режим)';
+
+      // Преобразуем данные из config.js
+      cohorts = COURSE_CONFIG.cohorts.map(c => ({
+        id: c.id,
+        name: c.name,
+        description: c.description,
+        is_active: true,
+        user_count: c.students.length,
+        unlockedModules: c.unlockedModules
+      }));
+
+      modules = COURSE_CONFIG.modules.map(m => ({
+        id: m.id,
+        title: m.title
+      }));
+
+      renderFallbackCohorts();
+
+      // Отключаем кнопку создания
+      addCohortBtn.innerHTML = '📋 Редактируйте config.js';
+      addCohortBtn.disabled = true;
+      addCohortBtn.style.opacity = '0.5';
+      addCohortBtn.style.cursor = 'not-allowed';
+    }
+
+    function renderFallbackCohorts() {
+      if (cohorts.length === 0) {
+        cohortsList.innerHTML = `
+          <div class="card">
+            <div class="empty-state">
+              <div class="empty-state-icon">🎓</div>
+              <div class="empty-state-title">Нет потоков</div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      cohortsList.innerHTML = cohorts.map(cohort => `
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">
+                🎓 ${cohort.name}
+                <span class="badge badge-success" style="margin-left: 0.5rem;">Активен</span>
+              </h3>
+              <p style="color: #6b7280; font-size: 0.9rem; margin-top: 0.25rem;">
+                ${cohort.description || 'Без описания'}
+              </p>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-sm btn-primary" onclick="showFallbackAccess('${cohort.id}')">
+                📚 Модули
+              </button>
+              <button class="btn btn-sm btn-secondary" onclick="showFallbackStudents('${cohort.id}')">
+                👥 Ученики
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 2rem; color: #a0aec0; font-size: 0.9rem;">
+            <div>
+              <strong>${cohort.user_count}</strong> учеников
+            </div>
+            <div>
+              Модули: <strong>${cohort.unlockedModules.join(', ')}</strong>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Показать доступ к модулям (только просмотр)
+    window.showFallbackAccess = (cohortId) => {
+      const cohort = cohorts.find(c => c.id === cohortId);
+      if (!cohort) return;
+
+      accessCohortName.textContent = cohort.name;
+      selectedModules = new Set(cohort.unlockedModules);
+
+      renderAccessModules();
+
+      // Отключаем кнопку сохранения
+      saveAccessBtn.innerHTML = '📋 Редактируйте config.js';
+      saveAccessBtn.disabled = true;
+      saveAccessBtn.style.opacity = '0.5';
+
+      accessModal.classList.add('show');
+    };
+
+    // Показать учеников потока
+    window.showFallbackStudents = (cohortId) => {
+      const configCohort = COURSE_CONFIG.cohorts.find(c => c.id === cohortId);
+      if (!configCohort) return;
+
+      const studentsHtml = configCohort.students.map((email, i) => `
+        <div style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+          ${i + 1}. ${email}
+        </div>
+      `).join('');
+
+      // Создаём модальное окно со списком учеников
+      const modal = document.createElement('div');
+      modal.className = 'modal-overlay show';
+      modal.innerHTML = `
+        <div class="modal" style="max-width: 500px;">
+          <div class="modal-header">
+            <h2 class="modal-title">👥 Ученики: ${configCohort.name}</h2>
+            <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">&times;</button>
+          </div>
+          <div style="max-height: 400px; overflow-y: auto;">
+            ${studentsHtml}
+          </div>
+          <div class="modal-footer">
+            <p style="color: #6b7280; font-size: 0.85rem;">
+              Для редактирования измените файл <code>js/config.js</code>
+            </p>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    };
+
+    async function loadData() {
+      [cohorts, modules] = await Promise.all([
+        AdminAPI.getCohorts(),
+        AdminAPI.getModules()
+      ]);
+
+      // Load user counts for each cohort
+      for (const cohort of cohorts) {
+        const fullCohort = await AdminAPI.getCohort(cohort.id);
+        cohort.user_count = fullCohort?.user_count || 0;
+      }
+
+      renderCohorts();
+    }
+
+    function renderCohorts() {
+      if (cohorts.length === 0) {
+        cohortsList.innerHTML = `
+          <div class="card">
+            <div class="empty-state">
+              <div class="empty-state-icon">🎓</div>
+              <div class="empty-state-title">Нет потоков</div>
+              <p>Создайте первый поток для начала работы</p>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      cohortsList.innerHTML = cohorts.map(cohort => `
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">
+                🎓 ${cohort.name}
+                <span class="badge badge-${cohort.is_active ? 'success' : 'danger'}" style="margin-left: 0.5rem;">
+                  ${cohort.is_active ? 'Активен' : 'Неактивен'}
+                </span>
+              </h3>
+              <p style="color: #6b7280; font-size: 0.9rem; margin-top: 0.25rem;">
+                ${cohort.description || 'Без описания'}
+              </p>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-sm btn-primary" onclick="openAccessModal('${cohort.id}')">
+                📚 Модули
+              </button>
+              <button class="btn btn-sm btn-secondary" onclick="editCohort('${cohort.id}')">
+                ✏️
+              </button>
+              <button class="btn btn-sm btn-danger" onclick="deleteCohort('${cohort.id}')">
+                🗑️
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 2rem; color: #a0aec0; font-size: 0.9rem;">
+            <div>
+              <strong>${cohort.user_count || 0}</strong> учеников
+            </div>
+            ${cohort.start_date ? `
+              <div>
+                Начало: ${new Date(cohort.start_date).toLocaleDateString('ru-RU')}
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Add Cohort
+    addCohortBtn.addEventListener('click', () => {
+      editingCohortId = null;
+      modalTitle.textContent = 'Создать поток';
+      cohortForm.reset();
+      document.getElementById('cohortActive').checked = true;
+      cohortModal.classList.add('show');
+    });
+
+    // Edit Cohort
+    window.editCohort = (cohortId) => {
+      const cohort = cohorts.find(c => c.id === cohortId);
+      if (!cohort) return;
+
+      editingCohortId = cohortId;
+      modalTitle.textContent = 'Редактировать поток';
+
+      document.getElementById('cohortName').value = cohort.name;
+      document.getElementById('cohortDescription').value = cohort.description || '';
+      document.getElementById('cohortStartDate').value = cohort.start_date || '';
+      document.getElementById('cohortActive').checked = cohort.is_active;
+
+      cohortModal.classList.add('show');
+    };
+
+    // Delete Cohort
+    window.deleteCohort = async (cohortId) => {
+      const cohort = cohorts.find(c => c.id === cohortId);
+      if (!cohort) return;
+
+      if (!confirm(`Удалить поток "${cohort.name}"? Пользователи потока останутся без привязки.`)) return;
+
+      const result = await AdminAPI.deleteCohort(cohortId);
+
+      if (result.success) {
+        showToast('Поток удалён');
+        await loadData();
+      } else {
+        showToast(result.error || 'Ошибка удаления', true);
+      }
+    };
+
+    // Form Submit
+    cohortForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const cohortData = {
+        name: document.getElementById('cohortName').value,
+        description: document.getElementById('cohortDescription').value || null,
+        start_date: document.getElementById('cohortStartDate').value || null,
+        is_active: document.getElementById('cohortActive').checked
+      };
+
+      let result;
+      if (editingCohortId) {
+        result = await AdminAPI.updateCohort(editingCohortId, cohortData);
+      } else {
+        result = await AdminAPI.createCohort(cohortData);
+      }
+
+      if (result.success) {
+        showToast(editingCohortId ? 'Поток обновлён' : 'Поток создан');
+        cohortModal.classList.remove('show');
+        await loadData();
+      } else {
+        showToast(result.error || 'Ошибка сохранения', true);
+      }
+    });
+
+    // Module Access
+    window.openAccessModal = async (cohortId) => {
+      accessCohortId = cohortId;
+      const cohort = cohorts.find(c => c.id === cohortId);
+      accessCohortName.textContent = cohort?.name || '';
+
+      // Load current access
+      const access = await AdminAPI.getCohortModuleAccess(cohortId);
+      selectedModules = new Set(
+        access.filter(a => a.is_unlocked).map(a => a.module_id)
+      );
+
+      renderAccessModules();
+      accessModal.classList.add('show');
+    };
+
+    function renderAccessModules() {
+      accessModulesGrid.innerHTML = modules.map(m => `
+        <div class="module-item ${selectedModules.has(m.id) ? 'active' : ''}" data-id="${m.id}">
+          <div class="module-checkbox"></div>
+          <div class="module-info">
+            <span class="module-num">${m.id}.</span>
+            <span class="module-name">${m.title}</span>
+          </div>
+        </div>
+      `).join('');
+
+      // Add click handlers
+      accessModulesGrid.querySelectorAll('.module-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const id = parseInt(item.dataset.id);
+          if (selectedModules.has(id)) {
+            selectedModules.delete(id);
+            item.classList.remove('active');
+          } else {
+            selectedModules.add(id);
+            item.classList.add('active');
+          }
+        });
+      });
+    }
+
+    selectAllModules.addEventListener('click', () => {
+      modules.forEach(m => selectedModules.add(m.id));
+      renderAccessModules();
+    });
+
+    deselectAllModules.addEventListener('click', () => {
+      selectedModules.clear();
+      renderAccessModules();
+    });
+
+    saveAccessBtn.addEventListener('click', async () => {
+      // Get all module IDs
+      const allModuleIds = modules.map(m => m.id);
+
+      // Set unlocked for selected, locked for others
+      const unlockIds = Array.from(selectedModules);
+      const lockIds = allModuleIds.filter(id => !selectedModules.has(id));
+
+      await AdminAPI.setCohortModuleAccess(accessCohortId, unlockIds, true);
+      await AdminAPI.setCohortModuleAccess(accessCohortId, lockIds, false);
+
+      showToast('Доступ обновлён');
+      accessModal.classList.remove('show');
+    });
+
+    // Close Modals
+    closeModal.addEventListener('click', () => cohortModal.classList.remove('show'));
+    cancelBtn.addEventListener('click', () => cohortModal.classList.remove('show'));
+    closeAccessModal.addEventListener('click', () => accessModal.classList.remove('show'));
+    cancelAccessBtn.addEventListener('click', () => accessModal.classList.remove('show'));
+
+    // Logout
+    logoutBtn.addEventListener('click', async () => {
+      if (SupabaseClient.isSupabaseConfigured()) {
+        await AdminAPI.signOut();
+      }
+      localStorage.removeItem('adminAuth');
+      localStorage.removeItem('bossAuth');
+      window.location.reload();
+    });
+
+    function showToast(message, isError = false) {
+      toast.textContent = message;
+      toast.className = 'toast show' + (isError ? ' error' : '');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    init();
+  </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Урок 12.5: Dashboard | VibeCoding</title>
+  <title>Урок 12.5: Headless и Платформы | VibeCoding</title>
   <script src="js/auth-check.js"></script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -25,14 +25,14 @@
       <nav class="sidebar-nav">
         <div class="nav-section">Модуль 12</div>
         <a href="index.html" class="nav-item"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>Главная</a>
-        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Интеграции</div>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть A: Подключения</div>
         <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>MCP серверы</a>
         <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Custom Skills</a>
         <div class="nav-section" style="margin-top: 0.5rem;">Часть B: Автоматизация</div>
         <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>Субагенты</a>
         <a href="lesson-4.html" class="nav-item" data-lesson="4"><span class="nav-item-number">4</span>Hooks</a>
-        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Практика</div>
-        <a href="lesson-5.html" class="nav-item active" data-lesson="5"><span class="nav-item-number">5</span>Dashboard</a>
+        <div class="nav-section" style="margin-top: 0.5rem;">Часть C: Продвинутые</div>
+        <a href="lesson-5.html" class="nav-item active" data-lesson="5"><span class="nav-item-number">5</span>Headless и Платформы</a>
         <a href="lesson-6.html" class="nav-item" data-lesson="6"><span class="nav-item-number">6</span>Best Practices</a>
         <a href="project.html" class="nav-item" data-lesson="7"><span class="nav-item-number">P</span>Итоговый проект</a>
         <a href="../../index.html" class="nav-item exit-btn"><span class="nav-item-number"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>Выход</a>
@@ -49,121 +49,338 @@
           <div class="lesson-title-section">
             <span class="lesson-badge practice">5</span>
             <div>
-              <h1>Финальный спринт - Dashboard</h1>
+              <h1>Headless режим и платформы Claude Code</h1>
               <p style="color: var(--text-secondary); margin: 0;">45 минут</p>
             </div>
           </div>
         </div>
 
         <section class="content-section">
-          <h2>План Dashboard</h2>
-          <pre><code>Dashboard Layout
-├── Sidebar (навигация)
-├── Header (профиль, уведомления)
-└── Main Content
-    ├── Overview (метрики)
-    ├── Analytics (графики)
-    ├── Reports (таблицы)
-    └── Settings (настройки)</code></pre>
-        </section>
+          <h2>Headless режим</h2>
 
-        <section class="content-section">
-          <h2>Основной промпт</h2>
-          <pre><code>Создай Dashboard для SaaS Analytics:
+          <div class="info-box claude">
+            <div class="info-box-title">Аналогия</div>
+            <p>Обычный Claude Code - это как разговор по телефону (диалог).<br>
+            Headless - это как отправить SMS с заданием и получить ответ (одна команда).</p>
+          </div>
 
-## Layout
-- Sidebar слева с навигацией
-- Header сверху с профилем
-- Main content area
-
-## Страницы
-1. Overview — 4 карточки метрик + график
-2. Analytics — интерактивные графики
-3. Reports — таблица с данными
-4. Settings — форма настроек
-
-## Компоненты
-- Карточка метрики (иконка, значение, изменение)
-- Линейный график (Recharts)
-- Круговая диаграмма
-- Таблица с сортировкой
-- Форма с валидацией
-
-## Дизайн
-- Цвета как на Landing
-- Тёмный sidebar
-- Светлый main content
-
-Используй Next.js 14, TypeScript, Tailwind, Recharts.</code></pre>
-        </section>
-
-        <section class="content-section">
-          <h2>Интеграция инструментов</h2>
-
-          <h3>Используем MCP для GitHub:</h3>
+          <h3>Базовое использование:</h3>
           <div class="terminal-demo">
-            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="terminal-title">Terminal</span></div>
             <div class="terminal-body">
-              <span class="output">> Создай репозиторий saas-dashboard на GitHub</span><br>
-              <span class="output">> Сделай initial commit</span>
+              <span class="comment"># Просто задать вопрос</span><br>
+              <span class="prompt">$</span> <span class="command">claude -p "Что делает этот проект?"</span><br><br>
+              <span class="comment"># Запустить и починить тесты</span><br>
+              <span class="prompt">$</span> <span class="command">claude -p "Запусти тесты и исправь ошибки" --allowedTools "Bash,Read,Edit"</span><br><br>
+              <span class="comment"># Получить результат в JSON</span><br>
+              <span class="prompt">$</span> <span class="command">claude -p "Опиши проект" --output-format json</span>
             </div>
           </div>
 
-          <h3>Используем Skills:</h3>
+          <h3>Мощные примеры:</h3>
+
+          <p><strong>Pipe - передать данные через канал:</strong></p>
           <div class="terminal-demo">
             <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
             <div class="terminal-body">
-              <span class="output">> /test</span><br>
-              <span class="output">> /deploy</span>
+              <span class="comment"># Анализ логов</span><br>
+              <span class="prompt">$</span> <span class="command">tail -f app.log | claude -p "Уведоми меня в Slack если увидишь аномалии"</span><br><br>
+              <span class="comment"># Code review PR</span><br>
+              <span class="prompt">$</span> <span class="command">gh pr diff 123 | claude -p "Проверь код на уязвимости"</span><br><br>
+              <span class="comment"># Список изменённых файлов -> ревью</span><br>
+              <span class="prompt">$</span> <span class="command">git diff main --name-only | claude -p "Проверь эти файлы на security issues"</span>
             </div>
           </div>
 
-          <h3>Используем субагенты:</h3>
+          <p><strong>Продолжение разговора:</strong></p>
           <div class="terminal-demo">
             <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
             <div class="terminal-body">
-              <span class="output">> Параллельно проверь:</span><br>
-              <span class="output">   1. Все ли страницы рендерятся</span><br>
-              <span class="output">   2. Есть ли TypeScript ошибки</span><br>
-              <span class="output">   3. Корректен ли адаптив</span>
+              <span class="comment"># Первая команда</span><br>
+              <span class="prompt">$</span> <span class="command">claude -p "Проверь проект на проблемы"</span><br><br>
+              <span class="comment"># Продолжить тот же разговор</span><br>
+              <span class="prompt">$</span> <span class="command">claude -p "Теперь исправь найденные проблемы" --continue</span>
             </div>
           </div>
         </section>
 
         <section class="content-section">
-          <h2>Деплой</h2>
+          <h2>Headless в CI/CD</h2>
+
+          <p><strong>GitHub Actions:</strong></p>
+          <pre><code># .github/workflows/claude-review.yml
+name: Claude Code Review
+on: [pull_request]
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Claude Review
+        run: claude -p "Check for security issues and post a review"</code></pre>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Идеально для</div>
+            <p><strong>Code review:</strong> Каждый PR автоматически проверяется Claude на безопасность и качество.<br>
+            <strong>Changelog:</strong> При каждом релизе Claude пишет список изменений по коммитам.<br>
+            <strong>Автокоммиты:</strong> Claude исправляет линтинг-ошибки и коммитит без вашего участия.<br>
+            <strong>Мониторинг:</strong> Claude анализирует логи и отправляет алерты в Slack.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Claude Code - везде</h2>
+
+          <p>Claude Code работает не только в терминале. Вот все платформы:</p>
+
+          <table>
+            <thead><tr><th>Платформа</th><th>Что это</th><th>Для чего</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Terminal (CLI)</strong></td><td>Командная строка</td><td>Полная мощность, скрипты, CI/CD</td></tr>
+              <tr><td><strong>VS Code</strong></td><td>Расширение для VS Code</td><td>Inline diffs, @-mentions файлов, ревью плана</td></tr>
+              <tr><td><strong>JetBrains</strong></td><td>Плагин для IntelliJ, PyCharm и др.</td><td>Интерактивный diff, контекст из IDE</td></tr>
+              <tr><td><strong>Desktop App</strong></td><td>Отдельное приложение (macOS, Windows)</td><td>Визуальный ревью diffs, несколько сессий, расписание задач</td></tr>
+              <tr><td><strong>Web</strong></td><td>claude.ai/code в браузере</td><td>Без установки, долгие задачи, мобильный доступ</td></tr>
+              <tr><td><strong>Slack</strong></td><td>@Claude в Slack</td><td>Баг-репорты из чата -> PR автоматически</td></tr>
+              <tr><td><strong>Chrome</strong></td><td>Расширение для Chrome</td><td>Дебаг живых веб-приложений</td></tr>
+            </tbody>
+          </table>
+
+          <div class="info-box claude">
+            <div class="info-box-title">Всё связано</div>
+            <p>Все платформы используют одни и те же настройки: CLAUDE.md, MCP серверы, Skills, Hooks. Настроили один раз - работает везде.</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Переключение между платформами</h2>
+
+          <table>
+            <thead><tr><th>Хочу...</th><th>Способ</th></tr></thead>
+            <tbody>
+              <tr><td>Продолжить сессию с телефона</td><td>Remote Control - управляйте с любого устройства</td></tr>
+              <tr><td>Запустить задачу в браузере, закончить в терминале</td><td><code>/teleport</code> - перенос сессии</td></tr>
+              <tr><td>Визуально посмотреть diffs</td><td><code>/desktop</code> - откроет в Desktop App</td></tr>
+              <tr><td>Создать PR из баг-репорта в Slack</td><td>@Claude в канале Slack</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="content-section">
+          <h2>Agent Teams - команда агентов</h2>
+
+          <div class="info-box warning">
+            <div class="info-box-title">Экспериментальная фича</div>
+            <p>Agent Teams пока экспериментальные. Включаются через настройку в settings.json:</p>
+            <pre><code>{ "env": { "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1" } }</code></pre>
+          </div>
+
+          <div class="info-box claude">
+            <div class="info-box-title">Аналогия</div>
+            <p><strong>Субагент</strong> - это как отправить курьера с заданием. Он уходит, делает работу и возвращает результат. Курьеры между собой не общаются.<br><br>
+            <strong>Agent Team</strong> - это как собрать рабочую группу. Есть руководитель (Lead), есть участники (Teammates). У них общий список задач и они могут общаться между собой напрямую - обсуждать, спорить, делиться находками.</p>
+          </div>
+
+          <h3>Архитектура команды:</h3>
+          <table>
+            <thead><tr><th>Компонент</th><th>Роль</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Lead (руководитель)</strong></td><td>Ваша основная сессия. Создаёт команду, раздаёт задачи, собирает результаты</td></tr>
+              <tr><td><strong>Teammates (участники)</strong></td><td>Отдельные Claude сессии. Каждый работает самостоятельно</td></tr>
+              <tr><td><strong>Task List (задачи)</strong></td><td>Общий список задач. Участники сами берут свободные задачи</td></tr>
+              <tr><td><strong>Mailbox (почта)</strong></td><td>Система сообщений. Участники пишут друг другу напрямую</td></tr>
+            </tbody>
+          </table>
+
+          <h3>Субагенты vs Agent Teams:</h3>
+          <table>
+            <thead><tr><th></th><th>Субагенты</th><th>Agent Teams</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Контекст</strong></td><td>Свой, результат возвращается вам</td><td>Свой, полностью независимый</td></tr>
+              <tr><td><strong>Общение</strong></td><td>Только с основным агентом</td><td>Между собой напрямую</td></tr>
+              <tr><td><strong>Координация</strong></td><td>Claude управляет всем</td><td>Общий список задач + самоорганизация</td></tr>
+              <tr><td><strong>Лучше для</strong></td><td>Быстрых задач, где нужен только результат</td><td>Сложных задач, где нужно обсуждение</td></tr>
+              <tr><td><strong>Токены</strong></td><td>Меньше (результат суммируется)</td><td>Больше (каждый - отдельная сессия)</td></tr>
+            </tbody>
+          </table>
+
+          <h3>Как запустить команду:</h3>
+          <p>Просто опишите задачу и попросите создать команду:</p>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="terminal-title">Claude Code</span></div>
+            <div class="terminal-body">
+              <span class="output">> Создай команду из 3 агентов для ревью PR #142:</span><br>
+              <span class="output">   - Один проверяет безопасность</span><br>
+              <span class="output">   - Второй проверяет производительность</span><br>
+              <span class="output">   - Третий проверяет покрытие тестами</span><br>
+              <span class="output">   Пусть обсудят и дадут общие рекомендации.</span>
+            </div>
+          </div>
+
+          <h3>Режимы отображения:</h3>
+          <table>
+            <thead><tr><th>Режим</th><th>Как работает</th><th>Навигация</th></tr></thead>
+            <tbody>
+              <tr><td><strong>In-process</strong> (по умолчанию)</td><td>Все в одном терминале</td><td><code>Shift+Down</code> - переключиться между участниками</td></tr>
+              <tr><td><strong>Split panes</strong></td><td>Каждый в своей панели (через tmux/iTerm2)</td><td>Кликнуть в панель участника</td></tr>
+            </tbody>
+          </table>
+
+          <h3>Пример: Дебаг с конкурирующими гипотезами</h3>
+          <p>Когда непонятно в чём баг, можно запустить несколько агентов с разными теориями. Они будут спорить между собой и опровергать друг друга:</p>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="terminal-title">Claude Code</span></div>
+            <div class="terminal-body">
+              <span class="output">> Пользователи жалуются что приложение закрывается после первого сообщения.</span><br>
+              <span class="output">   Создай команду из 5 агентов. Каждый исследует свою гипотезу.</span><br>
+              <span class="output">   Пусть общаются между собой и опровергают теории друг друга.</span><br>
+              <span class="output">   Обнови документ с выводами команды.</span>
+            </div>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Когда использовать Agent Teams</div>
+            <p><strong>Хорошо подходит для:</strong> параллельный code review, исследование с разных сторон, разработка независимых модулей, дебаг с несколькими гипотезами.<br><br>
+            <strong>Не стоит для:</strong> последовательных задач, изменений в одном файле, простых задач (субагенты справятся лучше и дешевле).</p>
+          </div>
+
+          <h3>Управление командой:</h3>
+          <ul>
+            <li><strong>Общение напрямую:</strong> <code>Shift+Down</code> чтобы перейти к участнику и написать ему</li>
+            <li><strong>Одобрение планов:</strong> можно потребовать чтобы участники показывали план перед реализацией</li>
+            <li><strong>Хуки:</strong> <code>TeammateIdle</code> - когда участник простаивает, <code>TaskCompleted</code> - когда задача завершена</li>
+            <li><strong>Завершение:</strong> попросите Lead "Clean up the team" для корректного завершения</li>
+          </ul>
+        </section>
+
+        <section class="content-section">
+          <h2>Плагины и Маркетплейс</h2>
+
+          <div class="info-box claude">
+            <div class="info-box-title">Аналогия</div>
+            <p>Плагин - это как приложение из App Store. Кто-то собрал полезный набор (Skills, Hooks, агенты, MCP серверы) в одну коробку, и вы устанавливаете его одной командой. Маркетплейс - это сам магазин, где хранятся плагины.</p>
+          </div>
+
+          <h3>Зачем плагины?</h3>
+          <p>Без плагинов вы настраиваете Skills, Hooks и агенты вручную в каждом проекте. С плагинами:</p>
+          <ul>
+            <li><strong>Один раз собрали - используете везде</strong> (все проекты)</li>
+            <li><strong>Делитесь с командой</strong> (через маркетплейс)</li>
+            <li><strong>Версионирование</strong> (обновления как у обычных пакетов)</li>
+            <li><strong>Нет конфликтов</strong> - навыки автоматически получают префикс: <code>/my-plugin:review</code></li>
+          </ul>
+
+          <h3>Структура плагина:</h3>
+          <pre><code>my-plugin/
+├── .claude-plugin/
+│   └── plugin.json        # Имя, описание, версия
+├── skills/                 # Skills плагина
+│   └── review/SKILL.md
+├── agents/                 # Агенты плагина
+├── hooks/                  # Хуки плагина
+│   └── hooks.json
+├── .mcp.json              # MCP серверы плагина
+└── settings.json          # Настройки по умолчанию</code></pre>
+
+          <h3>Установка и использование:</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="terminal-title">Claude Code</span></div>
+            <div class="terminal-body">
+              <span class="comment"># Добавить маркетплейс</span><br>
+              <span class="output">> /plugin marketplace add acme-corp/claude-plugins</span><br><br>
+              <span class="comment"># Установить плагин из маркетплейса</span><br>
+              <span class="output">> /plugin install review-plugin@acme-plugins</span><br><br>
+              <span class="comment"># Использовать (с префиксом плагина)</span><br>
+              <span class="output">> /review-plugin:review</span><br><br>
+              <span class="comment"># Тестировать локальный плагин</span><br>
+              <span class="prompt">$</span> <span class="command">claude --plugin-dir ./my-plugin</span>
+            </div>
+          </div>
+
+          <h3>Свой плагин vs обычные файлы:</h3>
+          <table>
+            <thead><tr><th></th><th>Обычные (.claude/)</th><th>Плагин</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Имена Skills</strong></td><td><code>/review</code></td><td><code>/my-plugin:review</code></td></tr>
+              <tr><td><strong>Доступность</strong></td><td>Только этот проект</td><td>Любой проект</td></tr>
+              <tr><td><strong>Поделиться</strong></td><td>Копировать вручную</td><td>Установить одной командой</td></tr>
+              <tr><td><strong>Для чего</strong></td><td>Личные настройки, эксперименты</td><td>Шаринг с командой, сообществом</td></tr>
+            </tbody>
+          </table>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Совет</div>
+            <p>Начните с обычных файлов в <code>.claude/</code>. Когда навыки и хуки станут стабильными - упакуйте их в плагин для переиспользования. Есть даже официальный маркетплейс Anthropic, куда можно отправить свой плагин!</p>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Git Worktrees - параллельная работа</h2>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Что это?</div>
+            <p>Git worktree позволяет иметь несколько рабочих копий одного репозитория. Каждая на своей ветке. Идеально для параллельной работы нескольких Claude сессий!</p>
+          </div>
+
           <div class="terminal-demo">
             <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
             <div class="terminal-body">
-              <span class="output">> Задеплой проект на Vercel и верни URL</span><br><br>
-              <span class="comment"># Claude:</span><br>
-              <span class="comment"># 1. Проверит build</span><br>
-              <span class="comment"># 2. Подключит репозиторий</span><br>
-              <span class="comment"># 3. Запустит деплой</span><br>
-              <span class="comment"># 4. Вернёт URL</span>
+              <span class="comment"># Терминал 1: Основная работа</span><br>
+              <span class="prompt">$</span> <span class="command">cd project && claude</span><br><br>
+              <span class="comment"># Терминал 2: Фича в изолированной копии</span><br>
+              <span class="prompt">$</span> <span class="command">cd project && claude -w feature/auth</span><br><br>
+              <span class="comment"># Терминал 3: Багфикс в другой копии</span><br>
+              <span class="prompt">$</span> <span class="command">cd project && claude -w fix/memory-leak</span><br><br>
+              <span class="comment"># Все работают параллельно, не мешая друг другу!</span>
             </div>
           </div>
         </section>
 
         <section class="content-section">
-          <h2>Результат</h2>
-          <p>После урока у вас есть:</p>
-          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0;">
-            <div style="background: var(--bg-card); padding: 1rem; border-radius: var(--radius-lg); border: 2px solid var(--terminal-color);">
-              <h4 style="color: var(--terminal-color);">SaaS Dashboard</h4>
-              <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">4+ страницы с графиками</p>
+          <h2>Практика</h2>
+
+          <h3>Задание 1: Headless проверка</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="prompt">$</span> <span class="command">claude -p "Найди все TODO комментарии в проекте и создай список"</span>
             </div>
-            <div style="background: var(--bg-card); padding: 1rem; border-radius: var(--radius-lg); border: 2px solid var(--claude-color);">
-              <h4 style="color: var(--claude-color);">GitHub репозиторий</h4>
-              <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">С историей коммитов</p>
+          </div>
+
+          <h3>Задание 2: Pipe данных в Claude</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="prompt">$</span> <span class="command">git log --oneline -20 | claude -p "Напиши changelog на основе этих коммитов"</span>
             </div>
-            <div style="background: var(--bg-card); padding: 1rem; border-radius: var(--radius-lg); border: 2px solid var(--accent);">
-              <h4 style="color: var(--accent);">Vercel деплой</h4>
-              <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">Рабочий URL</p>
+          </div>
+
+          <h3>Задание 3: Параллельные worktrees</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+            <div class="terminal-body">
+              <span class="comment"># Откройте 2 терминала и запустите Claude в каждом</span><br>
+              <span class="prompt">$</span> <span class="command">claude -w feature/my-feature</span>
             </div>
-            <div style="background: var(--bg-card); padding: 1rem; border-radius: var(--radius-lg); border: 2px solid var(--config-color);">
-              <h4 style="color: var(--config-color);">Skills + Hooks</h4>
-              <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary);">Автоматизация</p>
+          </div>
+        </section>
+
+        <section class="quiz-section">
+          <h2>Проверьте себя</h2>
+          <div class="quiz-question">
+            <h4>Какой флаг запускает Claude без интерфейса (headless)?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="false"><span>claude --no-ui</span></div>
+              <div class="quiz-option" data-correct="true"><span>claude -p "задание"</span></div>
+              <div class="quiz-option" data-correct="false"><span>claude --headless</span></div>
+            </div>
+          </div>
+          <div class="quiz-question" style="margin-top: 2rem;">
+            <h4>На скольких платформах работает Claude Code?</h4>
+            <div class="quiz-options">
+              <div class="quiz-option" data-correct="false"><span>Только терминал</span></div>
+              <div class="quiz-option" data-correct="false"><span>Терминал + VS Code</span></div>
+              <div class="quiz-option" data-correct="true"><span>Terminal, VS Code, JetBrains, Desktop, Web, Slack, Chrome</span></div>
             </div>
           </div>
         </section>
@@ -171,16 +388,18 @@
         <section class="content-section">
           <h2>Чеклист урока</h2>
           <div class="checklist">
-            <label class="checklist-item"><input type="checkbox"><span>Создал Dashboard с 4+ страницами</span></label>
-            <label class="checklist-item"><input type="checkbox"><span>Добавил графики (Recharts)</span></label>
-            <label class="checklist-item"><input type="checkbox"><span>Залил на GitHub через MCP</span></label>
-            <label class="checklist-item"><input type="checkbox"><span>Задеплоил на Vercel</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Знаю как запустить Claude в headless режиме (claude -p)</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Умею передавать данные через pipe (|)</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Знаю все платформы Claude Code (7 штук)</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Понимаю разницу субагентов и Agent Teams</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Понимаю что такое плагины и маркетплейс</span></label>
+            <label class="checklist-item"><input type="checkbox"><span>Знаю про git worktrees для параллельной работы</span></label>
           </div>
         </section>
 
         <section class="start-section">
           <h2>Почти готово!</h2>
-          <p>Последний урок — Best Practices и советы</p>
+          <p>Последний урок - Best Practices и Troubleshooting</p>
           <a href="lesson-6.html" class="btn-start">Перейти к уроку 6<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
         </section>
       </div>

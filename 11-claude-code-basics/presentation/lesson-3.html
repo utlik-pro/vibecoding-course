@@ -235,41 +235,76 @@
         </section>
 
         <section class="content-section">
-          <h2>Поиск по проекту</h2>
+          <h2>Поиск и @ ссылки</h2>
 
-          <h3>Glob — поиск файлов по паттерну</h3>
+          <h3>Поиск по проекту</h3>
           <div class="terminal-demo">
             <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
+              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
               <span class="terminal-title">Claude Code</span>
             </div>
             <div class="terminal-body">
+              <span class="comment"># Glob — поиск файлов по паттерну</span><br>
               <span class="output">> Найди все файлы .test.ts</span><br><br>
-              <span class="output">> Покажи все компоненты в components/</span>
+              <span class="comment"># Grep — поиск текста в файлах</span><br>
+              <span class="output">> Найди все места где используется fetch</span>
             </div>
           </div>
 
-          <h3>Grep — поиск текста в файлах</h3>
+          <h3>@ ссылки на файлы</h3>
+          <p>Используйте <code>@</code> для быстрого включения файлов в контекст:</p>
           <div class="terminal-demo">
             <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
+              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
               <span class="terminal-title">Claude Code</span>
             </div>
             <div class="terminal-body">
-              <span class="output">> Найди все места где используется fetch</span><br><br>
-              <span class="output">> Где в проекте определён тип User?</span>
+              <span class="comment"># Ссылка на файл</span><br>
+              <span class="output">> Объясни логику в @src/utils/auth.js</span><br><br>
+              <span class="comment"># Ссылка на каталог</span><br>
+              <span class="output">> Какая структура у @src/components?</span><br><br>
+              <span class="comment"># Несколько файлов</span><br>
+              <span class="output">> Сравни @file1.js и @file2.js</span>
             </div>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">@ ссылки</div>
+            <p>Пути могут быть относительными или абсолютными. Ссылки на файлы включают содержимое. Ссылки на каталоги показывают список файлов.</p>
           </div>
         </section>
 
         <section class="content-section">
-          <h2>Plan Mode — планирование</h2>
+          <h2>Режимы работы и Plan Mode</h2>
 
-          <p><strong>Plan Mode позволяет сначала спланировать изменения.</strong></p>
+          <p><strong>Claude Code имеет три режима работы, переключаемых через <code>Shift+Tab</code>:</strong></p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Режим</th>
+                <th>Что делает</th>
+                <th>Когда использовать</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Normal</strong></td>
+                <td>Спрашивает разрешение</td>
+                <td>Обычная работа</td>
+              </tr>
+              <tr>
+                <td><strong>Auto-Accept</strong></td>
+                <td>Выполняет без вопросов</td>
+                <td>Быстрые итерации</td>
+              </tr>
+              <tr>
+                <td><strong>Plan</strong></td>
+                <td>Только чтение и планирование</td>
+                <td>Исследование, архитектура</td>
+              </tr>
+            </tbody>
+          </table>
 
           <div class="terminal-demo">
             <div class="terminal-header">
@@ -279,22 +314,23 @@
               <span class="terminal-title">Claude Code</span>
             </div>
             <div class="terminal-body">
-              <span class="comment"># Нажмите Ctrl+G для входа в Plan Mode</span><br><br>
-              <span class="output">> Добавь авторизацию через Google</span><br><br>
-              <span class="comment"># Claude создаст план, а не сразу код</span>
+              <span class="comment"># Shift+Tab × 2 = Plan Mode</span><br>
+              <span class="output">> Проанализируй auth flow. Создай план для Google OAuth.</span><br><br>
+              <span class="comment"># Shift+Tab = Normal Mode</span><br>
+              <span class="output">> Реализуй план OAuth авторизации.</span>
             </div>
           </div>
 
           <h3>Рекомендуемый workflow:</h3>
           <ol>
-            <li><strong>Explore</strong> — изучение кодбейза</li>
-            <li><strong>Plan</strong> — планирование (Ctrl+G)</li>
-            <li><strong>Implement</strong> — реализация</li>
-            <li><strong>Commit</strong> — сохранение</li>
+            <li><strong>Plan Mode</strong> (Shift+Tab × 2) — изучение и планирование</li>
+            <li><strong>Normal Mode</strong> (Shift+Tab) — реализация с контролем</li>
+            <li><strong>Auto-Accept</strong> (Shift+Tab) — финальные итерации</li>
+            <li><strong>Commit</strong> — сохранение результата</li>
           </ol>
 
           <div class="info-box tip">
-            <div class="info-box-title">Checkpoints</div>
+            <div class="info-box-title">Checkpoints и откат</div>
             <p>Claude автоматически сохраняет checkpoints. Используйте <code>/rewind</code> или <code>Esc+Esc</code> чтобы откатить изменения.</p>
           </div>
         </section>
@@ -350,15 +386,38 @@
           <h3>Pull Request</h3>
           <div class="terminal-demo">
             <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
+              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
               <span class="terminal-title">Claude Code</span>
             </div>
             <div class="terminal-body">
-              <span class="output">> Создай PR для текущей ветки</span><br><br>
-              <span class="comment"># Claude использует gh CLI для GitHub</span>
+              <span class="comment"># Один шаг: коммит → push → PR</span><br>
+              <span class="output">> /commit-push-pr</span><br><br>
+              <span class="comment"># Или пошагово</span><br>
+              <span class="output">> Создай PR для текущей ветки</span>
             </div>
+          </div>
+
+          <h3>Управление сессиями</h3>
+          <div class="terminal-demo">
+            <div class="terminal-header">
+              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+              <span class="terminal-title">Claude Code</span>
+            </div>
+            <div class="terminal-body">
+              <span class="comment"># Дать имя сессии</span><br>
+              <span class="output">> /rename auth-refactor</span><br><br>
+              <span class="comment"># Возобновить по имени</span><br>
+              <span class="prompt">$</span> <span class="command">claude --resume auth-refactor</span><br><br>
+              <span class="comment"># Продолжить последний разговор</span><br>
+              <span class="prompt">$</span> <span class="command">claude -c</span><br><br>
+              <span class="comment"># Интерактивный выбор сессии</span><br>
+              <span class="output">> /resume</span>
+            </div>
+          </div>
+
+          <div class="info-box tip">
+            <div class="info-box-title">Совет</div>
+            <p>Называйте сессии рано (<code>/rename</code>) — потом легче найти "payment-integration", чем "explain this function".</p>
           </div>
         </section>
 
