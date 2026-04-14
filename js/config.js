@@ -74,6 +74,22 @@ const COURSE_CONFIG = {
         { email: 'fvojtov@gmail.com', name: 'Vojtov F.', active: true },
         { email: 'ekrotik@gmail.com', name: 'Ekrotik', active: true }
       ]
+    },
+    {
+      id: 'cohort-3',
+      name: 'Поток 3',
+      description: 'Третий поток курса - модули 1-3',
+      unlockedModules: [1, 2, 3],
+      students: [
+        { email: 'lkotenkova13@gmail.com', name: 'Котенкова Л.', active: true },
+        { email: 'maletssivan@gmail.com', name: 'Малец Иван', active: true },
+        { email: 'newvimp2006@gmail.com', name: 'Newvimp', active: true },
+        { email: 'bogdan3197610@gmail.com', name: 'Богдан', active: true },
+        { email: '6600435@gmail.com', name: '6600435', active: true },
+        { email: 'oksana.lewsha@gmail.com', name: 'Оксана Левша', active: true },
+        { email: 'seo-pokladov@yandex.ru', name: 'Покладов', active: true },
+        { email: 'bima_@mail.ru', name: 'Bima', active: true }
+      ]
     }
   ],
 
