@@ -1,6 +1,6 @@
 /**
  * Main Application JavaScript
- * Интерактивная презентация - Модуль 4
+ * Интерактивная презентация - Модуль 2
  */
 
 // ==========================================
@@ -8,15 +8,15 @@
 // ==========================================
 // Уроки разблокируются последовательно при прохождении
 // Админы (из белого списка) видят все уроки
-// Ключ для хранения прогресса уроков внутри модуля 4
-const MODULE_KEY = 'completedLessons_m4';
-const MODULE_ID = 4;
-const TOTAL_LESSONS = 8;
+// Ключ для хранения прогресса уроков внутри модуля 2
+const MODULE_KEY = 'completedLessons_m2';
+const MODULE_ID = 2;
+const TOTAL_LESSONS = 12;
 
 function getUnlockedLessons() {
   // Если админ — все уроки открыты
   if (typeof AdminPanel !== 'undefined' && AdminPanel.isAdmin()) {
-    return [1, 2, 3, 4, 5, 6, 7, 8];
+    return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   }
 
   const completed = JSON.parse(localStorage.getItem(MODULE_KEY) || '[]');
@@ -25,7 +25,7 @@ function getUnlockedLessons() {
   completed.forEach(id => {
     const num = parseInt(id, 10);
     if (!unlocked.includes(num)) unlocked.push(num);
-    if (!unlocked.includes(num + 1) && num + 1 <= 8) unlocked.push(num + 1);
+    if (!unlocked.includes(num + 1) && num + 1 <= TOTAL_LESSONS) unlocked.push(num + 1);
   });
   return unlocked;
 }
@@ -91,12 +91,12 @@ function initLessonLocks() {
       }
     }
 
-    // Handle project.html (lesson 8)
-    if (href === 'project.html' && !UNLOCKED_LESSONS.includes(8)) {
+    // Handle project.html (доступен после последнего урока)
+    if (href === 'project.html' && !UNLOCKED_LESSONS.includes(TOTAL_LESSONS)) {
       card.classList.add('locked');
       card.addEventListener('click', (e) => {
         e.preventDefault();
-        showLockedMessage(8);
+        showLockedMessage(TOTAL_LESSONS);
       });
     }
   });
@@ -110,7 +110,7 @@ function initLessonLocks() {
       window.location.href = 'index.html';
     }
   }
-  if (currentPath.includes('project.html') && !UNLOCKED_LESSONS.includes(8)) {
+  if (currentPath.includes('project.html') && !UNLOCKED_LESSONS.includes(TOTAL_LESSONS)) {
     window.location.href = 'index.html';
   }
 }
@@ -218,7 +218,7 @@ function initTimer() {
   if (!timerDisplay) return;
 
   // Load saved time if exists
-  const savedTime = sessionStorage.getItem('lessonTimer_m4');
+  const savedTime = sessionStorage.getItem('lessonTimer_m2');
   if (savedTime) {
     timerSeconds = parseInt(savedTime, 10);
     updateTimerDisplay(timerDisplay);
@@ -250,7 +250,7 @@ function startTimer(display) {
   timerInterval = setInterval(() => {
     timerSeconds++;
     updateTimerDisplay(display);
-    sessionStorage.setItem('lessonTimer_m4', timerSeconds);
+    sessionStorage.setItem('lessonTimer_m2', timerSeconds);
   }, 1000);
 }
 
@@ -263,7 +263,7 @@ function resetTimer(display) {
   pauseTimer();
   timerSeconds = 0;
   updateTimerDisplay(display);
-  sessionStorage.removeItem('lessonTimer_m4');
+  sessionStorage.removeItem('lessonTimer_m2');
   const timerBtn = document.querySelector('.timer-btn');
   if (timerBtn) {
     timerBtn.textContent = '▶';
@@ -487,7 +487,7 @@ function initChecklists() {
     // Load saved state
     const id = checkbox.dataset.id;
     if (id) {
-      const saved = localStorage.getItem(`checklist_m4_${id}`);
+      const saved = localStorage.getItem(`checklist_m2_${id}`);
       if (saved === 'true') {
         checkbox.classList.add('checked');
         checkbox.closest('.checklist-item')?.classList.add('completed');
@@ -501,7 +501,7 @@ function initChecklists() {
 
       // Save state
       if (id) {
-        localStorage.setItem(`checklist_m4_${id}`, isChecked);
+        localStorage.setItem(`checklist_m2_${id}`, isChecked);
       }
 
       // Update progress
@@ -632,7 +632,7 @@ function checkModuleCompletion(completedLessons) {
 }
 
 function updateOverallProgress(completed) {
-  const totalLessons = 8; // 7 lessons + project
+  const totalLessons = TOTAL_LESSONS;
   const progressFill = document.querySelector('.sidebar .progress-fill');
   const progressText = document.querySelector('.sidebar .progress-text');
 
