@@ -91,7 +91,8 @@ const COURSE_CONFIG = {
         { email: 'bima_@mail.ru', name: 'Bima', active: true },
         { email: 'inshim1555@gmail.com', name: 'Inshim', active: true },
         { email: 'Leonovmax125@gmail.com', name: 'Леонов Макс', active: true },
-        { email: 'verameeva77@mail.ru', name: 'Вера Меева', active: true }
+        { email: 'verameeva77@mail.ru', name: 'Вера Меева', active: true },
+        { email: 'anshesto@gmail.com', name: 'Anshesto', active: true }
       ]
     }
   ],
