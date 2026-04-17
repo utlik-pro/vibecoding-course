@@ -92,7 +92,12 @@ const COURSE_CONFIG = {
         { email: 'inshim1555@gmail.com', name: 'Inshim', active: true },
         { email: 'Leonovmax125@gmail.com', name: 'Леонов Макс', active: true },
         { email: 'verameeva77@mail.ru', name: 'Вера Меева', active: true },
-        { email: 'anshesto@gmail.com', name: 'Anshesto', active: true }
+        { email: 'anshesto@gmail.com', name: 'Anshesto', active: true },
+        { email: 'v.bykovskiy1@mail.ru', name: 'Быковский В.', active: true },
+        { email: 'vradzi@gmail.com', name: 'Vradzi', active: true },
+        { email: 'amelkov.center@gmail.com', name: 'Амельков', active: true },
+        { email: 'Zharkovivan2020@gmail.com', name: 'Жарков Иван', active: true },
+        { email: 'krapuchino83@gmail.com', name: 'Krapuchino', active: true }
       ]
     }
   ],
