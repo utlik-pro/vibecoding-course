@@ -55,8 +55,8 @@ const COURSE_CONFIG = {
     {
       id: 'cohort-2',
       name: 'Поток 2',
-      description: 'Второй поток курса - модули 1-3',
-      unlockedModules: [1, 2, 3],
+      description: 'Второй поток курса - модули 1-4',
+      unlockedModules: [1, 2, 3, 4],
       students: [
         { email: 'Jasmail@mail.ru', name: 'Сенкевич Иван Евгеньевич', active: true },
         { email: 'equitexby@gmail.com', name: 'Кротик Евгений Викторович', active: true },
@@ -78,8 +78,8 @@ const COURSE_CONFIG = {
     {
       id: 'cohort-3',
       name: 'Поток 3',
-      description: 'Третий поток курса - модули 1-2',
-      unlockedModules: [1, 2],
+      description: 'Третий поток курса - модули 1, 2, 4',
+      unlockedModules: [1, 2, 4],
       students: [
         { email: 'lkotenkova13@gmail.com', name: 'Котенкова Л.', active: true },
         { email: 'maletssivan@gmail.com', name: 'Малец Иван', active: true },
@@ -98,6 +98,29 @@ const COURSE_CONFIG = {
         { email: 'amelkov.center@gmail.com', name: 'Амельков', active: true },
         { email: 'Zharkovivan2020@gmail.com', name: 'Жарков Иван', active: true },
         { email: 'krapuchino83@gmail.com', name: 'Krapuchino', active: true }
+      ]
+    },
+    {
+      id: 'cohort-personal',
+      name: 'Поток 4 — Персональное сопровождение',
+      description: 'Индивидуальная программа: бриф, тест уровня, темы открываются под проект ученика',
+      isPersonal: true,
+      // Все модули технически открыты для когорты, но каждый ученик стартует с минимальным набором через hiddenModules,
+      // а ментор открывает темы по мере того, как они нужны для проекта.
+      unlockedModules: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      students: [
+        // TODO: заменить на реальный email Артёма после первого урока (узнать на встрече).
+        // Стартует только с модуля 1 (Введение); остальные открываются индивидуально через hiddenModules.
+        {
+          email: 'artem.personal@example.com',
+          name: 'Артём',
+          active: true,
+          isPersonal: true,
+          hiddenModules: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+          startDate: '2026-04-27',
+          briefStatus: 'pending',
+          levelTestStatus: 'pending'
+        }
       ]
     }
   ],
@@ -225,6 +248,20 @@ const COURSE_CONFIG = {
     // Проверяем все потоки (только активные студенты)
     const student = this.getStudentByEmail(email);
     return student !== null && student.active !== false;
+  },
+
+  /**
+   * Проверить, относится ли email к персональному сопровождению
+   * @param {string} email
+   * @returns {boolean}
+   */
+  isPersonalStudent(email) {
+    if (!email) return false;
+    const cohort = this.getCohortByEmail(email);
+    if (!cohort) return false;
+    if (cohort.isPersonal) return true;
+    const student = this.getStudentByEmail(email);
+    return !!(student && student.isPersonal);
   },
 
   /**
