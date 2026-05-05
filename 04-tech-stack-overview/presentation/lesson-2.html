@@ -45,7 +45,7 @@
         </a>
         <a href="lesson-2.html" class="nav-item active" data-lesson="2">
           <span class="nav-item-number">2</span>
-          Архитектура за 30 минут
+          Архитектура приложений
         </a>
         <a href="lesson-3.html" class="nav-item" data-lesson="3">
           <span class="nav-item-number">3</span>
@@ -116,16 +116,16 @@
         <div class="lesson-header">
           <div class="lesson-meta">
             <span class="lesson-number">Урок 4.2</span>
-            <span class="lesson-duration">⏱ 45 минут практики</span>
+            <span class="lesson-duration">⏱ 45 минут</span>
           </div>
-          <h1 class="lesson-title">Архитектура за 30 минут — собираем рабочий MVP</h1>
+          <h1 class="lesson-title">Архитектура — карта территории перед путешествием</h1>
           <div class="lesson-objectives">
-            <h4>Что будет в конце урока:</h4>
+            <h4>В этом уроке:</h4>
             <ul>
-              <li>✅ Рабочий проект <strong>ContentBot</strong>, задеплоенный в интернет</li>
-              <li>✅ Понимание архитектуры — через то, что вы сделали руками</li>
-              <li>✅ Готовая БД в Supabase + первый API endpoint</li>
-              <li>✅ Промпт-шаблон, который можно применить к ЛЮБОМУ своему проекту</li>
+              <li>🗺️ Поймём <strong>общую карту</strong> современного веб-приложения — без кода</li>
+              <li>🎯 Разберём, <strong>что где живёт</strong>: Frontend, Backend, БД, внешние сервисы</li>
+              <li>🛠️ Спроектируем архитектуру своего проекта <strong>с помощью AI</strong></li>
+              <li>📋 Получим план: <strong>что будем учить в следующих модулях</strong> и зачем</li>
             </ul>
           </div>
         </div>
@@ -138,14 +138,15 @@
             Заметка для преподавателя
           </div>
           <div class="teacher-note-content">
-            <p><strong>Формат урока:</strong> 5 минут теории + 40 минут практики. Студенты работают в Cursor / Claude Code параллельно с вами.</p>
-            <p><strong>Цель:</strong> к концу урока у каждого должен быть свой задеплоенный URL вида <code>contentbot-xyz.vercel.app</code>. Если что-то не работает — разбираемся вместе, не оставляем "на дом".</p>
+            <p><strong>Это обзорный урок.</strong> Никакого кода, npx, SQL — это всё в модулях 5-10. Здесь только проектирование и общая картина.</p>
+            <p><strong>Цель:</strong> к концу урока студент должен уметь нарисовать архитектуру своего проекта и объяснить роль каждого компонента. Реальный код мы пишем начиная с Модуля 5.</p>
+            <p><strong>Аналогия:</strong> сначала покупают карту страны, потом планируют маршрут, и только потом садятся за руль.</p>
           </div>
         </div>
 
         <!-- Section 1: 60-second theory -->
         <section class="card">
-          <div class="card-header">1. Архитектура за 60 секунд (вся теория, что вам нужна)</div>
+          <div class="card-header">1. Архитектура за 60 секунд</div>
           <div class="card-body">
             <p>Любое современное веб-приложение — это <strong>3 слоя</strong>:</p>
 
@@ -155,7 +156,7 @@
                 <div class="arch-layer-items">
                   <span class="arch-item">То, что видит юзер</span>
                   <span class="arch-item">Кнопки, формы, экраны</span>
-                  <span class="arch-item">Next.js + React</span>
+                  <span class="arch-item">Браузер пользователя</span>
                 </div>
               </div>
 
@@ -163,8 +164,8 @@
                 <div class="arch-layer-title">⚙️ Backend (API)</div>
                 <div class="arch-layer-items">
                   <span class="arch-item">Бизнес-логика</span>
-                  <span class="arch-item">Проверки, расчёты, AI-вызовы</span>
-                  <span class="arch-item">Next.js API Routes</span>
+                  <span class="arch-item">Проверки, расчёты</span>
+                  <span class="arch-item">Связь с внешним миром</span>
                 </div>
               </div>
 
@@ -172,8 +173,8 @@
                 <div class="arch-layer-title">🗄️ Database</div>
                 <div class="arch-layer-items">
                   <span class="arch-item">Где живут данные</span>
-                  <span class="arch-item">Юзеры, посты, платежи</span>
-                  <span class="arch-item">Supabase (PostgreSQL)</span>
+                  <span class="arch-item">Юзеры, посты, заказы</span>
+                  <span class="arch-item">Сохраняется навсегда</span>
                 </div>
               </div>
             </div>
@@ -187,87 +188,134 @@
               <div>
                 <strong>Аналогия — ресторан:</strong>
                 <ul style="margin: 0.5rem 0 0 1rem;">
-                  <li><strong>Frontend</strong> = зал, столы, меню (то, что видит гость)</li>
-                  <li><strong>Backend</strong> = официант + кухня (принимает заказ, готовит)</li>
-                  <li><strong>Database</strong> = склад с продуктами (где всё хранится)</li>
+                  <li><strong>Frontend</strong> = зал, столы, меню — то, что видит гость</li>
+                  <li><strong>Backend</strong> = официант + кухня — принимает заказ, готовит</li>
+                  <li><strong>Database</strong> = склад с продуктами — где всё хранится</li>
                 </ul>
                 <p style="margin-top: 0.5rem;">Гость → Официант → Кухня → Склад. И обратно. <strong>Это вся архитектура.</strong></p>
               </div>
             </div>
 
-            <p><strong>Всё. Теория закончилась.</strong> Дальше — только практика. Вы научитесь архитектуре через то, что сделаете руками за следующие 30 минут.</p>
+            <p><strong>Всё.</strong> Дальше — карта территории на конкретных примерах.</p>
           </div>
         </section>
 
-        <!-- Section 2: What we build -->
+        <!-- Section 2: Three apps comparison -->
         <section class="card">
-          <div class="card-header">2. Что строим — ContentBot</div>
+          <div class="card-header">2. Архитектура на трёх знакомых приложениях</div>
           <div class="card-body">
-            <p><strong>ContentBot</strong> — SaaS-приложение, которое генерирует посты для соцсетей с помощью AI. Юзер логинится, выбирает тему и платформу (Instagram / LinkedIn / X), нажимает "Сгенерировать" → получает 3 варианта поста.</p>
+            <p>Чтобы стало понятнее, разложим по слоям приложения, которыми вы пользуетесь каждый день:</p>
 
-            <h4>Почему именно этот проект</h4>
-            <ul>
-              <li>📦 Покрывает <strong>весь стек</strong>: фронт + API + БД + AI + биллинг</li>
-              <li>⚡ Можно собрать MVP за 1-2 часа с помощью AI-инструментов</li>
-              <li>💰 Реальная бизнес-модель: $9/мес за безлимит — это работает на рынке</li>
-              <li>🎯 На таком же шаблоне строятся 80% современных AI-стартапов</li>
-            </ul>
-
-            <h4>Архитектура ContentBot — одной картинкой</h4>
-            <div class="code-block">
-              <div class="code-header">
-                <span class="code-lang">Diagram</span>
-                <button class="code-copy-btn">Копировать</button>
+            <div class="tabs">
+              <div class="tabs-header">
+                <button class="tab-btn active" data-tab="app-instagram">📸 Instagram</button>
+                <button class="tab-btn" data-tab="app-uber">🚕 Uber / Yandex Go</button>
+                <button class="tab-btn" data-tab="app-chatgpt">🤖 ChatGPT</button>
               </div>
-              <pre><code>┌──────────────────────────────────────────────┐
-│  БРАУЗЕР (Frontend)                          │
-│  Next.js + React + Tailwind                  │
-│  Страницы: /, /dashboard, /pricing           │
-└──────────────────┬───────────────────────────┘
-                   │ HTTPS
-┌──────────────────▼───────────────────────────┐
-│  VERCEL (Backend / API Routes)               │
-│  /api/generate  → вызов OpenAI               │
-│  /api/checkout  → создание Stripe Session    │
-│  /api/webhook   → приём уведомлений Stripe   │
-└──┬──────────────┬──────────────┬─────────────┘
-   │              │              │
-   ▼              ▼              ▼
-┌──────┐    ┌──────────┐   ┌──────────┐
-│Clerk │    │ OpenAI   │   │ Stripe   │
-│Auth  │    │ GPT-4o   │   │ Billing  │
-└──────┘    └──────────┘   └──────────┘
-                ▼
-        ┌──────────────────┐
-        │ Supabase         │
-        │ users / posts    │
-        └──────────────────┘</code></pre>
+
+              <div id="app-instagram" class="tab-content active">
+                <h4>Как устроен Instagram</h4>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Слой</th>
+                        <th>Что это в Instagram</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>🖥️ Frontend</td>
+                        <td>Лента, профиль, кнопка "Лайк", истории — всё, что вы видите в приложении</td>
+                      </tr>
+                      <tr>
+                        <td>⚙️ Backend</td>
+                        <td>Алгоритм рекомендаций, проверка спама, отправка уведомлений</td>
+                      </tr>
+                      <tr>
+                        <td>🗄️ Database</td>
+                        <td>Профили, посты, лайки, комментарии, подписки</td>
+                      </tr>
+                      <tr>
+                        <td>📦 Файлы (storage)</td>
+                        <td>Фото и видео — хранятся отдельно, не в БД</td>
+                      </tr>
+                      <tr>
+                        <td>🔌 Внешние сервисы</td>
+                        <td>Push-уведомления (Apple/Google), оплата (Apple Pay)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div id="app-uber" class="tab-content">
+                <h4>Как устроен Uber / Yandex Go</h4>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr><th>Слой</th><th>Что это в Uber</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>🖥️ Frontend</td>
+                        <td>Карта, кнопка "Заказать", иконка машины, цена</td>
+                      </tr>
+                      <tr>
+                        <td>⚙️ Backend</td>
+                        <td>Расчёт цены, поиск ближайшего водителя, маршрут</td>
+                      </tr>
+                      <tr>
+                        <td>🗄️ Database</td>
+                        <td>Поездки, водители, пассажиры, оценки</td>
+                      </tr>
+                      <tr>
+                        <td>🔌 Внешние сервисы</td>
+                        <td>Google Maps (карта), Stripe (оплата), SMS (Twilio)</td>
+                      </tr>
+                      <tr>
+                        <td>⚡ Realtime</td>
+                        <td>Машина едет по карте в реальном времени — отдельный канал связи</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div id="app-chatgpt" class="tab-content">
+                <h4>Как устроен ChatGPT</h4>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr><th>Слой</th><th>Что это в ChatGPT</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>🖥️ Frontend</td>
+                        <td>Окно чата, поле ввода, кнопка "Отправить", история диалогов слева</td>
+                      </tr>
+                      <tr>
+                        <td>⚙️ Backend</td>
+                        <td>Передаёт ваш вопрос в AI-модель, считает использование токенов</td>
+                      </tr>
+                      <tr>
+                        <td>🗄️ Database</td>
+                        <td>Аккаунты, история чатов, настройки, подписки</td>
+                      </tr>
+                      <tr>
+                        <td>🤖 AI-модель</td>
+                        <td>GPT-5 — отдельный сервис, который генерит ответы</td>
+                      </tr>
+                      <tr>
+                        <td>🔌 Внешние сервисы</td>
+                        <td>Stripe (оплата), Auth0 (логин), Sentry (мониторинг ошибок)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
 
-            <p><strong>Скопируйте эту схему</strong> — в следующем разделе мы скормим её AI и сгенерируем код.</p>
-          </div>
-        </section>
-
-        <!-- Section 3: PRACTICE 1 - Generate via AI -->
-        <section class="card" style="border-left: 4px solid #10b981;">
-          <div class="card-header">🛠 ПРАКТИКА 1 — Генерируем архитектуру через AI (5 мин)</div>
-          <div class="card-body">
-            <p><strong>Что делаем:</strong> открываем Cursor / Claude Code, скармливаем промпт-шаблон, получаем готовую структуру проекта.</p>
-
-            <h4>Шаг 1. Откройте Cursor (или Claude Code)</h4>
-            <p>Создайте пустую папку для проекта и откройте её в Cursor:</p>
-
-            <div class="code-block">
-              <div class="code-header">
-                <span class="code-lang">Terminal</span>
-                <button class="code-copy-btn">Копировать</button>
-              </div>
-              <pre><code>mkdir contentbot
-cd contentbot
-cursor .</code></pre>
-            </div>
-
-            <h4>Шаг 2. Вставьте этот промпт в чат AI</h4>
             <div class="alert alert-info">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="10"/>
@@ -275,8 +323,132 @@ cursor .</code></pre>
                 <path d="M12 8h.01"/>
               </svg>
               <div>
-                <strong>Промпт-шаблон №1 — Архитектура проекта</strong><br>
-                Этот промпт работает для ЛЮБОГО SaaS. Меняйте только описание идеи.
+                <strong>Главный инсайт:</strong> архитектура одинакова. Что Instagram, что ChatGPT, что Uber — все построены на одних и тех же 3 слоях + внешние сервисы. Меняется только начинка.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: ContentBot reference architecture -->
+        <section class="card">
+          <div class="card-header">3. Сквозной пример курса — ContentBot</div>
+          <div class="card-body">
+            <p>В курсе мы будем строить <strong>ContentBot</strong> — SaaS-сервис, который генерирует посты для соцсетей с помощью AI. Юзер выбирает тему и платформу → AI выдаёт 3 варианта поста. Бесплатный план — 5 генераций/мес, Pro — безлимит за $9.</p>
+
+            <h4>Архитектура ContentBot — карта территории</h4>
+            <div class="code-block">
+              <div class="code-header">
+                <span class="code-lang">Diagram</span>
+                <button class="code-copy-btn">Копировать</button>
+              </div>
+              <pre><code>┌──────────────────────────────────────────────┐
+│  🖥️  FRONTEND  (Next.js + React)             │
+│  Главная / Dashboard / Pricing / История     │
+└──────────────────┬───────────────────────────┘
+                   │ HTTPS
+┌──────────────────▼───────────────────────────┐
+│  ⚙️  BACKEND  (Next.js API Routes на Vercel) │
+│  /api/generate — вызвать OpenAI              │
+│  /api/checkout — создать оплату Stripe       │
+│  /api/webhook  — принять уведомление Stripe  │
+└──┬──────────────┬──────────────┬─────────────┘
+   │              │              │
+   ▼              ▼              ▼
+┌──────┐    ┌──────────┐   ┌──────────┐
+│ 🔐   │    │ 🤖       │   │ 💳       │
+│Clerk │    │ OpenAI   │   │ Stripe   │
+│Логин │    │ GPT-5    │   │ Подписка │
+└──────┘    └──────────┘   └──────────┘
+                ▼
+        ┌──────────────────┐
+        │ 🗄️ Supabase      │
+        │ users / posts    │
+        └──────────────────┘</code></pre>
+            </div>
+
+            <p>Этот же шаблон — основа для 80% современных AI-стартапов. Освоив его, вы сможете повторить идею хоть для копирайтинга, хоть для дизайна, хоть для юристов.</p>
+
+            <h4>В каких модулях мы это построим</h4>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Часть архитектуры</th>
+                    <th>Где будем учить</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Создать Next.js проект и задеплоить</td>
+                    <td><strong>Модуль 5</strong> — Настройка проекта</td>
+                  </tr>
+                  <tr>
+                    <td>Backend / API endpoints</td>
+                    <td><strong>Модуль 6</strong> — Бэкенд</td>
+                  </tr>
+                  <tr>
+                    <td>Clerk (авторизация юзеров)</td>
+                    <td><strong>Модуль 7</strong> — Auth</td>
+                  </tr>
+                  <tr>
+                    <td>Supabase + SQL (база данных)</td>
+                    <td><strong>Модули 6 и 8</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Frontend — страницы и компоненты</td>
+                    <td><strong>Модуль 9</strong> — Frontend</td>
+                  </tr>
+                  <tr>
+                    <td>OpenAI + Stripe (внешние API)</td>
+                    <td><strong>Модуль 10</strong> — API и платежи</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Сейчас наша задача — спроектировать.</strong> Кодить будем в следующих модулях. Сейчас как архитектор: чертим план, не кладём кирпичи.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: PRACTICE - Design YOUR architecture with AI -->
+        <section class="card" style="border-left: 4px solid #10b981;">
+          <div class="card-header">🛠 ПРАКТИКА — Спроектируйте архитектуру СВОЕГО проекта (20 мин)</div>
+          <div class="card-body">
+            <p><strong>Что делаем:</strong> вы НЕ пишете код. Вы используете AI как архитектора — он рисует вам схему вашего будущего приложения.</p>
+
+            <h4>Шаг 1. Сформулируйте идею (3 мин)</h4>
+            <p>Опишите свой проект в одном абзаце по шаблону:</p>
+            <div class="code-block">
+              <div class="code-header">
+                <span class="code-lang">Шаблон</span>
+                <button class="code-copy-btn">Копировать</button>
+              </div>
+              <pre><code>Я хочу сделать [тип приложения] для [целевой аудитории].
+Главная функция — [что делает].
+Юзер платит за [что монетизируется].
+Похоже на [известный аналог], но с [уникальное отличие].</code></pre>
+            </div>
+
+            <p><strong>Пример:</strong> «Я хочу сделать сервис для риелторов, который анализирует объявления конкурентов через AI и подсказывает оптимальную цену. Юзер платит за подписку $20/мес. Похоже на CRM, но узко заточено под недвижимость.»</p>
+
+            <h4>Шаг 2. Откройте Claude.ai или ChatGPT и вставьте этот промпт</h4>
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Универсальный промпт-шаблон.</strong> Работает для любой идеи. Сохраните себе — пригодится для каждого нового проекта.
               </div>
             </div>
 
@@ -285,22 +457,41 @@ cursor .</code></pre>
                 <span class="code-lang">Prompt</span>
                 <button class="code-copy-btn">Копировать</button>
               </div>
-              <pre><code>Я хочу создать SaaS-приложение ContentBot — генератор постов
-для соцсетей через AI. Стек: Next.js 14 (App Router) +
-TypeScript + Tailwind + Supabase + Clerk + OpenAI + Stripe.
+              <pre><code>Я планирую SaaS-приложение. Опиши его архитектуру
+по слоям, без кода, простыми словами.
 
-Сгенерируй:
-1. Структуру папок проекта
-2. Список API endpoints с описанием
-3. SQL-схему БД (таблицы users, posts) с RLS
-4. Список переменных окружения (.env.local)
-5. Минимальный package.json с нужными зависимостями
+Идея: [вставьте описание из Шага 1]
 
-Важно: только то, что нужно для MVP. Никаких лишних абстракций.</code></pre>
+Сделай:
+1. ASCII-диаграмму архитектуры (Frontend → Backend → БД + внешние)
+2. Список из 3-5 главных страниц фронтенда
+3. Список из 3-5 API endpoints с описанием задачи каждого
+4. Список таблиц в БД (только названия + 3-5 ключевых полей)
+5. Список нужных внешних сервисов (Auth, AI, платежи и т.д.)
+6. 3 главных риска архитектуры — что может пойти не так
+
+Стек: Next.js + Supabase + Clerk. AI-модель если нужна — OpenAI.
+Платежи если нужны — Stripe.</code></pre>
             </div>
 
-            <h4>Шаг 3. Что вы получите</h4>
-            <p>AI выдаст вам готовый план — <strong>именно так выглядит архитектура на практике</strong>. Вместо того чтобы запоминать теорию, вы получаете рабочую заготовку.</p>
+            <h4>Шаг 3. Сохраните результат (10 мин)</h4>
+            <p>AI выдаст вам архитектуру. <strong>Прочитайте каждый пункт</strong> — что-то будет понятно сразу, что-то нет. Это нормально.</p>
+
+            <p>Что делать с непонятным:</p>
+            <ul>
+              <li>Спросите AI: <em>«Объясни простыми словами, что такое RLS / webhook / middleware»</em></li>
+              <li>Запишите термины — мы будем их разбирать в следующих уроках и модулях</li>
+              <li>Не пытайтесь всё запомнить сразу — у вас на руках будет план</li>
+            </ul>
+
+            <h4>Шаг 4. Нарисуйте диаграмму (7 мин)</h4>
+            <p>Перенесите архитектуру в визуальную форму. Можно:</p>
+            <ul>
+              <li>На бумаге (быстрее всего)</li>
+              <li>В <a href="https://excalidraw.com" target="_blank">Excalidraw</a> — простой и красивый</li>
+              <li>В Figma / Miro — если уже умеете</li>
+              <li>Через AI: попросите Claude нарисовать в Mermaid-формате</li>
+            </ul>
 
             <div class="alert alert-warning">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -309,213 +500,89 @@ TypeScript + Tailwind + Supabase + Clerk + OpenAI + Stripe.
                 <line x1="12" y1="17" x2="12.01" y2="17"/>
               </svg>
               <div>
-                <strong>Важно:</strong> не копируйте ответ слепо. Прочитайте — поймите структуру. Если что-то непонятно, спросите AI: <em>«Объясни простыми словами, зачем нужен RLS»</em>.
+                <strong>Главная цель:</strong> у вас на руках должна остаться <em>ваша личная карта проекта</em>. Когда в Модуле 5 мы будем создавать Next.js — вы поймёте, ЗАЧЕМ. Когда в Модуле 7 будем подключать Clerk — вы вспомните: «а, это тот квадратик 'Auth' из моей схемы».
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Section 4: PRACTICE 2 - Bootstrap Next.js -->
-        <section class="card" style="border-left: 4px solid #10b981;">
-          <div class="card-header">🛠 ПРАКТИКА 2 — Создаём проект Next.js (5 мин)</div>
+        <!-- Section 5: Anti-patterns -->
+        <section class="card">
+          <div class="card-header">4. Что НЕ надо делать на этом этапе</div>
           <div class="card-body">
-            <p><strong>Что делаем:</strong> запускаем одну команду — получаем рабочий каркас.</p>
+            <p>Самые частые ошибки начинающих архитекторов:</p>
 
-            <div class="code-block">
-              <div class="code-header">
-                <span class="code-lang">Terminal</span>
-                <button class="code-copy-btn">Копировать</button>
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>❌ "Сразу делать своё, без аналогов"</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Изобретать свою БД, свой фреймворк, свой хостинг — путь в никуда. Используйте проверенные решения: <strong>Next.js + Supabase + Vercel + Clerk + Stripe</strong>. На этом стеке построены тысячи стартапов. Зачем изобретать колесо?</p>
+                  </div>
+                </div>
               </div>
-              <pre><code>npx create-next-app@latest . \
-  --typescript --tailwind --app --eslint --src-dir \
-  --import-alias "@/*"
 
-npm run dev</code></pre>
-            </div>
-
-            <p>Откройте <code>http://localhost:3000</code> — у вас уже работает приложение. Это <strong>Frontend-слой</strong>.</p>
-
-            <h4>Что только что произошло</h4>
-            <ol>
-              <li><code>create-next-app</code> сгенерировал ~50 файлов — это и есть структура веб-приложения</li>
-              <li><code>src/app/page.tsx</code> — главная страница (Frontend)</li>
-              <li><code>src/app/api/*</code> — сюда вы будете добавлять API endpoints (Backend)</li>
-              <li><code>npm run dev</code> поднял локальный сервер на порту 3000</li>
-            </ol>
-
-            <p>Теперь вы видите архитектуру руками: <strong>есть Frontend (страница), но нет Backend и Database — пока</strong>.</p>
-          </div>
-        </section>
-
-        <!-- Section 5: PRACTICE 3 - First API route -->
-        <section class="card" style="border-left: 4px solid #10b981;">
-          <div class="card-header">🛠 ПРАКТИКА 3 — Создаём первый API endpoint (10 мин)</div>
-          <div class="card-body">
-            <p><strong>Что делаем:</strong> добавляем Backend-слой. Создаём файл <code>src/app/api/generate/route.ts</code>.</p>
-
-            <h4>Промпт для AI</h4>
-            <div class="code-block">
-              <div class="code-header">
-                <span class="code-lang">Prompt</span>
-                <button class="code-copy-btn">Копировать</button>
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>❌ "Микросервисы с первого дня"</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Видели на конференции, что Netflix использует 700 микросервисов? У них 200 миллионов юзеров. У вас — пока 0. Начинайте с <strong>монолита</strong> (одно приложение Next.js), разделять на сервисы будете, когда упрётесь в проблему. До этого — лишняя сложность.</p>
+                  </div>
+                </div>
               </div>
-              <pre><code>Создай API endpoint POST /api/generate в Next.js App Router.
-Принимает JSON: { topic: string, platform: 'instagram' | 'linkedin' | 'twitter' }.
-Возвращает 3 варианта поста-заглушки (без реального OpenAI пока).
-TypeScript, использует NextResponse. Добавь валидацию входных данных через zod.</code></pre>
-            </div>
 
-            <h4>Готовый код, который вы получите</h4>
-            <div class="code-block">
-              <div class="code-header">
-                <span class="code-lang">src/app/api/generate/route.ts</span>
-                <button class="code-copy-btn">Копировать</button>
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>❌ "Своя БД на VPS за $5"</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Купить сервер на DigitalOcean и установить PostgreSQL руками — звучит круто. Но: бэкапы, обновления, безопасность, мониторинг — всё это ваша забота. <strong>Supabase</strong> делает это бесплатно (до определённых лимитов). Время — дороже $5.</p>
+                  </div>
+                </div>
               </div>
-              <pre><code>import { NextResponse } from 'next/server';
-import { z } from 'zod';
 
-const schema = z.object({
-  topic: z.string().min(3).max(200),
-  platform: z.enum(['instagram', 'linkedin', 'twitter']),
-});
-
-export async function POST(req: Request) {
-  const body = await req.json();
-  const parsed = schema.safeParse(body);
-
-  if (!parsed.success) {
-    return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
-  }
-
-  const { topic, platform } = parsed.data;
-
-  // Заглушка — позже подключим OpenAI
-  const posts = [
-    `Вариант 1 про "${topic}" для ${platform} 🚀`,
-    `Вариант 2 про "${topic}" для ${platform} ✨`,
-    `Вариант 3 про "${topic}" для ${platform} 💡`,
-  ];
-
-  return NextResponse.json({ posts });
-}</code></pre>
-            </div>
-
-            <h4>Проверяем — отправляем запрос</h4>
-            <div class="code-block">
-              <div class="code-header">
-                <span class="code-lang">Terminal</span>
-                <button class="code-copy-btn">Копировать</button>
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>❌ "Сразу Kubernetes / Docker / CI/CD pipeline"</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Vercel делает деплой за 1 клик. <code>git push</code> → через 2 минуты живой сайт. Никаких docker-файлов, конфигов, helm-чартов. Когда у вас будет миллион юзеров — обсудим. Сейчас — просто Vercel.</p>
+                  </div>
+                </div>
               </div>
-              <pre><code>curl -X POST http://localhost:3000/api/generate \
-  -H "Content-Type: application/json" \
-  -d '{"topic":"Запуск кофейни","platform":"instagram"}'</code></pre>
-            </div>
 
-            <p><strong>Поздравляю</strong> — вы только что построили коммуникацию Frontend ↔ Backend. Запрос ушёл, ответ вернулся. <em>Это архитектура.</em></p>
-          </div>
-        </section>
-
-        <!-- Section 6: PRACTICE 4 - Database -->
-        <section class="card" style="border-left: 4px solid #10b981;">
-          <div class="card-header">🛠 ПРАКТИКА 4 — Подключаем БД через Supabase (10 мин)</div>
-          <div class="card-body">
-            <p><strong>Что делаем:</strong> добавляем Database-слой. Создаём таблицы и сохраняем сгенерированные посты.</p>
-
-            <h4>Шаг 1. Откройте Supabase SQL Editor</h4>
-            <p>В вашем проекте Supabase (создан в Уроке 4.1) → <strong>SQL Editor</strong> → New query → вставьте:</p>
-
-            <div class="code-block">
-              <div class="code-header">
-                <span class="code-lang">SQL</span>
-                <button class="code-copy-btn">Копировать</button>
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>❌ "Перебрать 10 фреймворков перед началом"</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Next.js vs Remix vs SvelteKit vs Nuxt? Не важно. Все они хорошие. Разница — в нюансах, которые видны только через год. Берите <strong>Next.js</strong> — у него самое большое комьюнити, лучшая совместимость с AI-инструментами и Vercel.</p>
+                  </div>
+                </div>
               </div>
-              <pre><code>-- Таблица постов
-create table posts (
-  id uuid primary key default gen_random_uuid(),
-  user_email text not null,
-  topic text not null,
-  platform text not null check (platform in ('instagram','linkedin','twitter')),
-  content text not null,
-  created_at timestamptz default now()
-);
-
--- Индекс для скорости
-create index idx_posts_user_email on posts(user_email);
-
--- RLS — пользователь видит только свои посты
-alter table posts enable row level security;
-
-create policy "users see own posts"
-  on posts for select
-  using (user_email = auth.jwt() ->> 'email');</code></pre>
             </div>
-
-            <p>Нажмите <strong>Run</strong>. Откройте <strong>Table Editor</strong> — вы увидите таблицу <code>posts</code>. <em>Это слой Database.</em></p>
-
-            <h4>Шаг 2. Подключаем Supabase к Next.js</h4>
-            <div class="code-block">
-              <div class="code-header">
-                <span class="code-lang">Terminal</span>
-                <button class="code-copy-btn">Копировать</button>
-              </div>
-              <pre><code>npm install @supabase/supabase-js</code></pre>
-            </div>
-
-            <p>Создайте файл <code>.env.local</code> и добавьте ключи (из Supabase → Settings → API):</p>
-            <div class="code-block">
-              <div class="code-header">
-                <span class="code-lang">.env.local</span>
-                <button class="code-copy-btn">Копировать</button>
-              </div>
-              <pre><code>NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGc...</code></pre>
-            </div>
-
-            <h4>Шаг 3. Промпт для AI — обновляем API endpoint</h4>
-            <div class="code-block">
-              <div class="code-header">
-                <span class="code-lang">Prompt</span>
-                <button class="code-copy-btn">Копировать</button>
-              </div>
-              <pre><code>Обнови файл src/app/api/generate/route.ts: после генерации
-сохраняй каждый вариант поста в Supabase таблицу posts
-(используй SUPABASE_SERVICE_ROLE_KEY для server-side).
-Поле user_email временно пиши "test@example.com".</code></pre>
-            </div>
-
-            <p>Отправьте запрос ещё раз через curl, потом откройте Supabase Table Editor → таблица <code>posts</code> → <strong>увидите 3 строки</strong>. Поздравляю — вы только что построили полный путь:</p>
-
-            <p style="text-align: center; font-size: 1.2em; margin: 1rem 0;"><strong>Frontend → Backend → Database</strong></p>
-          </div>
-        </section>
-
-        <!-- Section 7: PRACTICE 5 - Deploy -->
-        <section class="card" style="border-left: 4px solid #10b981;">
-          <div class="card-header">🛠 ПРАКТИКА 5 — Деплой за 2 минуты (5 мин)</div>
-          <div class="card-body">
-            <p><strong>Что делаем:</strong> ваш проект становится доступен по реальной ссылке.</p>
-
-            <h4>Шаг 1. Запушьте код в GitHub</h4>
-            <div class="code-block">
-              <div class="code-header">
-                <span class="code-lang">Terminal</span>
-                <button class="code-copy-btn">Копировать</button>
-              </div>
-              <pre><code>git init
-git add .
-git commit -m "feat: initial ContentBot setup"
-gh repo create contentbot --public --source=. --push</code></pre>
-            </div>
-
-            <h4>Шаг 2. Импортируйте проект в Vercel</h4>
-            <ol>
-              <li>Откройте <a href="https://vercel.com/new" target="_blank">vercel.com/new</a></li>
-              <li>Import → выберите репозиторий <code>contentbot</code></li>
-              <li>В Environment Variables вставьте те же ключи, что в <code>.env.local</code></li>
-              <li>Deploy</li>
-            </ol>
-
-            <p>Через ~2 минуты у вас будет URL вида <code>https://contentbot-xyz.vercel.app</code>.</p>
 
             <div class="alert alert-info">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -524,58 +591,9 @@ gh repo create contentbot --public --source=. --push</code></pre>
                 <path d="M12 8h.01"/>
               </svg>
               <div>
-                <strong>Это и есть Deployment.</strong> Каждый <code>git push</code> в main → Vercel автоматически собирает и деплоит. Вам не нужно знать про CI/CD, Docker, серверы — Vercel это делает за вас.
+                <strong>Принцип vibecoding:</strong> «Делай как все. Когда заработает — оптимизируй».
               </div>
             </div>
-          </div>
-        </section>
-
-        <!-- Section 8: What you've built -->
-        <section class="card">
-          <div class="card-header">3. Что вы только что построили</div>
-          <div class="card-body">
-            <p>За 30 минут практики вы прошли всю архитектуру современного веб-приложения:</p>
-
-            <div class="table-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Что вы сделали</th>
-                    <th>Какой это слой</th>
-                    <th>Технология</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Открыли <code>localhost:3000</code></td>
-                    <td>🖥️ Frontend</td>
-                    <td>Next.js + React</td>
-                  </tr>
-                  <tr>
-                    <td>Создали <code>/api/generate</code></td>
-                    <td>⚙️ Backend</td>
-                    <td>Next.js API Routes</td>
-                  </tr>
-                  <tr>
-                    <td>Создали таблицу <code>posts</code></td>
-                    <td>🗄️ Database</td>
-                    <td>Supabase / PostgreSQL</td>
-                  </tr>
-                  <tr>
-                    <td>Сделали <code>fetch('/api/generate')</code></td>
-                    <td>🔄 Communication</td>
-                    <td>HTTP REST</td>
-                  </tr>
-                  <tr>
-                    <td>Запушили в GitHub → Vercel</td>
-                    <td>🚀 Deployment</td>
-                    <td>Vercel + GitHub</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <p><strong>Запомните:</strong> архитектура — это не теория. Это <em>файлы и команды, которые вы только что выполнили</em>. Когда вы вернётесь к этому уроку через месяц, вы будете удивляться, насколько раньше всё казалось сложным.</p>
           </div>
         </section>
 
@@ -593,26 +611,27 @@ gh repo create contentbot --public --source=. --push</code></pre>
           </div>
 
           <div class="quiz-question">
-            Вы создали файл <code>src/app/api/generate/route.ts</code> с функцией POST,
-            которая принимает запрос и возвращает JSON. К какому слою архитектуры он относится?
+            Юзер кликает «Сгенерировать пост» в ContentBot.
+            Запрос идёт в OpenAI и возвращается результат.
+            Какой компонент архитектуры между фронтендом и OpenAI?
           </div>
 
           <div class="quiz-options">
             <div class="quiz-option" data-correct="false">
               <span class="quiz-option-marker"></span>
-              <span>Frontend — потому что это файл в src/</span>
+              <span>Никакой — браузер сам обращается к OpenAI</span>
             </div>
             <div class="quiz-option" data-correct="true">
               <span class="quiz-option-marker"></span>
-              <span>Backend — это API endpoint, обрабатывает запрос на сервере</span>
+              <span>Backend (API endpoint) — он скрывает API-ключ и проверяет квоту</span>
             </div>
             <div class="quiz-option" data-correct="false">
               <span class="quiz-option-marker"></span>
-              <span>Database — потому что мы сохраняем данные</span>
+              <span>Database — она пересылает запрос в OpenAI</span>
             </div>
             <div class="quiz-option" data-correct="false">
               <span class="quiz-option-marker"></span>
-              <span>CDN — потому что Vercel</span>
+              <span>Clerk — он проксирует все запросы</span>
             </div>
           </div>
 
@@ -629,19 +648,15 @@ gh repo create contentbot --public --source=. --push</code></pre>
 
         <!-- Homework -->
         <section class="card" style="border-left: 4px solid #f59e0b;">
-          <div class="card-header">📚 Домашка (15 минут)</div>
+          <div class="card-header">📚 Домашка</div>
           <div class="card-body">
-            <h4>Задание: примените архитектуру к СВОЕМУ проекту</h4>
-            <p>Возьмите идею <strong>своего</strong> приложения (даже простую: список дел, заметки, дневник тренировок) и пройдите тот же путь:</p>
-
+            <h4>Принесите на следующий урок:</h4>
             <ol>
-              <li>Откройте Cursor / Claude Code</li>
-              <li>Используйте <strong>Промпт-шаблон №1</strong> из этого урока (замените описание идеи)</li>
-              <li>Создайте Next.js проект — <code>npx create-next-app</code></li>
-              <li>Добавьте 1 API endpoint, релевантный вашей идее</li>
-              <li>Создайте 1 таблицу в Supabase</li>
-              <li>Задеплойте в Vercel</li>
-              <li>Пришлите ссылку в чат потока</li>
+              <li>Описание идеи своего проекта (1 абзац по шаблону из практики)</li>
+              <li>Архитектурную диаграмму (бумага / Excalidraw / Figma — любой формат)</li>
+              <li>Список API endpoints (3-5 штук с одной строкой описания)</li>
+              <li>Список таблиц в БД (2-4 таблицы с ключевыми полями)</li>
+              <li>3 риска, которые AI назвал в своём ответе — обдумайте, как их закрывать</li>
             </ol>
 
             <div class="alert alert-info">
@@ -651,7 +666,7 @@ gh repo create contentbot --public --source=. --push</code></pre>
                 <path d="M12 8h.01"/>
               </svg>
               <div>
-                <strong>Цель:</strong> чтобы у вас был <em>работающий URL</em>, который можно показать другу. Не идеальный, не красивый — просто работающий. Полировку оставим на следующие модули.
+                <strong>Это ваш план на оставшийся курс.</strong> В каждом следующем модуле (5, 6, 7, 8, 9, 10) мы будем строить часть этой архитектуры. К Модулю 14 — ваш проект будет работать.
               </div>
             </div>
           </div>
