@@ -65,21 +65,22 @@
             <span class="lesson-number">Урок 4.3</span>
             <span class="lesson-duration">⏱ 45 минут</span>
           </div>
-          <h1 class="lesson-title">Технологии фронтенда: React и Next.js</h1>
+          <h1 class="lesson-title">JavaScript, TypeScript и React — что это и зачем</h1>
           <div class="lesson-objectives">
-            <h4>Цели урока:</h4>
+            <h4>В этом уроке:</h4>
             <ul>
-              <li>Понять, что такое React и зачем он нужен</li>
-              <li>Узнать ключевые термины для работы с AI</li>
-              <li>Научиться "читать" код, а не писать его</li>
+              <li>🧱 Поймём, из чего сделана «лицевая сторона» сайтов</li>
+              <li>📚 Разберём 3 главных слова: <strong>JavaScript</strong>, <strong>TypeScript</strong>, <strong>React</strong></li>
+              <li>🎯 Научимся понимать, о чём говорит AI, когда генерирует код</li>
+              <li>💬 НЕ будем учиться программировать — это не нужно</li>
             </ul>
           </div>
         </div>
 
-        <div class="alert alert-info">
-          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <div class="alert alert-success">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
           <div>
-            <strong>Философия вайбкодинга:</strong> Вам не нужно учиться программировать. AI напишет код за вас. Ваша задача — понимать концепции и правильно формулировать запросы.
+            <strong>Главное правило vibecoding:</strong> вам НЕ нужно учить программирование. AI напишет код. Вам достаточно понимать, ИЗ ЧЕГО состоит сайт и КАК с этим разговаривать.
           </div>
         </div>
 
@@ -89,234 +90,292 @@
             Заметка для преподавателя
           </div>
           <div class="teacher-note-content">
-            <p><strong>Ключевой посыл:</strong> Студенты не будут писать код — они будут направлять AI. Фокус на терминологии и концептуальном понимании.</p>
-            <p><strong>Аналогии:</strong> Используйте сравнение с LEGO, конструктором, строительными блоками.</p>
+            <p><strong>Важно:</strong> студенты часто пугаются «теперь мне надо учить JavaScript». Сразу опровергайте — нам нужно ПОНИМАНИЕ, не написание кода.</p>
+            <p><strong>Аналогия:</strong> чтобы заказать ремонт — не надо уметь штукатурить. Достаточно знать названия материалов, чтобы объяснить мастеру, что вы хотите.</p>
           </div>
         </div>
 
-        <!-- Section 1: Why -->
+        <!-- Section 1: Why even bother -->
         <section class="card">
-          <div class="card-header">1. Зачем знать о технологиях?</div>
+          <div class="card-header">1. Зачем мне знать про JavaScript, если я не программист?</div>
           <div class="card-body">
-            <p>Когда вы работаете с AI (Claude, ChatGPT, Cursor), вам нужно говорить на одном языке:</p>
+            <p>Когда вы попросите AI: «сделай красивую кнопку», он спросит уточнения или сам решит — какой технологией это написать. Если вы знаете базовые слова, ваши промпты будут точнее, а результат — лучше.</p>
 
+            <h4>Сравните два промпта</h4>
             <div class="service-cards">
               <div class="service-card">
-                <div class="service-card-icon">❌</div>
-                <h4 class="service-card-title">Плохой промпт</h4>
-                <p class="service-card-desc">"Сделай кнопку, которая что-то делает при нажатии"</p>
+                <div class="service-card-icon">😕</div>
+                <h4 class="service-card-title">Слишком общо</h4>
+                <p class="service-card-desc">«Сделай кнопку, которая что-то делает при нажатии»</p>
+                <p class="service-card-desc" style="font-size: 0.85rem; margin-top: 0.5rem; color: #94a3b8;">AI спросит уточнения — что значит «что-то»? куда вставить? какую кнопку?</p>
               </div>
               <div class="service-card">
-                <div class="service-card-icon">✅</div>
-                <h4 class="service-card-title">Хороший промпт</h4>
-                <p class="service-card-desc">"Создай React компонент Button с onClick handler, который вызывает API endpoint /api/subscribe"</p>
-              </div>
-            </div>
-
-            <p>Чем лучше вы понимаете термины, тем точнее AI понимает вас.</p>
-          </div>
-        </section>
-
-        <!-- Section 2: JavaScript & TypeScript -->
-        <section class="card">
-          <div class="card-header">2. JavaScript и TypeScript — что это?</div>
-          <div class="card-body">
-
-            <div class="architecture-diagram">
-              <div class="arch-layer" style="background: rgba(245, 158, 11, 0.1); border: 2px solid #F59E0B;">
-                <div class="arch-layer-title">JavaScript</div>
-                <p style="font-size: 0.9rem; margin: 0.5rem 0 0;">Язык программирования, который работает в браузере. Делает сайты интерактивными.</p>
-              </div>
-
-              <div class="arch-layer" style="background: rgba(59, 130, 246, 0.1); border: 2px solid #3B82F6;">
-                <div class="arch-layer-title">TypeScript</div>
-                <p style="font-size: 0.9rem; margin: 0.5rem 0 0;">JavaScript + проверка ошибок. Находит баги до запуска программы.</p>
-              </div>
-            </div>
-
-            <div class="alert alert-success">
-              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
-              <div>
-                <strong>Что нужно знать:</strong> TypeScript — это "улучшенный JavaScript". Когда AI генерирует код, он обычно использует TypeScript, потому что так меньше ошибок. Файлы имеют расширение <code>.ts</code> или <code>.tsx</code>.
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Section 3: React -->
-        <section class="card">
-          <div class="card-header">3. React — приложение из блоков</div>
-          <div class="card-body">
-
-            <h3>React = LEGO для веб-сайтов</h3>
-            <p>Представьте, что вы строите дом из LEGO. Каждый блок — это <strong>компонент</strong>.</p>
-
-            <div class="architecture-diagram">
-              <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0;">
-                <div style="background: #E0F2FE; border: 2px solid #0EA5E9; border-radius: 8px; padding: 1rem; text-align: center; min-width: 120px;">
-                  <div style="font-size: 2rem;">🏠</div>
-                  <div style="font-weight: 600;">Header</div>
-                  <div style="font-size: 0.75rem; color: #666;">Шапка сайта</div>
-                </div>
-                <div style="background: #DCFCE7; border: 2px solid #22C55E; border-radius: 8px; padding: 1rem; text-align: center; min-width: 120px;">
-                  <div style="font-size: 2rem;">📝</div>
-                  <div style="font-weight: 600;">Form</div>
-                  <div style="font-size: 0.75rem; color: #666;">Форма ввода</div>
-                </div>
-                <div style="background: #FEF3C7; border: 2px solid #F59E0B; border-radius: 8px; padding: 1rem; text-align: center; min-width: 120px;">
-                  <div style="font-size: 2rem;">🔘</div>
-                  <div style="font-weight: 600;">Button</div>
-                  <div style="font-size: 0.75rem; color: #666;">Кнопка</div>
-                </div>
-                <div style="background: #F3E8FF; border: 2px solid #A855F7; border-radius: 8px; padding: 1rem; text-align: center; min-width: 120px;">
-                  <div style="font-size: 2rem;">🃏</div>
-                  <div style="font-weight: 600;">Card</div>
-                  <div style="font-size: 0.75rem; color: #666;">Карточка</div>
-                </div>
-              </div>
-
-              <p style="text-align: center; margin-top: 1rem;">↓ Собираем вместе ↓</p>
-
-              <div style="background: #F8FAFC; border: 2px solid #CBD5E1; border-radius: 12px; padding: 1.5rem; margin-top: 1rem;">
-                <div style="text-align: center; font-size: 2.5rem;">🖥️</div>
-                <div style="text-align: center; font-weight: 600; font-size: 1.25rem;">Готовая страница</div>
-              </div>
-            </div>
-
-            <h4>Почему это важно?</h4>
-            <p>Когда вы просите AI: "Добавь карточку товара" — он понимает, что нужно создать <strong>компонент Card</strong> и вставить его в нужное место.</p>
-          </div>
-        </section>
-
-        <!-- Section 4: Next.js -->
-        <section class="card">
-          <div class="card-header">4. Next.js — фреймворк "всё в одном"</div>
-          <div class="card-body">
-
-            <p><strong>Next.js</strong> — это React + дополнительные возможности:</p>
-
-            <div class="service-cards">
-              <div class="service-card">
-                <div class="service-card-icon">📁</div>
-                <h4 class="service-card-title">Страницы = файлы</h4>
-                <p class="service-card-desc">Файл <code>app/about/page.tsx</code> = страница /about</p>
-              </div>
-              <div class="service-card">
-                <div class="service-card-icon">⚡</div>
-                <h4 class="service-card-title">API внутри</h4>
-                <p class="service-card-desc">Backend и frontend в одном проекте</p>
-              </div>
-              <div class="service-card">
-                <div class="service-card-icon">🚀</div>
-                <h4 class="service-card-title">Быстрая загрузка</h4>
-                <p class="service-card-desc">Оптимизация из коробки</p>
-              </div>
-              <div class="service-card">
-                <div class="service-card-icon">🔍</div>
-                <h4 class="service-card-title">SEO</h4>
-                <p class="service-card-desc">Поисковики видят контент</p>
+                <div class="service-card-icon">😎</div>
+                <h4 class="service-card-title">Конкретно</h4>
+                <p class="service-card-desc">«Сделай на главной странице кнопку «Подписаться». При клике она должна отправлять данные на сервер и показывать сообщение «Спасибо!»»</p>
+                <p class="service-card-desc" style="font-size: 0.85rem; margin-top: 0.5rem; color: #94a3b8;">AI сразу поймёт, что делать. И никаких «технических» слов не нужно.</p>
               </div>
             </div>
 
             <div class="alert alert-info">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
               <div>
-                <strong>Для промптов:</strong> Говорите "Next.js проект с App Router" — AI будет генерировать современный код.
+                <strong>Вывод:</strong> главное — не «выучить термины», а уметь чётко формулировать, что хотите. Термины — приятный бонус, но они не обязательны.
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Section 5: Terminology -->
+        <!-- Section 2: JavaScript -->
         <section class="card">
-          <div class="card-header">5. Словарь терминов для AI</div>
+          <div class="card-header">2. JavaScript — «движок» интерактивности на сайтах</div>
           <div class="card-body">
-            <p>Эти термины помогут точнее формулировать запросы:</p>
+            <p>HTML — это «скелет» страницы (заголовки, кнопки, картинки). CSS — это «одежда» (цвета, шрифты, отступы). Но они оба статичны.</p>
 
-            <div class="table-container">
-              <table>
-                <thead><tr><th>Термин</th><th>Что это</th><th>Пример промпта</th></tr></thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Component</strong></td>
-                    <td>Независимый блок интерфейса</td>
-                    <td>"Создай компонент ProductCard"</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Props</strong></td>
-                    <td>Данные, которые передаются в компонент</td>
-                    <td>"Компонент должен принимать props: title, price, image"</td>
-                  </tr>
-                  <tr>
-                    <td><strong>State</strong></td>
-                    <td>Данные, которые могут меняться</td>
-                    <td>"Добавь state для счётчика"</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Hook</strong></td>
-                    <td>Специальная функция React</td>
-                    <td>"Используй useState для формы"</td>
-                  </tr>
-                  <tr>
-                    <td><strong>API Route</strong></td>
-                    <td>Серверный endpoint</td>
-                    <td>"Создай API route /api/users"</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Server Component</strong></td>
-                    <td>Компонент, работающий на сервере</td>
-                    <td>"Это должен быть server component для SEO"</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Client Component</strong></td>
-                    <td>Компонент с интерактивностью</td>
-                    <td>"Сделай client component с кнопкой"</td>
-                  </tr>
-                </tbody>
-              </table>
+            <p><strong>JavaScript</strong> — это то, что делает сайт «живым»:</p>
+            <ul>
+              <li>Кнопка реагирует на нажатие</li>
+              <li>Форма проверяет, правильно ли вы ввели email</li>
+              <li>Лента в Instagram подгружает новые посты, когда вы листаете вниз</li>
+              <li>Часы на странице тикают и показывают точное время</li>
+            </ul>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <div>
+                <strong>Аналогия:</strong> сайт без JavaScript — это бумажная страница из журнала (красиво, но не реагирует). Сайт с JavaScript — это планшет (можно тыкать, меняется в ответ).
+              </div>
             </div>
+
+            <p>JavaScript — самый популярный язык программирования в мире. Запускается прямо в вашем браузере (Chrome, Safari, Firefox). Поэтому, когда AI пишет код для веб-сайта — почти всегда это JavaScript или его «улучшенная версия» TypeScript (см. ниже).</p>
           </div>
         </section>
 
-        <!-- Section 6: Reading Code -->
+        <!-- Section 3: TypeScript -->
         <section class="card">
-          <div class="card-header">6. Как "читать" код (не писать!)</div>
+          <div class="card-header">3. TypeScript — JavaScript с проверкой ошибок</div>
           <div class="card-body">
-            <p>Вам не нужно писать код, но полезно понимать его структуру:</p>
+            <p><strong>TypeScript</strong> — это тот же JavaScript, но с дополнительной «страховкой». Он проверяет, чтобы программист не наделал глупых ошибок.</p>
 
-            <div class="code-block">
-              <div class="code-header"><span class="code-lang">Пример компонента</span><button class="code-copy-btn">Копировать</button></div>
-              <pre><code>function ProductCard({ title, price, image }) {  // ← Props
-  const [inCart, setInCart] = useState(false);   // ← State
+            <h4>На примере с числом</h4>
+            <p>Допустим, в приложении хранится возраст пользователя.</p>
 
-  return (
-    <div className="card">              {/* ← HTML-подобная разметка */}
-      <img src={image} alt={title} />
-      <h3>{title}</h3>                  {/* ← Вывод данных */}
-      <p>${price}</p>
-      <button onClick={() => setInCart(true)}>  {/* ← Обработчик клика */}
-        {inCart ? 'В корзине' : 'Купить'}
-      </button>
-    </div>
-  );
-}</code></pre>
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">😱</div>
+                <h4 class="service-card-title">Просто JavaScript</h4>
+                <p class="service-card-desc">Можно случайно записать в поле «возраст» текст «двадцать пять» вместо числа 25. Программа сломается только когда юзер откроет сайт.</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🛡️</div>
+                <h4 class="service-card-title">TypeScript</h4>
+                <p class="service-card-desc">Заранее предупредит: «эй, ты в поле для числа пытаешься записать текст». Ошибка ловится до того, как сайт увидят люди.</p>
+              </div>
             </div>
-
-            <h4>На что обращать внимание:</h4>
-            <ul>
-              <li><strong>function Name()</strong> — название компонента</li>
-              <li><strong>{ title, price }</strong> — какие данные принимает</li>
-              <li><strong>useState</strong> — что может меняться</li>
-              <li><strong>onClick</strong> — что происходит при клике</li>
-              <li><strong>return (...)</strong> — что отображается</li>
-            </ul>
 
             <div class="alert alert-success">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
               <div>
-                <strong>Совет:</strong> Когда AI генерирует код, пробегитесь глазами по этим ключевым местам. Если что-то не так — попросите исправить.
+                <strong>Что это для вас:</strong> когда AI генерирует код, он пишет TypeScript. Файлы заканчиваются на <code>.ts</code> или <code>.tsx</code>. Вам это знать ВАЖНО только потому, что в Cursor / VS Code вы будете видеть эти расширения.
               </div>
             </div>
+          </div>
+        </section>
+
+        <!-- Section 4: React -->
+        <section class="card">
+          <div class="card-header">4. React — сайты из «LEGO-блоков»</div>
+          <div class="card-body">
+            <p><strong>React</strong> — самый популярный способ строить интерфейсы сайтов. Идея проста: разбираем сайт на <strong>блоки</strong> и собираем из них страницы.</p>
+
+            <h4>Пример: страница интернет-магазина</h4>
+            <p>Если посмотреть на любую страницу товара — она состоит из повторяющихся «блоков»:</p>
+
+            <div class="architecture-diagram">
+              <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0;">
+                <div style="background: #E0F2FE; border: 2px solid #0EA5E9; border-radius: 8px; padding: 1rem; text-align: center; min-width: 130px;">
+                  <div style="font-size: 2rem;">🏠</div>
+                  <div style="font-weight: 600;">Шапка</div>
+                  <div style="font-size: 0.75rem; color: #666;">логотип, меню</div>
+                </div>
+                <div style="background: #DCFCE7; border: 2px solid #22C55E; border-radius: 8px; padding: 1rem; text-align: center; min-width: 130px;">
+                  <div style="font-size: 2rem;">📷</div>
+                  <div style="font-weight: 600;">Галерея</div>
+                  <div style="font-size: 0.75rem; color: #666;">фото товара</div>
+                </div>
+                <div style="background: #FEF3C7; border: 2px solid #F59E0B; border-radius: 8px; padding: 1rem; text-align: center; min-width: 130px;">
+                  <div style="font-size: 2rem;">📝</div>
+                  <div style="font-weight: 600;">Описание</div>
+                  <div style="font-size: 0.75rem; color: #666;">название, цена</div>
+                </div>
+                <div style="background: #F3E8FF; border: 2px solid #A855F7; border-radius: 8px; padding: 1rem; text-align: center; min-width: 130px;">
+                  <div style="font-size: 2rem;">🛒</div>
+                  <div style="font-weight: 600;">Кнопка</div>
+                  <div style="font-size: 0.75rem; color: #666;">«В корзину»</div>
+                </div>
+                <div style="background: #FEE2E2; border: 2px solid #EF4444; border-radius: 8px; padding: 1rem; text-align: center; min-width: 130px;">
+                  <div style="font-size: 2rem;">⭐</div>
+                  <div style="font-weight: 600;">Отзывы</div>
+                  <div style="font-size: 0.75rem; color: #666;">список</div>
+                </div>
+                <div style="background: #E5E7EB; border: 2px solid #64748B; border-radius: 8px; padding: 1rem; text-align: center; min-width: 130px;">
+                  <div style="font-size: 2rem;">🦶</div>
+                  <div style="font-weight: 600;">Подвал</div>
+                  <div style="font-size: 0.75rem; color: #666;">контакты</div>
+                </div>
+              </div>
+
+              <p style="text-align: center; margin: 1rem 0; font-weight: 600;">↓ Складываем вместе ↓</p>
+
+              <div style="background: #F8FAFC; border: 2px dashed #CBD5E1; border-radius: 12px; padding: 1.5rem; margin-top: 1rem;">
+                <div style="text-align: center; font-size: 2.5rem;">🖥️</div>
+                <div style="text-align: center; font-weight: 600; font-size: 1.25rem;">Готовая страница товара</div>
+              </div>
+            </div>
+
+            <h4>Каждый блок — это «компонент»</h4>
+            <p>Разработчики (и AI) называют такие блоки <strong>компонентами</strong>. У каждого есть имя — Header (шапка), Gallery (галерея), Button (кнопка), Footer (подвал).</p>
+
+            <h4>Зачем такое разделение?</h4>
+            <ul>
+              <li><strong>Переиспользование</strong> — одну и ту же кнопку «В корзину» используем на десятке страниц</li>
+              <li><strong>Легко менять</strong> — поправили в одном месте, обновилось везде</li>
+              <li><strong>Понятно AI</strong> — когда вы говорите «добавь карточку товара», AI знает, что нужен компонент Card</li>
+            </ul>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <div>
+                <strong>Аналогия:</strong> React — это LEGO. Сначала вы делаете отдельные кубики (компоненты), потом собираете из них дом (страницу), потом улицу (сайт).
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: Next.js -->
+        <section class="card">
+          <div class="card-header">5. Next.js — «React + всё что нужно для настоящего сайта»</div>
+          <div class="card-body">
+            <p>React — отличный, но «голый». Чтобы сделать настоящий сайт, к нему нужно ещё много чего: страницы, переходы между ними, SEO для Google, загрузка картинок и т.д. Каждый раз настраивать это вручную — мучение.</p>
+
+            <p><strong>Next.js</strong> — это «коробка», в которой React уже идёт со всем нужным. Самый популярный выбор в 2026 году.</p>
+
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">📁</div>
+                <h4 class="service-card-title">Страницы из файлов</h4>
+                <p class="service-card-desc">Создал файл <code>about</code> — появилась страница <code>/about</code>. Никакой настройки.</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">⚡</div>
+                <h4 class="service-card-title">Быстрая загрузка</h4>
+                <p class="service-card-desc">Next.js сам оптимизирует сайт, чтобы он открывался за доли секунды.</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🔍</div>
+                <h4 class="service-card-title">Хорошо для Google</h4>
+                <p class="service-card-desc">Поисковики видят и индексируют контент. SEO работает «из коробки».</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🌐</div>
+                <h4 class="service-card-title">Backend в комплекте</h4>
+                <p class="service-card-desc">В одном проекте и сайт, и серверная логика. Не нужно настраивать отдельно.</p>
+              </div>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+              <div>
+                <strong>Что это для вас:</strong> когда в курсе будут говорить про «фреймворк» — почти всегда речь о Next.js. AI любит этот стек: 90% всех современных туториалов и примеров — на Next.js.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 6: Tailwind & shadcn -->
+        <section class="card">
+          <div class="card-header">6. Tailwind CSS и shadcn/ui — «как сделать красиво»</div>
+          <div class="card-body">
+            <p>Раньше дизайнеры писали стили (цвета, отступы, шрифты) сложными правилами. Сейчас мы используем 2 инструмента, которые экономят кучу времени:</p>
+
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">🎨</div>
+                <h4 class="service-card-title">Tailwind CSS</h4>
+                <p class="service-card-desc">Набор «готовых стилей» — пишете <code>bg-blue-500</code> и получаете синий фон. Все настройки делаются прямо рядом с элементом, без отдельных файлов стилей.</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🧰</div>
+                <h4 class="service-card-title">shadcn/ui</h4>
+                <p class="service-card-desc">Готовые красивые компоненты: кнопки, формы, диалоги, карточки. Просто берёте и используете — выглядит профессионально с первой минуты.</p>
+              </div>
+            </div>
+
+            <p style="margin-top: 1rem;"><strong>Зачем вам это знать:</strong> просто чтобы не пугаться, когда AI напишет в коде <code>className="bg-blue-500 px-4 py-2 rounded-lg"</code>. Это просто «синий фон, отступы, скруглённые углы» на языке Tailwind.</p>
+          </div>
+        </section>
+
+        <!-- Section 7: Glossary -->
+        <section class="card">
+          <div class="card-header">7. Если встретите эти слова (не обязательно учить)</div>
+          <div class="card-body">
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <div>
+                <strong>Эта табличка нужна, чтобы:</strong> когда AI или Cursor напишут эти слова, вы не пугались, а кивали «а, понятно». Запоминать не надо.
+              </div>
+            </div>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Слово</th>
+                    <th>Что это простыми словами</th>
+                    <th>Бытовая аналогия</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>Component</code> / Компонент</td>
+                    <td>Один блок страницы (кнопка, карточка, форма)</td>
+                    <td>LEGO-кубик</td>
+                  </tr>
+                  <tr>
+                    <td><code>Props</code></td>
+                    <td>Данные, которые передают в компонент. Например, в карточку товара передают название и цену</td>
+                    <td>Бирка с информацией на коробке</td>
+                  </tr>
+                  <tr>
+                    <td><code>State</code> / Состояние</td>
+                    <td>Данные, которые меняются. Например, «лайкнуто или нет», «в корзине или нет»</td>
+                    <td>Текущий статус («открыто/закрыто»)</td>
+                  </tr>
+                  <tr>
+                    <td><code>Hook</code> / Хук</td>
+                    <td>Специальная функция React. Вам не нужно знать, как они устроены — AI разберётся сам</td>
+                    <td>Кнопка «Получить»</td>
+                  </tr>
+                  <tr>
+                    <td><code>JSX</code> / <code>.tsx</code></td>
+                    <td>Способ записи интерфейса в коде. Файл с разметкой страницы</td>
+                    <td>Чертёж комнаты</td>
+                  </tr>
+                  <tr>
+                    <td>Server Component</td>
+                    <td>Блок, который рисуется на сервере (быстрее, лучше для SEO)</td>
+                    <td>Бумажный плакат — готовый, не меняется</td>
+                  </tr>
+                  <tr>
+                    <td>Client Component</td>
+                    <td>Блок, который умеет реагировать на действия юзера</td>
+                    <td>Кнопка домофона — реагирует на нажатие</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p style="margin-top: 1rem; color: #64748b;">💡 Через несколько модулей эти слова станут привычными — потому что вы будете их часто видеть в работе. Запоминать прямо сейчас не надо.</p>
           </div>
         </section>
 
@@ -326,12 +385,12 @@
             <div class="quiz-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
             <h3 class="quiz-title">Проверьте себя</h3>
           </div>
-          <div class="quiz-question">Что такое "компонент" в React?</div>
+          <div class="quiz-question">Зачем вам, не программисту, знать слово «компонент»?</div>
           <div class="quiz-options">
-            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>База данных</span></div>
-            <div class="quiz-option" data-correct="true"><span class="quiz-option-marker"></span><span>Независимый блок интерфейса (как LEGO-деталь)</span></div>
-            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Серверный код</span></div>
-            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Файл стилей</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Чтобы сдать экзамен на программиста</span></div>
+            <div class="quiz-option" data-correct="true"><span class="quiz-option-marker"></span><span>Чтобы точнее объяснять AI, что нужно сделать (например, «добавь компонент карточки товара»)</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Чтобы самому писать React-код с нуля</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Без этого слова сайт не работает</span></div>
           </div>
           <div class="quiz-feedback"><div class="quiz-feedback-text"></div></div>
           <div class="quiz-actions">
@@ -346,12 +405,20 @@
           <div class="card-header" style="background: rgba(16, 185, 129, 0.1);">Главное из урока</div>
           <div class="card-body">
             <ul>
-              <li><strong>React</strong> — приложение собирается из компонентов (как LEGO)</li>
-              <li><strong>Next.js</strong> — фреймворк, который объединяет frontend и backend</li>
-              <li><strong>TypeScript</strong> — JavaScript с проверкой ошибок</li>
-              <li>Знание терминов помогает точнее общаться с AI</li>
-              <li>Вам не нужно писать код — нужно понимать его структуру</li>
+              <li><strong>JavaScript</strong> — то, что делает сайт «живым» (реакции на клики, обновления без перезагрузки)</li>
+              <li><strong>TypeScript</strong> — JavaScript с защитой от ошибок. AI почти всегда пишет именно его</li>
+              <li><strong>React</strong> — сайт собирается из блоков-компонентов, как LEGO</li>
+              <li><strong>Next.js</strong> — «React + всё включено». Самый популярный выбор в 2026</li>
+              <li><strong>Tailwind + shadcn/ui</strong> — делают сайт красивым без долгого кодирования</li>
+              <li><strong>Главное:</strong> вам НЕ нужно писать код. Достаточно понимать, ИЗ ЧЕГО состоит сайт, чтобы точно объяснять AI задачи</li>
             </ul>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+              <div>
+                <strong>Контрольный вопрос:</strong> можете ли вы объяснить другу за минуту, что такое «компонент» в React, не используя технических слов? Если да — урок усвоен.
+              </div>
+            </div>
           </div>
         </section>
 

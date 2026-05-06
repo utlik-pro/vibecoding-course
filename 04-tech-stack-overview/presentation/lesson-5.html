@@ -63,15 +63,16 @@
         <div class="lesson-header">
           <div class="lesson-meta">
             <span class="lesson-number">Урок 4.5</span>
-            <span class="lesson-duration">⏱ 1 час</span>
+            <span class="lesson-duration">⏱ 30 минут</span>
           </div>
-          <h1 class="lesson-title">Облачные платформы и сервисы</h1>
+          <h1 class="lesson-title">Облачные платформы — где «живут» сайты в интернете</h1>
           <div class="lesson-objectives">
-            <h4>Цели урока:</h4>
+            <h4>В этом уроке:</h4>
             <ul>
-              <li>Понять принципы облачной разработки</li>
-              <li>Изучить возможности Vercel и Supabase</li>
-              <li>Познакомиться с serverless архитектурой</li>
+              <li>☁️ Поймём, что такое «облако» и зачем оно нужно</li>
+              <li>🏨 Разберём 4 типа сервисов через простую аналогию с гостиницами</li>
+              <li>📍 Узнаем, почему мы выбрали Vercel + Supabase</li>
+              <li>💰 Посмотрим, во сколько обходится держать SaaS на 1000 пользователей</li>
             </ul>
           </div>
         </div>
@@ -82,231 +83,252 @@
             Заметка для преподавателя
           </div>
           <div class="teacher-note-content">
-            <p><strong>Демонстрация:</strong> Покажите деплой простого Next.js проекта на Vercel в реальном времени. Push → автоматический билд → сайт онлайн за 1-2 минуты.</p>
+            <p><strong>Аналогия:</strong> сравнение с гостиницами / арендой жилья — самое наглядное. Студенты сразу понимают разницу между IaaS / PaaS / Serverless / BaaS.</p>
+            <p><strong>Не углубляйтесь</strong> в технические детали (cold starts, vendor lock-in). Это обзорный урок.</p>
           </div>
         </div>
 
-        <!-- Section 1 -->
+        <!-- Section 1: What is cloud -->
         <section class="card">
-          <div class="card-header">1. Облачные платформы — обзор</div>
+          <div class="card-header">1. Что такое «облако»? Простыми словами</div>
           <div class="card-body">
-            <p>Облачные платформы позволяют запускать приложения без управления физическими серверами.</p>
+            <p>Слово «облако» пугает звучанием, но идея простая.</p>
 
-            <h4>Уровни облачных сервисов:</h4>
-            <div class="architecture-diagram">
-              <div class="arch-layer" style="background: rgba(239, 68, 68, 0.1); border: 2px solid #EF4444;">
-                <div class="arch-layer-title">🖥️ IaaS — Infrastructure as a Service</div>
-                <div class="arch-layer-items">
-                  <span class="arch-item">AWS EC2</span>
-                  <span class="arch-item">Google Compute</span>
-                  <span class="arch-item">Azure VMs</span>
-                </div>
-                <p style="font-size: 0.8rem; margin-top: 0.5rem;">Виртуальные серверы. Вы управляете всем.</p>
-              </div>
+            <h4>Раньше как было</h4>
+            <p>Чтобы запустить сайт, надо было:</p>
+            <ol>
+              <li>Купить компьютер-сервер (~$1000–5000)</li>
+              <li>Снять помещение с интернетом и кондиционером</li>
+              <li>Самому следить, чтобы он не сломался</li>
+              <li>Настраивать защиту от хакеров</li>
+              <li>Делать резервные копии</li>
+            </ol>
 
-              <div class="arch-layer" style="background: rgba(245, 158, 11, 0.1); border: 2px solid #F59E0B;">
-                <div class="arch-layer-title">⚙️ PaaS — Platform as a Service</div>
-                <div class="arch-layer-items">
-                  <span class="arch-item">Heroku</span>
-                  <span class="arch-item">Railway</span>
-                  <span class="arch-item">Render</span>
-                </div>
-                <p style="font-size: 0.8rem; margin-top: 0.5rem;">Платформа для деплоя. Меньше настройки.</p>
-              </div>
-
-              <div class="arch-layer" style="background: rgba(16, 185, 129, 0.1); border: 2px solid #10B981;">
-                <div class="arch-layer-title">🚀 FaaS / Serverless</div>
-                <div class="arch-layer-items">
-                  <span class="arch-item">Vercel</span>
-                  <span class="arch-item">AWS Lambda</span>
-                  <span class="arch-item">Cloudflare Workers</span>
-                </div>
-                <p style="font-size: 0.8rem; margin-top: 0.5rem;">Функции по запросу. Оплата за выполнение.</p>
-              </div>
-
-              <div class="arch-layer" style="background: rgba(59, 130, 246, 0.1); border: 2px solid #3B82F6;">
-                <div class="arch-layer-title">🗄️ BaaS — Backend as a Service</div>
-                <div class="arch-layer-items">
-                  <span class="arch-item">Supabase</span>
-                  <span class="arch-item">Firebase</span>
-                  <span class="arch-item">Appwrite</span>
-                </div>
-                <p style="font-size: 0.8rem; margin-top: 0.5rem;">Готовый backend: БД, auth, storage.</p>
-              </div>
-            </div>
+            <h4>Сейчас как</h4>
+            <ol>
+              <li>Заходим на сайт типа Vercel</li>
+              <li>Жмём кнопку</li>
+              <li>Через 2 минуты сайт уже работает</li>
+              <li>Бесплатно (для маленьких проектов)</li>
+            </ol>
 
             <div class="alert alert-info">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-              <div><strong>Наш стек:</strong> Vercel (FaaS/Serverless) + Supabase (BaaS) — оптимальная комбинация для быстрой разработки с минимальным DevOps.</div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Section 2: Vercel -->
-        <section class="card">
-          <div class="card-header">2. Vercel — платформа для фронтенда</div>
-          <div class="card-body">
-            <h4>Ключевые возможности:</h4>
-
-            <div class="accordion open-first">
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>🔄 Automatic Deployments</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <p>Каждый push в Git автоматически запускает деплой:</p>
-                    <ul>
-                      <li><strong>Production</strong> — main/master ветка → основной домен</li>
-                      <li><strong>Preview</strong> — любая другая ветка → уникальный URL для тестирования</li>
-                    </ul>
-                    <p>PR получает комментарий с ссылкой на preview deployment.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>🌍 Edge Network</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <p>Контент раздаётся с серверов по всему миру:</p>
-                    <ul>
-                      <li>30+ локаций (включая Европу и Азию)</li>
-                      <li>Автоматическое кэширование статики</li>
-                      <li>Edge Functions — код выполняется ближе к пользователю</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>⚡ Serverless Functions</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <p>API routes в Next.js автоматически становятся serverless functions:</p>
-                    <div class="code-block">
-                      <div class="code-header"><span class="code-lang">TypeScript</span><button class="code-copy-btn">Копировать</button></div>
-                      <pre><code>// app/api/hello/route.ts
-export async function GET() {
-  return Response.json({ message: 'Hello from Vercel!' });
-}
-
-// Автоматически доступно по /api/hello</code></pre>
-                    </div>
-                    <p><strong>Преимущества:</strong> Масштабируется автоматически, оплата только за использование.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>📊 Analytics & Web Vitals</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <ul>
-                      <li><strong>Analytics</strong> — посещаемость, география, устройства</li>
-                      <li><strong>Web Vitals</strong> — Core Web Vitals метрики (LCP, FID, CLS)</li>
-                      <li><strong>Speed Insights</strong> — рекомендации по оптимизации</li>
-                    </ul>
-                  </div>
-                </div>
+              <div>
+                <strong>Облако</strong> — это просто «чужой компьютер, которым вы пользуетесь по подписке». Ваш сайт реально живёт где-то в дата-центре в Германии или США. Но вам не надо думать ни о компьютере, ни о дата-центре.
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Section 3: Supabase -->
+        <!-- Section 2: 4 types via hotel analogy -->
         <section class="card">
-          <div class="card-header">3. Supabase — Backend as a Service</div>
+          <div class="card-header">2. Четыре способа «жить в облаке» — на примере гостиниц</div>
           <div class="card-body">
-            <p><span class="tooltip-trigger" data-term="Supabase">Supabase</span> предоставляет полный backend из коробки:</p>
-
-            <div class="service-cards">
-              <div class="service-card">
-                <div class="service-card-icon">🗄️</div>
-                <h4 class="service-card-title">PostgreSQL</h4>
-                <p class="service-card-desc">Managed база данных с SQL Editor</p>
-              </div>
-              <div class="service-card">
-                <div class="service-card-icon">🔐</div>
-                <h4 class="service-card-title">Authentication</h4>
-                <p class="service-card-desc">Email, OAuth, magic links</p>
-              </div>
-              <div class="service-card">
-                <div class="service-card-icon">📁</div>
-                <h4 class="service-card-title">Storage</h4>
-                <p class="service-card-desc">Хранение файлов, изображений</p>
-              </div>
-              <div class="service-card">
-                <div class="service-card-icon">⚡</div>
-                <h4 class="service-card-title">Realtime</h4>
-                <p class="service-card-desc">Подписка на изменения данных</p>
-              </div>
-              <div class="service-card">
-                <div class="service-card-icon">🔧</div>
-                <h4 class="service-card-title">Edge Functions</h4>
-                <p class="service-card-desc">Серверный код на Deno</p>
-              </div>
-              <div class="service-card">
-                <div class="service-card-icon">🔒</div>
-                <h4 class="service-card-title">Row Level Security</h4>
-                <p class="service-card-desc">Политики доступа к данным</p>
-              </div>
-            </div>
-
-            <h4>Row Level Security (RLS):</h4>
-            <p>Безопасность на уровне базы данных — пользователи видят только свои данные:</p>
-
-            <div class="code-block">
-              <div class="code-header"><span class="code-lang">SQL</span><button class="code-copy-btn">Копировать</button></div>
-              <pre><code>-- Включить RLS для таблицы
-ALTER TABLE posts ENABLE ROW LEVEL SECURITY;
-
--- Политика: пользователь видит только свои посты
-CREATE POLICY "Users can view own posts"
-ON posts FOR SELECT
-USING (auth.uid() = user_id);
-
--- Политика: пользователь может редактировать только свои посты
-CREATE POLICY "Users can update own posts"
-ON posts FOR UPDATE
-USING (auth.uid() = user_id);</code></pre>
-            </div>
-          </div>
-        </section>
-
-        <!-- Section 4: Serverless -->
-        <section class="card">
-          <div class="card-header">4. Serverless архитектура</div>
-          <div class="card-body">
-            <h4>Что такое Serverless?</h4>
-            <p><span class="tooltip-trigger" data-term="Serverless">Serverless</span> — модель, где вы не управляете серверами. Код запускается по запросу.</p>
+            <p>Облачные сервисы делятся на 4 уровня — по тому, сколько работы они делают за вас. Лучше всего понять через аналогию с жильём:</p>
 
             <div class="table-container">
               <table>
-                <thead><tr><th>Преимущества</th><th>Ограничения</th></tr></thead>
+                <thead>
+                  <tr>
+                    <th>Уровень</th>
+                    <th>Бытовая аналогия</th>
+                    <th>Что это в IT</th>
+                    <th>Кто делает работу</th>
+                  </tr>
+                </thead>
                 <tbody>
-                  <tr><td>Автоматическое масштабирование</td><td>Cold starts (задержка при первом запуске)</td></tr>
-                  <tr><td>Оплата за использование</td><td>Ограничение времени выполнения (~30 сек)</td></tr>
-                  <tr><td>Нет DevOps (почти)</td><td>Stateless — нет постоянного состояния</td></tr>
-                  <tr><td>Высокая доступность</td><td>Vendor lock-in</td></tr>
+                  <tr>
+                    <td>🛠️ <strong>1. Аренда «голой» комнаты</strong></td>
+                    <td>Снять пустую квартиру — мебель, посуду, технику покупаете сами</td>
+                    <td>Виртуальный сервер (AWS EC2, DigitalOcean)</td>
+                    <td>В основном вы. Сложно</td>
+                  </tr>
+                  <tr>
+                    <td>🏠 <strong>2. Меблированная квартира</strong></td>
+                    <td>Снять квартиру с мебелью и посудой — заехал и живи</td>
+                    <td>Платформы для деплоя (Heroku, Railway)</td>
+                    <td>50/50</td>
+                  </tr>
+                  <tr style="background: rgba(16, 185, 129, 0.05);">
+                    <td>🏨 <strong>3. Гостиница «всё включено» ✨</strong></td>
+                    <td>Гостиница: ресторан, уборка, бельё — вообще ничего не делаете, только живёте</td>
+                    <td><strong>Vercel</strong> и подобные. Платите за то, что использовали</td>
+                    <td>Сервис почти всё. Просто и быстро</td>
+                  </tr>
+                  <tr style="background: rgba(16, 185, 129, 0.05);">
+                    <td>🍽️ <strong>4. Ресторан с готовой кухней ✨</strong></td>
+                    <td>Не покупаете продукты, не готовите — приходите и едите готовое</td>
+                    <td><strong>Supabase</strong>, Firebase. Готовая база данных, авторизация, файлы</td>
+                    <td>Всё уже сделано. Только используйте</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
 
             <div class="alert alert-success">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
-              <div><strong>Когда использовать:</strong> API endpoints, обработка форм, webhooks, scheduled jobs. Идеально для большинства SaaS приложений.</div>
+              <div>
+                <strong>Наш выбор:</strong> уровни 3 и 4 (Vercel + Supabase). Это значит — мы НЕ занимаемся настройкой серверов, баз данных, защитой, бэкапами. Всё уже сделано за нас. Концентрируемся на бизнес-задаче.
+              </div>
             </div>
+
+            <p style="margin-top: 1rem; color: #64748b; font-size: 0.9rem;">💡 Если встретите словечки <code>IaaS</code>, <code>PaaS</code>, <code>FaaS</code>, <code>BaaS</code> — это «иностранные имена» наших уровней 1, 2, 3, 4. Запоминать не обязательно.</p>
+          </div>
+        </section>
+
+        <!-- Section 3: Vercel deep dive -->
+        <section class="card">
+          <div class="card-header">3. Vercel — где «живёт» ваш сайт</div>
+          <div class="card-body">
+            <p><strong>Vercel</strong> — это «гостиница всё включено» для веб-сайтов. Нажали кнопку — через 2 минуты ваш сайт открывается по реальному адресу.</p>
+
+            <h4>Что Vercel делает для вас</h4>
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">🚀</div>
+                <h4 class="service-card-title">Автоматический запуск</h4>
+                <p class="service-card-desc">Загрузили новую версию кода — Vercel сам собирает, тестирует и обновляет сайт. Через 2 минуты пользователи видят новую версию.</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🌍</div>
+                <h4 class="service-card-title">Серверы по всему миру</h4>
+                <p class="service-card-desc">Vercel держит копии вашего сайта в 30+ городах мира. Кто бы ни открыл ваш сайт — загрузка будет быстрой.</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🔬</div>
+                <h4 class="service-card-title">Тестовые версии</h4>
+                <p class="service-card-desc">Можно сделать «тестовый сайт» с изменениями, не трогая основной. Показал клиенту — одобрил — обновил основной.</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">📊</div>
+                <h4 class="service-card-title">Аналитика</h4>
+                <p class="service-card-desc">Сколько людей пришло, откуда, как быстро открывается сайт. Всё видно в одном дашборде.</p>
+              </div>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <div>
+                <strong>Бесплатно для:</strong> до 100 ГБ трафика, до 100 000 запросов к серверу в месяц. Этого хватит на старт и на первые сотни пользователей. Когда упрётесь — это «хорошая проблема»: значит, у вас есть юзеры.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Supabase deep dive -->
+        <section class="card">
+          <div class="card-header">4. Supabase — «ресторан с готовой кухней» для backend</div>
+          <div class="card-body">
+            <p>Если вы хотите хранить данные пользователей, делать вход в приложение, загружать файлы, получать обновления в реальном времени — обычно для каждого нужно что-то настраивать. <strong>Supabase</strong> даёт всё сразу:</p>
+
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">🗄️</div>
+                <h4 class="service-card-title">База данных</h4>
+                <p class="service-card-desc">Готовая таблица для хранения чего угодно. Интерфейс как Excel, никакой настройки.</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🔐</div>
+                <h4 class="service-card-title">Авторизация</h4>
+                <p class="service-card-desc">Готовый механизм входа: email, Google, Apple. Можно использовать вместо Clerk.</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">📁</div>
+                <h4 class="service-card-title">Хранение файлов</h4>
+                <p class="service-card-desc">Загружают аватары, фотки, документы. Supabase сам хранит и раздаёт.</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">⚡</div>
+                <h4 class="service-card-title">Обновления в реальном времени</h4>
+                <p class="service-card-desc">Кто-то добавил новый пост — он автоматически появляется у всех. Идеально для чатов.</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🔒</div>
+                <h4 class="service-card-title">Безопасность данных</h4>
+                <p class="service-card-desc">Можно настроить — кто чьи данные видит. Например: «юзер видит только свои посты».</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🛠️</div>
+                <h4 class="service-card-title">Удобный дашборд</h4>
+                <p class="service-card-desc">Через визуальный интерфейс можно создавать таблицы, смотреть данные, тестировать запросы.</p>
+              </div>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <div>
+                <strong>Что значит «безопасность данных»:</strong> допустим, в вашем приложении 100 пользователей и у каждого свои посты. Чтобы Маша случайно не увидела посты Васи — нужно правило «каждый видит только свои». В Supabase такое правило настраивается за минуту через интерфейс. Подробнее это будет в Модуле 8.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: Cost calculation -->
+        <section class="card">
+          <div class="card-header">5. Сколько это стоит? Реальная экономика</div>
+          <div class="card-body">
+            <p>Самый частый вопрос — «а сколько денег нужно, чтобы запустить SaaS?». Разберём на примере: SaaS на 1000 активных пользователей в месяц.</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Сервис</th>
+                    <th>Что включено бесплатно</th>
+                    <th>Сколько платим</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Vercel</strong> (хостинг сайта)</td>
+                    <td>100 ГБ трафика, 100 000 запросов</td>
+                    <td>$0</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Supabase</strong> (БД + файлы)</td>
+                    <td>500 МБ БД, 1 ГБ файлов, 2 ГБ трафика</td>
+                    <td>$0</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Clerk</strong> (вход в приложение)</td>
+                    <td>10 000 активных юзеров в месяц</td>
+                    <td>$0</td>
+                  </tr>
+                  <tr>
+                    <td><strong>OpenAI</strong> (AI-генерация)</td>
+                    <td>Нет бесплатного. Платите за каждый запрос</td>
+                    <td>~$0.50–2 на 1000 юзеров</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Stripe</strong> (приём оплат)</td>
+                    <td>Нет фиксированной платы</td>
+                    <td>2.9% + $0.30 с транзакции</td>
+                  </tr>
+                  <tr style="background: rgba(16, 185, 129, 0.1); font-weight: 600;">
+                    <td>ИТОГО на 1000 пользователей</td>
+                    <td></td>
+                    <td>~$1–2 в месяц 🎉</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+              <div>
+                <strong>Сравните:</strong> 10 лет назад на ту же задачу нужно было ~$500/мес (сервер + БД + DevOps). Сегодня — $1–2. Поэтому сейчас и время «соло-предпринимателей»: один человек может сделать SaaS, который раньше требовал команду в 10 человек.
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Когда начнёте платить серьёзно</h4>
+            <p>Бесплатных тарифов хватает, пока юзеров мало. Серьёзные платежи начинаются от:</p>
+            <ul>
+              <li><strong>Vercel Pro</strong> $20/мес — нужен от ~10 000 активных юзеров</li>
+              <li><strong>Supabase Pro</strong> $25/мес — нужен от ~5000 активных юзеров</li>
+              <li><strong>OpenAI</strong> — растёт пропорционально числу AI-запросов</li>
+            </ul>
+            <p>До этих чисел дойдёте, скорее всего, не раньше чем за полгода активного развития. К тому моменту у вас уже будут платящие клиенты — оплатить серверы за их счёт.</p>
           </div>
         </section>
 
@@ -316,18 +338,36 @@ USING (auth.uid() = user_id);</code></pre>
             <div class="quiz-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
             <h3 class="quiz-title">Проверьте себя</h3>
           </div>
-          <div class="quiz-question">К какому типу облачных сервисов относится Supabase?</div>
+          <div class="quiz-question">
+            Друг говорит: «Хочу сделать SaaS, надо купить сервер за $200/мес».
+            Что ему ответить?
+          </div>
           <div class="quiz-options">
-            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>IaaS</span></div>
-            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>PaaS</span></div>
-            <div class="quiz-option" data-correct="true"><span class="quiz-option-marker"></span><span>BaaS</span></div>
-            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>SaaS</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>«Молодец, без сервера никак»</span></div>
+            <div class="quiz-option" data-correct="true"><span class="quiz-option-marker"></span><span>«Не надо. Vercel + Supabase бесплатны для старта. Сервер — это устаревший подход»</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>«Бери лучше за $1000, надёжнее»</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>«Покупай сразу с командой DevOps»</span></div>
           </div>
           <div class="quiz-feedback"><div class="quiz-feedback-text"></div></div>
           <div class="quiz-actions">
             <button class="btn btn-primary quiz-check-btn">Проверить</button>
             <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
             <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
+          </div>
+        </section>
+
+        <!-- Key Takeaways -->
+        <section class="card" style="border-color: var(--accent);">
+          <div class="card-header" style="background: rgba(16, 185, 129, 0.1);">Главное из урока</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Облако</strong> = «чужой компьютер по подписке». Ваш сайт живёт в дата-центре, но вам это не важно</li>
+              <li>Есть 4 уровня сервисов — от «голой комнаты» до «гостиницы всё включено». Мы используем самые удобные: <strong>Vercel + Supabase</strong></li>
+              <li><strong>Vercel</strong> — где живёт ваш сайт. Загрузил код — через 2 минуты работает</li>
+              <li><strong>Supabase</strong> — готовая база данных, авторизация, файлы. Без настройки серверов</li>
+              <li>Стоимость SaaS на 1000 юзеров — <strong>~$1–2 в месяц</strong>. Серьёзные платежи начнутся, когда у вас уже будут платящие клиенты</li>
+              <li>Аббревиатуры IaaS/PaaS/FaaS/BaaS можно не запоминать</li>
+            </ul>
           </div>
         </section>
 

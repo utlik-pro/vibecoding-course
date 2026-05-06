@@ -63,16 +63,24 @@
         <div class="lesson-header">
           <div class="lesson-meta">
             <span class="lesson-number">Урок 4.6</span>
-            <span class="lesson-duration">⏱ 1 час</span>
+            <span class="lesson-duration">⏱ 30 минут</span>
           </div>
-          <h1 class="lesson-title">Сторонние сервисы и интеграции</h1>
+          <h1 class="lesson-title">Сторонние сервисы — каталог «инструментов» для приложения</h1>
           <div class="lesson-objectives">
-            <h4>Цели урока:</h4>
+            <h4>В этом уроке:</h4>
             <ul>
-              <li>Понять экосистему SaaS сервисов</li>
-              <li>Изучить основные категории интеграций</li>
-              <li>Научиться выбирать подходящие сервисы</li>
+              <li>📦 Узнаем, какие сервисы можно «прикрутить» к своему приложению</li>
+              <li>🛒 Поймём принцип «не делать самому то, что уже сделали другие»</li>
+              <li>📞 Разберём, что такое <strong>webhook</strong> — на простом примере</li>
+              <li>🔐 Запомним 3 правила безопасности при работе с чужими сервисами</li>
             </ul>
+          </div>
+        </div>
+
+        <div class="alert alert-success">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+          <div>
+            <strong>Главный принцип:</strong> «Не изобретай велосипед». Если задача типовая — есть готовый сервис. Платежи, авторизация, отправка email, аналитика — всё это уже сделано тысячу раз. Просто берём.
           </div>
         </div>
 
@@ -82,239 +90,215 @@
             Заметка для преподавателя
           </div>
           <div class="teacher-note-content">
-            <p><strong>Демо:</strong> Покажите процесс "Войти через Google" на примере реального сайта. Объясните, что происходит "под капотом".</p>
-            <p><strong>Акцент:</strong> Подчеркните важность безопасности API-ключей.</p>
+            <p><strong>Это обзорный урок.</strong> Реальная интеграция Clerk будет в Модуле 7, Stripe — в Модуле 10. Здесь — только знакомство с экосистемой.</p>
+            <p><strong>Демо:</strong> покажите процесс «Войти через Google» на любом сайте. Объясните, что это работает через сторонний сервис типа Clerk.</p>
           </div>
         </div>
 
-        <!-- Section 1 -->
+        <!-- Section 1: Catalog -->
         <section class="card">
-          <div class="card-header">1. Экосистема сторонних сервисов</div>
+          <div class="card-header">1. Каталог сервисов: что для чего</div>
           <div class="card-body">
-            <p>Современные приложения не пишут всё с нуля — используют готовые сервисы для типовых задач:</p>
+            <p>Современные приложения собирают из готовых блоков. Вот основные категории и популярные сервисы в каждой:</p>
 
             <div class="table-container">
               <table>
-                <thead><tr><th>Категория</th><th>Примеры сервисов</th><th>Наш выбор</th></tr></thead>
+                <thead>
+                  <tr>
+                    <th>Что нужно сделать</th>
+                    <th>Какие сервисы есть</th>
+                    <th>Что выбираем мы</th>
+                  </tr>
+                </thead>
                 <tbody>
-                  <tr><td><strong>Аутентификация</strong></td><td>Clerk, Auth0, Firebase Auth</td><td>Clerk</td></tr>
-                  <tr><td><strong>Платежи</strong></td><td>Stripe, PayPal, Square</td><td>Stripe</td></tr>
-                  <tr><td><strong>Email</strong></td><td>Resend, SendGrid, Mailgun</td><td>Resend</td></tr>
-                  <tr><td><strong>Аналитика</strong></td><td>Google Analytics, Posthog, Mixpanel</td><td>Posthog</td></tr>
-                  <tr><td><strong>Мониторинг</strong></td><td>Sentry, LogRocket, Datadog</td><td>Sentry</td></tr>
-                  <tr><td><strong>AI</strong></td><td>OpenAI, Anthropic, Cohere</td><td>OpenAI</td></tr>
+                  <tr>
+                    <td><strong>🔐 Вход в приложение</strong><br><span style="color: #64748b; font-size: 0.85rem;">логин, регистрация, восстановление пароля</span></td>
+                    <td>Clerk, Auth0, Supabase Auth, Firebase Auth</td>
+                    <td><strong>Clerk</strong> — самый удобный для старта</td>
+                  </tr>
+                  <tr>
+                    <td><strong>💳 Приём оплаты</strong><br><span style="color: #64748b; font-size: 0.85rem;">подписки, разовые платежи</span></td>
+                    <td>Stripe, PayPal, ЮKassa, CloudPayments</td>
+                    <td><strong>Stripe</strong> — мировой стандарт</td>
+                  </tr>
+                  <tr>
+                    <td><strong>📧 Отправка email</strong><br><span style="color: #64748b; font-size: 0.85rem;">подтверждение, рассылки</span></td>
+                    <td>Resend, SendGrid, Mailgun, Postmark</td>
+                    <td><strong>Resend</strong> — современный и простой</td>
+                  </tr>
+                  <tr>
+                    <td><strong>🤖 AI-функции</strong><br><span style="color: #64748b; font-size: 0.85rem;">генерация текста, анализ, перевод</span></td>
+                    <td>OpenAI, Anthropic Claude, Google Gemini</td>
+                    <td><strong>OpenAI</strong> — самая популярная</td>
+                  </tr>
+                  <tr>
+                    <td><strong>📊 Аналитика</strong><br><span style="color: #64748b; font-size: 0.85rem;">кто и как пользуется приложением</span></td>
+                    <td>Posthog, Mixpanel, Google Analytics, Plausible</td>
+                    <td><strong>Posthog</strong> — всё в одном, есть бесплатный план</td>
+                  </tr>
+                  <tr>
+                    <td><strong>🚨 Мониторинг ошибок</strong><br><span style="color: #64748b; font-size: 0.85rem;">когда что-то ломается — узнать первым</span></td>
+                    <td>Sentry, LogRocket, Datadog</td>
+                    <td><strong>Sentry</strong> — стандарт индустрии</td>
+                  </tr>
+                  <tr>
+                    <td><strong>📱 SMS / Push-уведомления</strong></td>
+                    <td>Twilio, OneSignal, Firebase Messaging</td>
+                    <td>По ситуации</td>
+                  </tr>
+                  <tr>
+                    <td><strong>🔍 Поиск по данным</strong></td>
+                    <td>Algolia, Meilisearch, Typesense</td>
+                    <td>По ситуации</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
 
             <div class="alert alert-info">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-              <div><strong>Принцип выбора:</strong> Не изобретайте велосипед. Если задача типовая (auth, платежи, email) — используйте готовый сервис. Фокусируйтесь на уникальной бизнес-логике.</div>
+              <div>
+                <strong>Запоминать всё не надо.</strong> Когда вам понадобится отправлять email или принимать платежи — спросите у AI: «Какие сервисы для этого популярны и какой выбрать новичку?». AI выдаст актуальный список.
+              </div>
             </div>
           </div>
         </section>
 
-        <!-- Section 2: Clerk -->
+        <!-- Section 2: Why ready services -->
         <section class="card">
-          <div class="card-header">2. Clerk — аутентификация и управление пользователями</div>
+          <div class="card-header">2. Почему НЕ делать всё самому</div>
           <div class="card-body">
-            <p><span class="tooltip-trigger" data-term="Clerk">Clerk</span> — современный сервис аутентификации с готовыми UI-компонентами.</p>
+            <p>Может показаться, что подключать кучу сервисов — это сложно. На самом деле сделать самому НАМНОГО сложнее. Возьмём на примере приёма оплаты:</p>
 
-            <h4>Возможности:</h4>
-            <ul>
-              <li><strong>Методы входа:</strong> Email/password, Magic links, Social (Google, GitHub, Apple)</li>
-              <li><strong>Multi-factor auth:</strong> SMS, TOTP, backup codes</li>
-              <li><strong>User management:</strong> Dashboard для управления пользователями</li>
-              <li><strong>Organizations:</strong> Команды и роли</li>
-              <li><strong>Webhooks:</strong> Синхронизация с вашей БД</li>
-            </ul>
-
-            <h4>Интеграция с Next.js:</h4>
-            <div class="code-block">
-              <div class="code-header"><span class="code-lang">TypeScript</span><button class="code-copy-btn">Копировать</button></div>
-              <pre><code>// middleware.ts — защита роутов
-import { clerkMiddleware } from '@clerk/nextjs/server';
-
-export default clerkMiddleware();
-
-export const config = {
-  matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
-};
-
-// app/layout.tsx — провайдер
-import { ClerkProvider } from '@clerk/nextjs';
-
-export default function RootLayout({ children }) {
-  return (
-    <ClerkProvider>
-      <html><body>{children}</body></html>
-    </ClerkProvider>
-  );
-}
-
-// Компоненты для UI
-import { SignInButton, UserButton } from '@clerk/nextjs';
-
-function Header() {
-  return (
-    <header>
-      <SignInButton />  {/* Кнопка входа */}
-      <UserButton />    {/* Аватар пользователя с меню */}
-    </header>
-  );
-}</code></pre>
-            </div>
-
-            <h4>Webhook для синхронизации:</h4>
-            <div class="code-block">
-              <div class="code-header"><span class="code-lang">TypeScript</span><button class="code-copy-btn">Копировать</button></div>
-              <pre><code>// app/api/webhooks/clerk/route.ts
-import { WebhookEvent } from '@clerk/nextjs/server';
-
-export async function POST(request: Request) {
-  const event: WebhookEvent = await request.json();
-
-  if (event.type === 'user.created') {
-    // Создаём пользователя в нашей БД
-    await db.insert(users).values({
-      clerkId: event.data.id,
-      email: event.data.email_addresses[0].email_address,
-      name: event.data.first_name,
-    });
-  }
-
-  return new Response('OK', { status: 200 });
-}</code></pre>
-            </div>
-          </div>
-        </section>
-
-        <!-- Section 3: Stripe -->
-        <section class="card">
-          <div class="card-header">3. Stripe — платежи</div>
-          <div class="card-body">
-            <p><span class="tooltip-trigger" data-term="Stripe">Stripe</span> — платформа для приёма платежей онлайн.</p>
-
-            <h4>Ключевые продукты:</h4>
             <div class="service-cards">
               <div class="service-card">
-                <div class="service-card-icon">💳</div>
-                <h4 class="service-card-title">Checkout</h4>
-                <p class="service-card-desc">Готовая страница оплаты</p>
+                <div class="service-card-icon">😱</div>
+                <h4 class="service-card-title">Сделать самому</h4>
+                <p class="service-card-desc"><strong>Что нужно:</strong></p>
+                <p class="service-card-desc" style="font-size: 0.85rem;">
+                  • Договоры с банками<br>
+                  • PCI DSS сертификация (хранение карт)<br>
+                  • Защита от мошенничества<br>
+                  • Возвраты, чарджбэки<br>
+                  • Налоговая отчётность<br>
+                  • Подписки, скидки, промокоды<br>
+                  <strong>Время: 1-2 года, миллионы $</strong>
+                </p>
               </div>
               <div class="service-card">
-                <div class="service-card-icon">🔄</div>
-                <h4 class="service-card-title">Subscriptions</h4>
-                <p class="service-card-desc">Управление подписками</p>
-              </div>
-              <div class="service-card">
-                <div class="service-card-icon">📊</div>
-                <h4 class="service-card-title">Billing Portal</h4>
-                <p class="service-card-desc">Личный кабинет для клиентов</p>
-              </div>
-              <div class="service-card">
-                <div class="service-card-icon">🔔</div>
-                <h4 class="service-card-title">Webhooks</h4>
-                <p class="service-card-desc">Уведомления о событиях</p>
+                <div class="service-card-icon">😎</div>
+                <h4 class="service-card-title">Через Stripe</h4>
+                <p class="service-card-desc"><strong>Что нужно:</strong></p>
+                <p class="service-card-desc" style="font-size: 0.85rem;">
+                  • Зарегистрироваться (Урок 4.1 — уже сделали!)<br>
+                  • Через AI/Cursor подключить за час<br>
+                  • Платите 2.9% с транзакции<br>
+                  <strong>Время: 1-2 часа</strong>
+                </p>
               </div>
             </div>
 
-            <h4>Пример: создание Checkout сессии</h4>
-            <div class="code-block">
-              <div class="code-header"><span class="code-lang">TypeScript</span><button class="code-copy-btn">Копировать</button></div>
-              <pre><code>// app/api/checkout/route.ts
-import Stripe from 'stripe';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
-export async function POST(request: Request) {
-  const { priceId } = await request.json();
-
-  const session = await stripe.checkout.sessions.create({
-    mode: 'subscription',
-    payment_method_types: ['card'],
-    line_items: [{ price: priceId, quantity: 1 }],
-    success_url: `${process.env.NEXT_PUBLIC_URL}/success`,
-    cancel_url: `${process.env.NEXT_PUBLIC_URL}/pricing`,
-  });
-
-  return Response.json({ url: session.url });
-}</code></pre>
-            </div>
-
-            <div class="alert alert-warning">
-              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              <div><strong>Test Mode:</strong> Всегда используйте тестовые ключи (sk_test_...) при разработке. Тестовые карты: 4242 4242 4242 4242 (любая дата, CVV).</div>
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+              <div>
+                <strong>Правило 95/5:</strong> 95% задач уже решены готовыми сервисами. Ваша уникальность — это оставшиеся 5% (бизнес-идея, дизайн, контент). Концентрируйтесь на них.
+              </div>
             </div>
           </div>
         </section>
 
-        <!-- Section 4: Best Practices -->
+        <!-- Section 3: Webhooks -->
         <section class="card">
-          <div class="card-header">4. Best Practices для интеграций</div>
+          <div class="card-header">3. Webhook — самое полезное слово в этом уроке</div>
           <div class="card-body">
+            <p>Когда вы подключаете внешний сервис (например, Stripe), возникает ситуация: <strong>как ваше приложение узнает о событиях, которые происходят в Stripe?</strong></p>
+
+            <h4>Пример: пользователь оплатил подписку</h4>
+            <p>Юзер на странице оплаты вводит карту, кликает «Оплатить». Деньги уходят в Stripe. <strong>А ваше приложение об этом ещё не знает.</strong> Как ему узнать?</p>
+
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">😩</div>
+                <h4 class="service-card-title">Плохой способ — постоянно спрашивать</h4>
+                <p class="service-card-desc">Каждые 10 секунд: «Stripe, юзер заплатил?» — «Нет». «А сейчас?» — «Нет». «А сейчас?» — Замучаешь и Stripe, и сервер.</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">😎</div>
+                <h4 class="service-card-title">Хороший способ — webhook</h4>
+                <p class="service-card-desc">Stripe сам сообщит вашему приложению, когда что-то произойдёт: «Эй, юзер X только что оплатил». Вы не спрашиваете — он сам говорит.</p>
+              </div>
+            </div>
+
+            <h4>Бытовая аналогия — курьер</h4>
+            <p>Заказали пиццу на доставку. Есть 2 варианта узнать, что приехала:</p>
+            <ol>
+              <li>Каждые 5 минут звонить в пиццерию: «Где курьер?» (плохо)</li>
+              <li>Положить телефон рядом — курьер сам позвонит, когда приедет (хорошо)</li>
+            </ol>
+
+            <p><strong>Webhook = когда внешний сервис сам звонит вашему приложению, когда происходит событие.</strong></p>
+
+            <h4>Где встречаются webhooks в нашем стеке</h4>
+            <ul>
+              <li>💳 <strong>Stripe</strong> сообщает: «юзер оплатил», «подписка отменена», «возврат сделан»</li>
+              <li>🔐 <strong>Clerk</strong> сообщает: «зарегистрировался новый юзер», «юзер удалил аккаунт»</li>
+              <li>📧 <strong>Resend</strong> сообщает: «email доставлен / отскочил / открыт»</li>
+              <li>🐙 <strong>GitHub</strong> сообщает: «новый коммит», «открыт Pull Request»</li>
+            </ul>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <div>
+                <strong>Что вам делать:</strong> практически ничего. Просто знайте слово — когда AI скажет «настроим webhook для Stripe», вы поймёте. Сама настройка делается через интерфейс сервиса (нажмёте «Add endpoint» — введёте адрес — готово).
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Security -->
+        <section class="card">
+          <div class="card-header">4. Безопасность — 3 правила, которые надо запомнить</div>
+          <div class="card-body">
+            <p>Когда вы работаете с чужими сервисами, у вас есть «ключи» от них. Если ключи попадут не в те руки — могут украсть деньги или данные. Вот 3 правила:</p>
 
             <div class="accordion open-first">
               <div class="accordion-item">
                 <div class="accordion-header">
-                  <span>🔐 Безопасность API ключей</span>
+                  <span>🔑 Правило 1: ключи живут только в специальных файлах, не в коде</span>
                   <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
-                    <ul>
-                      <li><strong>Никогда</strong> не храните ключи в коде</li>
-                      <li>Используйте <code>.env.local</code> для локальной разработки</li>
-                      <li>Добавьте <code>.env*</code> в <code>.gitignore</code></li>
-                      <li>Храните ключи в Vercel Environment Variables</li>
-                      <li>Ротируйте ключи при подозрении на утечку</li>
-                    </ul>
+                    <p>Когда AI пишет код, он НЕ должен напрямую вставлять туда секретные ключи. Ключи живут в отдельном файле <code>.env.local</code> — это «секретный сейф» проекта.</p>
+                    <p>Этот файл НЕ загружается на GitHub (есть специальный список «игнорируемых» файлов).</p>
+                    <p><strong>Что делать вам:</strong> просто следить, чтобы ключи лежали в правильном файле. AI и Cursor сделают это автоматически.</p>
                   </div>
                 </div>
               </div>
 
               <div class="accordion-item">
                 <div class="accordion-header">
-                  <span>🔔 Webhooks безопасность</span>
+                  <span>📞 Правило 2: webhooks надо проверять — кто звонит</span>
                   <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
-                    <ul>
-                      <li>Всегда проверяйте <strong>подпись webhook</strong></li>
-                      <li>Используйте <code>webhook secret</code> для верификации</li>
-                      <li>Обрабатывайте события идемпотентно (повторный вызов не должен ломать)</li>
-                      <li>Возвращайте 200 быстро, тяжёлую работу делайте асинхронно</li>
-                    </ul>
-                    <div class="code-block">
-                      <div class="code-header"><span class="code-lang">TypeScript</span><button class="code-copy-btn">Копировать</button></div>
-                      <pre><code>// Проверка подписи Stripe webhook
-import { headers } from 'next/headers';
-
-const signature = headers().get('stripe-signature')!;
-const event = stripe.webhooks.constructEvent(
-  body,
-  signature,
-  process.env.STRIPE_WEBHOOK_SECRET!
-);</code></pre>
-                    </div>
+                    <p><strong>Проблема:</strong> любой человек может отправить запрос на ваш webhook и притвориться Stripe: «Эй, юзер X оплатил! Дай ему Pro!». А он не оплачивал.</p>
+                    <p><strong>Решение:</strong> Stripe (и другие сервисы) подписывают каждый запрос секретным ключом. Ваше приложение проверяет подпись — если не сходится, игнорирует.</p>
+                    <p><strong>Что делать вам:</strong> ничего сами не пишите — попросите AI: «настрой webhook от Stripe с проверкой подписи». Он сделает правильно.</p>
                   </div>
                 </div>
               </div>
 
               <div class="accordion-item">
                 <div class="accordion-header">
-                  <span>🔄 Error Handling & Retries</span>
+                  <span>💸 Правило 3: на платных сервисах ставьте лимит расходов</span>
                   <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
-                    <ul>
-                      <li>Обрабатывайте ошибки API (rate limits, timeouts)</li>
-                      <li>Используйте exponential backoff для retry</li>
-                      <li>Логируйте все ошибки внешних сервисов</li>
-                      <li>Имейте fallback для критичных функций</li>
-                    </ul>
+                    <p>У OpenAI и других платных сервисов есть настройка <strong>«Usage limit»</strong>. Поставьте $5 (или сколько готовы потерять). Если хакер украдёт ключ или вы случайно сделаете цикл из миллиона запросов — вы потеряете не больше $5.</p>
+                    <p><strong>Что делать вам:</strong> зайти в настройки сервиса и поставить разумный лимит. Сделали в Уроке 4.1, проверьте ещё раз.</p>
                   </div>
                 </div>
               </div>
@@ -328,18 +312,34 @@ const event = stripe.webhooks.constructEvent(
             <div class="quiz-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
             <h3 class="quiz-title">Проверьте себя</h3>
           </div>
-          <div class="quiz-question">Что такое Webhook?</div>
+          <div class="quiz-question">
+            Что такое webhook своими словами?
+          </div>
           <div class="quiz-options">
-            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Библиотека для работы с API</span></div>
-            <div class="quiz-option" data-correct="true"><span class="quiz-option-marker"></span><span>HTTP запрос от внешнего сервиса при событии</span></div>
             <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Тип базы данных</span></div>
-            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Метод аутентификации</span></div>
+            <div class="quiz-option" data-correct="true"><span class="quiz-option-marker"></span><span>Когда внешний сервис сам сообщает вашему приложению о событии (как курьер звонит, что приехал)</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Кнопка для входа через Google</span></div>
+            <div class="quiz-option" data-correct="false"><span class="quiz-option-marker"></span><span>Запрос, который ваше приложение отправляет в Stripe каждые 10 секунд</span></div>
           </div>
           <div class="quiz-feedback"><div class="quiz-feedback-text"></div></div>
           <div class="quiz-actions">
             <button class="btn btn-primary quiz-check-btn">Проверить</button>
             <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
             <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
+          </div>
+        </section>
+
+        <!-- Key Takeaways -->
+        <section class="card" style="border-color: var(--accent);">
+          <div class="card-header" style="background: rgba(16, 185, 129, 0.1);">Главное из урока</div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Принцип 95/5:</strong> 95% задач решают готовые сервисы. Ваша уникальность — оставшиеся 5%</li>
+              <li>Для каждой типовой задачи (платежи, email, AI, аналитика) есть 3-5 популярных сервисов</li>
+              <li><strong>Webhook</strong> = когда сервис сам сообщает вашему приложению о событиях. Не вы спрашиваете, а вам говорят</li>
+              <li>3 правила безопасности: ключи в <code>.env.local</code>, проверка подписи webhook, лимиты на платных сервисах</li>
+              <li>Подключать сервисы будем в следующих модулях: <strong>Clerk</strong> в Модуле 7, <strong>OpenAI и Stripe</strong> в Модуле 10</li>
+            </ul>
           </div>
         </section>
 

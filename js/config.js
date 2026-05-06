@@ -78,8 +78,8 @@ const COURSE_CONFIG = {
     {
       id: 'cohort-3',
       name: 'Поток 3',
-      description: 'Третий поток курса - модули 1, 2, 4',
-      unlockedModules: [1, 2, 4],
+      description: 'Третий поток курса - модули 1, 2, 4, 5, 6',
+      unlockedModules: [1, 2, 4, 5, 6],
       students: [
         { email: 'lkotenkova13@gmail.com', name: 'Котенкова Л.', active: true },
         { email: 'maletssivan@gmail.com', name: 'Малец Иван', active: true },
