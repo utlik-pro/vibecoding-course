@@ -15,11 +15,12 @@
   const depth = pathParts.filter(p => p && !p.includes('.')).length;
   const rootPath = '../'.repeat(Math.max(depth - 1, 0)) || './';
 
-  // Загружаем необходимые скрипты
+  // Загружаем необходимые скрипты (с cache-busting, чтобы whitelist обновлялся при правках config.js)
+  const ASSET_VERSION = '20260507';
   const scripts = [
-    rootPath + 'js/config.js',
-    rootPath + 'js/supabase-client.js',
-    rootPath + 'js/course-api.js'
+    rootPath + 'js/config.js?v=' + ASSET_VERSION,
+    rootPath + 'js/supabase-client.js?v=' + ASSET_VERSION,
+    rootPath + 'js/course-api.js?v=' + ASSET_VERSION
   ];
 
   let loadedCount = 0;
