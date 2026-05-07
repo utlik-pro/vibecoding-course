@@ -442,10 +442,25 @@ function initCodeBlocks() {
 }
 
 function highlightSyntax(element) {
-  let code = element.innerHTML;
-  const lang = element.closest('.code-block')?.querySelector('.code-lang')?.textContent?.toLowerCase() || '';
+  // Подсвечиваем ТОЛЬКО реальные языки кода. Markdown, bash, prompt, template,
+  // структуру и т.п. не трогаем — иначе слова "for", "from", "type", "not"
+  // внутри обычного текста ошибочно превращаются в <span class="token-keyword">.
+  const lang = element.closest('.code-block')
+    ?.querySelector('.code-block-lang')
+    ?.textContent?.toLowerCase().trim() || '';
 
-  // Keywords
+  const HIGHLIGHTABLE = new Set([
+    'js', 'javascript',
+    'ts', 'typescript',
+    'jsx', 'tsx',
+    'json',
+    'sql'
+  ]);
+
+  if (!HIGHLIGHTABLE.has(lang)) return;
+
+  let code = element.innerHTML;
+
   const keywords = ['const', 'let', 'var', 'function', 'return', 'if', 'else', 'for', 'while',
                     'class', 'import', 'export', 'from', 'async', 'await', 'try', 'catch',
                     'SELECT', 'FROM', 'WHERE', 'INSERT', 'INTO', 'VALUES', 'UPDATE', 'SET',
