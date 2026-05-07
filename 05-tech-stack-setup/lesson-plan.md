@@ -169,7 +169,111 @@
 
 ---
 
-## Урок 5.4: Быстрый деплой на Vercel
+## Урок 5.4: Task Master — планирование проекта с ИИ
+
+**Продолжительность:** 45 минут
+
+### Цели урока:
+- Понять, зачем нужен Task Master и как он встраивается в вайбкодинг
+- Установить `task-master-ai` и настроить модели
+- Написать PRD для проекта **MoodTracker** (трекер настроения)
+- Сгенерировать список задач и подзадач из PRD
+- Освоить ежедневный цикл: `next` → `show` → `set-status done`
+
+### Сквозной пример: MoodTracker
+
+Веб-приложение для ежедневного трекинга настроения. Пользователь раз в день
+отмечает настроение по шкале 1–5 и пишет короткую заметку, видит график за
+30 дней, раз в неделю получает AI-инсайт от gpt-4o-mini.
+
+**Стек:** Next.js 14, TypeScript, Supabase (Auth + Postgres), Tailwind +
+shadcn/ui, OpenAI, Recharts, Vercel.
+
+### Содержание:
+
+1. **Зачем нужен Task Master (5 мин)**
+   - Проблема: Cursor и Claude Code не помнят, что уже сделано
+   - Решение: PRD → задачи → подзадачи с зависимостями и статусами
+   - Связка с CLAUDE.md (правила) и daily-loop (что делать дальше)
+
+2. **Установка и инициализация (5 мин)**
+   ```bash
+   npm install -g task-master-ai
+   cd my-saas-app
+   task-master init
+   ```
+
+   После init появляется `.taskmaster/` с `config.json`, `docs/prd.txt`,
+   `tasks/tasks.json` и шаблоном PRD.
+
+3. **Настройка моделей без Perplexity (5 мин)**
+   ```bash
+   task-master models --setup
+   ```
+
+   - **main** — Claude Sonnet или GPT-4o (нужен ключ)
+   - **research** — можно пропустить или использовать main-модель
+   - **fallback** — `gpt-4o-mini`
+
+   Ключи кладутся в `.env`: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`.
+
+4. **PRD для MoodTracker (10 мин)**
+
+   Открываем `.taskmaster/docs/prd.txt` и пишем PRD проекта:
+   - Обзор и ЦА
+   - Технический стек
+   - Основные функции (auth, запись настроения, дашборд, AI-инсайты, настройки)
+   - Структура БД (profiles, moods, insights)
+   - Этапы разработки
+
+   Альтернатива: попросить Claude Code сгенерировать PRD по шаблону
+   `example_prd.txt`.
+
+5. **parse-prd → задачи (5 мин)**
+   ```bash
+   task-master parse-prd .taskmaster/docs/prd.txt
+   task-master list
+   ```
+
+   Результат — 8–10 задач с приоритетами и зависимостями.
+
+6. **analyze-complexity → expand (5 мин)**
+   ```bash
+   task-master analyze-complexity
+   task-master complexity-report
+   task-master expand --all
+   ```
+
+   Большие задачи разбиваются на подзадачи (4.1, 4.2, ...). Одна
+   подзадача = один промпт в Cursor/Claude Code.
+
+7. **Daily loop (10 мин)**
+   ```bash
+   task-master next                                    # что делать
+   task-master show 4.1                                # детали
+   task-master set-status --id=4.1 --status=in-progress
+   # ...реализуем через Cursor/Claude...
+   task-master update-subtask --id=4.1 --prompt="..."  # лог прогресса
+   task-master set-status --id=4.1 --status=done
+   ```
+
+8. **Связка с Claude Code через MCP (опционально)**
+
+   `.mcp.json` подключает task-master-ai как MCP-сервер — внутри
+   `claude` можно говорить: *"покажи следующую задачу"*, *"отметь 4.1 done"*.
+
+### Практическая работа:
+Установить Task Master, написать PRD для MoodTracker, сгенерировать задачи,
+разбить на подзадачи, пройти один полный цикл `next → show → set-status done`.
+
+### Частые проблемы:
+- **Команда `task-master` не найдена** — переустановить с `-g` или использовать `npx task-master-ai`
+- **`parse-prd` падает** — проверить ключи в `.env` и доступ к API через `task-master models`
+- **Не нравятся сгенерированные задачи** — отредактировать PRD и запустить `parse-prd --append` или `--force`
+
+---
+
+## Урок 5.5: Быстрый деплой на Vercel
 
 **Продолжительность:** 20 минут
 
@@ -204,7 +308,7 @@
 
 ---
 
-## Урок 5.5: Промпт-инженеринг для вайбкодинга
+## Урок 5.6: Промпт-инженеринг для вайбкодинга
 
 **Продолжительность:** 35 минут
 
@@ -287,7 +391,7 @@
 
 ---
 
-## Урок 5.6: Интеграция сервисов
+## Урок 5.7: Интеграция сервисов
 
 **Продолжительность:** 30 минут
 
@@ -343,7 +447,7 @@
 
 ---
 
-## Урок 5.7: Готовность к вайбкодингу
+## Урок 5.8: Готовность к вайбкодингу
 
 **Продолжительность:** 25 минут
 
@@ -401,6 +505,7 @@
    - .cursorrules с правилами проекта
    - CLAUDE.md с полной документацией
    - prompts.md с шаблонами
+   - Task Master с PRD и сгенерированными задачами
 
 3. **Интеграции:**
    - Supabase клиент готов
@@ -424,6 +529,7 @@
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Cursor Documentation](https://cursor.sh/docs)
 - [Claude Code Guide](https://docs.anthropic.com/claude-code)
+- [Task Master AI на npm](https://www.npmjs.com/package/task-master-ai)
 - [shadcn/ui](https://ui.shadcn.com)
 - [Supabase Docs](https://supabase.com/docs)
 - [OpenAI API Reference](https://platform.openai.com/docs)

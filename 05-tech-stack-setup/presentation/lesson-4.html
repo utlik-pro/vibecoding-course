@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Урок 5.4: Деплой на Vercel | VibeCoding</title>
+  <title>Урок 5.4: Task Master — планирование проекта | VibeCoding</title>
   <script src="js/auth-check.js"></script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -25,7 +25,7 @@
         <div class="progress-bar">
           <div class="progress-fill" style="width: 0%"></div>
         </div>
-        <div class="progress-text">0 из 8 уроков</div>
+        <div class="progress-text">0 из 9 уроков</div>
       </div>
 
       <nav class="sidebar-nav">
@@ -58,25 +58,30 @@
 
         <a href="lesson-4.html" class="nav-item active" data-lesson="4">
           <span class="nav-item-number">4</span>
-          Деплой на Vercel
+          Task Master
         </a>
 
         <a href="lesson-5.html" class="nav-item" data-lesson="5">
           <span class="nav-item-number">5</span>
-          Промпт-инженеринг
+          Деплой на Vercel
         </a>
 
         <a href="lesson-6.html" class="nav-item" data-lesson="6">
           <span class="nav-item-number">6</span>
-          Интеграция сервисов
+          Промпт-инженеринг
         </a>
 
         <a href="lesson-7.html" class="nav-item" data-lesson="7">
           <span class="nav-item-number">7</span>
+          Интеграция сервисов
+        </a>
+
+        <a href="lesson-8.html" class="nav-item" data-lesson="8">
+          <span class="nav-item-number">8</span>
           Готовность к вайбкодингу
         </a>
 
-        <a href="project.html" class="nav-item" data-lesson="8">
+        <a href="project.html" class="nav-item" data-lesson="9">
           <span class="nav-item-number">P</span>
           Итоговый проект
         </a>
@@ -129,42 +134,51 @@
         <div class="lesson-header">
           <div class="lesson-meta">
             <span class="lesson-number">Урок 5.4</span>
-            <span class="lesson-duration">⏱ 20 минут</span>
+            <span class="lesson-duration">⏱ 45 минут</span>
           </div>
-          <h1 class="lesson-title">Деплой на Vercel</h1>
+          <h1 class="lesson-title">Task Master — планирование проекта с ИИ</h1>
 
           <div class="lesson-objectives">
             <h4>Цели урока:</h4>
             <ul>
-              <li>Подключить GitHub репозиторий к Vercel</li>
-              <li>Настроить автоматический деплой</li>
-              <li>Понять preview deployments</li>
+              <li>Понять, зачем нужен Task Master и как он встраивается в вайбкодинг</li>
+              <li>Установить <code>task-master-ai</code> и настроить модели</li>
+              <li>Написать PRD для проекта <strong>MoodTracker</strong> (трекер настроения)</li>
+              <li>Сгенерировать список задач и подзадач из PRD</li>
+              <li>Освоить ежедневный цикл: <code>next</code> → <code>show</code> → <code>set-status done</code></li>
             </ul>
           </div>
         </div>
 
-        <!-- Section 1: Git Setup -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Идея урока:</strong> студенты только что описали проект в <code>CLAUDE.md</code> — теперь Task Master превратит описание в конкретные задачи. Покажите весь цикл на сквозном примере MoodTracker, чтобы каждая команда имела результат на экране.</p>
+            <p><strong>Время:</strong> ~5 мин теория, ~10 мин установка и модели, ~10 мин PRD, ~10 мин parse-prd + expand, ~10 мин daily loop.</p>
+            <p><strong>Совет:</strong> запустите <code>task-master list</code> в конце — студенты увидят красивую таблицу задач и поймут, ради чего весь этот процесс.</p>
+          </div>
+        </div>
+
+        <!-- Section 1: Why Task Master -->
         <section class="card">
-          <div class="card-header">1. Подготовка репозитория</div>
+          <div class="card-header">1. Зачем нужен Task Master</div>
           <div class="card-body">
-            <p>Сначала создадим Git репозиторий и загрузим на GitHub:</p>
+            <p>Когда у вас есть идея проекта — Cursor и Claude Code умеют писать код. Но они <strong>не помнят</strong>, что вы уже сделали, что осталось, и в каком порядке делать. Без плана вайбкодинг превращается в хаос: ИИ перескакивает между фичами, забывает зависимости, переписывает уже готовое.</p>
 
-            <div class="code-block">
-              <div class="code-block-header">
-                <span class="code-block-lang">bash</span>
-              </div>
-              <pre><code># Инициализация Git (если еще не сделано)
-git init
-
-# Добавляем все файлы
-git add .
-
-# Первый коммит
-git commit -m "Initial commit: Next.js project setup"
-
-# Создаем репозиторий на GitHub и пушим
-gh repo create my-saas-app --public --source=. --push</code></pre>
-            </div>
+            <p><strong>Task Master</strong> — это CLI и MCP-инструмент, который:</p>
+            <ul>
+              <li>Превращает PRD (описание проекта) в список задач</li>
+              <li>Разбивает большие задачи на подзадачи с зависимостями</li>
+              <li>Хранит статус каждой задачи (<code>pending</code>, <code>in-progress</code>, <code>done</code>)</li>
+              <li>Подсказывает, какую задачу делать следующей</li>
+              <li>Логирует прогресс прямо в задачу — Claude Code и Cursor получают контекст</li>
+            </ul>
 
             <div class="alert alert-info">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -173,124 +187,127 @@ gh repo create my-saas-app --public --source=. --push</code></pre>
                 <path d="M12 8h.01"/>
               </svg>
               <div>
-                Если нет <code>gh</code> CLI, создайте репозиторий на github.com вручную и выполните <code>git remote add origin</code>.
+                <strong>Как это связано с CLAUDE.md:</strong> в прошлом уроке мы научили Claude Code, <em>каким</em> мы хотим видеть код. Task Master отвечает на другой вопрос — <em>что</em> делать дальше и в каком порядке.
+              </div>
+            </div>
+
+            <h4>Сквозной пример урока — MoodTracker</h4>
+            <p>Все команды мы будем выполнять на одном проекте: <strong>MoodTracker</strong> — мини-веб-приложение, где пользователь раз в день отмечает настроение (1–5), пишет заметку и видит график за месяц. Раз в неделю ИИ даёт инсайт по записям.</p>
+
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">📅</div>
+                <h4 class="service-card-title">Ежедневная запись</h4>
+                <p class="service-card-desc">Настроение 1–5 и короткая заметка</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">📈</div>
+                <h4 class="service-card-title">Дашборд</h4>
+                <p class="service-card-desc">График за 30 дней + средние</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🤖</div>
+                <h4 class="service-card-title">AI-инсайты</h4>
+                <p class="service-card-desc">Раз в неделю советы от gpt-4o-mini</p>
+              </div>
+              <div class="service-card">
+                <div class="service-card-icon">🔐</div>
+                <h4 class="service-card-title">Auth</h4>
+                <p class="service-card-desc">Магик-линк через Supabase</p>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Section 2: Connect to Vercel -->
+        <!-- Section 2: Install -->
         <section class="card">
-          <div class="card-header">2. Подключение к Vercel</div>
+          <div class="card-header">2. Установка и инициализация</div>
           <div class="card-body">
-            <div class="teacher-note">
-              <div class="teacher-note-header">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M12 6v6l4 2"/>
-                </svg>
-                Заметка для преподавателя
+            <p>В корне Next.js проекта (созданного в уроке 5.1) выполните:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
               </div>
-              <div class="teacher-note-content">
-                Покажите экран при подключении. Это занимает меньше минуты и очень наглядно демонстрирует мощь Vercel.
-              </div>
+              <pre><code># Установка глобально (рекомендуется)
+npm install -g task-master-ai
+
+# Проверка установки
+task-master --version
+
+# Инициализация в проекте
+cd my-saas-app
+task-master init</code></pre>
             </div>
 
-            <h4>Шаги подключения:</h4>
-            <ol>
-              <li>Откройте <a href="https://vercel.com/dashboard" target="_blank">vercel.com/dashboard</a></li>
-              <li>Нажмите <strong>"Add New..."</strong> → <strong>"Project"</strong></li>
-              <li>Выберите <strong>"Import Git Repository"</strong></li>
-              <li>Найдите ваш репозиторий <code>my-saas-app</code></li>
-              <li>Нажмите <strong>"Import"</strong></li>
-              <li>Vercel автоматически определит Next.js</li>
-              <li>Нажмите <strong>"Deploy"</strong></li>
-            </ol>
+            <p>После <code>init</code> в проекте появится папка <code>.taskmaster/</code>:</p>
 
-            <div class="alert alert-success">
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Структура</span>
+              </div>
+              <pre><code>.taskmaster/
+├── config.json              # Настройки моделей
+├── docs/
+│   └── prd.txt              # Сюда напишем PRD
+├── tasks/
+│   └── tasks.json           # Сгенерированные задачи (пока пусто)
+└── templates/
+    └── example_prd.txt      # Шаблон PRD для справки</code></pre>
+            </div>
+
+            <div class="alert alert-warning">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22,4 12,14.01 9,11.01"/>
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
               </svg>
               <div>
-                Через 30-60 секунд ваш сайт будет доступен по адресу <code>my-saas-app.vercel.app</code>!
+                <strong>Важно:</strong> <code>tasks.json</code> и <code>config.json</code> редактируются командами Task Master — <strong>не правьте их вручную</strong>. Файлы задач в <code>tasks/</code> регенерируются автоматически.
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Section 3: Project Settings -->
+        <!-- Section 3: Models setup -->
         <section class="card">
-          <div class="card-header">3. Настройки проекта</div>
+          <div class="card-header">3. Настройка моделей</div>
           <div class="card-body">
-            <p>В <strong>Project Settings</strong> можно настроить:</p>
+            <p>Task Master использует ИИ для парсинга PRD и генерации задач. Нужно указать, какие модели использовать. Запустите интерактивный мастер:</p>
 
-            <div class="accordion">
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>🌐 Домены (Domains)</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <ul>
-                      <li>Автоматический домен: <code>project.vercel.app</code></li>
-                      <li>Можно добавить свой домен</li>
-                      <li>SSL сертификаты — автоматически</li>
-                    </ul>
-                  </div>
-                </div>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
               </div>
-
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>⚙️ Build Settings</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <ul>
-                      <li><strong>Framework Preset:</strong> Next.js (автоопределение)</li>
-                      <li><strong>Build Command:</strong> <code>npm run build</code></li>
-                      <li><strong>Output Directory:</strong> <code>.next</code></li>
-                      <li><strong>Install Command:</strong> <code>npm install</code></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+              <pre><code>task-master models --setup</code></pre>
             </div>
-          </div>
-        </section>
 
-        <!-- Section 4: Preview Deployments -->
-        <section class="card">
-          <div class="card-header">4. Preview Deployments</div>
-          <div class="card-body">
-            <p>Каждый Pull Request автоматически получает свой URL для тестирования:</p>
+            <p>Мастер спросит про <strong>три роли</strong>:</p>
 
             <div class="table-container">
               <table>
                 <thead>
                   <tr>
-                    <th>Branch</th>
-                    <th>URL</th>
-                    <th>Назначение</th>
+                    <th>Роль</th>
+                    <th>Для чего</th>
+                    <th>Что выбрать</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td><code>main</code></td>
-                    <td>project.vercel.app</td>
-                    <td>Production</td>
+                    <td><strong>main</strong></td>
+                    <td>Основная модель — генерирует задачи и подзадачи</td>
+                    <td>Claude Sonnet (если есть <code>ANTHROPIC_API_KEY</code>) или GPT-4o</td>
                   </tr>
                   <tr>
-                    <td><code>feature/auth</code></td>
-                    <td>project-feature-auth.vercel.app</td>
-                    <td>Preview для PR</td>
+                    <td><strong>research</strong></td>
+                    <td>Опционально — модель для глубокого ресёрча с веб-поиском</td>
+                    <td>Можно <strong>пропустить</strong> или поставить ту же main-модель</td>
+                  </tr>
+                  <tr>
+                    <td><strong>fallback</strong></td>
+                    <td>Запасная модель, если основная упала</td>
+                    <td><code>gpt-4o-mini</code> — дешевле и стабильно</td>
                   </tr>
                 </tbody>
               </table>
@@ -303,9 +320,518 @@ gh repo create my-saas-app --public --source=. --push</code></pre>
                 <path d="M12 8h.01"/>
               </svg>
               <div>
-                <strong>Автодеплой:</strong> Каждый push в main автоматически деплоит новую версию. Это называется CI/CD.
+                <strong>Без Perplexity:</strong> для research-роли в документации советуют Perplexity, но ключ платный. Для учебного проекта <em>смело пропускайте research</em> или поставьте ту же модель, что и main — флаг <code>--research</code> просто не будет подключаться, но всё остальное работает.
               </div>
             </div>
+
+            <h4>Где взять ключи</h4>
+            <p>Создайте файл <code>.env</code> в корне проекта (рядом с <code>.env.local</code>) и добавьте ключи только тех провайдеров, которыми пользуетесь:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code># .env (для Task Master CLI)
+ANTHROPIC_API_KEY=sk-ant-...
+OPENAI_API_KEY=sk-...
+# PERPLEXITY_API_KEY=... — необязательно</code></pre>
+            </div>
+
+            <p>Проверьте текущую конфигурацию:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code>task-master models</code></pre>
+            </div>
+
+            <p>Команда покажет таблицу с моделями для каждой роли и статусом доступа к API.</p>
+          </div>
+        </section>
+
+        <!-- Section 4: PRD for MoodTracker -->
+        <section class="card">
+          <div class="card-header">4. Пишем PRD для MoodTracker</div>
+          <div class="card-body">
+            <p><strong>PRD (Product Requirements Document)</strong> — это короткое описание того, что мы строим. Task Master читает его и превращает в задачи.</p>
+
+            <p>Откройте <code>.taskmaster/docs/prd.txt</code> и замените содержимое на наш PRD:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">markdown</span>
+              </div>
+              <pre><code># MoodTracker — Product Requirements Document
+
+## Обзор
+MoodTracker — веб-приложение для ежедневного трекинга настроения
+с AI-инсайтами. Пользователь записывает настроение по шкале 1–5
+и короткую заметку, видит график за месяц, раз в неделю получает
+рекомендацию от ИИ на основе своих записей.
+
+## Технический стек
+- Next.js 14 (App Router) + TypeScript
+- Supabase (Auth + Postgres + Row Level Security)
+- Tailwind CSS + shadcn/ui
+- OpenAI API (модель gpt-4o-mini)
+- Recharts для графиков
+- Vercel для хостинга
+
+## Основные функции
+
+### 1. Аутентификация
+- Регистрация и вход по магик-линку (Supabase Auth)
+- Защищённые роуты для авторизованных пользователей
+- Кнопка "Выйти" в шапке
+
+### 2. Запись настроения
+- Форма "Как ты сегодня?" с выбором значения 1–5
+- Опциональная заметка до 280 символов
+- Одна запись в день, можно отредактировать в течение дня
+- Сохранение в Postgres с user_id и timestamp
+
+### 3. Дашборд
+- График настроения за 30 дней (line chart)
+- Среднее настроение за неделю и месяц
+- Streak — сколько дней подряд была запись
+
+### 4. AI-инсайты
+- Кнопка "Получить инсайт" доступна раз в неделю
+- ИИ читает записи за неделю и пишет короткий совет (до 200 слов)
+- Используется gpt-4o-mini, ответ кэшируется в БД
+
+### 5. Настройки
+- Часовой пояс пользователя
+- Удаление аккаунта со всеми записями
+
+## Структура БД
+- profiles (id, email, timezone) — связана с auth.users
+- moods (id, user_id, value 1-5, note, created_at)
+- insights (id, user_id, content, week_start, created_at)
+
+## Этапы разработки
+1. Настройка проекта: Next.js, Tailwind, shadcn/ui
+2. Подключение Supabase и схема БД с RLS
+3. Аутентификация по магик-линку
+4. Форма ежедневной записи настроения
+5. Дашборд с графиком за 30 дней
+6. AI-инсайты через OpenAI
+7. Настройки и удаление аккаунта
+8. Деплой на Vercel</code></pre>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Совет:</strong> чем точнее этапы и функции — тем лучше задачи. Не нужно писать диссертацию: 1–2 страницы достаточно. Если сомневаетесь — попросите Claude Code сгенерировать PRD: <em>"Сделай PRD для MoodTracker по шаблону <code>.taskmaster/templates/example_prd.txt</code>"</em>.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: parse-prd -->
+        <section class="card">
+          <div class="card-header">5. Генерируем задачи из PRD</div>
+          <div class="card-body">
+            <p>Запустите парсинг — Task Master прочитает PRD и создаст задачи:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code>task-master parse-prd .taskmaster/docs/prd.txt</code></pre>
+            </div>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Терпение:</strong> команда делает запрос к ИИ — занимает 30–90 секунд. Не прерывайте.
+              </div>
+            </div>
+
+            <p>Результат — список задач. Посмотреть его:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code>task-master list</code></pre>
+            </div>
+
+            <p>Для MoodTracker получится примерно 8–10 задач:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">пример вывода</span>
+              </div>
+              <pre><code>┌────┬─────────────────────────────────────┬──────────┬──────────┐
+│ ID │ Title                               │ Status   │ Priority │
+├────┼─────────────────────────────────────┼──────────┼──────────┤
+│ 1  │ Setup Next.js project with stack    │ pending  │ high     │
+│ 2  │ Configure Supabase client and env   │ pending  │ high     │
+│ 3  │ Create database schema with RLS     │ pending  │ high     │
+│ 4  │ Implement magic-link authentication │ pending  │ high     │
+│ 5  │ Build daily mood entry form         │ pending  │ medium   │
+│ 6  │ Build dashboard with mood chart     │ pending  │ medium   │
+│ 7  │ Add weekly AI insight generation    │ pending  │ medium   │
+│ 8  │ Settings page and account deletion  │ pending  │ low      │
+│ 9  │ Deploy to Vercel                    │ pending  │ medium   │
+└────┴─────────────────────────────────────┴──────────┴──────────┘</code></pre>
+            </div>
+
+            <p>Каждая задача автоматически получает <code>id</code>, <code>priority</code>, <code>dependencies</code> и <code>testStrategy</code>. Посмотреть детали одной задачи:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code>task-master show 4</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 6: expand -->
+        <section class="card">
+          <div class="card-header">6. Разбиваем большие задачи на подзадачи</div>
+          <div class="card-body">
+            <p>Задача "Implement magic-link authentication" слишком большая для одного захода. Сначала спросим у Task Master, какие задачи реально сложные:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code>task-master analyze-complexity</code></pre>
+            </div>
+
+            <p>Команда оценит каждую задачу по сложности от 1 до 10 и порекомендует, сколько подзадач нужно. Открыть отчёт:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code>task-master complexity-report</code></pre>
+            </div>
+
+            <p>Теперь разбиваем все подходящие задачи на подзадачи одной командой:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code>task-master expand --all</code></pre>
+            </div>
+
+            <p>Или раскрываем только конкретную задачу:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code>task-master expand --id=4</code></pre>
+            </div>
+
+            <p>После этого <code>task-master show 4</code> покажет подзадачи 4.1, 4.2, 4.3 и т.д.:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">пример</span>
+              </div>
+              <pre><code>Task 4: Implement magic-link authentication
+├── 4.1 Install @supabase/ssr and configure middleware
+├── 4.2 Create login page with email input
+├── 4.3 Build /auth/callback route handler
+├── 4.4 Protect dashboard routes server-side
+└── 4.5 Add sign-out button to header</code></pre>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Зачем подзадачи:</strong> одна подзадача = один промпт в Cursor/Claude Code. Большие задачи плохо помещаются в контекст ИИ — он начинает "забывать" детали. Подзадачи решают эту проблему.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 7: Daily Loop -->
+        <section class="card">
+          <div class="card-header">7. Ежедневный цикл разработки</div>
+          <div class="card-body">
+            <p>Когда задачи готовы — каждое утро вы запускаете один и тот же цикл:</p>
+
+            <div class="accordion open-first">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>Шаг 1 — узнать, что делать</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="code-block">
+                      <div class="code-block-header">
+                        <span class="code-block-lang">bash</span>
+                      </div>
+                      <pre><code>task-master next</code></pre>
+                    </div>
+                    <p>Task Master посмотрит на статусы и зависимости и предложит следующую задачу. Например, <code>4.1 Install @supabase/ssr and configure middleware</code>.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>Шаг 2 — изучить детали</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="code-block">
+                      <div class="code-block-header">
+                        <span class="code-block-lang">bash</span>
+                      </div>
+                      <pre><code>task-master show 4.1</code></pre>
+                    </div>
+                    <p>Получаете описание, требования и стратегию тестирования. Этот текст можно скопировать в Cursor Composer как промпт.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>Шаг 3 — отметить "в работе"</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="code-block">
+                      <div class="code-block-header">
+                        <span class="code-block-lang">bash</span>
+                      </div>
+                      <pre><code>task-master set-status --id=4.1 --status=in-progress</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>Шаг 4 — реализовать через ИИ</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Открываете Cursor Composer (Cmd/Ctrl+I) или запускаете <code>claude</code> в терминале. Передаёте описание подзадачи как контекст:</p>
+                    <div class="code-block">
+                      <div class="code-block-header">
+                        <span class="code-block-lang">prompt</span>
+                      </div>
+                      <pre><code>Реализуй задачу 4.1 из Task Master:
+[вставляем содержимое task-master show 4.1]
+
+Стек проекта описан в CLAUDE.md.
+Подзадача должна быть атомарной — не трогай другие части.</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>Шаг 5 — записать прогресс</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Если что-то узнали в процессе — залогируйте это в подзадачу. Эта заметка станет контекстом для следующих задач:</p>
+                    <div class="code-block">
+                      <div class="code-block-header">
+                        <span class="code-block-lang">bash</span>
+                      </div>
+                      <pre><code>task-master update-subtask --id=4.1 --prompt="Поставил @supabase/ssr вместо @supabase/auth-helpers (deprecated). Middleware кладёт сессию в cookies."</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>Шаг 6 — закрыть задачу</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="code-block">
+                      <div class="code-block-header">
+                        <span class="code-block-lang">bash</span>
+                      </div>
+                      <pre><code>task-master set-status --id=4.1 --status=done
+task-master next   # повторяем цикл</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Главная мысль:</strong> в любой момент <code>task-master list</code> покажет вам полную картину проекта. Это ваш "северный полюс" — особенно когда вернулись после паузы и забыли, на чём остановились.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 8: Связка с Claude Code -->
+        <section class="card">
+          <div class="card-header">8. Связка с Claude Code и Cursor</div>
+          <div class="card-body">
+            <p>Task Master умеет работать как <strong>MCP-сервер</strong> — это значит, что Claude Code и Cursor могут вызывать его команды напрямую, не выходя в терминал.</p>
+
+            <h4>Подключение MCP в Claude Code</h4>
+            <p>Создайте файл <code>.mcp.json</code> в корне проекта:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">json</span>
+              </div>
+              <pre><code>{
+  "mcpServers": {
+    "task-master-ai": {
+      "command": "npx",
+      "args": ["-y", "--package=task-master-ai", "task-master-ai"],
+      "env": {
+        "ANTHROPIC_API_KEY": "sk-ant-...",
+        "OPENAI_API_KEY": "sk-..."
+      }
+    }
+  }
+}</code></pre>
+            </div>
+
+            <p>Теперь внутри сессии <code>claude</code> можно говорить человеческим языком:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">claude</span>
+              </div>
+              <pre><code>&gt; Покажи следующую задачу из Task Master
+&gt; Какие подзадачи у задачи 4?
+&gt; Отметь подзадачу 4.1 как done и покажи следующую</code></pre>
+            </div>
+
+            <p>Claude Code сам вызовет <code>next_task</code>, <code>get_task</code>, <code>set_task_status</code> через MCP.</p>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Если MCP не подключился</strong> — это не страшно. CLI-команды <code>task-master *</code> работают всегда. MCP — просто удобство для голосовых запросов.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cheatsheet -->
+        <section class="card">
+          <div class="card-header">Шпаргалка по командам</div>
+          <div class="card-body">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Команда</th>
+                    <th>Что делает</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>task-master init</code></td><td>Инициализирует Task Master в проекте</td></tr>
+                  <tr><td><code>task-master models --setup</code></td><td>Интерактивная настройка моделей</td></tr>
+                  <tr><td><code>task-master parse-prd &lt;file&gt;</code></td><td>Парсит PRD и создаёт задачи</td></tr>
+                  <tr><td><code>task-master list</code></td><td>Показывает все задачи</td></tr>
+                  <tr><td><code>task-master next</code></td><td>Следующая задача для работы</td></tr>
+                  <tr><td><code>task-master show &lt;id&gt;</code></td><td>Детали одной задачи</td></tr>
+                  <tr><td><code>task-master analyze-complexity</code></td><td>Оценка сложности задач</td></tr>
+                  <tr><td><code>task-master expand --all</code></td><td>Разбить все большие задачи на подзадачи</td></tr>
+                  <tr><td><code>task-master set-status --id=&lt;id&gt; --status=done</code></td><td>Изменить статус</td></tr>
+                  <tr><td><code>task-master update-subtask --id=&lt;id&gt; --prompt="..."</code></td><td>Залогировать заметку в подзадачу</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz">
+          <div class="quiz-header">
+            <div class="quiz-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <h3 class="quiz-title">Проверьте себя</h3>
+          </div>
+
+          <div class="quiz-question">Какая команда показывает следующую задачу для работы с учётом зависимостей?</div>
+
+          <div class="quiz-options">
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span><code>task-master list</code></span>
+            </div>
+            <div class="quiz-option" data-correct="true">
+              <span class="quiz-option-marker"></span>
+              <span><code>task-master next</code></span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span><code>task-master show 1</code></span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span><code>task-master parse-prd</code></span>
+            </div>
+          </div>
+
+          <div class="quiz-feedback">
+            <div class="quiz-feedback-text"></div>
+          </div>
+
+          <div class="quiz-actions">
+            <button class="btn btn-primary quiz-check-btn">Проверить</button>
+            <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
+            <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
           </div>
         </section>
 
@@ -315,20 +841,28 @@ gh repo create my-saas-app --public --source=. --push</code></pre>
           <div class="card-body">
             <ul class="checklist">
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson4-git"></span>
-                <span class="checklist-text">Код загружен на GitHub</span>
+                <span class="checklist-checkbox" data-id="lesson4-install"></span>
+                <span class="checklist-text"><code>task-master-ai</code> установлен и инициализирован</span>
               </li>
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson4-vercel"></span>
-                <span class="checklist-text">Проект подключен к Vercel</span>
+                <span class="checklist-checkbox" data-id="lesson4-models"></span>
+                <span class="checklist-text">Модели настроены (main + fallback)</span>
               </li>
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson4-deploy"></span>
-                <span class="checklist-text">Первый деплой успешен</span>
+                <span class="checklist-checkbox" data-id="lesson4-prd"></span>
+                <span class="checklist-text">PRD для MoodTracker лежит в <code>.taskmaster/docs/prd.txt</code></span>
               </li>
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson4-url"></span>
-                <span class="checklist-text">Сайт открывается по URL</span>
+                <span class="checklist-checkbox" data-id="lesson4-parse"></span>
+                <span class="checklist-text"><code>parse-prd</code> сгенерировал список задач</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson4-expand"></span>
+                <span class="checklist-text">Большие задачи разбиты на подзадачи</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson4-loop"></span>
+                <span class="checklist-text">Прошёл хотя бы один цикл <code>next → show → set-status done</code></span>
               </li>
             </ul>
           </div>
@@ -352,7 +886,7 @@ gh repo create my-saas-app --public --source=. --push</code></pre>
           <a href="lesson-5.html" class="nav-arrow nav-arrow-next">
             <div>
               <div class="nav-arrow-label">Далее</div>
-              <div class="nav-arrow-title">Промпт-инженеринг</div>
+              <div class="nav-arrow-title">Деплой на Vercel</div>
             </div>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="9,6 15,12 9,18"/>

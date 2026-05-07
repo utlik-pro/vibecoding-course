@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Урок 5.5: Промпт-инженеринг | VibeCoding</title>
+  <title>Урок 5.5: Деплой на Vercel | VibeCoding</title>
   <script src="js/auth-check.js"></script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -25,7 +25,7 @@
         <div class="progress-bar">
           <div class="progress-fill" style="width: 0%"></div>
         </div>
-        <div class="progress-text">0 из 8 уроков</div>
+        <div class="progress-text">0 из 9 уроков</div>
       </div>
 
       <nav class="sidebar-nav">
@@ -58,25 +58,30 @@
 
         <a href="lesson-4.html" class="nav-item" data-lesson="4">
           <span class="nav-item-number">4</span>
-          Деплой на Vercel
+          Task Master
         </a>
 
         <a href="lesson-5.html" class="nav-item active" data-lesson="5">
           <span class="nav-item-number">5</span>
-          Промпт-инженеринг
+          Деплой на Vercel
         </a>
 
         <a href="lesson-6.html" class="nav-item" data-lesson="6">
           <span class="nav-item-number">6</span>
-          Интеграция сервисов
+          Промпт-инженеринг
         </a>
 
         <a href="lesson-7.html" class="nav-item" data-lesson="7">
           <span class="nav-item-number">7</span>
+          Интеграция сервисов
+        </a>
+
+        <a href="lesson-8.html" class="nav-item" data-lesson="8">
+          <span class="nav-item-number">8</span>
           Готовность к вайбкодингу
         </a>
 
-        <a href="project.html" class="nav-item" data-lesson="8">
+        <a href="project.html" class="nav-item" data-lesson="9">
           <span class="nav-item-number">P</span>
           Итоговый проект
         </a>
@@ -129,287 +134,82 @@
         <div class="lesson-header">
           <div class="lesson-meta">
             <span class="lesson-number">Урок 5.5</span>
-            <span class="lesson-duration">⏱ 35 минут</span>
+            <span class="lesson-duration">⏱ 20 минут</span>
           </div>
-          <h1 class="lesson-title">Промпт-инженеринг для вайбкодинга</h1>
+          <h1 class="lesson-title">Деплой на Vercel</h1>
 
           <div class="lesson-objectives">
             <h4>Цели урока:</h4>
             <ul>
-              <li>Научиться писать эффективные промпты</li>
-              <li>Создать шаблоны для типичных задач</li>
-              <li>Понять best practices вайбкодинга</li>
+              <li>Подключить GitHub репозиторий к Vercel</li>
+              <li>Настроить автоматический деплой</li>
+              <li>Понять preview deployments</li>
             </ul>
           </div>
         </div>
 
-        <div class="teacher-note">
-          <div class="teacher-note-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 6v6l4 2"/>
-            </svg>
-            Заметка для преподавателя
-          </div>
-          <div class="teacher-note-content">
-            <p><strong>Ключевой урок:</strong> Это самый важный урок для вайбкодинга. Качество промптов напрямую влияет на качество генерируемого кода. Покажите примеры хороших и плохих промптов.</p>
-          </div>
-        </div>
-
-        <!-- Section 1: Basics -->
+        <!-- Section 1: Git Setup -->
         <section class="card">
-          <div class="card-header">1. Основы промптов</div>
+          <div class="card-header">1. Подготовка репозитория</div>
           <div class="card-body">
-            <p>Хороший промпт содержит четыре элемента:</p>
+            <p>Сначала создадим Git репозиторий и загрузим на GitHub:</p>
 
-            <div class="table-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Элемент</th>
-                    <th>Описание</th>
-                    <th>Пример</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Контекст</strong></td>
-                    <td>Что за проект, какой стек</td>
-                    <td>"В Next.js проекте с shadcn/ui..."</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Задача</strong></td>
-                    <td>Что нужно сделать</td>
-                    <td>"...создай компонент карточки"</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Требования</strong></td>
-                    <td>Конкретные ограничения</td>
-                    <td>"...с аватаром, именем и кнопкой"</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Формат</strong></td>
-                    <td>Как должен выглядеть результат</td>
-                    <td>"...используя TypeScript интерфейс"</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code># Инициализация Git (если еще не сделано)
+git init
+
+# Добавляем все файлы
+git add .
+
+# Первый коммит
+git commit -m "Initial commit: Next.js project setup"
+
+# Создаем репозиторий на GitHub и пушим
+gh repo create my-saas-app --public --source=. --push</code></pre>
             </div>
 
-            <div class="alert alert-warning">
+            <div class="alert alert-info">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                <line x1="12" y1="9" x2="12" y2="13"/>
-                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
               </svg>
               <div>
-                <strong>Плохой промпт:</strong> "Сделай компонент"<br>
-                <strong>Хороший промпт:</strong> "Создай компонент UserCard с использованием shadcn/ui Card. Показывай аватар, имя и email. Добавь кнопку редактирования."
+                Если нет <code>gh</code> CLI, создайте репозиторий на github.com вручную и выполните <code>git remote add origin</code>.
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Section 2: Templates -->
+        <!-- Section 2: Connect to Vercel -->
         <section class="card">
-          <div class="card-header">2. Шаблоны промптов</div>
+          <div class="card-header">2. Подключение к Vercel</div>
           <div class="card-body">
-            <h4>Шаблон для компонентов:</h4>
-            <div class="code-block">
-              <div class="code-block-header">
-                <span class="code-block-lang">template</span>
+            <div class="teacher-note">
+              <div class="teacher-note-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+                Заметка для преподавателя
               </div>
-              <pre><code>Создай [тип компонента] для [назначение].
-
-Стек: Next.js 14, TypeScript, Tailwind CSS, shadcn/ui
-
-Функциональность:
-- [требование 1]
-- [требование 2]
-- [требование 3]
-
-Props:
-- [prop 1]: [тип] - [описание]
-- [prop 2]: [тип] - [описание]
-
-Используй существующие компоненты из src/components/ui/</code></pre>
-            </div>
-
-            <h4>Шаблон для API routes:</h4>
-            <div class="code-block">
-              <div class="code-block-header">
-                <span class="code-block-lang">template</span>
-              </div>
-              <pre><code>Создай API route для [действие].
-
-Endpoint: /api/[путь]
-Метод: [GET/POST/PUT/DELETE]
-
-Входные данные:
-- [поле]: [тип]
-
-Ответ:
-- Успех: { data: [структура] }
-- Ошибка: { error: string }
-
-Требования:
-- Использовать [Supabase/OpenAI/etc]
-- Валидировать входные данные
-- Обработать ошибки с правильными статусами</code></pre>
-            </div>
-
-            <h4>Шаблон для исправления багов:</h4>
-            <div class="code-block">
-              <div class="code-block-header">
-                <span class="code-block-lang">template</span>
-              </div>
-              <pre><code>Ошибка: [описание ошибки]
-Файл: [путь к файлу]
-
-Что происходит:
-[текущее поведение]
-
-Что должно быть:
-[ожидаемое поведение]
-
-Код с ошибкой:
-[фрагмент кода или строка]
-
-Сообщение об ошибке (если есть):
-[текст ошибки или stack trace]</code></pre>
-            </div>
-          </div>
-        </section>
-
-        <!-- Section 3: Examples -->
-        <section class="card">
-          <div class="card-header">3. Примеры промптов</div>
-          <div class="card-body">
-            <div class="accordion">
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>Создание формы</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <div class="code-block">
-                      <div class="code-block-header">
-                        <span class="code-block-lang">prompt</span>
-                      </div>
-                      <pre><code>Создай форму регистрации пользователя.
-
-Стек: Next.js 14, TypeScript, shadcn/ui, react-hook-form, zod
-
-Поля формы:
-- Имя (обязательное, min 2 символа)
-- Email (обязательное, валидный email)
-- Пароль (обязательное, min 8 символов)
-- Подтверждение пароля (должно совпадать)
-
-Функции:
-- Валидация на клиенте с zod
-- Показ ошибок под полями
-- Кнопка Submit с loading состоянием
-- onSubmit callback для отправки данных
-
-Используй компоненты из shadcn/ui:
-- Form, FormField, FormItem, FormLabel
-- Input, Button</code></pre>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>API с базой данных</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <div class="code-block">
-                      <div class="code-block-header">
-                        <span class="code-block-lang">prompt</span>
-                      </div>
-                      <pre><code>Создай CRUD API для управления задачами (todos).
-
-Endpoints:
-- GET /api/todos - список задач пользователя
-- POST /api/todos - создать задачу
-- PUT /api/todos/[id] - обновить задачу
-- DELETE /api/todos/[id] - удалить задачу
-
-Структура задачи:
-- id: uuid
-- title: string
-- completed: boolean
-- user_id: uuid
-- created_at: timestamp
-
-Требования:
-- Использовать Supabase client из src/lib/supabase.ts
-- Проверять user_id для безопасности
-- Возвращать { data } при успехе
-- Возвращать { error } при ошибке с кодом 400/500</code></pre>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>Интеграция с ИИ</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <div class="code-block">
-                      <div class="code-block-header">
-                        <span class="code-block-lang">prompt</span>
-                      </div>
-                      <pre><code>Создай API route для генерации текста с OpenAI.
-
-Endpoint: POST /api/generate
-
-Входные данные:
-- prompt: string (текст от пользователя)
-- max_tokens?: number (по умолчанию 500)
-
-Функциональность:
-- Использовать OpenAI client из src/lib/openai.ts
-- Модель: gpt-4o-mini
-- Добавить системный промпт: "You are a helpful assistant"
-- Вернуть сгенерированный текст
-
-Обработка ошибок:
-- 400: если prompt пустой
-- 500: если OpenAI API недоступен
-- Логировать ошибки в console.error</code></pre>
-                    </div>
-                  </div>
-                </div>
+              <div class="teacher-note-content">
+                Покажите экран при подключении. Это занимает меньше минуты и очень наглядно демонстрирует мощь Vercel.
               </div>
             </div>
-          </div>
-        </section>
 
-        <!-- Section 4: Best Practices -->
-        <section class="card">
-          <div class="card-header">4. Best Practices вайбкодинга</div>
-          <div class="card-body">
+            <h4>Шаги подключения:</h4>
             <ol>
-              <li><strong>Будьте конкретны</strong> — чем точнее промпт, тем лучше результат</li>
-              <li><strong>Указывайте контекст</strong> — стек, существующие файлы, паттерны</li>
-              <li><strong>Разбивайте большие задачи</strong> — лучше 5 маленьких промптов, чем 1 огромный</li>
-              <li><strong>Проверяйте код</strong> — ИИ может ошибаться, всегда ревьюйте</li>
-              <li><strong>Итерируйте</strong> — уточняйте промпт, если результат не идеален</li>
+              <li>Откройте <a href="https://vercel.com/dashboard" target="_blank">vercel.com/dashboard</a></li>
+              <li>Нажмите <strong>"Add New..."</strong> → <strong>"Project"</strong></li>
+              <li>Выберите <strong>"Import Git Repository"</strong></li>
+              <li>Найдите ваш репозиторий <code>my-saas-app</code></li>
+              <li>Нажмите <strong>"Import"</strong></li>
+              <li>Vercel автоматически определит Next.js</li>
+              <li>Нажмите <strong>"Deploy"</strong></li>
             </ol>
 
             <div class="alert alert-success">
@@ -418,7 +218,97 @@ Endpoint: POST /api/generate
                 <polyline points="22,4 12,14.01 9,11.01"/>
               </svg>
               <div>
-                <strong>Совет:</strong> Создайте файл <code>prompts.md</code> в проекте с вашими шаблонами. Это ускорит работу и обеспечит консистентность.
+                Через 30-60 секунд ваш сайт будет доступен по адресу <code>my-saas-app.vercel.app</code>!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Project Settings -->
+        <section class="card">
+          <div class="card-header">3. Настройки проекта</div>
+          <div class="card-body">
+            <p>В <strong>Project Settings</strong> можно настроить:</p>
+
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🌐 Домены (Domains)</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ul>
+                      <li>Автоматический домен: <code>project.vercel.app</code></li>
+                      <li>Можно добавить свой домен</li>
+                      <li>SSL сертификаты — автоматически</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>⚙️ Build Settings</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <ul>
+                      <li><strong>Framework Preset:</strong> Next.js (автоопределение)</li>
+                      <li><strong>Build Command:</strong> <code>npm run build</code></li>
+                      <li><strong>Output Directory:</strong> <code>.next</code></li>
+                      <li><strong>Install Command:</strong> <code>npm install</code></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Preview Deployments -->
+        <section class="card">
+          <div class="card-header">4. Preview Deployments</div>
+          <div class="card-body">
+            <p>Каждый Pull Request автоматически получает свой URL для тестирования:</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Branch</th>
+                    <th>URL</th>
+                    <th>Назначение</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>main</code></td>
+                    <td>project.vercel.app</td>
+                    <td>Production</td>
+                  </tr>
+                  <tr>
+                    <td><code>feature/auth</code></td>
+                    <td>project-feature-auth.vercel.app</td>
+                    <td>Preview для PR</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Автодеплой:</strong> Каждый push в main автоматически деплоит новую версию. Это называется CI/CD.
               </div>
             </div>
           </div>
@@ -430,20 +320,20 @@ Endpoint: POST /api/generate
           <div class="card-body">
             <ul class="checklist">
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson5-structure"></span>
-                <span class="checklist-text">Понята структура хорошего промпта</span>
+                <span class="checklist-checkbox" data-id="lesson5-git"></span>
+                <span class="checklist-text">Код загружен на GitHub</span>
               </li>
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson5-templates"></span>
-                <span class="checklist-text">Изучены шаблоны промптов</span>
+                <span class="checklist-checkbox" data-id="lesson5-vercel"></span>
+                <span class="checklist-text">Проект подключен к Vercel</span>
               </li>
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson5-examples"></span>
-                <span class="checklist-text">Разобраны примеры</span>
+                <span class="checklist-checkbox" data-id="lesson5-deploy"></span>
+                <span class="checklist-text">Первый деплой успешен</span>
               </li>
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson5-file"></span>
-                <span class="checklist-text">Создан файл prompts.md</span>
+                <span class="checklist-checkbox" data-id="lesson5-url"></span>
+                <span class="checklist-text">Сайт открывается по URL</span>
               </li>
             </ul>
           </div>
@@ -456,7 +346,7 @@ Endpoint: POST /api/generate
             </svg>
             <div>
               <div class="nav-arrow-label">Назад</div>
-              <div class="nav-arrow-title">Деплой на Vercel</div>
+              <div class="nav-arrow-title">Task Master</div>
             </div>
           </a>
 
@@ -467,7 +357,7 @@ Endpoint: POST /api/generate
           <a href="lesson-6.html" class="nav-arrow nav-arrow-next">
             <div>
               <div class="nav-arrow-label">Далее</div>
-              <div class="nav-arrow-title">Интеграция сервисов</div>
+              <div class="nav-arrow-title">Промпт-инженеринг</div>
             </div>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="9,6 15,12 9,18"/>

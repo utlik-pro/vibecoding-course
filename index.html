@@ -620,6 +620,7 @@
     <!-- User Badge -->
     <div id="userBadge" class="user-badge">
         <span id="userEmail"></span>
+        <a href="mentoring/index.html" id="mentoringLink" class="admin-link" style="display: none;">Персональное</a>
         <a href="/admin/" id="adminLink" class="admin-link" style="display: none;">Админка</a>
         <button id="logoutBtn" class="logout-btn">✕</button>
     </div>
@@ -676,9 +677,9 @@
                 link: "04-tech-stack-overview/presentation/index.html"
             },
             5: {
-                description: "Настройка полного технологического стека для разработки",
-                topics: ["Next.js setup", "Vercel", "Environment vars"],
-                duration: "2-3 часа",
+                description: "Настройка стека для вайбкодинга: Cursor, Claude Code, Task Master, деплой",
+                topics: ["Cursor", "CLAUDE.md", "Task Master", "Vercel"],
+                duration: "3-4 часа",
                 link: "05-tech-stack-setup/presentation/index.html"
             },
             6: {
@@ -831,6 +832,13 @@
             isAuthenticated = true;
             emailModal.style.display = 'none';
 
+            // Персональное сопровождение — отдельный кабинет.
+            // Админам редирект НЕ делаем, чтобы они могли смотреть и обычный курс, и /mentoring/.
+            if (COURSE_CONFIG.isPersonalStudent(email) && !COURSE_CONFIG.isAdmin(email)) {
+                window.location.href = 'mentoring/index.html';
+                return;
+            }
+
             // Загружаем данные пользователя
             if (!isFallback && USE_SUPABASE) {
                 const profile = CourseAPI.getUserProfile();
@@ -971,10 +979,13 @@
             userBadge.style.display = 'flex';
             userBadge.classList.toggle('admin', isAdmin);
 
+            const mentoringLink = document.getElementById('mentoringLink');
             if (isAdmin) {
                 adminLink.style.display = 'inline';
+                if (mentoringLink) mentoringLink.style.display = 'inline';
             } else {
                 adminLink.style.display = 'none';
+                if (mentoringLink) mentoringLink.style.display = 'none';
             }
         }
 
