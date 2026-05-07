@@ -129,7 +129,8 @@ const COURSE_CONFIG = {
   // АДМИНИСТРАТОРЫ
   // =============================================
   admins: [
-    'tashad16a@gmail.com'
+    'tashad16a@gmail.com',
+    'dmitry.utlik@gmail.com'
   ],
 
   // Пароль для fallback-админки (boss.html)
