@@ -142,15 +142,15 @@
             <span class="lesson-number">Урок 5.1</span>
             <span class="lesson-duration">⏱ 25 минут</span>
           </div>
-          <h1 class="lesson-title">Создание Next.js проекта</h1>
+          <h1 class="lesson-title">Создаём первый Next.js проект</h1>
 
           <div class="lesson-objectives">
-            <h4>Цели урока:</h4>
+            <h4>Что вы сделаете:</h4>
             <ul>
-              <li>Спланировать проект с помощью ИИ (ChatGPT/Claude)</li>
-              <li>Создать новый Next.js проект с помощью create-next-app</li>
-              <li>Понять структуру файлов и папок проекта</li>
-              <li>Настроить базовую конфигурацию</li>
+              <li>Сначала «договоритесь» с ИИ о том, что строите (план = меньше переделок)</li>
+              <li>Одной командой создадите готовый шаблон сайта (Next.js)</li>
+              <li>Посмотрите, какие папки и файлы появились — и что в них</li>
+              <li>Запустите сайт у себя на ноутбуке и откроете в браузере</li>
             </ul>
           </div>
         </div>
@@ -165,17 +165,20 @@
             Заметка для преподавателя
           </div>
           <div class="teacher-note-content">
-            <p><strong>Время на секцию:</strong> ~5 мин введение, ~10 мин создание проекта, ~7 мин структура, ~3 мин запуск</p>
-            <p><strong>Совет:</strong> Выполняйте команды вместе со студентами. Делайте паузы после каждого шага для синхронизации.</p>
-            <p><strong>Частая проблема:</strong> Убедитесь, что у всех установлен Node.js 18+. Проверьте командой <code>node --version</code>.</p>
+            <p><strong>Время на секции:</strong> ~7 мин план с ИИ, ~3 мин что такое Next.js, ~10 мин создание, ~7 мин структура, ~3 мин запуск.</p>
+            <p><strong>Стек на май 2026:</strong> Next.js 16, React 19, Tailwind CSS 4. Промпты <code>create-next-app</code> в этой версии другие — не как в старых туториалах. Не давайте студентам гуглить «как создать Next.js» в момент урока.</p>
+            <p><strong>Частая проблема:</strong> у кого-то Node.js старше 20 — Next.js 16 требует Node 20+. Проверьте у всех: <code>node --version</code> должен показывать 20.x или 22.x.</p>
+            <p><strong>Совет:</strong> выполняйте команды одновременно со студентами, после каждого шага — пауза «у всех получилось?».</p>
           </div>
         </div>
 
         <!-- Section 0: Project Planning with AI -->
         <section class="card">
-          <div class="card-header">0. Планирование проекта с помощью ИИ</div>
+          <div class="card-header">0. Сначала договариваемся с ИИ — что строим</div>
           <div class="card-body">
-            <p><strong>Перед тем как писать код</strong>, полезно спланировать проект с помощью ИИ. Используйте ChatGPT, Claude или другой сервис для проработки идеи.</p>
+            <p>Главная ошибка новичка — сразу открыть редактор и начать писать. ИИ сделает что-то, потом вы поймёте, что хотели по-другому, и придётся переделывать. Сильно дешевле потратить 15 минут на разговор с ИИ <em>до</em> кода.</p>
+
+            <p>Откройте <a href="https://claude.ai" target="_blank">claude.ai</a> или <a href="https://chatgpt.com" target="_blank">chatgpt.com</a> и просто опишите, что хотите. Шаблон промпта ниже.</p>
 
             <div class="alert alert-info">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -184,60 +187,61 @@
                 <path d="M12 8h.01"/>
               </svg>
               <div>
-                <strong>Зачем это нужно:</strong> Хорошо проработанный план = меньше переделок потом. ИИ поможет продумать структуру, функции и технологии до начала кодинга.
+                <strong>Зачем:</strong> ответ ИИ станет вашим черновиком плана. Дальше из него родятся PRD (урок 5.4), <code>CLAUDE.md</code> (урок 5.3) и <code>.cursorrules</code> (урок 5.2) — мы будем переиспользовать его.
               </div>
             </div>
 
-            <h4>Пример промпта для планирования:</h4>
+            <h4>Универсальный шаблон промпта</h4>
             <div class="code-block">
               <div class="code-block-header">
                 <span class="code-block-lang">prompt</span>
               </div>
-              <pre><code>Я хочу создать [описание проекта].
-
-Помоги мне спланировать:
-1. Какие основные функции должны быть?
-2. Какие страницы нужны?
-3. Какая структура базы данных?
-4. Какие API endpoints понадобятся?
-5. Какой стек технологий лучше использовать?
-
-Контекст:
-- Это будет веб-приложение
-- Нужна авторизация пользователей
-- Хочу быстро задеплоить
-
-Дай подробный план с разбивкой на этапы.</code></pre>
-            </div>
-
-            <h4 style="margin-top: 1.5rem;">Конкретный пример — планируем SaaS:</h4>
-            <div class="code-block">
-              <div class="code-block-header">
-                <span class="code-block-lang">prompt</span>
-              </div>
-              <pre><code>Я хочу создать SaaS для управления задачами команды.
-
-Основные функции:
-- Регистрация/вход пользователей
-- Создание проектов и задач
-- Назначение задач участникам
-- Дашборд с прогрессом
+              <pre><code>Я хочу создать [одно предложение про проект].
 
 Помоги спланировать:
-1. Структуру страниц (какие routes нужны)
-2. Модели данных (users, projects, tasks)
-3. API endpoints
-4. Порядок разработки (что делать первым)
+1. Какие 5–7 главных функций нужны на старте, без лишнего?
+2. Какие страницы (экраны) будут у пользователя?
+3. Какие таблицы в базе данных и какие у них поля?
+4. С чего стоит начать разработку, а что отложить на потом?
 
-Стек: Next.js, TypeScript, Supabase, Tailwind CSS</code></pre>
+Контекст обо мне:
+- Я только учусь программировать
+- Хочу как можно быстрее увидеть рабочий сайт
+- Стек уже выбран: Next.js, TypeScript, Tailwind, Supabase
+
+Объясняй простыми словами. Если используешь технический термин —
+сразу поясняй, что он значит.</code></pre>
             </div>
 
-            <h4 style="margin-top: 1.5rem;">Что получите от ИИ:</h4>
+            <h4 style="margin-top: 1.5rem;">Пример: планируем «MoodTracker» (трекер настроения)</h4>
+            <p>Этот же проект мы будем использовать как сквозной пример в уроке 5.4 (Task Master).</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">prompt</span>
+              </div>
+              <pre><code>Я хочу создать MoodTracker — простой сайт, где пользователь раз
+в день отмечает настроение от 1 до 5 и пишет короткую заметку.
+В дашборде — график за 30 дней. Раз в неделю ИИ даёт совет
+по записям пользователя.
+
+Помоги спланировать:
+1. Какие 5–7 функций нужны на старте?
+2. Какие страницы (экраны) у пользователя?
+3. Какие таблицы в Supabase и какие поля?
+4. С чего начать делать первым?
+
+Стек: Next.js 16, TypeScript, Tailwind, Supabase, OpenAI.
+Я новичок, объясняй простыми словами.</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Что должно получиться</h4>
+            <p>Хороший ответ ИИ обычно содержит четыре блока:</p>
             <ul>
-              <li><strong>Структура страниц:</strong> /dashboard, /projects/[id], /tasks, /settings</li>
-              <li><strong>Модели данных:</strong> таблицы и связи между ними</li>
-              <li><strong>API endpoints:</strong> /api/projects, /api/tasks, /api/users</li>
-              <li><strong>План разработки:</strong> 1) Auth → 2) Базовый UI → 3) CRUD проектов → 4) Задачи</li>
+              <li><strong>Страницы</strong> — список адресов: <code>/login</code>, <code>/dashboard</code>, <code>/settings</code></li>
+              <li><strong>Таблицы в базе</strong> — например <code>moods</code> с полями <code>id</code>, <code>user_id</code>, <code>value</code>, <code>note</code>, <code>created_at</code></li>
+              <li><strong>Функции</strong> — что пользователь может делать на каждой странице</li>
+              <li><strong>Порядок</strong> — что делать первым (обычно: вход → каркас сайта → главная функция → красота)</li>
             </ul>
 
             <div class="alert alert-success" style="margin-top: 1rem;">
@@ -246,46 +250,44 @@
                 <polyline points="22,4 12,14.01 9,11.01"/>
               </svg>
               <div>
-                <strong>Совет:</strong> Сохраните план от ИИ — он пригодится для создания CLAUDE.md и .cursorrules в следующих уроках!
+                <strong>Сохраните этот разговор!</strong> Скопируйте ответ ИИ в файл <code>plan.md</code> у себя на ноутбуке. В следующих уроках мы из него соберём <code>CLAUDE.md</code>, <code>.cursorrules</code> и PRD для Task Master.
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Section 1: Introduction -->
+        <!-- Section 1: What is Next.js -->
         <section class="card">
-          <div class="card-header">1. Введение в Next.js</div>
+          <div class="card-header">1. Что такое Next.js (простыми словами)</div>
           <div class="card-body">
-            <h3>Почему Next.js для нашего проекта?</h3>
-            <p>
-              <span class="tooltip-trigger" data-term="Next.js">Next.js</span> — это React-фреймворк от Vercel,
-              который предоставляет всё необходимое для создания production-ready приложений.
-            </p>
+            <p><strong>Next.js</strong> — это «коробка с готовыми инструментами», чтобы делать сайты. Внутри уже лежат все основные кубики: страницы, картинки, формы, кнопки — нужно только сложить их так, как вам нужно.</p>
 
-            <h4>Преимущества Next.js:</h4>
+            <p>Если бы Next.js не было — пришлось бы вручную собирать каждый кусочек: настраивать сервер, маршруты, картинки, шрифты. С Next.js всё это уже сделано за вас. Вы просто описываете, как должны выглядеть страницы — а Next.js делает остальное.</p>
+
+            <h4>Что вы получаете «из коробки»</h4>
             <div class="service-cards">
               <div class="service-card">
+                <div class="service-card-icon">📄</div>
+                <h4 class="service-card-title">Страницы из папок</h4>
+                <p class="service-card-desc">Сделали папку <code>about</code> — появилась страница <code>/about</code>. Никаких дополнительных настроек.</p>
+              </div>
+
+              <div class="service-card">
                 <div class="service-card-icon">⚡</div>
-                <h4 class="service-card-title">App Router</h4>
-                <p class="service-card-desc">Современная система роутинга на основе файловой структуры</p>
+                <h4 class="service-card-title">Быстрый сайт</h4>
+                <p class="service-card-desc">Картинки, шрифты, скрипты автоматически оптимизируются — сайт грузится быстро.</p>
               </div>
 
               <div class="service-card">
-                <div class="service-card-icon">🖥️</div>
-                <h4 class="service-card-title">Server Components</h4>
-                <p class="service-card-desc">Рендеринг на сервере по умолчанию для лучшей производительности</p>
+                <div class="service-card-icon">🔌</div>
+                <h4 class="service-card-title">Сервер прямо здесь</h4>
+                <p class="service-card-desc">Можно делать «бэкенд» (логика на сервере) в той же папке — не нужно поднимать отдельный сервис.</p>
               </div>
 
               <div class="service-card">
-                <div class="service-card-icon">📦</div>
-                <h4 class="service-card-title">API Routes</h4>
-                <p class="service-card-desc">Создание backend API без отдельного сервера</p>
-              </div>
-
-              <div class="service-card">
-                <div class="service-card-icon">🚀</div>
-                <h4 class="service-card-title">Оптимизация</h4>
-                <p class="service-card-desc">Автоматическая оптимизация изображений, шрифтов и скриптов</p>
+                <div class="service-card-icon">🤖</div>
+                <h4 class="service-card-title">Дружит с ИИ</h4>
+                <p class="service-card-desc">Cursor и Claude Code знают Next.js «вдоль и поперёк» — генерируют код, который реально работает.</p>
               </div>
             </div>
 
@@ -296,16 +298,30 @@
                 <path d="M12 8h.01"/>
               </svg>
               <div>
-                <strong>App Router vs Pages Router:</strong> Мы используем App Router — новый подход в Next.js 13+.
-                Он использует React Server Components и обеспечивает лучшую производительность.
+                <strong>На май 2026 актуальна Next.js 16</strong> — мы будем использовать именно её. Она быстрее предыдущих версий и сама оптимизирует ваш код через React Compiler (это новая «волшебная» штука, о которой не нужно думать — она просто работает).
               </div>
             </div>
+
+            <details class="accordion-item" style="margin-top: 1rem;">
+              <summary class="accordion-header" style="cursor: pointer; list-style: none;">
+                <span>🤓 Если встретите эти термины — вот что они значат</span>
+              </summary>
+              <div class="accordion-body" style="padding: 1rem;">
+                <ul>
+                  <li><strong>React</strong> — «движок», на котором работает Next.js. Можно сравнить: React = двигатель, Next.js = вся машина с рулём, сиденьями и стеклоочистителями.</li>
+                  <li><strong>App Router</strong> — способ, которым Next.js делает страницы из папок. В этом курсе всегда используем именно его (он современный).</li>
+                  <li><strong>Server Components</strong> — компоненты, которые «рисуются» на сервере, а не в браузере пользователя. Сайт открывается быстрее. По умолчанию в Next.js 16 все компоненты такие — пока не помечено иначе.</li>
+                  <li><strong>TypeScript</strong> — это JavaScript с подсказками о типах. Когда напишете <code>let age: number = 25</code>, редактор будет ругаться, если вы случайно положите туда строку. Меньше багов.</li>
+                  <li><strong>Production-ready</strong> — «готовое к запуску в реальный мир» (а не только для учёбы).</li>
+                </ul>
+              </div>
+            </details>
           </div>
         </section>
 
         <!-- Section 2: Creating Project -->
         <section class="card">
-          <div class="card-header">2. Создание проекта</div>
+          <div class="card-header">2. Одна команда — и проект готов</div>
           <div class="card-body">
 
             <div class="teacher-note">
@@ -317,28 +333,49 @@
                 Заметка для преподавателя
               </div>
               <div class="teacher-note-content">
-                Выполните эту команду вместе со студентами. Объясните каждый параметр при выборе.
+                В Next.js 16 промпты при создании <strong>сильно изменились</strong> — есть быстрый путь «recommended defaults» (один Yes на всё). Покажите его, потом расскажите, что было бы при customize.
               </div>
             </div>
 
-            <h3>Команда создания</h3>
-            <p>Откройте терминал и выполните:</p>
+            <h3>Шаг 1 — открыть терминал</h3>
+            <p><strong>Терминал</strong> — это окошко, где вы пишете команды текстом, а компьютер их выполняет. На Mac: Spotlight (⌘ + пробел) → введите «Terminal» → Enter. На Windows: «Терминал» в меню Пуск.</p>
+
+            <p>Зайдите в папку, где хотите создать проект (например, <code>~/Desktop</code>):</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code>cd ~/Desktop</code></pre>
+            </div>
+
+            <h3 style="margin-top: 1.5rem;">Шаг 2 — запустить волшебную команду</h3>
+            <p>Эта команда скачает и развернёт готовый шаблон сайта:</p>
 
             <div class="code-block">
               <div class="code-block-header">
                 <span class="code-block-lang">bash</span>
-                <button class="code-block-copy" title="Копировать">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                  </svg>
-                </button>
               </div>
-              <pre><code>npx create-next-app@latest my-saas-app</code></pre>
+              <pre><code>npx create-next-app@latest mood-tracker</code></pre>
             </div>
 
-            <h4>Параметры при создании:</h4>
-            <p>CLI задаст несколько вопросов. Выбирайте следующие параметры:</p>
+            <p><code>mood-tracker</code> — это имя папки, в которой создастся проект. Можно назвать как угодно, главное — без пробелов и кириллицы.</p>
+
+            <h3 style="margin-top: 1.5rem;">Шаг 3 — ответить на вопросы</h3>
+            <p>CLI (то самое окошко терминала) задаст несколько вопросов. В Next.js 16 первый вопрос — самый важный:</p>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>«Would you like to use the recommended Next.js defaults?»</strong><br>
+                Ответ: <strong>Yes</strong>. Этого достаточно — Next.js сам поставит TypeScript, ESLint, Tailwind CSS, App Router и AGENTS.md (файл подсказок для ИИ). Можно прыгать сразу к шагу 4.
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Если хочется выбрать всё вручную (No → customize)</h4>
+            <p>Тогда CLI задаст серию вопросов. Вот рекомендованные ответы для нашего курса:</p>
 
             <div class="table-container">
               <table>
@@ -353,103 +390,130 @@
                   <tr>
                     <td>Would you like to use TypeScript?</td>
                     <td><strong>Yes</strong></td>
-                    <td>Типизация предотвращает ошибки</td>
+                    <td>Редактор будет подсказывать ошибки до запуска</td>
                   </tr>
                   <tr>
-                    <td>Would you like to use ESLint?</td>
+                    <td>Which linter would you like to use? (ESLint / Biome / None)</td>
+                    <td><strong>ESLint</strong></td>
+                    <td>Самый известный, ИИ его знает наизусть</td>
+                  </tr>
+                  <tr>
+                    <td>Would you like to use React Compiler?</td>
                     <td><strong>Yes</strong></td>
-                    <td>Проверка качества кода</td>
+                    <td>Автоматически ускоряет ваш сайт. Бесплатно, не требует настройки</td>
                   </tr>
                   <tr>
                     <td>Would you like to use Tailwind CSS?</td>
                     <td><strong>Yes</strong></td>
-                    <td>Быстрая стилизация</td>
+                    <td>Стилизация классами, быстро и без отдельных CSS-файлов</td>
                   </tr>
                   <tr>
-                    <td>Would you like your code inside a `src/` directory?</td>
+                    <td>Would you like your code inside a <code>src/</code> directory?</td>
                     <td><strong>Yes</strong></td>
-                    <td>Чистая структура проекта</td>
+                    <td>Весь код в одной папке — чище</td>
                   </tr>
                   <tr>
                     <td>Would you like to use App Router?</td>
                     <td><strong>Yes</strong></td>
-                    <td>Современный подход</td>
+                    <td>Современный способ делать страницы (старый — только для legacy)</td>
                   </tr>
                   <tr>
-                    <td>Would you like to use Turbopack?</td>
-                    <td><strong>No</strong></td>
-                    <td>Пока экспериментальный</td>
+                    <td>Would you like to customize the import alias?</td>
+                    <td><strong>Yes — оставить <code>@/*</code></strong></td>
+                    <td>Удобный «короткий путь» к файлам внутри проекта</td>
                   </tr>
                   <tr>
-                    <td>Would you like to customize import alias?</td>
-                    <td><strong>Yes (@/*)</strong></td>
-                    <td>Удобные импорты</td>
+                    <td>Would you like to include AGENTS.md?</td>
+                    <td><strong>Yes</strong></td>
+                    <td>Файл с подсказками для Cursor/Claude Code/любого ИИ. Подробно — в уроке 5.3</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <div class="alert alert-success">
-              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22,4 12,14.01 9,11.01"/>
-              </svg>
-              <div>
-                <strong>Готово!</strong> После завершения у вас будет полностью настроенный Next.js проект с TypeScript и Tailwind CSS.
+            <h3 style="margin-top: 1.5rem;">Шаг 4 — подождать минуту</h3>
+            <p>CLI скачает все зависимости (это слово значит «все нужные библиотеки кода»). Увидите бегущие строчки — это нормально. В конце появится сообщение «Success!» — значит готово.</p>
+
+            <details class="accordion-item" style="margin-top: 1rem;">
+              <summary class="accordion-header" style="cursor: pointer; list-style: none;">
+                <span>🤓 Что такое npx, npm, package.json и зависимости</span>
+              </summary>
+              <div class="accordion-body" style="padding: 1rem;">
+                <ul>
+                  <li><strong>npm</strong> (Node Package Manager) — «магазин» библиотек кода. Когда мы пишем <code>npm install</code>, мы оттуда скачиваем нужные пакеты.</li>
+                  <li><strong>npx</strong> — запустить программу из npm <em>один раз</em>, не устанавливая её к себе насовсем. Удобно для команд типа <code>create-next-app</code>.</li>
+                  <li><strong>package.json</strong> — файл-список того, что использует ваш проект. Как продуктовый список перед походом в магазин.</li>
+                  <li><strong>Зависимости</strong> — это и есть «продукты», которые ваш проект «покупает» через npm. Они лежат в папке <code>node_modules/</code> (туда никогда не нужно лезть руками — она огромная).</li>
+                </ul>
               </div>
-            </div>
+            </details>
           </div>
         </section>
 
         <!-- Section 3: Project Structure -->
         <section class="card">
-          <div class="card-header">3. Структура проекта</div>
+          <div class="card-header">3. Что внутри проекта — экскурсия</div>
           <div class="card-body">
 
-            <h3>Основные файлы и папки</h3>
+            <p>Откройте созданную папку (<code>cd mood-tracker</code> в терминале или через Finder/Проводник). Вот что вы увидите:</p>
 
             <div class="code-block">
               <div class="code-block-header">
                 <span class="code-block-lang">Структура</span>
               </div>
-              <pre><code>my-saas-app/
+              <pre><code>mood-tracker/
 ├── src/
-│   ├── app/
-│   │   ├── layout.tsx      # Корневой layout
-│   │   ├── page.tsx        # Главная страница (/)
-│   │   ├── globals.css     # Глобальные стили
-│   │   └── favicon.ico     # Иконка сайта
-│   └── components/         # React компоненты (создадим позже)
-├── public/                  # Статические файлы
-├── package.json            # Зависимости и скрипты
-├── tsconfig.json          # TypeScript конфигурация
-├── tailwind.config.ts     # Tailwind конфигурация
-├── next.config.js         # Next.js конфигурация
-└── .eslintrc.json         # ESLint правила</code></pre>
+│   └── app/
+│       ├── layout.tsx      ← общий каркас всех страниц (шапка, подвал)
+│       ├── page.tsx        ← главная страница (открывается на "/")
+│       ├── globals.css     ← общие стили на весь сайт
+│       └── favicon.ico     ← иконка во вкладке браузера
+├── public/                  ← сюда кладут картинки, иконки, статику
+├── AGENTS.md                ← подсказки для ИИ-ассистентов (Cursor, Claude)
+├── package.json             ← список зависимостей, как продуктовая корзина
+├── tsconfig.json            ← настройки TypeScript
+├── next.config.ts           ← настройки Next.js
+└── eslint.config.mjs        ← правила проверки кода</code></pre>
             </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Запомните одно главное правило:</strong> 95% вашей работы — внутри папки <code>src/app/</code>. Остальное Next.js настроил за вас, туда лезть почти никогда не понадобится.
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1rem;">Что такое AGENTS.md (новинка Next.js 16)</h4>
+            <p><code>AGENTS.md</code> — это текстовый файл с подсказками для ИИ-помощников: «вот наш стек, вот правила, делай так-то». Cursor, Claude Code, ChatGPT и другие читают этот файл и пишут код, который вписывается в ваш проект, а не «общий».</p>
+            <p>Подробно настроим его в <a href="lesson-3.html">уроке 5.3</a>. Пока просто знаете, что он есть.</p>
 
             <div class="accordion">
               <div class="accordion-item">
                 <div class="accordion-header">
-                  <span>📁 src/app/ — App Router</span>
+                  <span>📁 src/app/ — главное место, где вы работаете</span>
                   <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="6,9 12,15 18,9"/>
                   </svg>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
-                    <p>Папка <code>app/</code> — это сердце App Router. Каждая папка становится маршрутом:</p>
+                    <p>Простое правило: <strong>каждая папка внутри <code>app/</code> — это адрес страницы</strong>.</p>
                     <ul>
-                      <li><code>app/page.tsx</code> → <code>/</code> (главная)</li>
-                      <li><code>app/about/page.tsx</code> → <code>/about</code></li>
+                      <li><code>app/page.tsx</code> → главная страница сайта (<code>/</code>)</li>
+                      <li><code>app/about/page.tsx</code> → страница «О нас» (<code>/about</code>)</li>
                       <li><code>app/dashboard/settings/page.tsx</code> → <code>/dashboard/settings</code></li>
                     </ul>
-                    <p><strong>Специальные файлы:</strong></p>
+                    <p>Хотите страницу настроек? Создайте папку <code>settings</code>, в ней файл <code>page.tsx</code> — всё. Никаких роутеров настраивать не нужно.</p>
+                    <p style="margin-top: 0.75rem;"><strong>Специальные имена файлов</strong> (важно знать):</p>
                     <ul>
-                      <li><code>layout.tsx</code> — общая обёртка для страниц</li>
-                      <li><code>page.tsx</code> — контент страницы</li>
-                      <li><code>loading.tsx</code> — состояние загрузки</li>
-                      <li><code>error.tsx</code> — обработка ошибок</li>
+                      <li><code>page.tsx</code> — что показать на этой странице</li>
+                      <li><code>layout.tsx</code> — общий «каркас» (шапка/подвал) для страниц этой папки</li>
+                      <li><code>loading.tsx</code> — что показывать, пока страница грузится</li>
+                      <li><code>error.tsx</code> — что показать, если что-то сломалось</li>
                     </ul>
                   </div>
                 </div>
@@ -457,73 +521,56 @@
 
               <div class="accordion-item">
                 <div class="accordion-header">
-                  <span>📄 layout.tsx — Корневой layout</span>
+                  <span>📄 page.tsx — что видит пользователь</span>
                   <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="6,9 12,15 18,9"/>
                   </svg>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
+                    <p>Откройте <code>src/app/page.tsx</code> — это главная страница вашего сайта. Внутри что-то такое:</p>
                     <div class="code-block">
                       <div class="code-block-header">
                         <span class="code-block-lang">tsx</span>
                       </div>
-                      <pre><code>// src/app/layout.tsx
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
-
-export const metadata: Metadata = {
-  title: 'My SaaS App',
-  description: 'Built with Next.js',
-}
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+                      <pre><code>export default function Home() {
   return (
-    &lt;html lang="ru"&gt;
-      &lt;body className={inter.className}&gt;
-        {children}
-      &lt;/body&gt;
-    &lt;/html&gt;
-  )
+    &lt;main className="flex min-h-screen items-center justify-center"&gt;
+      &lt;h1 className="text-4xl font-bold"&gt;Привет, мир!&lt;/h1&gt;
+    &lt;/main&gt;
+  );
 }</code></pre>
                     </div>
+                    <p style="margin-top: 0.75rem;">«Перевод» того, что здесь происходит:</p>
+                    <ul>
+                      <li><code>function Home()</code> — это «функция-страница». Возвращает то, что увидит пользователь.</li>
+                      <li><code>return (...)</code> — возвращаем кусок HTML.</li>
+                      <li><code>className="..."</code> — стили из Tailwind. <code>text-4xl</code> = «большой шрифт», <code>font-bold</code> = «жирный», <code>flex items-center justify-center</code> = «по центру экрана».</li>
+                    </ul>
+                    <p>Попробуйте поменять «Привет, мир!» на что-то своё, сохраните файл — браузер сам обновится.</p>
                   </div>
                 </div>
               </div>
 
               <div class="accordion-item">
                 <div class="accordion-header">
-                  <span>📄 page.tsx — Главная страница</span>
+                  <span>📄 layout.tsx — общая обёртка</span>
                   <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="6,9 12,15 18,9"/>
                   </svg>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
-                    <div class="code-block">
-                      <div class="code-block-header">
-                        <span class="code-block-lang">tsx</span>
+                    <p>Файл, который оборачивает все страницы. Сюда обычно кладут шапку, подвал, подключение шрифтов. Пока он есть — но менять его не надо.</p>
+                    <div class="alert alert-info">
+                      <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 16v-4"/>
+                        <path d="M12 8h.01"/>
+                      </svg>
+                      <div>
+                        Когда понадобится — попросите Cursor: <em>«добавь в layout шапку с логотипом и навигацией»</em> — он сам всё сделает правильно.
                       </div>
-                      <pre><code>// src/app/page.tsx
-export default function Home() {
-  return (
-    &lt;main className="flex min-h-screen flex-col items-center justify-center p-24"&gt;
-      &lt;h1 className="text-4xl font-bold"&gt;
-        Welcome to My SaaS App
-      &lt;/h1&gt;
-      &lt;p className="mt-4 text-gray-600"&gt;
-        Built with Next.js, TypeScript, and Tailwind CSS
-      &lt;/p&gt;
-    &lt;/main&gt;
-  )
-}</code></pre>
                     </div>
                   </div>
                 </div>
@@ -534,67 +581,77 @@ export default function Home() {
 
         <!-- Section 4: Running Project -->
         <section class="card">
-          <div class="card-header">4. Запуск проекта</div>
+          <div class="card-header">4. Запускаем сайт у себя</div>
           <div class="card-body">
 
-            <h3>Запуск dev-сервера</h3>
-            <p>Перейдите в папку проекта и запустите:</p>
+            <p>Зайдите в созданную папку и запустите «локальный сервер» — это значит, ваш ноутбук временно станет хостингом для сайта (только для вас, никто другой не увидит):</p>
 
             <div class="code-block">
               <div class="code-block-header">
                 <span class="code-block-lang">bash</span>
-                <button class="code-block-copy" title="Копировать">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                  </svg>
-                </button>
               </div>
-              <pre><code>cd my-saas-app
+              <pre><code>cd mood-tracker
 npm run dev</code></pre>
             </div>
 
-            <p>Откройте в браузере: <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></p>
+            <p>Через 2–3 секунды в терминале появится сообщение «Ready in XXX ms». Откройте в браузере: <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> — увидите свой сайт.</p>
 
-            <h4>Доступные скрипты:</h4>
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Поздравляем!</strong> Вы создали и запустили свой первый Next.js сайт. Это уже больше, чем многие делают.
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1rem;">Попробуйте магию hot reload</h4>
+            <p>Откройте <code>src/app/page.tsx</code> в редакторе, поменяйте текст внутри <code>&lt;h1&gt;...&lt;/h1&gt;</code>, сохраните файл (⌘S или Ctrl+S). Браузер обновится автоматически — вы увидите свой текст. Это и называется «hot reload» — горячая перезагрузка.</p>
+
+            <h4 style="margin-top: 1rem;">Команды, которые понадобятся</h4>
             <div class="table-container">
               <table>
                 <thead>
                   <tr>
                     <th>Команда</th>
-                    <th>Описание</th>
+                    <th>Что делает</th>
+                    <th>Когда использовать</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td><code>npm run dev</code></td>
-                    <td>Запуск dev-сервера с hot reload</td>
+                    <td>Запускает сайт у вас локально</td>
+                    <td>Каждый день, когда работаете над проектом</td>
                   </tr>
                   <tr>
                     <td><code>npm run build</code></td>
-                    <td>Production сборка</td>
+                    <td>Собирает «боевую» версию сайта</td>
+                    <td>Перед деплоем (урок 5.5) — проверить, что всё компилируется</td>
                   </tr>
                   <tr>
                     <td><code>npm run start</code></td>
-                    <td>Запуск production сервера</td>
+                    <td>Запускает «боевую» версию у вас</td>
+                    <td>Редко — обычно «боевая» версия сама работает на Vercel</td>
                   </tr>
                   <tr>
                     <td><code>npm run lint</code></td>
-                    <td>Проверка кода ESLint</td>
+                    <td>Проверяет код на типичные ошибки</td>
+                    <td>Когда что-то странное — стоит запустить</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <div class="alert alert-info">
+            <div class="alert alert-warning" style="margin-top: 1rem;">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 16v-4"/>
-                <path d="M12 8h.01"/>
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
               </svg>
               <div>
-                <strong>Hot Reload:</strong> Изменения в коде автоматически обновляются в браузере.
-                Попробуйте изменить текст в <code>page.tsx</code> и сохранить файл.
+                <strong>Чтобы остановить сервер</strong> — в терминале нажмите <code>Ctrl+C</code> (на Mac тоже именно <code>Ctrl</code>, не <code>Cmd</code>). Сайт перестанет работать на <code>localhost:3000</code>, пока снова не запустите <code>npm run dev</code>.
               </div>
             </div>
           </div>
@@ -613,24 +670,24 @@ npm run dev</code></pre>
             <h3 class="quiz-title">Проверьте себя</h3>
           </div>
 
-          <div class="quiz-question">Какая папка в Next.js App Router отвечает за маршрутизацию?</div>
+          <div class="quiz-question">Если хотите, чтобы у вашего сайта появилась страница <code>/about</code> — что нужно сделать?</div>
 
           <div class="quiz-options">
             <div class="quiz-option" data-correct="false">
               <span class="quiz-option-marker"></span>
-              <span>pages/</span>
+              <span>Дописать какой-то роутинг в <code>next.config.ts</code></span>
             </div>
             <div class="quiz-option" data-correct="true">
               <span class="quiz-option-marker"></span>
-              <span>app/</span>
+              <span>Создать папку <code>src/app/about/</code> и в ней файл <code>page.tsx</code></span>
             </div>
             <div class="quiz-option" data-correct="false">
               <span class="quiz-option-marker"></span>
-              <span>routes/</span>
+              <span>Положить файл <code>about.html</code> в <code>public/</code></span>
             </div>
             <div class="quiz-option" data-correct="false">
               <span class="quiz-option-marker"></span>
-              <span>public/</span>
+              <span>Установить отдельный пакет для роутинга через npm</span>
             </div>
           </div>
 
@@ -652,23 +709,27 @@ npm run dev</code></pre>
             <ul class="checklist">
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="lesson1-plan"></span>
-                <span class="checklist-text">План проекта создан с помощью ИИ</span>
+                <span class="checklist-text">Поговорил с ИИ о проекте, сохранил план в <code>plan.md</code></span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="lesson1-node"></span>
-                <span class="checklist-text">Node.js 18+ установлен</span>
+                <span class="checklist-text">Node.js 20+ установлен (<code>node --version</code>)</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="lesson1-create"></span>
-                <span class="checklist-text">Проект создан с помощью create-next-app</span>
+                <span class="checklist-text">Создал проект через <code>npx create-next-app@latest</code></span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="lesson1-structure"></span>
-                <span class="checklist-text">Изучена структура файлов</span>
+                <span class="checklist-text">Открыл папку проекта и понял, где <code>src/app/page.tsx</code></span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="lesson1-run"></span>
-                <span class="checklist-text">Dev-сервер запущен на localhost:3000</span>
+                <span class="checklist-text">Запустил <code>npm run dev</code>, сайт открывается на localhost:3000</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson1-edit"></span>
+                <span class="checklist-text">Поменял текст в <code>page.tsx</code> и увидел изменения в браузере</span>
               </li>
             </ul>
           </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Урок 5.7: Интеграция сервисов | VibeCoding</title>
+  <title>Урок 5.7: Подключаем Supabase и OpenAI | VibeCoding</title>
   <script src="js/auth-check.js"></script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -136,48 +136,97 @@
             <span class="lesson-number">Урок 5.7</span>
             <span class="lesson-duration">⏱ 30 минут</span>
           </div>
-          <h1 class="lesson-title">Интеграция сервисов</h1>
+          <h1 class="lesson-title">Подключаем Supabase и OpenAI</h1>
 
           <div class="lesson-objectives">
-            <h4>Цели урока:</h4>
+            <h4>Что вы сделаете:</h4>
             <ul>
-              <li>Подключить Supabase к проекту</li>
-              <li>Настроить OpenAI API</li>
-              <li>Создать health check endpoint</li>
+              <li>Создадите бесплатный проект в Supabase (база данных + авторизация)</li>
+              <li>Подключите его к Next.js через современный пакет <code>@supabase/ssr</code></li>
+              <li>Получите ключ OpenAI и подключите модель <code>gpt-4o-mini</code></li>
+              <li>Сделаете «health check» — endpoint, проверяющий, что всё работает</li>
             </ul>
           </div>
         </div>
 
-        <!-- Section 1: Supabase -->
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Важное на май 2026:</strong> старый пакет <code>@supabase/auth-helpers-nextjs</code> deprecated, актуальный — <code>@supabase/ssr</code>. Также Supabase ввёл новые ключи (<code>sb_publishable_*</code>, <code>sb_secret_*</code>); старые anon/service_role работают до конца 2026, но новые — рекомендуются.</p>
+            <p><strong>Время:</strong> ~10 мин Supabase, ~10 мин OpenAI, ~10 мин health check.</p>
+            <p><strong>Совет:</strong> покажите вживую как Supabase автоматически пишет ваши <code>.env</code> переменные при создании проекта.</p>
+          </div>
+        </div>
+
+        <!-- Section 1: Supabase setup -->
         <section class="card">
-          <div class="card-header">1. Supabase интеграция</div>
+          <div class="card-header">1. Создаём проект в Supabase</div>
           <div class="card-body">
-            <h4>Установка:</h4>
+            <p><strong>Supabase</strong> — это «облачная база данных + готовая авторизация» в одном флаконе. PostgreSQL под капотом, плюс магик-линки, OAuth, пароли — всё из коробки. Бесплатный план хватает для пет-проектов: 500 МБ, 50 000 пользователей.</p>
+
+            <h4>Шаг 1 — регистрация</h4>
+            <ol>
+              <li>Зайдите на <a href="https://supabase.com" target="_blank">supabase.com</a> → <strong>Start your project</strong></li>
+              <li>Войдите через GitHub</li>
+              <li>Создайте новую организацию (бесплатный «Free» план)</li>
+            </ol>
+
+            <h4 style="margin-top: 1rem;">Шаг 2 — создать проект</h4>
+            <ol>
+              <li>Нажмите <strong>New project</strong></li>
+              <li>Имя: <code>mood-tracker</code></li>
+              <li>Database password — придумайте сильный, сохраните в менеджере паролей</li>
+              <li>Region: ближайший к вам (Frankfurt для Европы, Singapore для Азии)</li>
+              <li>Нажмите <strong>Create new project</strong> и подождите 1–2 минуты</li>
+            </ol>
+
+            <h4 style="margin-top: 1rem;">Шаг 3 — забрать ключи</h4>
+            <p>В дашборде проекта: <strong>Project Settings</strong> (шестерёнка) → <strong>API</strong>. Вам нужны:</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Ключ</th>
+                    <th>Куда положить</th>
+                    <th>Где использовать</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Project URL</strong></td>
+                    <td><code>NEXT_PUBLIC_SUPABASE_URL</code></td>
+                    <td>Везде (URL не секретный)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Publishable key</strong> <em>(новый, <code>sb_publishable_…</code>)</em></td>
+                    <td><code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code></td>
+                    <td>Браузер. Ограничен RLS-правилами — безопасно</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Secret key</strong> <em>(новый, <code>sb_secret_…</code>)</em></td>
+                    <td><code>SUPABASE_SERVICE_ROLE_KEY</code></td>
+                    <td><strong>Только сервер!</strong> Полные права на БД</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>Откройте <code>.env.local</code> в проекте и впишите:</p>
+
             <div class="code-block">
               <div class="code-block-header">
                 <span class="code-block-lang">bash</span>
               </div>
-              <pre><code>npm install @supabase/supabase-js</code></pre>
-            </div>
-
-            <h4>Создание клиента:</h4>
-            <div class="code-block">
-              <div class="code-block-header">
-                <span class="code-block-lang">typescript</span>
-              </div>
-              <pre><code>// src/lib/supabase.ts
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-// Для серверных операций (с полными правами)
-export const supabaseAdmin = createClient(
-  supabaseUrl,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);</code></pre>
+              <pre><code>NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_xxxxx
+SUPABASE_SERVICE_ROLE_KEY=sb_secret_xxxxx</code></pre>
             </div>
 
             <div class="alert alert-warning">
@@ -187,17 +236,201 @@ export const supabaseAdmin = createClient(
                 <line x1="12" y1="17" x2="12.01" y2="17"/>
               </svg>
               <div>
-                <strong>Важно:</strong> <code>supabaseAdmin</code> имеет полный доступ к БД. Используйте только на сервере!
+                <strong>Service Role Key</strong> — никогда не давайте префикс <code>NEXT_PUBLIC_</code>. Если он попадёт в браузер — любой сможет читать/писать всю вашу базу.
+              </div>
+            </div>
+
+            <p>Не забудьте также добавить эти переменные в Vercel → Settings → Environment Variables (урок 5.5).</p>
+          </div>
+        </section>
+
+        <!-- Section 2: Supabase clients -->
+        <section class="card">
+          <div class="card-header">2. Подключаем @supabase/ssr</div>
+          <div class="card-body">
+            <p>В Next.js 16 есть и Server Components (рисуются на сервере), и Client Components (в браузере). Им нужны <em>разные</em> Supabase-клиенты. Пакет <code>@supabase/ssr</code> даёт два готовых конструктора.</p>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Старый пакет <code>@supabase/auth-helpers-nextjs</code></strong> deprecated с 2024 года. Если видите его в туториалах — это устарело. Используем только <code>@supabase/ssr</code>.
+              </div>
+            </div>
+
+            <h4>Шаг 1 — установить</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code>npm install @supabase/supabase-js @supabase/ssr</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1rem;">Шаг 2 — клиент для браузера</h4>
+            <p>Создайте файл <code>src/lib/supabase/client.ts</code>:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">typescript</span>
+              </div>
+              <pre><code>import { createBrowserClient } from '@supabase/ssr';
+
+export function createClient() {
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+}</code></pre>
+            </div>
+
+            <p>Используется в Client Components (с директивой <code>'use client'</code>):</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">tsx</span>
+              </div>
+              <pre><code>'use client';
+import { createClient } from '@/lib/supabase/client';
+
+const supabase = createClient();
+const { data } = await supabase.from('moods').select();</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1rem;">Шаг 3 — клиент для сервера</h4>
+            <p>Создайте файл <code>src/lib/supabase/server.ts</code>:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">typescript</span>
+              </div>
+              <pre><code>import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
+
+export async function createClient() {
+  const cookieStore = await cookies();
+
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll();
+        },
+        setAll(cookiesToSet) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            );
+          } catch {
+            // Server Component — записывать cookies нельзя, обновится через middleware
+          }
+        },
+      },
+    }
+  );
+}</code></pre>
+            </div>
+
+            <p>Используется в Server Components и API-роутах:</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">tsx</span>
+              </div>
+              <pre><code>// src/app/dashboard/page.tsx (Server Component)
+import { createClient } from '@/lib/supabase/server';
+
+export default async function Dashboard() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  return &lt;h1&gt;Привет, {user?.email}&lt;/h1&gt;;
+}</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1rem;">Шаг 4 — middleware для обновления сессии</h4>
+            <p>Создайте файл <code>src/middleware.ts</code> в корне <code>src/</code>:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">typescript</span>
+              </div>
+              <pre><code>import { type NextRequest, NextResponse } from 'next/server';
+import { createServerClient } from '@supabase/ssr';
+
+export async function middleware(request: NextRequest) {
+  let response = NextResponse.next({ request });
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) =>
+            request.cookies.set(name, value)
+          );
+          response = NextResponse.next({ request });
+          cookiesToSet.forEach(({ name, value, options }) =>
+            response.cookies.set(name, value, options)
+          );
+        },
+      },
+    }
+  );
+
+  // Обновляем сессию (если access token истёк)
+  await supabase.auth.getUser();
+
+  return response;
+}
+
+export const config = {
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+};</code></pre>
+            </div>
+
+            <p>Этот файл сам обновляет сессию пользователя, чтобы пропавшие куки не выкидывали из аккаунта посреди работы. Можно скопировать как есть и забыть.</p>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Совет:</strong> в Cursor скажите: <em>«Сделай structure для Supabase SSR в этом проекте — клиент браузера, клиент сервера и middleware. Ключи в .env.local.»</em> — он создаст эти три файла за раз. Главное — у вас в <code>AGENTS.md</code> прописан стек, и Cursor поймёт.
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Section 2: OpenAI -->
+        <!-- Section 3: OpenAI -->
         <section class="card">
-          <div class="card-header">2. OpenAI API</div>
+          <div class="card-header">3. Подключаем OpenAI</div>
           <div class="card-body">
-            <h4>Установка:</h4>
+            <h4>Шаг 1 — создать ключ</h4>
+            <ol>
+              <li>Заходите на <a href="https://platform.openai.com" target="_blank">platform.openai.com</a></li>
+              <li>Регистрируетесь, заходите в Billing → положите $5 (минимальный депозит для API)</li>
+              <li>API keys → <strong>Create new secret key</strong></li>
+              <li>Скопируйте ключ <code>sk-proj-...</code> сразу (потом полностью увидеть нельзя)</li>
+            </ol>
+
+            <p>Добавьте в <code>.env.local</code>:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code>OPENAI_API_KEY=sk-proj-xxxxx</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1rem;">Шаг 2 — установить SDK</h4>
             <div class="code-block">
               <div class="code-block-header">
                 <span class="code-block-lang">bash</span>
@@ -205,63 +438,101 @@ export const supabaseAdmin = createClient(
               <pre><code>npm install openai</code></pre>
             </div>
 
-            <h4>Создание клиента:</h4>
+            <h4 style="margin-top: 1rem;">Шаг 3 — создать клиент</h4>
+            <p>Создайте файл <code>src/lib/openai.ts</code>:</p>
+
             <div class="code-block">
               <div class="code-block-header">
                 <span class="code-block-lang">typescript</span>
               </div>
-              <pre><code>// src/lib/openai.ts
-import OpenAI from 'openai';
+              <pre><code>import OpenAI from 'openai';
 
 export const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });</code></pre>
             </div>
 
-            <h4>Пример API Route:</h4>
+            <h4 style="margin-top: 1rem;">Шаг 4 — пример API-роута</h4>
+            <p>Файл <code>src/app/api/insight/route.ts</code> — запрашивает у ИИ совет по записям настроения:</p>
+
             <div class="code-block">
               <div class="code-block-header">
                 <span class="code-block-lang">typescript</span>
               </div>
-              <pre><code>// src/app/api/chat/route.ts
-import { openai } from '@/lib/openai';
+              <pre><code>import { openai } from '@/lib/openai';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const { message } = await request.json();
+    const { moods } = await request.json();
 
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
-      messages: [{ role: 'user', content: message }],
+      messages: [
+        { role: 'system', content: 'Ты эмпатичный коуч. Отвечай коротко.' },
+        { role: 'user', content: `Записи: ${JSON.stringify(moods)}` },
+      ],
     });
 
     return NextResponse.json({
-      reply: completion.choices[0].message.content
+      insight: completion.choices[0].message.content,
     });
   } catch (error) {
     return NextResponse.json(
-      { error: 'Failed to process request' },
+      { error: 'OpenAI запрос упал' },
       { status: 500 }
     );
   }
 }</code></pre>
             </div>
+
+            <h4 style="margin-top: 1rem;">Какую модель выбирать (май 2026)</h4>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Модель</th>
+                    <th>Когда использовать</th>
+                    <th>Цена</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>gpt-4o-mini</code></td>
+                    <td>Стандарт для простых задач (тексты, классификация)</td>
+                    <td>Очень дёшево</td>
+                  </tr>
+                  <tr>
+                    <td><code>gpt-5</code></td>
+                    <td>Сложные рассуждения, многошаговая логика</td>
+                    <td>Средне</td>
+                  </tr>
+                  <tr>
+                    <td><code>o4-mini</code></td>
+                    <td>Когда нужны цепочки рассуждений</td>
+                    <td>Средне</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>Для MoodTracker и большинства учебных проектов — <code>gpt-4o-mini</code>. Хватает с запасом.</p>
           </div>
         </section>
 
-        <!-- Section 3: Health Check -->
+        <!-- Section 4: Health check -->
         <section class="card">
-          <div class="card-header">3. Health Check Endpoint</div>
+          <div class="card-header">4. Health check — проверяем, что всё работает</div>
           <div class="card-body">
-            <p>Создайте endpoint для проверки всех интеграций:</p>
+            <p>«Health check» — простая страница или endpoint, которая возвращает «ОК», если все сервисы доступны. Удобно проверять перед демо и после деплоя.</p>
+
+            <p>Создайте файл <code>src/app/api/health/route.ts</code>:</p>
 
             <div class="code-block">
               <div class="code-block-header">
                 <span class="code-block-lang">typescript</span>
               </div>
-              <pre><code>// src/app/api/health/route.ts
-import { supabase } from '@/lib/supabase';
+              <pre><code>import { createClient } from '@/lib/supabase/server';
 import { openai } from '@/lib/openai';
 import { NextResponse } from 'next/server';
 
@@ -272,16 +543,16 @@ export async function GET() {
     timestamp: new Date().toISOString(),
   };
 
-  // Check Supabase
+  // Проверка Supabase
   try {
-    const { error } = await supabase.from('_test').select().limit(1);
-    // Даже если таблица не существует, соединение работает
-    checks.supabase = !error || error.code === 'PGRST116';
+    const supabase = await createClient();
+    const { error } = await supabase.auth.getSession();
+    checks.supabase = !error;
   } catch {
     checks.supabase = false;
   }
 
-  // Check OpenAI
+  // Проверка OpenAI
   try {
     const models = await openai.models.list();
     checks.openai = models.data.length &gt; 0;
@@ -292,12 +563,14 @@ export async function GET() {
   const allHealthy = checks.supabase && checks.openai;
 
   return NextResponse.json(checks, {
-    status: allHealthy ? 200 : 503
+    status: allHealthy ? 200 : 503,
   });
 }</code></pre>
             </div>
 
-            <p>Проверьте: <code>http://localhost:3000/api/health</code></p>
+            <p>Откройте в браузере: <a href="http://localhost:3000/api/health" target="_blank"><code>http://localhost:3000/api/health</code></a></p>
+
+            <p>Если видите <code>{"supabase": true, "openai": true}</code> — поздравляю, оба сервиса подключены. После деплоя на Vercel этот же endpoint будет работать на боевом домене.</p>
 
             <div class="alert alert-success">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -305,9 +578,54 @@ export async function GET() {
                 <polyline points="22,4 12,14.01 9,11.01"/>
               </svg>
               <div>
-                <strong>Отлично!</strong> Если видите <code>{"supabase": true, "openai": true}</code> — всё работает!
+                <strong>Бонус:</strong> добавьте Vercel <strong>Cron Jobs</strong> и пусть Vercel сам пингует <code>/api/health</code> каждые 5 минут — если что-то сломалось, узнаете первыми.
               </div>
             </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz">
+          <div class="quiz-header">
+            <div class="quiz-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <h3 class="quiz-title">Проверьте себя</h3>
+          </div>
+
+          <div class="quiz-question">Какой пакет используется для подключения Supabase к Next.js в 2026 году?</div>
+
+          <div class="quiz-options">
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span><code>@supabase/auth-helpers-nextjs</code></span>
+            </div>
+            <div class="quiz-option" data-correct="true">
+              <span class="quiz-option-marker"></span>
+              <span><code>@supabase/ssr</code></span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span><code>@supabase/nextjs-helpers</code></span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span><code>next-auth-supabase</code></span>
+            </div>
+          </div>
+
+          <div class="quiz-feedback">
+            <div class="quiz-feedback-text"></div>
+          </div>
+
+          <div class="quiz-actions">
+            <button class="btn btn-primary quiz-check-btn">Проверить</button>
+            <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
+            <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
           </div>
         </section>
 
@@ -317,20 +635,28 @@ export async function GET() {
           <div class="card-body">
             <ul class="checklist">
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson7-supabase"></span>
-                <span class="checklist-text">Supabase клиент создан</span>
+                <span class="checklist-checkbox" data-id="lesson7-supabase-project"></span>
+                <span class="checklist-text">Проект Supabase создан, ключи в <code>.env.local</code></span>
               </li>
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson7-openai"></span>
-                <span class="checklist-text">OpenAI клиент создан</span>
+                <span class="checklist-checkbox" data-id="lesson7-supabase-clients"></span>
+                <span class="checklist-text">Клиенты Supabase для браузера и сервера созданы</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-middleware"></span>
+                <span class="checklist-text"><code>src/middleware.ts</code> на месте</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-openai-key"></span>
+                <span class="checklist-text">OpenAI API key получен, в <code>.env.local</code></span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson7-openai-client"></span>
+                <span class="checklist-text">Клиент OpenAI создан в <code>src/lib/openai.ts</code></span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="lesson7-health"></span>
-                <span class="checklist-text">Health check endpoint работает</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson7-test"></span>
-                <span class="checklist-text">Все интеграции проверены</span>
+                <span class="checklist-text"><code>/api/health</code> возвращает <code>supabase: true, openai: true</code></span>
               </li>
             </ul>
           </div>

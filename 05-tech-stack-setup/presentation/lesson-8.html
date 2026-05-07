@@ -136,14 +136,15 @@
             <span class="lesson-number">Урок 5.8</span>
             <span class="lesson-duration">⏱ 25 минут</span>
           </div>
-          <h1 class="lesson-title">Готовность к вайбкодингу</h1>
+          <h1 class="lesson-title">Готовы вайбкодить — финальная проверка</h1>
 
           <div class="lesson-objectives">
-            <h4>Цели урока:</h4>
+            <h4>Что вы сделаете:</h4>
             <ul>
-              <li>Проверить все настройки ИИ-инструментов</li>
-              <li>Протестировать работу Cursor и Claude Code</li>
-              <li>Убедиться в полной готовности к разработке</li>
+              <li>Пройдёте полный чек-лист по всему модулю</li>
+              <li>Протестируете Cursor и Claude Code на одной и той же задаче</li>
+              <li>Соберёте «дневной набор» — что запускать каждое утро, чтобы быстро войти в работу</li>
+              <li>Поймёте, что делать в следующих модулях</li>
             </ul>
           </div>
         </div>
@@ -157,59 +158,93 @@
             Заметка для преподавателя
           </div>
           <div class="teacher-note-content">
-            <p><strong>Финальная проверка:</strong> Этот урок — контрольная точка. Каждый студент должен пройти весь чек-лист и продемонстрировать работу ИИ-инструментов.</p>
+            <p><strong>Финальная проверка:</strong> этот урок — контрольная точка модуля. Каждый студент должен пройти весь чек-лист и продемонстрировать работу ИИ-инструментов.</p>
+            <p><strong>Если что-то не работает</strong> — лучше остановиться здесь и доделать, чем тащить нерабочую настройку в модуль 6 (там начнём писать код).</p>
+            <p><strong>Время:</strong> ~10 мин чек-лист, ~10 мин тестовые задачи, ~5 мин что дальше.</p>
           </div>
         </div>
 
-        <!-- Section 1: Full Checklist -->
+        <!-- Section 1: Master checklist -->
         <section class="card">
-          <div class="card-header">1. Полный чек-лист готовности</div>
+          <div class="card-header">1. Полный чек-лист модуля</div>
           <div class="card-body">
-            <h4>Проект:</h4>
+            <h4>📦 Проект и инструменты</h4>
             <ul class="checklist">
               <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="final-node"></span>
+                <span class="checklist-text">Node.js 20+ установлен (<code>node --version</code>)</span>
+              </li>
+              <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="final-nextjs"></span>
-                <span class="checklist-text">Next.js запускается локально (<code>npm run dev</code>)</span>
+                <span class="checklist-text">Next.js 16 проект создан, <code>npm run dev</code> работает на localhost:3000</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="final-build"></span>
                 <span class="checklist-text"><code>npm run build</code> проходит без ошибок</span>
               </li>
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="final-vercel"></span>
-                <span class="checklist-text">Деплой на Vercel работает</span>
+                <span class="checklist-checkbox" data-id="final-cursor"></span>
+                <span class="checklist-text">Cursor 1.x установлен и открывает проект</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="final-claude"></span>
+                <span class="checklist-text">Claude Code установлен (<code>claude --version</code>)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="final-taskmaster"></span>
+                <span class="checklist-text">Task Master установлен и инициализирован в проекте</span>
               </li>
             </ul>
 
-            <h4>ИИ-инструменты:</h4>
+            <h4 style="margin-top: 1.5rem;">🤖 ИИ-конфигурация</h4>
             <ul class="checklist">
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="final-cursorrules"></span>
-                <span class="checklist-text">.cursorrules файл создан и актуален</span>
+                <span class="checklist-checkbox" data-id="final-agents"></span>
+                <span class="checklist-text"><code>AGENTS.md</code> в корне проекта, описан стек и правила</span>
               </li>
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="final-claudemd"></span>
-                <span class="checklist-text">CLAUDE.md настроен с документацией проекта</span>
+                <span class="checklist-checkbox" data-id="final-cursor-rules"></span>
+                <span class="checklist-text"><code>.cursor/rules/project.mdc</code> создан</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="final-prd"></span>
+                <span class="checklist-text">PRD MoodTracker в <code>.taskmaster/docs/prd.txt</code></span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="final-tasks"></span>
+                <span class="checklist-text"><code>task-master list</code> показывает 8–10 сгенерированных задач</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="final-prompts"></span>
-                <span class="checklist-text">prompts.md с шаблонами готов</span>
+                <span class="checklist-text"><code>prompts.md</code> с шаблонами готов</span>
               </li>
             </ul>
 
-            <h4>Интеграции:</h4>
+            <h4 style="margin-top: 1.5rem;">☁️ Деплой и интеграции</h4>
             <ul class="checklist">
               <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="final-github"></span>
+                <span class="checklist-text">Код залит в приватный репозиторий GitHub</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="final-vercel"></span>
+                <span class="checklist-text">Vercel подключён, сайт открывается по <code>*.vercel.app</code></span>
+              </li>
+              <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="final-supabase"></span>
-                <span class="checklist-text">Supabase клиент подключен</span>
+                <span class="checklist-text">Проект Supabase создан, клиенты SSR настроены</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="final-openai"></span>
-                <span class="checklist-text">OpenAI API настроен</span>
+                <span class="checklist-text">OpenAI API ключ работает, клиент в <code>src/lib/openai.ts</code></span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="final-health"></span>
-                <span class="checklist-text">Health check endpoint работает</span>
+                <span class="checklist-text"><code>/api/health</code> возвращает <code>supabase: true, openai: true</code></span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="final-env"></span>
+                <span class="checklist-text">Все переменные окружения добавлены в Vercel (Production)</span>
               </li>
             </ul>
           </div>
@@ -217,106 +252,28 @@
 
         <!-- Section 2: Testing Cursor -->
         <section class="card">
-          <div class="card-header">2. Тестирование Cursor</div>
+          <div class="card-header">2. Боевое тестирование Cursor</div>
           <div class="card-body">
-            <p>Проверьте работу Cursor с вашими настройками:</p>
+            <p>Откройте проект в Cursor. В Composer (<code>⌘+I</code>) дайте такой промпт:</p>
 
-            <h4>Шаги тестирования:</h4>
-            <ol>
-              <li>Откройте проект в Cursor</li>
-              <li>Убедитесь, что .cursorrules загружен (Ctrl/Cmd + Shift + P > "Cursor: View Rules")</li>
-              <li>Откройте Composer (Ctrl/Cmd + K)</li>
-              <li>Попробуйте сгенерировать простой компонент</li>
-            </ol>
-
-            <h4>Тестовый промпт:</h4>
             <div class="code-block">
               <div class="code-block-header">
                 <span class="code-block-lang">prompt</span>
               </div>
-              <pre><code>Создай компонент HelloWorld, который показывает
-приветствие с текущей датой. Используй shadcn/ui Card.</code></pre>
+              <pre><code>Создай компонент &lt;Greeting /&gt;, который показывает приветствие
+с текущей датой. Используй shadcn/ui Card.
+Файл: src/components/Greeting.tsx
+Подключи компонент на главной странице (src/app/page.tsx).</code></pre>
             </div>
 
-            <div class="alert alert-success">
-              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22,4 12,14.01 9,11.01"/>
-              </svg>
-              <div>
-                <strong>Ожидаемый результат:</strong> Cursor должен создать TypeScript компонент с использованием shadcn/ui Card, соблюдая правила из .cursorrules.
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Section 3: Testing Claude Code -->
-        <section class="card">
-          <div class="card-header">3. Тестирование Claude Code</div>
-          <div class="card-body">
-            <p>Проверьте работу Claude Code CLI:</p>
-
-            <h4>Шаги тестирования:</h4>
-            <div class="code-block">
-              <div class="code-block-header">
-                <span class="code-block-lang">bash</span>
-              </div>
-              <pre><code># Перейдите в папку проекта
-cd my-saas-app
-
-# Запустите Claude Code
-claude
-
-# В Claude Code выполните:
-> Покажи структуру проекта
-
-> Создай утилиту formatDate в src/lib/utils.ts</code></pre>
-            </div>
-
-            <h4>Что проверить:</h4>
+            <h4 style="margin-top: 1rem;">Что должно произойти</h4>
             <ul>
-              <li>Claude понимает контекст проекта из CLAUDE.md</li>
-              <li>Claude использует правильный стек (TypeScript, Next.js)</li>
-              <li>Claude создает файлы в правильных папках</li>
-              <li>Код соответствует стилю проекта</li>
+              <li>Cursor создаёт <code>src/components/Greeting.tsx</code> с TypeScript типизацией</li>
+              <li>Использует именно <code>Card</code> из <code>shadcn/ui</code> (не «обычный» div)</li>
+              <li>Соблюдает соглашения из <code>.cursor/rules/project.mdc</code></li>
+              <li>Подключает компонент на главной</li>
+              <li>В <code>npm run dev</code> компонент сразу появляется в браузере</li>
             </ul>
-          </div>
-        </section>
-
-        <!-- Section 4: Next Steps -->
-        <section class="card">
-          <div class="card-header">4. Что дальше?</div>
-          <div class="card-body">
-            <p>После завершения этого модуля вы готовы к:</p>
-
-            <div class="table-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Модуль</th>
-                    <th>Содержание</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Модуль 6</strong></td>
-                    <td>Аутентификация с Supabase Auth</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Модуль 7</strong></td>
-                    <td>Работа с базой данных</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Модуль 8</strong></td>
-                    <td>Интеграция платежей (Stripe)</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Модуль 9+</strong></td>
-                    <td>Разработка функционала приложения</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
 
             <div class="alert alert-info">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -325,32 +282,188 @@ claude
                 <path d="M12 8h.01"/>
               </svg>
               <div>
-                <strong>Важно:</strong> Теперь вы можете использовать ИИ для генерации большей части кода. Ваша задача — направлять ИИ правильными промптами и проверять результат.
+                <strong>Если Cursor генерирует «общий React» (без shadcn/ui, без типов)</strong> — значит правила не подхватились. Проверьте файл <code>.cursor/rules/project.mdc</code>: есть ли там <code>alwaysApply: true</code>?
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Final Checklist -->
+        <!-- Section 3: Testing Claude Code -->
         <section class="card">
-          <div class="card-header">Чек-лист урока</div>
+          <div class="card-header">3. Боевое тестирование Claude Code</div>
+          <div class="card-body">
+            <p>В терминале:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code>cd mood-tracker
+claude</code></pre>
+            </div>
+
+            <p>Внутри Claude Code:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">claude</span>
+              </div>
+              <pre><code>&gt; Покажи структуру проекта и расскажи, что уже сделано
+
+&gt; Создай функцию formatDate(date) в src/lib/utils.ts.
+  Она должна форматировать дату в строку "7 мая 2026".
+
+&gt; Какая следующая задача из Task Master?</code></pre>
+            </div>
+
+            <h4>Что проверяем</h4>
+            <ul>
+              <li>Claude Code знает контекст из <code>AGENTS.md</code> (упоминает Next.js 16, Supabase в ответах)</li>
+              <li>Создаёт файлы в правильных папках (<code>src/lib/utils.ts</code>, не в <code>app/lib/utils.ts</code>)</li>
+              <li>Использует TypeScript типы (не JavaScript)</li>
+              <li>Видит Task Master через MCP (если настроили <code>.mcp.json</code>) и отвечает на вопрос про следующую задачу</li>
+            </ul>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Если оба инструмента прошли тест</strong> — поздравляю. У вас полностью настроенный «вайб-стэнд» 2026 года. В следующих модулях останется только давать задачи и ревьюить код.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Daily routine -->
+        <section class="card">
+          <div class="card-header">4. Ваш дневной ритуал</div>
+          <div class="card-body">
+            <p>Чтобы каждое утро не вспоминать «с чего начать», запомните этот короткий цикл:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code># 1. Зайти в проект
+cd mood-tracker
+
+# 2. Запустить dev-сервер (открыть localhost:3000)
+npm run dev
+
+# 3. В новом окне терминала — узнать, что делать
+task-master next
+
+# 4. Открыть Cursor / запустить claude — взять задачу в работу
+
+# В конце дня:
+# 5. Залогировать прогресс в подзадачу
+task-master update-subtask --id=X.Y --prompt="что сделал"
+
+# 6. Закрыть задачу
+task-master set-status --id=X.Y --status=done
+
+# 7. Закоммитить и запушить — Vercel сам задеплоит
+git add . && git commit -m "feat: ..." && git push</code></pre>
+            </div>
+
+            <p>Каждое утро — одни и те же 7 шагов. Через неделю запомните на автомате.</p>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Совет:</strong> если что-то забывается — спрашивайте Claude Code: <em>«Подскажи следующий шаг по моему дневному ритуалу»</em>. Он прочитает <code>AGENTS.md</code> и Task Master и подскажет.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: What's next -->
+        <section class="card">
+          <div class="card-header">5. Что в следующих модулях</div>
+          <div class="card-body">
+            <p>Вы закончили подготовку. Дальше — программирование с ИИ. Каждый следующий модуль закрывает одну часть проекта.</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Модуль</th>
+                    <th>Тема</th>
+                    <th>Что сделаете в MoodTracker</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Модуль 6</strong></td>
+                    <td>Backend для вайбкодера</td>
+                    <td>Структура папок, первые API-роуты, работа с базой</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Модуль 7</strong></td>
+                    <td>Аутентификация</td>
+                    <td>Магик-линк, защищённые страницы, выход</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Модуль 8</strong></td>
+                    <td>База данных</td>
+                    <td>Таблицы moods и insights, RLS-политики</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Модуль 9</strong></td>
+                    <td>Фронтенд</td>
+                    <td>Форма записи настроения, дашборд с графиком</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Модуль 10</strong></td>
+                    <td>API и платежи</td>
+                    <td>AI-инсайты через OpenAI, опционально — Pro-тариф через Stripe</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Главное:</strong> весь модуль 5 был про «как настроить инструменты». Дальше будут модули про «как с ними жить» — но настройка уже не должна вас отвлекать.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Final lesson checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока 5.8</div>
           <div class="card-body">
             <ul class="checklist">
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="lesson8-checklist"></span>
-                <span class="checklist-text">Полный чек-лист пройден</span>
+                <span class="checklist-text">Полный чек-лист модуля пройден</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="lesson8-cursor"></span>
-                <span class="checklist-text">Cursor работает корректно</span>
+                <span class="checklist-text">Cursor создал тестовый компонент с shadcn/ui</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="lesson8-claude"></span>
-                <span class="checklist-text">Claude Code понимает проект</span>
+                <span class="checklist-text">Claude Code прошёл тестовое задание и видит Task Master</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson8-routine"></span>
+                <span class="checklist-text">Дневной ритуал из 7 шагов понятен</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="lesson8-ready"></span>
-                <span class="checklist-text">Проект готов к вайбкодингу</span>
+                <span class="checklist-text">Готов перейти к модулю 6 — пишем код вместе с ИИ</span>
               </li>
             </ul>
           </div>

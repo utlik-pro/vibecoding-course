@@ -136,14 +136,15 @@
             <span class="lesson-number">Урок 5.2</span>
             <span class="lesson-duration">⏱ 30 минут</span>
           </div>
-          <h1 class="lesson-title">Настройка Cursor</h1>
+          <h1 class="lesson-title">Настраиваем Cursor — он будет писать код за вас</h1>
 
           <div class="lesson-objectives">
-            <h4>Цели урока:</h4>
+            <h4>Что вы сделаете:</h4>
             <ul>
-              <li>Создать .cursorrules файл для проекта</li>
-              <li>Настроить Composer Rules</li>
-              <li>Понять best practices для работы с Cursor</li>
+              <li>Поймёте, чем Cursor отличается от обычного редактора (и зачем он вообще)</li>
+              <li>Создадите файл-инструкцию для ИИ внутри проекта (<code>.cursor/rules/</code>)</li>
+              <li>Освоите два главных режима: Tab (автодополнение) и Composer (диалог)</li>
+              <li>Включите Memories — Cursor будет помнить ваши предпочтения между проектами</li>
             </ul>
           </div>
         </div>
@@ -157,22 +158,43 @@
             Заметка для преподавателя
           </div>
           <div class="teacher-note-content">
-            <p><strong>Важно:</strong> Покажите, как правильно настроенный .cursorrules файл влияет на качество генерации кода. Сравните результаты с файлом и без него.</p>
+            <p><strong>Версия Cursor на май 2026:</strong> 1.x. В новой версии правила переехали из <code>.cursorrules</code> (одинокий файл) в папку <code>.cursor/rules/</code> с несколькими файлами по темам. Старый формат тоже работает, но новичкам лучше сразу учить актуальный.</p>
+            <p><strong>Время:</strong> ~3 мин что такое Cursor, ~10 мин правила, ~10 мин Composer/Tab, ~5 мин Memories, ~2 мин чек-лист.</p>
+            <p><strong>Совет:</strong> Покажите разницу «с правилами» vs «без правил» на одном промпте. Без правил Cursor пишет «общий React», с правилами — соблюдает ваш стек.</p>
           </div>
         </div>
 
-        <!-- Section 1: What is .cursorrules -->
+        <!-- Section 1: What is Cursor -->
         <section class="card">
-          <div class="card-header">1. Что такое .cursorrules</div>
+          <div class="card-header">1. Что такое Cursor (и почему не VS Code)</div>
           <div class="card-body">
-            <p><code>.cursorrules</code> — это файл настроек для ИИ-помощника в Cursor IDE. Он определяет:</p>
+            <p><strong>Cursor</strong> — это редактор кода, в который встроен ИИ-помощник. Внешне он выглядит как VS Code (потому что сделан на его основе), но внутри есть две суперспособности:</p>
 
-            <ul>
-              <li><strong>Контекст проекта</strong> — какой стек технологий используется</li>
-              <li><strong>Стиль кода</strong> — какие паттерны и конвенции соблюдать</li>
-              <li><strong>Правила генерации</strong> — как ИИ должен писать код</li>
-              <li><strong>Ограничения</strong> — чего ИИ должен избегать</li>
-            </ul>
+            <div class="service-cards">
+              <div class="service-card">
+                <div class="service-card-icon">⌨️</div>
+                <h4 class="service-card-title">Tab — допишет за вас</h4>
+                <p class="service-card-desc">Начали писать строчку — ИИ предлагает продолжение, нажмите <code>Tab</code> и оно вставится. Как T9 в смартфоне, только умнее.</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">💬</div>
+                <h4 class="service-card-title">Composer — общается</h4>
+                <p class="service-card-desc">Нажали <code>⌘+I</code> (Mac) или <code>Ctrl+I</code> (Windows) — открылся чат, где можно сказать «сделай мне страницу логина» и ИИ её сделает.</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🧠</div>
+                <h4 class="service-card-title">Memories — помнит вас</h4>
+                <p class="service-card-desc">Запоминает ваши предпочтения между разговорами: «всегда Tailwind», «не люблю классовые компоненты». В Cursor 1.0+ работает по умолчанию.</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">🤖</div>
+                <h4 class="service-card-title">Background Agent</h4>
+                <p class="service-card-desc">Большие задачи отправляете в фон — Cursor работает в облаке, пока вы пьёте кофе. Возвращается с готовыми изменениями.</p>
+              </div>
+            </div>
 
             <div class="alert alert-info">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -181,325 +203,295 @@
                 <path d="M12 8h.01"/>
               </svg>
               <div>
-                <strong>Почему это важно:</strong> Без .cursorrules ИИ генерирует "общий" код. С правильными настройками — код, который соответствует вашему проекту.
+                <strong>Установка</strong>: <a href="https://cursor.com" target="_blank">cursor.com</a> → «Download». Бесплатный план — 50 ИИ-запросов в день. Pro (~$20/мес) — без лимитов и доступ к лучшим моделям. Для учёбы хватает бесплатного.
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Section 2: Creating .cursorrules -->
+        <!-- Section 2: Project Rules -->
         <section class="card">
-          <div class="card-header">2. Создание .cursorrules файла</div>
+          <div class="card-header">2. Правила проекта — главная настройка</div>
           <div class="card-body">
-            <p>Создайте файл <code>.cursorrules</code> в корне проекта:</p>
+            <p>Самое важное, что вы сделаете в этом уроке — научите Cursor понимать ваш конкретный проект. Без этого ИИ будет писать «среднеабстрактный React», который не вписывается в ваш стек.</p>
+
+            <p>В Cursor 1.x правила лежат в папке <code>.cursor/rules/</code> в корне проекта. Каждый файл — про одну тему.</p>
+
+            <div class="teacher-note">
+              <div class="teacher-note-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+                Заметка для преподавателя
+              </div>
+              <div class="teacher-note-content">
+                Старый формат — одинокий файл <code>.cursorrules</code> в корне — тоже работает, для совместимости. Если в проекте уже есть такой файл, Cursor его прочитает. Но в новых проектах используйте <code>.cursor/rules/</code>.
+              </div>
+            </div>
+
+            <h4>Шаг 1 — создать папку и файл</h4>
+            <p>В терминале (находясь в корне вашего проекта) выполните:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">bash</span>
+              </div>
+              <pre><code>mkdir -p .cursor/rules
+touch .cursor/rules/project.mdc</code></pre>
+            </div>
+
+            <p><code>.mdc</code> — это формат правил Cursor (MDC = «Markdown с метаданными»). Внешне почти как обычный <code>.md</code>.</p>
+
+            <h4 style="margin-top: 1rem;">Шаг 2 — описать проект</h4>
+            <p>Откройте <code>.cursor/rules/project.mdc</code> и вставьте:</p>
 
             <div class="code-block">
               <div class="code-block-header">
                 <span class="code-block-lang">markdown</span>
               </div>
-              <pre><code># Project Context
+              <pre><code>---
+description: Главные правила проекта MoodTracker
+alwaysApply: true
+---
 
-This is a Next.js 14+ SaaS application.
+# Контекст
+Это веб-приложение MoodTracker — пользователь раз в день
+отмечает настроение от 1 до 5 и пишет короткую заметку.
 
-## Tech Stack
-- Next.js 14 with App Router
-- TypeScript with strict mode
-- Tailwind CSS for styling
-- shadcn/ui components
-- Supabase for database and auth
-- Vercel for hosting
+# Стек
+- Next.js 16 (App Router)
+- TypeScript (строгий режим)
+- Tailwind CSS v4
+- shadcn/ui компоненты
+- Supabase (база и авторизация)
+- Vercel (деплой)
 
-## Code Style
+# Стиль кода
+- Server Components по умолчанию, "use client" только если нужна интерактивность
+- Маленькие файлы: один компонент = один файл
+- Имена компонентов с большой буквы: UserCard.tsx
+- Утилиты с маленькой: formatDate.ts
+- Используй уже готовые компоненты из src/components/ui/
 
-### Components
-- Use functional components with TypeScript
-- Prefer Server Components by default
-- Add 'use client' only when necessary (interactivity, hooks)
-- Keep components small and focused (single responsibility)
+# Правила безопасности
+- Никогда не хардкодь API ключи и секреты — только через переменные окружения
+- Все ошибки оборачивай в try/catch
+- Никаких 'any' в TypeScript — пиши настоящие типы
 
-### File Structure
-- Components: src/components/
-- API routes: src/app/api/
-- Utilities: src/lib/
-- Types: src/types/
-
-### Naming Conventions
-- Components: PascalCase (UserCard.tsx)
-- Utilities: camelCase (formatDate.ts)
-- Types: PascalCase with 'I' prefix for interfaces (IUser)
-
-## Important Rules
-
-1. Always handle errors with try/catch
-2. Use environment variables for secrets (never hardcode)
-3. Write type-safe code (avoid 'any')
-4. Use existing shadcn/ui components from src/components/ui/
-5. Follow Next.js 14 conventions (app router, server actions)
-
-## Do NOT
-- Use Pages Router (only App Router)
-- Skip TypeScript types
-- Hardcode API keys or secrets
-- Create components without proper types</code></pre>
+# Чего НЕ делать
+- Не использовать Pages Router (только App Router)
+- Не пропускать TypeScript типы
+- Не создавать компоненты без типизации</code></pre>
             </div>
 
-            <h4 style="margin-top: 1.5rem;">Разбор каждой секции:</h4>
+            <h4 style="margin-top: 1rem;">Шаг 3 — проверить, что Cursor увидел</h4>
+            <p>Откройте Composer (<code>⌘+I</code> / <code>Ctrl+I</code>), напишите: <em>«Какой стек у этого проекта?»</em>. Если Cursor отвечает по вашему файлу правил — всё работает.</p>
 
-            <div class="accordion">
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>📋 Project Context — Контекст проекта</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <p><strong>Что это:</strong> Краткое описание проекта в одной строке.</p>
-                    <p><strong>Зачем нужно:</strong> ИИ сразу понимает тип приложения и его масштаб. "SaaS application" говорит о том, что это коммерческий продукт с пользователями, подписками, аутентификацией.</p>
-                    <p><strong>Примеры:</strong></p>
-                    <ul>
-                      <li><code>This is a Next.js 14+ SaaS application.</code></li>
-                      <li><code>This is a portfolio website for a designer.</code></li>
-                      <li><code>This is an e-commerce platform for digital products.</code></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>🛠️ Tech Stack — Технологический стек</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <p><strong>Что это:</strong> Список всех технологий, библиотек и сервисов в проекте.</p>
-                    <p><strong>Зачем нужно:</strong> ИИ будет использовать <em>только</em> эти технологии. Без этого списка он может предложить React вместо Next.js, или CSS вместо Tailwind.</p>
-                    <p><strong>Что включать:</strong></p>
-                    <ul>
-                      <li><strong>Фреймворк:</strong> Next.js 14, React 18, Vue 3</li>
-                      <li><strong>Язык:</strong> TypeScript с режимом (strict mode)</li>
-                      <li><strong>Стилизация:</strong> Tailwind CSS, CSS Modules, Styled Components</li>
-                      <li><strong>UI-библиотека:</strong> shadcn/ui, MUI, Chakra</li>
-                      <li><strong>Backend/БД:</strong> Supabase, Firebase, Prisma</li>
-                      <li><strong>Хостинг:</strong> Vercel, Netlify, AWS</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>🎨 Code Style — Стиль кода</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <p><strong>Что это:</strong> Правила написания кода — как именовать файлы, как структурировать компоненты.</p>
-                    <p><strong>Зачем нужно:</strong> Код от ИИ будет консистентным с вашим проектом. Без этого ИИ может создать файл <code>user-card.tsx</code> когда у вас везде <code>UserCard.tsx</code>.</p>
-                    <p><strong>Что указывать:</strong></p>
-                    <ul>
-                      <li><strong>Components:</strong> Функциональные vs классовые, Server vs Client Components</li>
-                      <li><strong>File Structure:</strong> Где лежат компоненты, утилиты, типы</li>
-                      <li><strong>Naming:</strong> PascalCase, camelCase, kebab-case для разных типов файлов</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>✅ Important Rules — Важные правила</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <p><strong>Что это:</strong> Обязательные правила, которые ИИ должен соблюдать всегда.</p>
-                    <p><strong>Зачем нужно:</strong> Предотвращает типичные ошибки. ИИ может "забыть" обработать ошибку или захардкодить API ключ.</p>
-                    <p><strong>Типичные правила:</strong></p>
-                    <ul>
-                      <li><strong>Error handling:</strong> Всегда оборачивать в try/catch</li>
-                      <li><strong>Security:</strong> Использовать env variables для секретов</li>
-                      <li><strong>Types:</strong> Избегать <code>any</code>, писать типы</li>
-                      <li><strong>Patterns:</strong> Использовать существующие компоненты</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>🚫 Do NOT — Запреты</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <p><strong>Что это:</strong> Явный список того, что ИИ НЕ должен делать.</p>
-                    <p><strong>Зачем нужно:</strong> Негативные инструкции работают лучше позитивных. "Не используй Pages Router" эффективнее чем "используй App Router".</p>
-                    <p><strong>Типичные запреты:</strong></p>
-                    <ul>
-                      <li>Не использовать устаревшие паттерны (Pages Router)</li>
-                      <li>Не пропускать типы TypeScript</li>
-                      <li>Не хардкодить секреты</li>
-                      <li>Не создавать компоненты без типов</li>
-                      <li>Не использовать <code>any</code></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Section 3: Composer Rules -->
-        <section class="card">
-          <div class="card-header">3. Composer Rules</div>
-          <div class="card-body">
-            <p><strong>Composer</strong> — это режим в Cursor для создания/редактирования нескольких файлов одновременно (Cmd/Ctrl + I). В отличие от обычного чата, Composer может:</p>
-            <ul>
-              <li>Создавать новые файлы</li>
-              <li>Редактировать существующие файлы</li>
-              <li>Работать с несколькими файлами за один запрос</li>
-            </ul>
-
-            <p style="margin-top: 1rem;">Добавьте инструкции для Composer в <code>.cursorrules</code>:</p>
-
-            <div class="code-block">
-              <div class="code-block-header">
-                <span class="code-block-lang">markdown</span>
-              </div>
-              <pre><code>## Composer Guidelines
-
-When creating new features:
-1. Create component file in src/components/
-2. Add types to src/types/ if needed
-3. Create API route in src/app/api/ if needed
-4. Update existing components to use the new feature
-
-When fixing bugs:
-1. Identify the root cause first
-2. Fix the specific issue without refactoring
-3. Add error handling if missing
-4. Test the fix before completing
-
-When refactoring:
-1. Keep the same functionality
-2. Improve code readability
-3. Add missing types
-4. Follow existing patterns in the codebase</code></pre>
-            </div>
-
-            <h4 style="margin-top: 1.5rem;">Разбор Composer Guidelines:</h4>
-
-            <div class="accordion">
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>🆕 When creating new features — Создание фичи</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <p><strong>Что это:</strong> Пошаговая инструкция для ИИ, когда вы просите создать новую функциональность.</p>
-                    <p><strong>Зачем нужно:</strong> Без этого ИИ может создать всё в одном файле или положить компоненты не туда. С инструкцией он следует вашей структуре проекта.</p>
-                    <p><strong>Пример запроса:</strong> "Создай форму регистрации пользователя"</p>
-                    <p><strong>ИИ сделает:</strong></p>
-                    <ol>
-                      <li><code>src/components/SignUpForm.tsx</code> — компонент формы</li>
-                      <li><code>src/types/auth.ts</code> — типы для формы</li>
-                      <li><code>src/app/api/auth/signup/route.ts</code> — API endpoint</li>
-                      <li>Обновит страницу, где используется форма</li>
-                    </ol>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>🐛 When fixing bugs — Исправление багов</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <p><strong>Что это:</strong> Правила поведения ИИ при исправлении ошибок.</p>
-                    <p><strong>Зачем нужно:</strong> Без этого ИИ может "переписать всё" вместо точечного фикса. Или добавить кучу нового кода вместо исправления одной строки.</p>
-                    <p><strong>Ключевые моменты:</strong></p>
-                    <ul>
-                      <li><strong>Найти причину</strong> — не просто убрать симптом</li>
-                      <li><strong>Минимальные изменения</strong> — не рефакторить попутно</li>
-                      <li><strong>Добавить защиту</strong> — error handling если его не было</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>♻️ When refactoring — Рефакторинг</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <p><strong>Что это:</strong> Правила для улучшения кода без изменения функциональности.</p>
-                    <p><strong>Зачем нужно:</strong> ИИ может "улучшить" код так, что он перестанет работать. Эти правила гарантируют, что рефакторинг безопасен.</p>
-                    <p><strong>Принципы:</strong></p>
-                    <ul>
-                      <li><strong>Сохранить поведение</strong> — код должен работать так же</li>
-                      <li><strong>Улучшить читаемость</strong> — понятные имена, структура</li>
-                      <li><strong>Добавить типы</strong> — если были пропущены</li>
-                      <li><strong>Следовать паттернам</strong> — как уже сделано в проекте</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="alert alert-success" style="margin-top: 1rem;">
+            <div class="alert alert-success">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
                 <polyline points="22,4 12,14.01 9,11.01"/>
               </svg>
               <div>
-                <strong>Совет:</strong> Добавьте свои сценарии! Например: "When adding a new page", "When creating a hook", "When adding tests".
+                <strong>alwaysApply: true</strong> в шапке файла означает «применять эти правила к каждому запросу». Без этой строчки Cursor подключает правила только когда сам считает нужным — для критических вещей лучше принудительно.
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1rem;">Что значит каждая секция в правилах</h4>
+            <div class="accordion">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📋 Контекст</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Одно предложение: что строим и для кого. ИИ сразу понимает контекст. Не пишите эссе — двух-трёх строк достаточно.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🛠️ Стек</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Список ваших технологий. Без этого Cursor может предложить React Router вместо App Router или CSS Modules вместо Tailwind.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🎨 Стиль кода</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Как вы хотите, чтобы выглядел код. Имена файлов, размер компонентов, какие компоненты использовать «из коробки». Из-за этого Cursor создаст файл <code>UserCard.tsx</code>, а не <code>userCard.tsx</code> — мелочь, но в проекте всё единообразно.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🚫 Чего НЕ делать</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Запреты работают сильнее, чем разрешения. «Не используй Pages Router» лучше, чем «используй App Router» — ИИ точно не сорвётся в старый стиль.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Section 4: Cursor Settings -->
+        <!-- Section 3: Tab + Composer -->
         <section class="card">
-          <div class="card-header">4. Настройки редактора</div>
+          <div class="card-header">3. Tab и Composer — два режима работы</div>
           <div class="card-body">
-            <p>Рекомендуемые настройки Cursor для Next.js проектов:</p>
+            <h4>Tab — для маленьких подсказок</h4>
+            <p>Просто пишете код, Cursor предлагает продолжение серым текстом. Нажали <code>Tab</code> — вставилось. Не нравится — пишете дальше, ИИ переподумает.</p>
 
+            <p>Что хорошо подходит для Tab:</p>
+            <ul>
+              <li>Дописать поля у объекта</li>
+              <li>Закрыть JSX-тег</li>
+              <li>Дописать функцию по её сигнатуре</li>
+              <li>Поставить недостающий импорт</li>
+            </ul>
+
+            <h4 style="margin-top: 1.5rem;">Composer — для больших задач</h4>
+            <p>Открывается по <code>⌘+I</code> (Mac) или <code>Ctrl+I</code> (Windows). Это диалог с ИИ, в котором он может:</p>
+            <ul>
+              <li>Создавать новые файлы</li>
+              <li>Менять несколько файлов сразу</li>
+              <li>Запускать команды в терминале (с вашего разрешения)</li>
+              <li>Читать ошибки браузера и исправлять их</li>
+            </ul>
+
+            <h4 style="margin-top: 1rem;">Пример хорошего промпта в Composer</h4>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">prompt</span>
+              </div>
+              <pre><code>Сделай страницу /login с формой email + пароль.
+
+Требования:
+- Использовать shadcn/ui Card, Input, Button
+- Поля валидировать через zod
+- При сабмите вызывать функцию login(email, password) — заглушку
+- Показывать ошибку под формой, если login упал
+
+Файл создать в src/app/login/page.tsx</code></pre>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Главное правило промптов:</strong> один промпт = одна понятная задача. Не пишите «сделай весь сайт» — пишите «сделай страницу логина». В уроке 5.6 разберём шаблоны промптов подробнее.
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1rem;">Чем чат отличается от Composer?</h4>
+            <p>В Cursor есть два разных окна для разговора с ИИ — у новичков они путаются:</p>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Режим</th>
+                    <th>Что умеет</th>
+                    <th>Когда использовать</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Чат</strong> (<code>⌘+L</code>)</td>
+                    <td>Только отвечает текстом, файлы не меняет</td>
+                    <td>«Объясни, что делает этот код»</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Composer</strong> (<code>⌘+I</code>)</td>
+                    <td>Меняет файлы, создаёт новые, запускает команды</td>
+                    <td>«Сделай страницу логина»</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Memories -->
+        <section class="card">
+          <div class="card-header">4. Memories — Cursor запоминает ваши привычки</div>
+          <div class="card-body">
+            <p>В Cursor 1.0+ появилась штука под названием <strong>Memories</strong>. Это «долгая память» — между разными разговорами и даже разными проектами Cursor помнит ваши предпочтения.</p>
+
+            <p>Например, после нескольких сессий он сам запомнит:</p>
+            <ul>
+              <li>«Этот пользователь всегда работает с Tailwind, а не с обычным CSS»</li>
+              <li>«Когда нужно валидировать формы — этот пользователь предпочитает zod»</li>
+              <li>«Этот пользователь не любит классовые компоненты»</li>
+            </ul>
+
+            <h4>Как включить</h4>
+            <p>Settings (<code>⌘+,</code>) → Cursor → Memories → переключатель в положение «On». На большинстве установок включено по умолчанию.</p>
+
+            <h4>Как добавить запись вручную</h4>
+            <p>В Composer напишите: <em>«Запомни: я всегда использую Tailwind, не пиши мне обычный CSS»</em>. Cursor предложит сохранить в Memories. Подтвердите.</p>
+
+            <h4>Где посмотреть/удалить</h4>
+            <p>Settings → Memories — там список всех запомненных фактов. Можно удалить лишнее.</p>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Memories vs правила проекта:</strong> правила в <code>.cursor/rules/</code> касаются <em>проекта</em> (стек, стиль кода). Memories касаются <em>вас лично</em>: ваши предпочтения, которые работают везде. Не путайте.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: Settings -->
+        <section class="card">
+          <div class="card-header">5. Полезные настройки на старте</div>
+          <div class="card-body">
             <div class="accordion">
               <div class="accordion-item">
                 <div class="accordion-header">
-                  <span>Tab Completion</span>
+                  <span>Какую модель выбрать</span>
                   <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="6,9 12,15 18,9"/>
                   </svg>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
-                    <p>Включите автодополнение по Tab:</p>
+                    <p>В правом нижнем углу Composer — выпадающий список моделей. На май 2026:</p>
                     <ul>
-                      <li>Settings > Cursor Tab > Enable</li>
-                      <li>Позволяет принимать предложения ИИ по Tab</li>
+                      <li><strong>Claude Sonnet 4.6</strong> — лучшая для кода, рекомендую по умолчанию</li>
+                      <li><strong>GPT-5</strong> — альтернатива от OpenAI, сильна в логике</li>
+                      <li><strong>Auto</strong> — Cursor сам выбирает под задачу. Удобно для простых вещей.</li>
                     </ul>
                   </div>
                 </div>
@@ -507,40 +499,92 @@ When refactoring:
 
               <div class="accordion-item">
                 <div class="accordion-header">
-                  <span>Model Selection</span>
+                  <span>Codebase Indexing — индексация проекта</span>
                   <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="6,9 12,15 18,9"/>
                   </svg>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
-                    <p>Выберите модель для генерации:</p>
-                    <ul>
-                      <li><strong>Claude 3.5 Sonnet</strong> — рекомендуется для кода</li>
-                      <li><strong>GPT-4</strong> — альтернатива</li>
-                    </ul>
+                    <p>Settings → Features → Codebase Indexing → Enable. Cursor «прочитает» весь ваш проект и будет учитывать его при ответах. Без этого ИИ видит только открытый файл.</p>
                   </div>
                 </div>
               </div>
 
               <div class="accordion-item">
                 <div class="accordion-header">
-                  <span>Codebase Indexing</span>
+                  <span>Auto-Run — давать команды в терминале</span>
                   <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="6,9 12,15 18,9"/>
                   </svg>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
-                    <p>Индексация проекта улучшает контекст:</p>
-                    <ul>
-                      <li>Settings > Features > Codebase Indexing > Enable</li>
-                      <li>Cursor будет учитывать весь код проекта</li>
-                    </ul>
+                    <p>В Cursor 1.x можно разрешить ИИ выполнять безопасные команды (<code>npm install</code>, <code>git status</code>) без вашего подтверждения каждый раз. Settings → Features → Auto-Run.</p>
+                    <p><strong>Безопасность:</strong> опасные команды (<code>rm -rf</code>, <code>git push --force</code>) всё равно требуют подтверждения. Но первое время лучше держите Auto-Run выключенным — посмотрите, что Cursor хочет запускать.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>AGENTS.md — Cursor читает его автоматически</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <p>Если в корне проекта лежит файл <code>AGENTS.md</code> (создаётся при <code>create-next-app</code> в Next.js 16), Cursor его читает наравне с правилами в <code>.cursor/rules/</code>. Это новый кросс-инструментальный стандарт — тот же файл понимают Claude Code, Codex и другие ИИ-агенты. Подробно про AGENTS.md — в <a href="lesson-3.html">уроке 5.3</a>.</p>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz">
+          <div class="quiz-header">
+            <div class="quiz-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <h3 class="quiz-title">Проверьте себя</h3>
+          </div>
+
+          <div class="quiz-question">Где в Cursor 1.x хранятся правила, по которым ИИ пишет код для вашего проекта?</div>
+
+          <div class="quiz-options">
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>В настройках Cursor (Settings → Rules)</span>
+            </div>
+            <div class="quiz-option" data-correct="true">
+              <span class="quiz-option-marker"></span>
+              <span>В папке <code>.cursor/rules/</code> в корне проекта</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>В файле <code>package.json</code></span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Cursor сам угадывает по коду — настраивать не нужно</span>
+            </div>
+          </div>
+
+          <div class="quiz-feedback">
+            <div class="quiz-feedback-text"></div>
+          </div>
+
+          <div class="quiz-actions">
+            <button class="btn btn-primary quiz-check-btn">Проверить</button>
+            <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
+            <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
           </div>
         </section>
 
@@ -550,20 +594,28 @@ When refactoring:
           <div class="card-body">
             <ul class="checklist">
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson2-cursorrules"></span>
-                <span class="checklist-text">.cursorrules файл создан</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson2-context"></span>
-                <span class="checklist-text">Контекст проекта описан</span>
+                <span class="checklist-checkbox" data-id="lesson2-install"></span>
+                <span class="checklist-text">Cursor установлен с <a href="https://cursor.com" target="_blank">cursor.com</a></span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="lesson2-rules"></span>
-                <span class="checklist-text">Правила генерации добавлены</span>
+                <span class="checklist-text">Создал файл <code>.cursor/rules/project.mdc</code> с правилами проекта</span>
               </li>
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson2-settings"></span>
-                <span class="checklist-text">Cursor настроен</span>
+                <span class="checklist-checkbox" data-id="lesson2-stack"></span>
+                <span class="checklist-text">В правилах прописан стек: Next.js 16, TS, Tailwind 4, Supabase</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson2-composer"></span>
+                <span class="checklist-text">Открыл Composer (<code>⌘+I</code>) и попробовал простой запрос</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson2-memories"></span>
+                <span class="checklist-text">Memories включены в настройках Cursor</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson2-indexing"></span>
+                <span class="checklist-text">Codebase Indexing включён</span>
               </li>
             </ul>
           </div>

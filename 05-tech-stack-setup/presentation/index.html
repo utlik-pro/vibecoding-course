@@ -131,10 +131,10 @@
       <div class="content">
         <!-- Hero Section -->
         <section class="hero">
-          <h1 class="hero-title">Настройка проекта для вайбкодинга</h1>
+          <h1 class="hero-title">Готовим проект к работе с ИИ</h1>
           <p class="hero-subtitle">
-            Подготовка проекта к эффективной работе с ИИ-инструментами.<br>
-            Cursor, Claude Code, промпты и интеграции.
+            Май 2026: Next.js 16, Cursor 1.x, Claude Code, Task Master.<br>
+            Сквозной пример — мини-приложение MoodTracker.
           </p>
         </section>
 
@@ -148,9 +148,10 @@
             Заметка для преподавателя
           </div>
           <div class="teacher-note-content">
-            <p><strong>Общая продолжительность модуля:</strong> ~3 ч 40 мин</p>
-            <p><strong>Рекомендация:</strong> Этот модуль полностью практический. Показывайте экран и выполняйте команды вместе со студентами. Особое внимание уделите настройке ИИ-инструментов.</p>
-            <p><strong>Ключевая цель:</strong> К концу модуля у каждого студента должен быть проект, полностью готовый к вайбкодингу с настроенными Cursor и Claude Code.</p>
+            <p><strong>Общая продолжительность модуля:</strong> ~4 часа (8 уроков + проект)</p>
+            <p><strong>Стек на май 2026:</strong> Next.js 16, React 19, TypeScript, Tailwind 4, Supabase + <code>@supabase/ssr</code>, OpenAI <code>gpt-4o-mini</code>, Vercel.</p>
+            <p><strong>Рекомендация:</strong> модуль полностью практический. Показывайте экран и выполняйте команды вместе со студентами. Не давайте им гуглить «как создать Next.js» — туториалы устарели.</p>
+            <p><strong>Ключевая цель:</strong> к концу модуля у каждого студента — настроенный «вайб-стэнд», на котором можно начать MoodTracker (или свой проект) в модуле 6.</p>
           </div>
         </div>
 
@@ -164,12 +165,13 @@
           <div>
             <strong>Что вы сделаете в этом модуле:</strong>
             <ul style="margin: 0.5rem 0 0 1rem;">
-              <li>Создадите Next.js проект с TypeScript</li>
-              <li>Настроите .cursorrules для Cursor</li>
-              <li>Создадите CLAUDE.md для Claude Code</li>
-              <li>Спланируете проект через Task Master (PRD → задачи)</li>
-              <li>Научитесь писать эффективные промпты</li>
-              <li>Подключите Supabase и OpenAI</li>
+              <li>Создадите Next.js 16 проект с TypeScript и Tailwind 4</li>
+              <li>Настроите Cursor (правила в <code>.cursor/rules/</code>) и Claude Code</li>
+              <li>Напишете <code>AGENTS.md</code> — единый файл-инструкцию для всех ИИ</li>
+              <li>Спланируете проект через Task Master (PRD → задачи → подзадачи)</li>
+              <li>Задеплоите сайт на Vercel — каждый push в main станет автодеплоем</li>
+              <li>Подключите Supabase (новый <code>@supabase/ssr</code>) и OpenAI <code>gpt-4o-mini</code></li>
+              <li>Научитесь писать промпты по формуле «контекст + задача + требования + формат»</li>
             </ul>
           </div>
         </div>
@@ -181,51 +183,51 @@
           <!-- Lesson 1 -->
           <a href="lesson-1.html" class="lesson-card">
             <div class="lesson-card-number">1</div>
-            <h3 class="lesson-card-title">Создание Next.js проекта</h3>
+            <h3 class="lesson-card-title">Создаём первый Next.js проект</h3>
             <p class="lesson-card-desc">
-              create-next-app, структура проекта, базовая конфигурация и запуск.
+              План с ИИ, <code>create-next-app</code> с recommended defaults, структура папок, первый запуск.
             </p>
             <div class="lesson-card-meta">
-              <span>25 мин</span>
+              <span>30 мин</span>
               <span>•</span>
-              <span>Практика</span>
+              <span>Next.js 16</span>
             </div>
           </a>
 
           <!-- Lesson 2 -->
           <a href="lesson-2.html" class="lesson-card">
             <div class="lesson-card-number">2</div>
-            <h3 class="lesson-card-title">Настройка Cursor</h3>
+            <h3 class="lesson-card-title">Настраиваем Cursor</h3>
             <p class="lesson-card-desc">
-              .cursorrules файл, Composer Rules и настройка ИИ-помощника.
+              Правила в <code>.cursor/rules/</code>, режимы Tab и Composer, Memories.
             </p>
             <div class="lesson-card-meta">
               <span>30 мин</span>
               <span>•</span>
-              <span>ИИ-инструменты</span>
+              <span>Cursor 1.x</span>
             </div>
           </a>
 
           <!-- Lesson 3 -->
           <a href="lesson-3.html" class="lesson-card">
             <div class="lesson-card-number">3</div>
-            <h3 class="lesson-card-title">CLAUDE.md</h3>
+            <h3 class="lesson-card-title">CLAUDE.md и AGENTS.md</h3>
             <p class="lesson-card-desc">
-              Конфигурация для Claude Code, правила проекта для ИИ.
+              Память для ИИ — единый файл-инструкция, который понимают все ассистенты.
             </p>
             <div class="lesson-card-meta">
               <span>30 мин</span>
               <span>•</span>
-              <span>ИИ-инструменты</span>
+              <span>Claude Code</span>
             </div>
           </a>
 
           <!-- Lesson 4 -->
           <a href="lesson-4.html" class="lesson-card">
             <div class="lesson-card-number">4</div>
-            <h3 class="lesson-card-title">Task Master</h3>
+            <h3 class="lesson-card-title">Task Master — план проекта</h3>
             <p class="lesson-card-desc">
-              Планирование проекта с ИИ: PRD → задачи → подзадачи на примере MoodTracker.
+              PRD → 8–10 задач → подзадачи. Сквозной пример: MoodTracker.
             </p>
             <div class="lesson-card-meta">
               <span>45 мин</span>
@@ -239,10 +241,10 @@
             <div class="lesson-card-number">5</div>
             <h3 class="lesson-card-title">Деплой на Vercel</h3>
             <p class="lesson-card-desc">
-              Быстрый деплой на Vercel, environment variables.
+              GitHub → Vercel, автодеплой по push, переменные окружения.
             </p>
             <div class="lesson-card-meta">
-              <span>20 мин</span>
+              <span>25 мин</span>
               <span>•</span>
               <span>Деплой</span>
             </div>
@@ -253,7 +255,7 @@
             <div class="lesson-card-number">6</div>
             <h3 class="lesson-card-title">Промпт-инженеринг</h3>
             <p class="lesson-card-desc">
-              Шаблоны промптов, best practices и техники вайбкодинга.
+              Формула промпта, 5 шаблонов, Plan mode в Claude Code, свой <code>prompts.md</code>.
             </p>
             <div class="lesson-card-meta">
               <span>35 мин</span>
@@ -265,9 +267,9 @@
           <!-- Lesson 7 -->
           <a href="lesson-7.html" class="lesson-card">
             <div class="lesson-card-number">7</div>
-            <h3 class="lesson-card-title">Интеграция сервисов</h3>
+            <h3 class="lesson-card-title">Подключаем Supabase и OpenAI</h3>
             <p class="lesson-card-desc">
-              Подключение Supabase, OpenAI API и создание health check.
+              <code>@supabase/ssr</code>, ключи, OpenAI <code>gpt-4o-mini</code>, health check endpoint.
             </p>
             <div class="lesson-card-meta">
               <span>30 мин</span>
@@ -281,7 +283,7 @@
             <div class="lesson-card-number">8</div>
             <h3 class="lesson-card-title">Готовность к вайбкодингу</h3>
             <p class="lesson-card-desc">
-              Тестирование ИИ-инструментов, чек-лист готовности проекта.
+              Полный чек-лист модуля, боевое тестирование Cursor и Claude Code, дневной ритуал.
             </p>
             <div class="lesson-card-meta">
               <span>25 мин</span>
@@ -312,27 +314,31 @@
             <ul class="checklist">
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="start-node"></span>
-                <span class="checklist-text">Node.js 18+ установлен</span>
+                <span class="checklist-text">Node.js 20+ установлен (<code>node --version</code>)</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="start-cursor"></span>
-                <span class="checklist-text">Cursor IDE установлен</span>
+                <span class="checklist-text">Cursor 1.x установлен (<a href="https://cursor.com" target="_blank">cursor.com</a>)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="start-claude"></span>
+                <span class="checklist-text">Claude Code установлен (<code>npm i -g @anthropic-ai/claude-code</code>)</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="start-github"></span>
-                <span class="checklist-text">Аккаунт GitHub</span>
+                <span class="checklist-text">Аккаунт GitHub + <code>gh auth login</code></span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="start-vercel"></span>
-                <span class="checklist-text">Аккаунт Vercel (из модуля 4)</span>
+                <span class="checklist-text">Аккаунт Vercel (можно зарегистрировать на уроке 5.5)</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="start-supabase"></span>
-                <span class="checklist-text">Аккаунт Supabase (из модуля 4)</span>
+                <span class="checklist-text">Аккаунт Supabase (создадим на уроке 5.7)</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="start-openai"></span>
-                <span class="checklist-text">OpenAI API key (из модуля 4)</span>
+                <span class="checklist-text">OpenAI API key с депозитом $5+ (создадим на уроке 5.7)</span>
               </li>
             </ul>
 
@@ -350,25 +356,37 @@
               <div class="service-card">
                 <div class="service-card-icon">C</div>
                 <h4 class="service-card-title">Cursor</h4>
-                <p class="service-card-desc">ИИ-редактор для разработки</p>
+                <p class="service-card-desc">ИИ-редактор кода — <a href="https://cursor.com" target="_blank">cursor.com</a></p>
               </div>
 
               <div class="service-card">
                 <div class="service-card-icon">A</div>
                 <h4 class="service-card-title">Claude Code</h4>
-                <p class="service-card-desc">CLI инструмент для вайбкодинга</p>
+                <p class="service-card-desc">CLI-агент от Anthropic — <a href="https://docs.anthropic.com/claude-code" target="_blank">docs</a></p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">T</div>
+                <h4 class="service-card-title">Task Master</h4>
+                <p class="service-card-desc">Менеджер задач для ИИ — <a href="https://www.npmjs.com/package/task-master-ai" target="_blank">npm</a></p>
               </div>
 
               <div class="service-card">
                 <div class="service-card-icon">N</div>
-                <h4 class="service-card-title">Next.js</h4>
-                <p class="service-card-desc">Документация фреймворка</p>
+                <h4 class="service-card-title">Next.js 16</h4>
+                <p class="service-card-desc">Документация — <a href="https://nextjs.org/docs" target="_blank">nextjs.org</a></p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">S</div>
+                <h4 class="service-card-title">Supabase</h4>
+                <p class="service-card-desc">БД + Auth — <a href="https://supabase.com/docs" target="_blank">supabase.com</a></p>
               </div>
 
               <div class="service-card">
                 <div class="service-card-icon">V</div>
                 <h4 class="service-card-title">Vercel</h4>
-                <p class="service-card-desc">Документация по деплою</p>
+                <p class="service-card-desc">Деплой — <a href="https://vercel.com/docs" target="_blank">vercel.com</a></p>
               </div>
             </div>
           </div>

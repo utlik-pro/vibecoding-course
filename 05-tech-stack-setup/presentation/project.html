@@ -128,14 +128,15 @@
           <div class="lesson-meta">
             <span class="lesson-number">Итоговый проект</span>
           </div>
-          <h1 class="lesson-title">Проект готов к вайбкодингу</h1>
+          <h1 class="lesson-title">Итоговый проект — настроенный «вайб-стэнд»</h1>
 
           <div class="lesson-objectives">
-            <h4>Результат модуля:</h4>
+            <h4>Что должно получиться:</h4>
             <ul>
-              <li>Next.js проект настроен и задеплоен на Vercel</li>
-              <li>ИИ-инструменты (Cursor, Claude Code) сконфигурированы</li>
-              <li>Проект полностью готов к разработке с помощью ИИ</li>
+              <li>Next.js 16 проект <code>mood-tracker</code> работает локально и задеплоен на Vercel</li>
+              <li>Cursor и Claude Code знают контекст проекта (через <code>AGENTS.md</code> и <code>.cursor/rules/</code>)</li>
+              <li>Task Master сгенерировал план разработки из PRD</li>
+              <li>Supabase и OpenAI подключены, <code>/api/health</code> возвращает «всё ок»</li>
             </ul>
           </div>
         </div>
@@ -148,55 +149,75 @@
             <ul class="checklist">
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="project-nextjs"></span>
-                <span class="checklist-text">Next.js проект создан и запускается локально</span>
+                <span class="checklist-text">Next.js 16 проект <code>mood-tracker</code> создан и работает на localhost:3000</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="project-build"></span>
                 <span class="checklist-text"><code>npm run build</code> проходит без ошибок</span>
               </li>
               <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-github"></span>
+                <span class="checklist-text">Код залит в приватный репозиторий GitHub</span>
+              </li>
+              <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="project-vercel"></span>
-                <span class="checklist-text">Vercel деплой работает</span>
+                <span class="checklist-text">Vercel деплой работает, ссылка <code>*.vercel.app</code> отдаёт сайт</span>
               </li>
             </ul>
 
             <h4>2. ИИ-инструменты</h4>
             <ul class="checklist">
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="project-cursorrules"></span>
-                <span class="checklist-text">.cursorrules файл создан и настроен</span>
+                <span class="checklist-checkbox" data-id="project-agents"></span>
+                <span class="checklist-text"><code>AGENTS.md</code> в корне с описанием стека и правил</span>
               </li>
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="project-claudemd"></span>
-                <span class="checklist-text">CLAUDE.md с документацией проекта</span>
+                <span class="checklist-checkbox" data-id="project-cursor-rules"></span>
+                <span class="checklist-text"><code>.cursor/rules/project.mdc</code> создан с <code>alwaysApply: true</code></span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="project-prompts"></span>
-                <span class="checklist-text">prompts.md с шаблонами промптов</span>
+                <span class="checklist-text"><code>prompts.md</code> с 5+ шаблонами промптов</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="project-cursor-test"></span>
-                <span class="checklist-text">Cursor понимает контекст проекта</span>
+                <span class="checklist-text">Cursor создал тестовый компонент с shadcn/ui по правилам</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="project-claude-test"></span>
-                <span class="checklist-text">Claude Code работает с проектом</span>
+                <span class="checklist-text">Claude Code запускается из терминала и видит контекст проекта</span>
               </li>
             </ul>
 
-            <h4>3. Интеграции (опционально)</h4>
+            <h4>3. Task Master</h4>
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-prd"></span>
+                <span class="checklist-text">PRD MoodTracker лежит в <code>.taskmaster/docs/prd.txt</code></span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-tasks"></span>
+                <span class="checklist-text"><code>task-master list</code> показывает 8–10 задач, 4–5 из них с подзадачами</span>
+              </li>
+            </ul>
+
+            <h4>4. Интеграции</h4>
             <ul class="checklist">
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="project-supabase"></span>
-                <span class="checklist-text">Supabase клиент подключен</span>
+                <span class="checklist-text">Supabase клиенты (browser + server) и <code>middleware.ts</code> настроены через <code>@supabase/ssr</code></span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="project-openai"></span>
-                <span class="checklist-text">OpenAI API настроен</span>
+                <span class="checklist-text">OpenAI API клиент в <code>src/lib/openai.ts</code></span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="project-health"></span>
-                <span class="checklist-text">Health check endpoint работает</span>
+                <span class="checklist-text"><code>/api/health</code> возвращает <code>supabase: true, openai: true</code></span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-env-vercel"></span>
+                <span class="checklist-text">Все переменные окружения добавлены в Vercel (Production)</span>
               </li>
             </ul>
           </div>
@@ -210,32 +231,40 @@
               <div class="code-block-header">
                 <span class="code-block-lang">Структура</span>
               </div>
-              <pre><code>my-saas-app/
+              <pre><code>mood-tracker/
 ├── src/
 │   ├── app/
 │   │   ├── api/
 │   │   │   └── health/
-│   │   │       └── route.ts      # Health check
+│   │   │       └── route.ts          ← health check
 │   │   ├── layout.tsx
 │   │   ├── page.tsx
 │   │   └── globals.css
 │   ├── components/
-│   │   └── ui/                   # shadcn/ui
-│   └── lib/
-│       ├── supabase.ts          # Supabase client
-│       └── openai.ts            # OpenAI client
+│   │   └── ui/                       ← shadcn/ui
+│   ├── lib/
+│   │   ├── supabase/
+│   │   │   ├── client.ts             ← Supabase для браузера
+│   │   │   └── server.ts             ← Supabase для сервера
+│   │   └── openai.ts                 ← OpenAI client
+│   └── middleware.ts                 ← обновление сессии Supabase
 │
-├── .cursorrules                  # Cursor AI rules
-├── CLAUDE.md                     # Claude Code config
-├── prompts.md                    # Шаблоны промптов
+├── .cursor/
+│   └── rules/
+│       └── project.mdc               ← правила для Cursor
+├── .taskmaster/
+│   ├── config.json
+│   ├── docs/prd.txt                  ← PRD MoodTracker
+│   └── tasks/tasks.json              ← сгенерированные задачи
+├── AGENTS.md                         ← инструкции для всех ИИ
+├── prompts.md                        ← ваши шаблоны промптов
 │
-├── .env.local                    # Local secrets
-├── .env.example                  # Template
-├── tailwind.config.ts
+├── .env.local                        ← локальные секреты
+├── .mcp.json                         ← (опционально) MCP-сервер Task Master
+├── next.config.ts
 ├── tsconfig.json
-├── next.config.js
-├── package.json
-└── README.md</code></pre>
+├── eslint.config.mjs
+└── package.json</code></pre>
             </div>
 
             <div class="alert alert-info" style="margin-top: 1rem;">
@@ -245,7 +274,7 @@
                 <path d="M12 8h.01"/>
               </svg>
               <div>
-                <strong>Ключевые файлы для вайбкодинга:</strong> <code>.cursorrules</code>, <code>CLAUDE.md</code> и <code>prompts.md</code> — это ваши инструменты для эффективной работы с ИИ.
+                <strong>Ключевые файлы для вайбкодинга:</strong> <code>AGENTS.md</code>, <code>.cursor/rules/project.mdc</code>, <code>prompts.md</code>, <code>.taskmaster/</code> — это и есть ваш «настроенный вайб-стэнд». Без них ИИ работает «вслепую».
               </div>
             </div>
           </div>
@@ -266,29 +295,34 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Next.js проект</td>
+                    <td>Next.js 16 + деплой Vercel</td>
                     <td>20</td>
-                    <td>Проект создан, запускается, деплоится</td>
+                    <td>Проект создан, билд проходит, сайт открывается на vercel.app</td>
                   </tr>
                   <tr>
-                    <td>Cursor настройка</td>
-                    <td>25</td>
-                    <td>.cursorrules настроен, Cursor понимает проект</td>
+                    <td>AGENTS.md и Cursor rules</td>
+                    <td>20</td>
+                    <td>Файлы созданы, Cursor пишет код по правилам, Claude Code видит контекст</td>
                   </tr>
                   <tr>
-                    <td>Claude Code</td>
-                    <td>25</td>
-                    <td>CLAUDE.md создан, Claude Code работает с проектом</td>
+                    <td>Task Master</td>
+                    <td>20</td>
+                    <td>PRD написан, задачи сгенерированы, expand сделан</td>
                   </tr>
                   <tr>
                     <td>Промпты</td>
-                    <td>20</td>
-                    <td>prompts.md с шаблонами для генерации кода</td>
+                    <td>15</td>
+                    <td>prompts.md с шаблонами + 1 свой промпт для проекта</td>
                   </tr>
                   <tr>
-                    <td>Интеграции</td>
+                    <td>Supabase + OpenAI</td>
+                    <td>15</td>
+                    <td><code>@supabase/ssr</code> настроен, OpenAI работает, /api/health возвращает 200</td>
+                  </tr>
+                  <tr>
+                    <td>Дневной ритуал</td>
                     <td>10</td>
-                    <td>Supabase и/или OpenAI подключены (бонус)</td>
+                    <td>Студент может сам пройти цикл next → show → set-status done</td>
                   </tr>
                 </tbody>
               </table>

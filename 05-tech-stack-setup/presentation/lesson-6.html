@@ -136,14 +136,15 @@
             <span class="lesson-number">Урок 5.6</span>
             <span class="lesson-duration">⏱ 35 минут</span>
           </div>
-          <h1 class="lesson-title">Промпт-инженеринг для вайбкодинга</h1>
+          <h1 class="lesson-title">Как просить ИИ — чтобы получалось то, что нужно</h1>
 
           <div class="lesson-objectives">
-            <h4>Цели урока:</h4>
+            <h4>Что вы сделаете:</h4>
             <ul>
-              <li>Научиться писать эффективные промпты</li>
-              <li>Создать шаблоны для типичных задач</li>
-              <li>Понять best practices вайбкодинга</li>
+              <li>Поймёте формулу хорошего промпта (контекст + задача + требования + формат)</li>
+              <li>Получите шаблоны на 5 типичных задач: компонент, API, баг, рефакторинг, документация</li>
+              <li>Научитесь использовать «Plan mode» в Claude Code для крупных задач</li>
+              <li>Соберёте свой <code>prompts.md</code> — личную библиотеку шаблонов</li>
             </ul>
           </div>
         </div>
@@ -157,22 +158,24 @@
             Заметка для преподавателя
           </div>
           <div class="teacher-note-content">
-            <p><strong>Ключевой урок:</strong> Это самый важный урок для вайбкодинга. Качество промптов напрямую влияет на качество генерируемого кода. Покажите примеры хороших и плохих промптов.</p>
+            <p><strong>Ключевой урок модуля:</strong> качество промптов = качество кода. Покажите на одной задаче «плохой промпт» vs «хороший промпт» — разница в результате говорит сама за себя.</p>
+            <p><strong>Время:</strong> ~10 мин формула, ~15 мин шаблоны, ~5 мин Plan mode, ~5 мин prompts.md.</p>
+            <p><strong>Май 2026:</strong> модели стали умнее (Claude Sonnet 4.6, GPT-5) и сами додумывают пробелы — но всё равно лучше дать им контекст в нужной форме, чем «угадывайте за меня».</p>
           </div>
         </div>
 
-        <!-- Section 1: Basics -->
+        <!-- Section 1: Formula -->
         <section class="card">
-          <div class="card-header">1. Основы промптов</div>
+          <div class="card-header">1. Формула хорошего промпта</div>
           <div class="card-body">
-            <p>Хороший промпт содержит четыре элемента:</p>
+            <p>Хороший промпт всегда отвечает на четыре вопроса:</p>
 
             <div class="table-container">
               <table>
                 <thead>
                   <tr>
-                    <th>Элемент</th>
-                    <th>Описание</th>
+                    <th>Вопрос</th>
+                    <th>Что включить</th>
                     <th>Пример</th>
                   </tr>
                 </thead>
@@ -180,27 +183,28 @@
                   <tr>
                     <td><strong>Контекст</strong></td>
                     <td>Что за проект, какой стек</td>
-                    <td>"В Next.js проекте с shadcn/ui..."</td>
+                    <td>«В Next.js 16 проекте с shadcn/ui...»</td>
                   </tr>
                   <tr>
                     <td><strong>Задача</strong></td>
                     <td>Что нужно сделать</td>
-                    <td>"...создай компонент карточки"</td>
+                    <td>«...сделай компонент карточки пользователя»</td>
                   </tr>
                   <tr>
                     <td><strong>Требования</strong></td>
-                    <td>Конкретные ограничения</td>
-                    <td>"...с аватаром, именем и кнопкой"</td>
+                    <td>Конкретные ограничения и поля</td>
+                    <td>«...с аватаром, именем, email и кнопкой Edit»</td>
                   </tr>
                   <tr>
                     <td><strong>Формат</strong></td>
                     <td>Как должен выглядеть результат</td>
-                    <td>"...используя TypeScript интерфейс"</td>
+                    <td>«...файл по адресу <code>src/components/UserCard.tsx</code>, типизированные пропсы»</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
+            <h4 style="margin-top: 1rem;">Сравните</h4>
             <div class="alert alert-warning">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
@@ -208,214 +212,10 @@
                 <line x1="12" y1="17" x2="12.01" y2="17"/>
               </svg>
               <div>
-                <strong>Плохой промпт:</strong> "Сделай компонент"<br>
-                <strong>Хороший промпт:</strong> "Создай компонент UserCard с использованием shadcn/ui Card. Показывай аватар, имя и email. Добавь кнопку редактирования."
+                <strong>Плохой промпт:</strong> «Сделай форму»<br>
+                ИИ выдумает поля, выберет произвольный стек, положит файл «куда-то».
               </div>
             </div>
-          </div>
-        </section>
-
-        <!-- Section 2: Templates -->
-        <section class="card">
-          <div class="card-header">2. Шаблоны промптов</div>
-          <div class="card-body">
-            <h4>Шаблон для компонентов:</h4>
-            <div class="code-block">
-              <div class="code-block-header">
-                <span class="code-block-lang">template</span>
-              </div>
-              <pre><code>Создай [тип компонента] для [назначение].
-
-Стек: Next.js 14, TypeScript, Tailwind CSS, shadcn/ui
-
-Функциональность:
-- [требование 1]
-- [требование 2]
-- [требование 3]
-
-Props:
-- [prop 1]: [тип] - [описание]
-- [prop 2]: [тип] - [описание]
-
-Используй существующие компоненты из src/components/ui/</code></pre>
-            </div>
-
-            <h4>Шаблон для API routes:</h4>
-            <div class="code-block">
-              <div class="code-block-header">
-                <span class="code-block-lang">template</span>
-              </div>
-              <pre><code>Создай API route для [действие].
-
-Endpoint: /api/[путь]
-Метод: [GET/POST/PUT/DELETE]
-
-Входные данные:
-- [поле]: [тип]
-
-Ответ:
-- Успех: { data: [структура] }
-- Ошибка: { error: string }
-
-Требования:
-- Использовать [Supabase/OpenAI/etc]
-- Валидировать входные данные
-- Обработать ошибки с правильными статусами</code></pre>
-            </div>
-
-            <h4>Шаблон для исправления багов:</h4>
-            <div class="code-block">
-              <div class="code-block-header">
-                <span class="code-block-lang">template</span>
-              </div>
-              <pre><code>Ошибка: [описание ошибки]
-Файл: [путь к файлу]
-
-Что происходит:
-[текущее поведение]
-
-Что должно быть:
-[ожидаемое поведение]
-
-Код с ошибкой:
-[фрагмент кода или строка]
-
-Сообщение об ошибке (если есть):
-[текст ошибки или stack trace]</code></pre>
-            </div>
-          </div>
-        </section>
-
-        <!-- Section 3: Examples -->
-        <section class="card">
-          <div class="card-header">3. Примеры промптов</div>
-          <div class="card-body">
-            <div class="accordion">
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>Создание формы</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <div class="code-block">
-                      <div class="code-block-header">
-                        <span class="code-block-lang">prompt</span>
-                      </div>
-                      <pre><code>Создай форму регистрации пользователя.
-
-Стек: Next.js 14, TypeScript, shadcn/ui, react-hook-form, zod
-
-Поля формы:
-- Имя (обязательное, min 2 символа)
-- Email (обязательное, валидный email)
-- Пароль (обязательное, min 8 символов)
-- Подтверждение пароля (должно совпадать)
-
-Функции:
-- Валидация на клиенте с zod
-- Показ ошибок под полями
-- Кнопка Submit с loading состоянием
-- onSubmit callback для отправки данных
-
-Используй компоненты из shadcn/ui:
-- Form, FormField, FormItem, FormLabel
-- Input, Button</code></pre>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>API с базой данных</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <div class="code-block">
-                      <div class="code-block-header">
-                        <span class="code-block-lang">prompt</span>
-                      </div>
-                      <pre><code>Создай CRUD API для управления задачами (todos).
-
-Endpoints:
-- GET /api/todos - список задач пользователя
-- POST /api/todos - создать задачу
-- PUT /api/todos/[id] - обновить задачу
-- DELETE /api/todos/[id] - удалить задачу
-
-Структура задачи:
-- id: uuid
-- title: string
-- completed: boolean
-- user_id: uuid
-- created_at: timestamp
-
-Требования:
-- Использовать Supabase client из src/lib/supabase.ts
-- Проверять user_id для безопасности
-- Возвращать { data } при успехе
-- Возвращать { error } при ошибке с кодом 400/500</code></pre>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <div class="accordion-header">
-                  <span>Интеграция с ИИ</span>
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </div>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <div class="code-block">
-                      <div class="code-block-header">
-                        <span class="code-block-lang">prompt</span>
-                      </div>
-                      <pre><code>Создай API route для генерации текста с OpenAI.
-
-Endpoint: POST /api/generate
-
-Входные данные:
-- prompt: string (текст от пользователя)
-- max_tokens?: number (по умолчанию 500)
-
-Функциональность:
-- Использовать OpenAI client из src/lib/openai.ts
-- Модель: gpt-4o-mini
-- Добавить системный промпт: "You are a helpful assistant"
-- Вернуть сгенерированный текст
-
-Обработка ошибок:
-- 400: если prompt пустой
-- 500: если OpenAI API недоступен
-- Логировать ошибки в console.error</code></pre>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Section 4: Best Practices -->
-        <section class="card">
-          <div class="card-header">4. Best Practices вайбкодинга</div>
-          <div class="card-body">
-            <ol>
-              <li><strong>Будьте конкретны</strong> — чем точнее промпт, тем лучше результат</li>
-              <li><strong>Указывайте контекст</strong> — стек, существующие файлы, паттерны</li>
-              <li><strong>Разбивайте большие задачи</strong> — лучше 5 маленьких промптов, чем 1 огромный</li>
-              <li><strong>Проверяйте код</strong> — ИИ может ошибаться, всегда ревьюйте</li>
-              <li><strong>Итерируйте</strong> — уточняйте промпт, если результат не идеален</li>
-            </ol>
 
             <div class="alert alert-success">
               <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -423,9 +223,312 @@ Endpoint: POST /api/generate
                 <polyline points="22,4 12,14.01 9,11.01"/>
               </svg>
               <div>
-                <strong>Совет:</strong> Создайте файл <code>prompts.md</code> в проекте с вашими шаблонами. Это ускорит работу и обеспечит консистентность.
+                <strong>Хороший промпт:</strong> «В Next.js 16 проекте сделай форму регистрации (email, пароль, подтверждение пароля). Используй shadcn/ui Form, Input, Button. Валидация через zod. Файл — <code>src/app/(auth)/register/page.tsx</code>.»<br>
+                ИИ напишет ровно то, что нужно — с первого раза.
               </div>
             </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Помните про <code>AGENTS.md</code>:</strong> если он у вас уже есть (урок 5.3), большую часть «Контекста» можно опустить — ИИ знает стек и структуру. Концентрируйтесь на «Задаче» и «Требованиях».
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Templates -->
+        <section class="card">
+          <div class="card-header">2. Готовые шаблоны на типичные задачи</div>
+          <div class="card-body">
+            <div class="accordion open-first">
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🧩 Шаблон 1 — Создать компонент</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="code-block">
+                      <div class="code-block-header">
+                        <span class="code-block-lang">prompt</span>
+                      </div>
+                      <pre><code>Создай компонент [имя] для [назначение].
+
+Что должен показывать:
+- [пункт 1]
+- [пункт 2]
+
+Props:
+- [имя]: [тип] - [что это]
+
+Использовать готовые компоненты из shadcn/ui (Card, Button и т.д.).
+Файл: src/components/[ИмяКомпонента].tsx</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🔌 Шаблон 2 — Создать API-роут</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="code-block">
+                      <div class="code-block-header">
+                        <span class="code-block-lang">prompt</span>
+                      </div>
+                      <pre><code>Создай API-роут для [действие].
+
+Endpoint: /api/[путь]
+Метод: [GET / POST / PUT / DELETE]
+
+Что приходит на вход:
+- [поле]: [тип]
+
+Что возвращаем:
+- При успехе: { data: [...] }
+- При ошибке: { error: "сообщение" } со статусом 400 или 500
+
+Использовать [Supabase / OpenAI].
+Валидировать вход через zod, оборачивать в try/catch.</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>🐛 Шаблон 3 — Исправить баг</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="code-block">
+                      <div class="code-block-header">
+                        <span class="code-block-lang">prompt</span>
+                      </div>
+                      <pre><code>В файле [путь] происходит баг.
+
+Что я делаю: [шаги воспроизведения]
+Что вижу: [что происходит на экране/в консоли]
+Что должно быть: [ожидаемое поведение]
+
+Сообщение об ошибке (если есть):
+[текст ошибки или stack trace]
+
+Сначала найди корневую причину, потом точечно исправь.
+Не рефактори вокруг — только баг.</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>♻️ Шаблон 4 — Отрефакторить кусок</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="code-block">
+                      <div class="code-block-header">
+                        <span class="code-block-lang">prompt</span>
+                      </div>
+                      <pre><code>Отрефактори [файл / функция / компонент].
+
+Цель: [что хочется улучшить — читаемость / разбить на части / убрать дубли]
+
+Что НЕ делать:
+- Не менять поведение (видимые пользователю функции остаются те же)
+- Не вводить новых зависимостей без согласования
+- Не переименовывать публичные API (экспортируемые функции)
+
+Покажи план изменений до того, как править файлы.</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <span>📚 Шаблон 5 — Объяснить кусок кода</span>
+                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+                    <div class="code-block">
+                      <div class="code-block-header">
+                        <span class="code-block-lang">prompt</span>
+                      </div>
+                      <pre><code>Объясни, что делает код в [файл / выделенный кусок].
+
+Я новичок, разберись с предположением что я не знаю
+эту тему. Используй простые слова и аналогии.
+
+Если встретится сложный термин — поясни в скобках.
+
+В конце — одно предложение «зачем этот код вообще нужен».</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Plan mode -->
+        <section class="card">
+          <div class="card-header">3. Plan mode для больших задач</div>
+          <div class="card-body">
+            <p>Когда задача большая (страница с формой, авторизацией и валидацией) — попросите ИИ <em>сначала составить план</em>, а потом писать код. В Claude Code для этого есть отдельный режим.</p>
+
+            <h4>В Claude Code</h4>
+            <p>Внутри сессии нажмите <kbd>Shift+Tab</kbd> — появится «Plan mode». Теперь ИИ <strong>только продумает решение</strong>, не трогая файлы. Когда план одобрите — нажмите <kbd>Shift+Tab</kbd> ещё раз и Claude его выполнит.</p>
+
+            <h4 style="margin-top: 1rem;">В Cursor</h4>
+            <p>Просто добавьте в начало промпта: <em>«Сначала покажи план изменений (какие файлы создаёшь/правишь и что в них). Я скажу „поехали“ — тогда напишешь код.»</em></p>
+
+            <h4 style="margin-top: 1rem;">Зачем это нужно</h4>
+            <ul>
+              <li><strong>Дешевле исправить план, чем код.</strong> Если ИИ собрался лезть не туда — поправить пару строчек плана быстрее, чем отменять кучу файлов</li>
+              <li><strong>Видно, чего ИИ не знает.</strong> Если в плане «доделать функцию X» — а её у вас нет, обнаружится сразу</li>
+              <li><strong>Учитесь сами.</strong> Прочитав план, понимаете, как ИИ думает — это лучшая школа</li>
+            </ul>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Когда план не нужен:</strong> для маленьких задач (изменить текст, добавить кнопку) — пишите сразу. Plan mode тратит время и токены, не нужно использовать его на каждый чих.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Best Practices -->
+        <section class="card">
+          <div class="card-header">4. 7 правил, которые экономят часы</div>
+          <div class="card-body">
+            <ol style="line-height: 1.8;">
+              <li><strong>Один промпт = одна задача.</strong> Если хочется попросить «сделай форму И добавь её в навигацию И задеплой» — разбейте на три промпта.</li>
+              <li><strong>Прикрепите файл, а не описывайте.</strong> В Cursor: <code>@</code> + имя файла. В Claude Code: «прочитай файл X». Так ИИ видит реальный код, а не вашу версию его.</li>
+              <li><strong>Скажите «не делай», а не только «сделай».</strong> Запреты («не используй any», «не меняй другие файлы») работают сильнее.</li>
+              <li><strong>После генерации — прочитайте код.</strong> ИИ ошибается. На 100% довериться можно только после ревью своими глазами.</li>
+              <li><strong>Сохраните успешные промпты.</strong> Получился классный промпт — добавьте в <code>prompts.md</code>. Через месяц спасёте полчаса.</li>
+              <li><strong>Не бойтесь итерировать.</strong> Первый ответ редко идеален. «Перепиши, теперь без X», «добавь Y» — это нормальная работа.</li>
+              <li><strong>Используйте новые сессии.</strong> Когда переключаетесь на новую задачу — <code>/clear</code> в Claude Code или новый чат. Старый контекст путает ИИ.</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Section 5: prompts.md -->
+        <section class="card">
+          <div class="card-header">5. Соберите свой prompts.md</div>
+          <div class="card-body">
+            <p>Создайте в корне проекта файл <code>prompts.md</code> с шаблонами под ваши задачи. Структура:</p>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">markdown</span>
+              </div>
+              <pre><code># Промпты для MoodTracker
+
+## Создать компонент
+[вставьте Шаблон 1 из этого урока]
+
+## Создать API-роут
+[вставьте Шаблон 2]
+
+## Исправить баг
+[вставьте Шаблон 3]
+
+## Свой промпт — генерация AI-инсайта
+В рамках MoodTracker создай функцию generateInsight(moods).
+Принимает массив записей за неделю, возвращает строку
+с советом до 200 слов через gpt-4o-mini.
+Системный промпт: "Ты эмпатичный коуч по эмоциональному здоровью..."
+
+## Свой промпт — добавить shadcn компонент
+Добавь в проект компонент [имя] из shadcn/ui:
+выполни npx shadcn@latest add [имя], проверь что он
+появился в src/components/ui/ и сразу импортни в
+src/app/page.tsx как пример.</code></pre>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Совет:</strong> через 1–2 месяца ваш <code>prompts.md</code> станет вашим главным активом. Промпты, которые сработали один раз, сработают и второй. Не теряйте их.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="quiz">
+          <div class="quiz-header">
+            <div class="quiz-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <h3 class="quiz-title">Проверьте себя</h3>
+          </div>
+
+          <div class="quiz-question">Какой совет — самый важный, чтобы получить от ИИ хороший код?</div>
+
+          <div class="quiz-options">
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Использовать только платные модели — бесплатные глупее</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Писать на английском — на русском ИИ хуже понимает</span>
+            </div>
+            <div class="quiz-option" data-correct="true">
+              <span class="quiz-option-marker"></span>
+              <span>Дать конкретный контекст: стек, требования и формат результата</span>
+            </div>
+            <div class="quiz-option" data-correct="false">
+              <span class="quiz-option-marker"></span>
+              <span>Просить «сделай красиво» — ИИ всё придумает сам</span>
+            </div>
+          </div>
+
+          <div class="quiz-feedback">
+            <div class="quiz-feedback-text"></div>
+          </div>
+
+          <div class="quiz-actions">
+            <button class="btn btn-primary quiz-check-btn">Проверить</button>
+            <button class="btn btn-secondary quiz-next-btn hidden">Далее</button>
+            <button class="btn btn-secondary quiz-reset-btn hidden">Пройти снова</button>
           </div>
         </section>
 
@@ -435,20 +538,24 @@ Endpoint: POST /api/generate
           <div class="card-body">
             <ul class="checklist">
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson6-structure"></span>
-                <span class="checklist-text">Понята структура хорошего промпта</span>
+                <span class="checklist-checkbox" data-id="lesson6-formula"></span>
+                <span class="checklist-text">Знаю формулу: контекст + задача + требования + формат</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="lesson6-templates"></span>
-                <span class="checklist-text">Изучены шаблоны промптов</span>
+                <span class="checklist-text">Разобрал 5 шаблонов промптов</span>
               </li>
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson6-examples"></span>
-                <span class="checklist-text">Разобраны примеры</span>
+                <span class="checklist-checkbox" data-id="lesson6-plan"></span>
+                <span class="checklist-text">Попробовал Plan mode в Claude Code (Shift+Tab)</span>
               </li>
               <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="lesson6-file"></span>
-                <span class="checklist-text">Создан файл prompts.md</span>
+                <span class="checklist-checkbox" data-id="lesson6-prompts"></span>
+                <span class="checklist-text">Создал файл <code>prompts.md</code> в проекте</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="lesson6-test"></span>
+                <span class="checklist-text">Сравнил «плохой» и «хороший» промпт на одной задаче</span>
               </li>
             </ul>
           </div>
