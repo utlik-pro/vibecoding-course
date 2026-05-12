@@ -78,6 +78,37 @@
           </p>
         </div>
 
+        <!-- How we'll learn -->
+        <section class="card" style="border-left: 4px solid #8B5CF6; background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(139, 92, 246, 0.02) 100%);">
+          <div class="card-header" style="background: #8B5CF6; color: white;">📚 Как устроен весь этот модуль</h4></div>
+          <div class="card-body">
+            <p><strong>Мы не учим теорию ради теории.</strong> Подход модуля 6 — другой:</p>
+
+            <ol style="line-height: 1.9;">
+              <li><strong>В этом уроке</strong> вы возьмёте готовый PRD (описание проекта) для Money Tracker и скормите его <code>task-master</code> из модуля 5. Получится 8–12 конкретных задач: «настрой Supabase», «сделай таблицу», «напиши Server Action для добавления»…</li>
+              <li><strong>Уроки 6.2–6.9</strong> — это поэтапная реализация этих задач. На каждом этапе:
+                <ul style="margin: 0.5rem 0;">
+                  <li>Cursor или Claude Code генерирует код по задаче из Task Master</li>
+                  <li><strong>Мы останавливаемся</strong> и разбираем: «вот это — API», «вот это — SQL», «вот это — Server Action»</li>
+                  <li>Запускаем код, видим результат — переходим к следующей задаче</li>
+                </ul>
+              </li>
+              <li><strong>В конце</strong> у вас работающее приложение + понимание, что такое каждая его часть.</li>
+            </ol>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Почему так лучше для нулевиков:</strong> когда вы изучаете бэкенд «по учебнику», через неделю всё забывается — было непонятно зачем. Когда вы <em>видите как ваш сайт оживает</em> и параллельно слышите «вот это и есть API», — теория цепляется за реальный момент и остаётся в голове надолго.
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- Section 1: What We're Building -->
         <section class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
           <div class="card-header" style="background: transparent; color: white; border-bottom-color: rgba(255,255,255,0.2);">Наша цель: Money Tracker</div>
@@ -407,6 +438,152 @@ localStorage.getItem('my_balance');
                 <p style="font-size: 0.85rem;">База данных</p>
               </div>
             </div>
+          </div>
+        </section>
+
+        <!-- PRD + Task Master Section -->
+        <section class="card" style="border: 2px solid #10B981;">
+          <div class="card-header" style="background: #10B981; color: white;">🚀 Стартуем — превращаем идею в список задач</div>
+          <div class="card-body">
+            <p>Сейчас мы сделаем самое важное действие модуля: <strong>скормим описание Money Tracker в Task Master</strong>. На выходе получим конкретный план — что делать первым, что вторым, какие подзадачи внутри.</p>
+
+            <p>В уроке 5.4 мы научились пользоваться Task Master. Теперь применяем по-настоящему.</p>
+
+            <h4 style="margin-top: 1.5rem;">Шаг 1 — открыть проект из модуля 5</h4>
+            <p>В терминале:</p>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-block-lang">bash</span></div>
+              <pre><code>cd money-tracker   # если папки нет — создайте через npx create-next-app@latest
+
+# Проверьте, что Task Master инициализирован
+ls .taskmaster</code></pre>
+            </div>
+
+            <p style="margin-top: 0.75rem;">Если папки <code>.taskmaster</code> нет — выполните <code>task-master init</code> (это из урока 5.4).</p>
+
+            <h4 style="margin-top: 1.5rem;">Шаг 2 — взять готовый PRD</h4>
+            <p>Мы подготовили для вас полный PRD Money Tracker. Откройте файл <a href="https://github.com/utlik-pro/vibecoding-course/blob/main/06-backend-basics/PRD.md" target="_blank"><code>06-backend-basics/PRD.md</code></a> в репозитории курса и скопируйте всё содержимое (от заголовка <code># Money Tracker — описание проекта</code> и до конца) в файл <code>.taskmaster/docs/prd.txt</code> вашего проекта.</p>
+
+            <p>Кратко — что внутри PRD:</p>
+            <ul>
+              <li><strong>Описание</strong> — что строим (учёт доходов/расходов с балансом)</li>
+              <li><strong>Стек</strong> — Next.js 16, Supabase + <code>@supabase/ssr</code>, Server Actions</li>
+              <li><strong>5 главных функций</strong> — список, баланс, добавить, изменить, удалить</li>
+              <li><strong>Структура БД</strong> — таблица <code>transactions</code> с 7 колонками</li>
+              <li><strong>10 этапов разработки</strong> — это станет задачами Task Master</li>
+            </ul>
+
+            <h4 style="margin-top: 1.5rem;">Шаг 3 — Task Master разбивает PRD на задачи</h4>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-block-lang">bash</span></div>
+              <pre><code>task-master parse-prd .taskmaster/docs/prd.txt</code></pre>
+            </div>
+
+            <p style="margin-top: 0.75rem;">Команда отправит PRD к ИИ на 30–90 секунд (не прерывайте). Когда закончит — посмотрите результат:</p>
+
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-block-lang">bash</span></div>
+              <pre><code>task-master list</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Что должно получиться</h4>
+            <p>Примерно такая таблица из 8–12 задач:</p>
+
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-block-lang">пример вывода</span></div>
+              <pre><code>┌────┬──────────────────────────────────────────────┬──────────┐
+│ ID │ Title                                        │ Priority │
+├────┼──────────────────────────────────────────────┼──────────┤
+│ 1  │ Configure Supabase with @supabase/ssr        │ high     │
+│ 2  │ Create transactions table with RLS           │ high     │
+│ 3  │ Build transaction list on home page          │ high     │
+│ 4  │ Build BalanceSummary component               │ medium   │
+│ 5  │ Server Action: addTransaction with zod       │ high     │
+│ 6  │ Server Action: deleteTransaction             │ medium   │
+│ 7  │ Server Action: updateTransaction             │ medium   │
+│ 8  │ API Route GET /api/transactions (parallel)   │ low      │
+│ 9  │ Test all CRUD with Thunder Client            │ low      │
+│ 10 │ Deploy to Vercel                             │ medium   │
+└────┴──────────────────────────────────────────────┴──────────┘</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Шаг 4 — раскрываем сложные задачи на подзадачи</h4>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-block-lang">bash</span></div>
+              <pre><code>task-master analyze-complexity
+task-master expand --all</code></pre>
+            </div>
+
+            <p style="margin-top: 0.75rem;">Теперь, например, задача 5 «Server Action: addTransaction» превратится в 5.1, 5.2, 5.3 — конкретные шажки.</p>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Готово.</strong> У вас на руках полный план модуля — в виде конкретных задач, которые знают ваши Cursor и Claude Code (через <code>AGENTS.md</code> из модуля 5). С этого момента каждый следующий урок = одна (или пара связанных) задача из этого списка + разбор «что мы тут вообще делаем».
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Связка «задача → урок»</h4>
+            <p>Чтобы было понятно, какая задача в каком уроке закрывается:</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Урок</th>
+                    <th>Что закрываем из плана Task Master</th>
+                    <th>Что объясняем по дороге</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>6.2</strong></td>
+                    <td>(теория, без задач)</td>
+                    <td>API, HTTP-методы, JSON</td>
+                  </tr>
+                  <tr>
+                    <td><strong>6.3</strong></td>
+                    <td>(теория, без задач)</td>
+                    <td>База данных, таблицы, типы данных</td>
+                  </tr>
+                  <tr>
+                    <td><strong>6.4</strong></td>
+                    <td>Задача 1 — Configure Supabase</td>
+                    <td>Что такое RLS, ключи, клиент-сервер</td>
+                  </tr>
+                  <tr>
+                    <td><strong>6.5</strong></td>
+                    <td>Задача 2 — Create transactions table</td>
+                    <td>Колонки, типы данных, первичный ключ</td>
+                  </tr>
+                  <tr>
+                    <td><strong>6.6</strong></td>
+                    <td>Задачи 3, 8 — список + GET API Route</td>
+                    <td>Server Component vs API Route</td>
+                  </tr>
+                  <tr>
+                    <td><strong>6.7</strong></td>
+                    <td>Задачи 4, 5, 6, 7 — BalanceSummary + CRUD</td>
+                    <td>Server Actions, zod, revalidatePath</td>
+                  </tr>
+                  <tr>
+                    <td><strong>6.8</strong></td>
+                    <td>Задача 9 — тестирование Thunder Client</td>
+                    <td>HTTP-коды, отладка API</td>
+                  </tr>
+                  <tr>
+                    <td><strong>6.9</strong></td>
+                    <td>Финальная сборка фронта + задача 10 — деплой</td>
+                    <td>Server Component + Server Action в реальном UI</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p style="margin-top: 1rem;"><strong>Если задачи в вашем Task Master называются по-другому</strong> — ничего страшного. ИИ генерирует немного разные формулировки от запуска к запуску. Главное — порядок этапов и темы.</p>
           </div>
         </section>
 
