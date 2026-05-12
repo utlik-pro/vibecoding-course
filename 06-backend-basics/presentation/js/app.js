@@ -442,8 +442,24 @@ function initCodeBlocks() {
 }
 
 function highlightSyntax(element) {
+  // Подсвечиваем ТОЛЬКО реальные языки кода. Markdown, bash, prompt, template
+  // и т.п. не трогаем — иначе слова "for", "from", "type", "not" внутри
+  // обычного текста ошибочно становятся <span class="token-keyword">.
+  const lang = element.closest('.code-block')
+    ?.querySelector('.code-block-lang')
+    ?.textContent?.toLowerCase().trim() || '';
+
+  const HIGHLIGHTABLE = new Set([
+    'js', 'javascript',
+    'ts', 'typescript',
+    'jsx', 'tsx',
+    'json',
+    'sql'
+  ]);
+
+  if (!HIGHLIGHTABLE.has(lang)) return;
+
   let code = element.innerHTML;
-  const lang = element.closest('.code-block')?.querySelector('.code-lang')?.textContent?.toLowerCase() || '';
 
   // Keywords
   const keywords = ['const', 'let', 'var', 'function', 'return', 'if', 'else', 'for', 'while',
