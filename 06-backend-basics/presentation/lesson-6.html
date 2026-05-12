@@ -71,14 +71,17 @@
             <span class="lesson-number">Урок 6.6</span>
             <span class="lesson-duration">⏱ 30 минут</span>
           </div>
-          <h1 class="lesson-title">Первый API Route для Money Tracker</h1>
+          <h1 class="lesson-title">Первый бэкенд-код: API Route + Server Action</h1>
+          <p style="font-size: 1.05rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Напишем два варианта одного и того же — «получить транзакции из базы». Классика (API Route) и современный путь (Server Action в Next.js 16). Поймёте, когда какой использовать.
+          </p>
           <div class="lesson-objectives">
-            <h4>Цели урока:</h4>
+            <h4>Что вы сделаете:</h4>
             <ul>
-              <li>Создать GET endpoint для получения транзакций</li>
-              <li>Протестировать API в браузере</li>
-              <li>Добавить фильтрацию по типу (income/expense)</li>
-              <li>Увидеть данные из Supabase в браузере</li>
+              <li>Создадите API Route <code>GET /api/transactions</code> — классика, работает откуда угодно</li>
+              <li>Перепишете то же через Server Action — современный путь 2026</li>
+              <li>Откроете в браузере, увидите JSON с реальными данными из Supabase</li>
+              <li>Добавите фильтрацию: только доходы или только расходы</li>
             </ul>
           </div>
         </div>

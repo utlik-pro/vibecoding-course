@@ -71,15 +71,18 @@
             <span class="lesson-number">Урок 6.9</span>
             <span class="lesson-duration">⏱ 35 минут</span>
           </div>
-          <h1 class="lesson-title">Связь фронтенда с бэкендом</h1>
+          <h1 class="lesson-title">Соединяем фронтенд и бэкенд — Money Tracker оживает</h1>
+          <p style="font-size: 1.05rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Финальный урок модуля: красивый интерфейс читает данные из Supabase, форма добавляет транзакции, кнопка «удалить» удаляет. Все через <strong>Server Actions</strong> — без <code>fetch()</code>, без лишних API-роутов.
+          </p>
           <div class="lesson-objectives">
-            <h4>Цели урока:</h4>
+            <h4>Что вы сделаете:</h4>
             <ul>
-              <li>Создать интерфейс Money Tracker</li>
-              <li>Отобразить транзакции из базы данных</li>
-              <li>Показать баланс (доходы - расходы)</li>
-              <li>Добавить форму для новых транзакций</li>
-              <li>Реализовать удаление транзакций</li>
+              <li>Server Component <code>page.tsx</code> читает транзакции прямо из Supabase</li>
+              <li>Компонент баланса считает доходы минус расходы</li>
+              <li>Форма добавления с <code>action={addTransaction}</code> — Server Action без fetch</li>
+              <li>Кнопка удаления через Server Action + <code>revalidatePath</code></li>
+              <li>Увидите, как страница обновляется автоматически после изменений</li>
             </ul>
           </div>
         </div>

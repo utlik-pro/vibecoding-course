@@ -136,10 +136,10 @@
       <div class="content">
         <!-- Hero Section -->
         <section class="hero">
-          <h1 class="hero-title">Backend для вайбкодера</h1>
+          <h1 class="hero-title">Бэкенд с нуля — для тех, кто никогда не кодил</h1>
           <p class="hero-subtitle">
-            Создаём работающий бэкенд с помощью ИИ.<br>
-            API, база данных, CRUD операции — всё с нуля.
+            Май 2026: Next.js 16 Server Actions, Supabase, @supabase/ssr.<br>
+            Сквозной пример — Money Tracker (учёт личных финансов).
           </p>
         </section>
 
@@ -153,9 +153,10 @@
             Заметка для преподавателя
           </div>
           <div class="teacher-note-content">
-            <p><strong>Общая продолжительность модуля:</strong> ~3 часа</p>
-            <p><strong>Рекомендация:</strong> Этот модуль знакомит с бэкендом людей с нулевым опытом. Используйте аналогии (ресторан, Excel). Показывайте экран и делайте всё вместе со студентами.</p>
-            <p><strong>Ключевая цель:</strong> К концу модуля у каждого студента будет работающее приложение Money Tracker с базой данных и API.</p>
+            <p><strong>Общая продолжительность модуля:</strong> ~4 часа (9 уроков + итоговый проект)</p>
+            <p><strong>Стек на май 2026:</strong> Next.js 16 + Server Actions, Supabase + <code>@supabase/ssr</code>, новые ключи <code>sb_publishable_*</code>/<code>sb_secret_*</code>.</p>
+            <p><strong>Целевая аудитория:</strong> люди с нулевым опытом — никогда не открывали терминал, не знают что такое API. Используйте аналогии (ресторан, Excel), показывайте экран, делайте каждый шаг вместе со студентами.</p>
+            <p><strong>Ключевая цель:</strong> работающее приложение Money Tracker с реальной базой Supabase, четырьмя операциями CRUD и красивым интерфейсом.</p>
           </div>
         </div>
 
@@ -169,12 +170,13 @@
           <div>
             <strong>Что вы создадите в этом модуле:</strong>
             <ul style="margin: 0.5rem 0 0 1rem;">
-              <li>Поймёте что такое бэкенд, API и база данных</li>
-              <li>Настроите Supabase и создадите таблицу</li>
-              <li>Напишете API endpoints с помощью Cursor</li>
-              <li>Реализуете CRUD операции (создание, чтение, обновление, удаление)</li>
-              <li>Соедините фронтенд с бэкендом</li>
-              <li>Создадите приложение Money Tracker</li>
+              <li>Поймёте простыми словами: что такое бэкенд, API, база данных</li>
+              <li>Настроите Supabase с современным <code>@supabase/ssr</code></li>
+              <li>Создадите таблицу <code>transactions</code> через визуальный редактор (без SQL)</li>
+              <li>Напишете бэкенд двумя способами: API Route (классика) и Server Action (Next.js 16)</li>
+              <li>Реализуете все 4 операции CRUD на Money Tracker</li>
+              <li>Протестируете API через Thunder Client</li>
+              <li>Подключите красивый фронтенд через Server Actions без <code>fetch()</code></li>
             </ul>
           </div>
         </div>
@@ -200,12 +202,12 @@
             <div class="lesson-card-number">1</div>
             <h3 class="lesson-card-title">Что такое бэкенд?</h3>
             <p class="lesson-card-desc">
-              Аналогия с рестораном, зачем нужен бэкенд, архитектура веб-приложения.
+              Аналогия «ресторан»: фронт = зал, бэкенд = кухня, БД = склад. Почему localStorage не годится.
             </p>
             <div class="lesson-card-meta">
-              <span>15 мин</span>
+              <span>20 мин</span>
               <span>•</span>
-              <span>Теория</span>
+              <span>Теория + практика в Console</span>
             </div>
           </a>
 
@@ -214,12 +216,12 @@
             <div class="lesson-card-number">2</div>
             <h3 class="lesson-card-title">Что такое API?</h3>
             <p class="lesson-card-desc">
-              HTTP методы, JSON формат, практика с публичным API.
+              GET/POST/PATCH/DELETE, JSON, fetch() в браузере. Сравнение API Route vs Server Action.
             </p>
             <div class="lesson-card-meta">
-              <span>20 мин</span>
+              <span>25 мин</span>
               <span>•</span>
-              <span>Теория</span>
+              <span>Практика</span>
             </div>
           </a>
 
@@ -228,10 +230,10 @@
             <div class="lesson-card-number">3</div>
             <h3 class="lesson-card-title">Что такое база данных?</h3>
             <p class="lesson-card-desc">
-              Таблицы, строки, колонки. База данных как Excel на стероидах.
+              БД = Excel в облаке. Строки, колонки, типы данных. Проектируем структуру таблицы.
             </p>
             <div class="lesson-card-meta">
-              <span>20 мин</span>
+              <span>25 мин</span>
               <span>•</span>
               <span>Теория</span>
             </div>
@@ -242,7 +244,7 @@
             <div class="lesson-card-number">4</div>
             <h3 class="lesson-card-title">Настройка Supabase</h3>
             <p class="lesson-card-desc">
-              Создание проекта, получение ключей, подключение к Next.js.
+              Проект в Supabase, новые ключи <code>sb_publishable_*</code>/<code>sb_secret_*</code>, пакет <code>@supabase/ssr</code>.
             </p>
             <div class="lesson-card-meta">
               <span>25 мин</span>
@@ -254,9 +256,9 @@
           <!-- Lesson 5 -->
           <a href="lesson-5.html" class="lesson-card">
             <div class="lesson-card-number">5</div>
-            <h3 class="lesson-card-title">Создание таблицы</h3>
+            <h3 class="lesson-card-title">Создание таблицы transactions</h3>
             <p class="lesson-card-desc">
-              Структура таблицы transactions, типы данных, тестовые записи.
+              Таблица через визуальный редактор Supabase (без SQL). 6 колонок, RLS, тестовые данные.
             </p>
             <div class="lesson-card-meta">
               <span>25 мин</span>
@@ -268,9 +270,9 @@
           <!-- Lesson 6 -->
           <a href="lesson-6.html" class="lesson-card">
             <div class="lesson-card-number">6</div>
-            <h3 class="lesson-card-title">Первый API Route</h3>
+            <h3 class="lesson-card-title">API Route + Server Action</h3>
             <p class="lesson-card-desc">
-              Создание GET endpoint, получение данных из Supabase.
+              GET-эндпоинт двумя способами: классика и современный путь Next.js 16. Видим JSON из Supabase.
             </p>
             <div class="lesson-card-meta">
               <span>30 мин</span>
@@ -284,7 +286,7 @@
             <div class="lesson-card-number">7</div>
             <h3 class="lesson-card-title">CRUD операции</h3>
             <p class="lesson-card-desc">
-              POST, PATCH, DELETE. Полный цикл работы с данными.
+              Create + Read + Update + Delete. Все четыре действия на Money Tracker, два варианта реализации.
             </p>
             <div class="lesson-card-meta">
               <span>40 мин</span>
@@ -298,7 +300,7 @@
             <div class="lesson-card-number">8</div>
             <h3 class="lesson-card-title">Тестирование API</h3>
             <p class="lesson-card-desc">
-              Thunder Client, тестирование endpoints, HTTP коды ответов.
+              Thunder Client прямо в Cursor. Тестируем все 4 операции, читаем коды ошибок 400/404/500.
             </p>
             <div class="lesson-card-meta">
               <span>25 мин</span>
@@ -312,12 +314,12 @@
             <div class="lesson-card-number">9</div>
             <h3 class="lesson-card-title">Фронтенд + Бэкенд</h3>
             <p class="lesson-card-desc">
-              fetch(), отображение данных, формы, интерактивный UI.
+              Server Component читает из БД, формы с <code>action={...}</code>, <code>revalidatePath</code>. Без fetch.
             </p>
             <div class="lesson-card-meta">
-              <span>30 мин</span>
+              <span>35 мин</span>
               <span>•</span>
-              <span>Практика</span>
+              <span>Финал</span>
             </div>
           </a>
 
@@ -343,19 +345,19 @@
             <ul class="checklist">
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="start-project"></span>
-                <span class="checklist-text">Next.js проект из Модуля 5</span>
+                <span class="checklist-text">Next.js 16 проект из Модуля 5 (или создадим новый <code>money-tracker</code>)</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="start-cursor"></span>
-                <span class="checklist-text">Cursor IDE с настроенным .cursorrules</span>
+                <span class="checklist-text">Cursor 1.x с правилами в <code>.cursor/rules/</code></span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="start-agents"></span>
+                <span class="checklist-text">Файл <code>AGENTS.md</code> с описанием стека (из Модуля 5)</span>
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="start-supabase"></span>
-                <span class="checklist-text">Аккаунт Supabase (из Модуля 4)</span>
-              </li>
-              <li class="checklist-item">
-                <span class="checklist-checkbox" data-id="start-vercel"></span>
-                <span class="checklist-text">Аккаунт Vercel для деплоя</span>
+                <span class="checklist-text">Аккаунт Supabase (можно создать на уроке 6.4)</span>
               </li>
             </ul>
 
@@ -373,25 +375,25 @@
               <div class="service-card">
                 <div class="service-card-icon">S</div>
                 <h4 class="service-card-title">Supabase</h4>
-                <p class="service-card-desc">Облачная база данных PostgreSQL</p>
+                <p class="service-card-desc">PostgreSQL в облаке + готовая авторизация</p>
               </div>
 
               <div class="service-card">
                 <div class="service-card-icon">N</div>
-                <h4 class="service-card-title">Next.js API</h4>
-                <p class="service-card-desc">API Routes для бэкенда</p>
+                <h4 class="service-card-title">Next.js 16</h4>
+                <p class="service-card-desc">Server Actions + API Routes</p>
               </div>
 
               <div class="service-card">
-                <div class="service-card-icon">T</div>
+                <div class="service-card-icon">📦</div>
+                <h4 class="service-card-title">@supabase/ssr</h4>
+                <p class="service-card-desc">Современный пакет для Next.js (2026)</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-card-icon">⚡</div>
                 <h4 class="service-card-title">Thunder Client</h4>
-                <p class="service-card-desc">Тестирование API endpoints</p>
-              </div>
-
-              <div class="service-card">
-                <div class="service-card-icon">C</div>
-                <h4 class="service-card-title">Cursor</h4>
-                <p class="service-card-desc">AI для написания кода</p>
+                <p class="service-card-desc">Тестирование API прямо в Cursor</p>
               </div>
             </div>
           </div>

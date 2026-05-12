@@ -1,26 +1,28 @@
 # Модуль 6: Backend для вайбкодера
 
-## Обзор модуля
-- **Длительность:** 3 часа (180 минут)
-- **Уровень:** Начинающий (zero code background)
-- **Практический проект:** Money Tracker (приложение для учёта финансов)
-- **Технологии:** Next.js 15 (Server Actions), Supabase, TypeScript
+**Версия плана:** май 2026
+**Длительность:** ~4 часа (9 уроков + итоговый проект)
+**Уровень:** Начинающий — для людей, никогда не открывавших терминал
+**Сквозной проект:** Money Tracker (учёт личных финансов)
+**Стек:** Next.js 16 + Server Actions, Supabase + `@supabase/ssr`, TypeScript, Vercel
 
-## Что нового в 2026
-- **Server Actions** вместо API Routes — бэкенд-логика прямо в компонентах
-- **Supabase Edge Functions** — серверные функции на edge
-- **AI-assisted backend** — генерация бэкенда через Claude Code / Cursor
-- **Supabase MCP** — AI-агенты работают напрямую с базой данных
+## Что нового на май 2026
+- **Server Actions в Next.js 16** — основной способ писать бэкенд-логику. API Routes остаются для внешних клиентов.
+- **`@supabase/ssr`** — единственный актуальный пакет. `@supabase/auth-helpers-nextjs` deprecated.
+- **Новые ключи Supabase:** `sb_publishable_*` (браузер) и `sb_secret_*` (только сервер). Старые `anon`/`service_role` работают до конца 2026.
+- **Visual Table Editor** в Supabase — таблицы создаются мышкой, без SQL.
+- **Thunder Client в Cursor** — тестирование API прямо в редакторе.
+- **AI-assisted backend** — Cursor/Claude Code генерируют Server Actions по описанию.
 
 ## Цели обучения
-После завершения модуля студенты смогут:
-1. Объяснить что такое бэкенд и зачем он нужен
-2. Понимать принципы работы API и Server Actions
-3. Создавать таблицы в Supabase
-4. Писать Server Actions в Next.js с помощью AI
-5. Реализовывать CRUD операции без API routes
-6. Использовать Supabase Edge Functions
-7. Связывать фронтенд с бэкендом современным способом
+После модуля студент сможет:
+1. Объяснить простыми словами, что такое бэкенд, API и база данных
+2. Понимать разницу API Route vs Server Action — когда что использовать
+3. Создавать таблицы в Supabase через визуальный редактор
+4. Писать Server Actions для всех 4 операций CRUD
+5. Подключать Supabase к Next.js через `@supabase/ssr`
+6. Тестировать API через Thunder Client
+7. Делать фронтенд с формами `action={...}` и `revalidatePath`
 
 ---
 
@@ -90,7 +92,7 @@
    }
    ```
 
-4. **Server Actions — революция Next.js 15**
+4. **Server Actions — революция Next.js 16**
    - Раньше: создавали отдельные файлы API (`/api/transactions/route.ts`)
    - Сейчас: пишем `"use server"` — и функция выполняется на сервере
    - Не нужен fetch, не нужны endpoints — вызываем функцию напрямую
@@ -109,7 +111,7 @@
    - Понимаем: Server Actions делают то же самое, но проще
 
 ### Quiz
-- Что делает `"use server"` в Next.js 15?
+- Что делает `"use server"` в Next.js 16?
   - [ ] Запускает отдельный сервер
   - [x] Говорит что функция выполняется на сервере
   - [ ] Создаёт API endpoint
@@ -273,12 +275,12 @@
 ## Урок 6.6: Первый Server Action — чтение данных (25 мин)
 
 ### Цели урока
-- Понять структуру Server Actions в Next.js 15
+- Понять структуру Server Actions в Next.js 16
 - Создать action для получения транзакций
 - Вывести данные на страницу
 
 ### Содержание
-1. **Структура Server Actions в Next.js 15**
+1. **Структура Server Actions в Next.js 16**
    ```
    app/
    ├── actions/
@@ -551,7 +553,7 @@ export async function addTransaction(formData: FormData) {
 Полноценное приложение для учёта личных финансов на современном стеке.
 
 ### Технологический стек
-- **Фронтенд:** Next.js 15, React, Tailwind CSS
+- **Фронтенд:** Next.js 16, React, Tailwind CSS
 - **Бэкенд:** Server Actions (`"use server"`)
 - **База данных:** Supabase (PostgreSQL)
 - **Деплой:** Vercel

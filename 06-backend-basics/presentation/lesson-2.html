@@ -71,9 +71,9 @@
             <span class="lesson-number">Урок 6.2</span>
             <span class="lesson-duration">⏱ 25 минут</span>
           </div>
-          <h1 class="lesson-title">Что такое API?</h1>
+          <h1 class="lesson-title">Что такое API? (как фронтенд общается с бэкендом)</h1>
           <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
-            Учимся "разговаривать" с бэкендом на примере Money Tracker
+            <strong>API</strong> — это «список команд», которые фронтенд может попросить у бэкенда. Учимся на Money Tracker, разбираемся с GET/POST/PATCH/DELETE.
           </p>
         </div>
 
@@ -317,6 +317,75 @@ fetch('https://jsonplaceholder.typicode.com/posts/1')
             </div>
 
             <p style="font-size: 0.9rem; color: var(--text-secondary);">Нажмите на "?" чтобы увидеть ответ</p>
+          </div>
+        </section>
+
+        <!-- Server Actions -->
+        <section class="card" style="border-left: 4px solid #8B5CF6;">
+          <div class="card-header" style="background: #8B5CF6; color: white;">Современный путь — Server Actions (Next.js 16)</div>
+          <div class="card-body">
+            <p>То, что вы только что попробовали — это «классический способ»: фронтенд делает <code>fetch()</code> на <code>/api/...</code>, бэкенд отвечает. <strong>Хорошо знать</strong>, потому что это стандарт всего интернета.</p>
+
+            <p>Но в Next.js 16 есть более простой способ — <strong>Server Actions</strong>. Вместо двух файлов (фронтенд + бэкенд API route) — одна функция, которая «знает», где работать.</p>
+
+            <h4>Сравните: классика vs Server Action</h4>
+
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">Классика — два файла (длинно)</span>
+              </div>
+              <pre><code>// 1. src/app/api/transactions/route.ts (бэкенд)
+export async function POST(request) {
+  const data = await request.json();
+  // ...сохраняем в базу...
+  return Response.json({ ok: true });
+}
+
+// 2. В компоненте (фронтенд)
+&lt;button onClick={() =&gt; {
+  fetch('/api/transactions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ amount: 350 }),
+  });
+}}&gt;Добавить&lt;/button&gt;</code></pre>
+            </div>
+
+            <div class="code-block" style="margin-top: 1rem;">
+              <div class="code-block-header">
+                <span class="code-block-lang">Server Action — один файл (коротко)</span>
+              </div>
+              <pre><code>// src/app/actions.ts
+'use server';
+
+export async function addTransaction(amount: number) {
+  // Эта функция работает на сервере!
+  // ...сохраняем в базу...
+}
+
+// В компоненте — вызываем как обычную функцию
+&lt;form action={addTransaction}&gt;
+  &lt;input name="amount" /&gt;
+  &lt;button type="submit"&gt;Добавить&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Зачем тогда учить API и fetch?</strong> Потому что:
+                <ul style="margin: 0.5rem 0 0 1rem;">
+                  <li>API работают <em>везде</em> — не только в Next.js</li>
+                  <li>Server Actions внутри устроены так же — пакуют ваш вызов в HTTP-запрос</li>
+                  <li>Если нужен бэкенд для мобильного приложения или внешних клиентов — без API не обойтись</li>
+                </ul>
+                В уроке 6.6 напишем и API Route, и Server Action — сравним.
+              </div>
+            </div>
           </div>
         </section>
 

@@ -62,15 +62,18 @@
           <div class="lesson-meta">
             <span class="lesson-number">Итоговый проект</span>
           </div>
-          <h1 class="lesson-title">Money Tracker</h1>
+          <h1 class="lesson-title">Money Tracker — итоговый проект</h1>
+          <p style="font-size: 1.05rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Полностью рабочее приложение учёта личных финансов на Next.js 16, Supabase и Server Actions. Это и есть «ваш первый бэкенд».
+          </p>
 
           <div class="lesson-objectives">
-            <h4>Результат модуля:</h4>
+            <h4>Что должно получиться:</h4>
             <ul>
-              <li>Полноценное приложение для учёта личных финансов</li>
-              <li>База данных в Supabase с CRUD операциями</li>
-              <li>API endpoints на Next.js</li>
-              <li>Фронтенд с балансом и списком транзакций</li>
+              <li>Supabase: таблица <code>transactions</code> с реальными данными и RLS</li>
+              <li>Бэкенд: GET + POST + PATCH + DELETE (API Route + Server Action — оба варианта)</li>
+              <li>Фронтенд: страница со списком транзакций, формой добавления, кнопкой удаления — всё через Server Actions</li>
+              <li>Деплой на Vercel — ссылка <code>*.vercel.app</code> работает</li>
             </ul>
           </div>
         </div>
@@ -183,7 +186,11 @@
               </li>
               <li class="checklist-item">
                 <span class="checklist-checkbox" data-id="project-rls"></span>
-                <span class="checklist-text">RLS отключен для таблицы</span>
+                <span class="checklist-text">RLS включён и настроен (политика «все могут читать» для учебного проекта)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="project-ssr"></span>
+                <span class="checklist-text">Установлен <code>@supabase/ssr</code>, клиенты для сервера и браузера созданы</span>
               </li>
             </ul>
           </div>
