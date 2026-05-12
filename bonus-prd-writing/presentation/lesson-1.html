@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Бонус 1: Что такое PRD | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 3 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">🎁 Бонусный модуль</div>
+        <a href="index.html" class="nav-item">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+        <a href="lesson-1.html" class="nav-item active" data-lesson="1"><span class="nav-item-number">1</span>Что такое PRD</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Анатомия PRD</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>ИИ-интервью + Task Master</a>
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Вернуться к курсу
+        </a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="index.html">Бонус</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>Урок 1</span>
+        </div>
+        <div class="header-actions">
+          <div class="timer">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-display">00:00</span>
+            <button class="timer-btn" title="Запустить">▶</button>
+            <button class="timer-reset" title="Сбросить">↺</button>
+          </div>
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="lesson-header">
+          <div class="lesson-meta">
+            <span class="lesson-number">Бонус • Урок 1</span>
+            <span class="lesson-duration">⏱ 25 минут</span>
+          </div>
+          <h1 class="lesson-title">Что такое PRD и зачем он Task Master</h1>
+          <p style="font-size: 1.05rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Простыми словами: <strong>PRD</strong> — это «техзадание самому себе» на проект. Документ, по которому
+            и вы, и ИИ знают, <em>что</em> мы строим, прежде чем начать писать код.
+          </p>
+        </div>
+
+        <!-- Section 1: Аналогия -->
+        <section class="card">
+          <div class="card-header">1. Аналогия: PRD как чертёж дома</div>
+          <div class="card-body">
+            <p>Представьте, что вы хотите построить дом. Вы можете:</p>
+
+            <div class="service-cards" style="margin: 1rem 0;">
+              <div class="service-card" style="border-left: 4px solid #EF4444;">
+                <h4 style="color: #EF4444; margin-bottom: 0.5rem;">❌ Без чертежа</h4>
+                <p style="margin: 0; font-size: 0.95rem;">Приходите к строителям и говорите: «сделайте мне дом». Получаете что-то, но не то. Гараж не там, где удобно. Окна не туда, куда хотели. Переделывать поздно — стены уже стоят.</p>
+              </div>
+              <div class="service-card" style="border-left: 4px solid #10B981;">
+                <h4 style="color: #10B981; margin-bottom: 0.5rem;">✅ С чертежом</h4>
+                <p style="margin: 0; font-size: 0.95rem;">Сначала рисуете план: «спальня — 15 м², кухня — на восток, два этажа, гараж справа». Строители читают чертёж и делают то, что вы хотели.</p>
+              </div>
+            </div>
+
+            <p><strong>PRD</strong> (Product Requirements Document — «документ с требованиями к продукту») — это и есть «чертёж» для вашего сайта или приложения. <strong>Task Master, Cursor и Claude Code — это ваши «строители».</strong> Без чертежа они построят что-то — но это будет не то, что вам нужно.</p>
+
+            <div class="alert alert-info">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Главная мысль:</strong> 30 минут на PRD сэкономят вам 30 часов переделок. Это самое выгодное вложение времени в проекте.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Что будет без PRD -->
+        <section class="card">
+          <div class="card-header">2. Что произойдёт, если кинуть в Task Master «сделай интернет-магазин»</div>
+          <div class="card-body">
+            <p>Давайте посмотрим живой пример. Допустим, вы запускаете Task Master без нормального PRD — просто пишете в <code>prd.txt</code> одну строчку:</p>
+
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-block-lang">плохой PRD</span></div>
+              <pre><code>Сделай мне интернет-магазин</code></pre>
+            </div>
+
+            <p style="margin-top: 1rem;">Запускаете <code>task-master parse-prd</code>. Что выдаст ИИ?</p>
+
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-block-lang">примерно такие задачи</span></div>
+              <pre><code>1. Настроить базу данных (какая БД? какие таблицы?)
+2. Создать страницу товаров (что показывать? откуда брать?)
+3. Добавить корзину (какие методы оплаты?)
+4. Реализовать оплату (Stripe? ЮKassa? CloudPayments?)
+5. Подключить доставку (СДЭК? Boxberry? Своя курьерка?)
+6. Сделать админку (что должны видеть админы?)
+...ещё 20 размытых пунктов</code></pre>
+            </div>
+
+            <p style="margin-top: 1rem;">Каждая задача — это <strong>огромный знак вопроса</strong>. Cursor и Claude Code будут делать <em>что попало</em>, потому что вы им не сказали что хотите. Результат — переделки, путаница, разочарование.</p>
+
+            <h4 style="margin-top: 1.5rem;">А с нормальным PRD (как мы делали для Money Tracker):</h4>
+            <p>Задачи получаются конкретные:</p>
+            <ul>
+              <li>Configure Supabase with <code>@supabase/ssr</code> — потому что в PRD написано «Supabase + ssr»</li>
+              <li>Create <code>transactions</code> table with RLS — потому что в PRD есть структура таблицы</li>
+              <li>Server Action <code>addTransaction</code> with zod — потому что в PRD сказано «Server Actions, zod»</li>
+            </ul>
+
+            <p>ИИ просто <em>не может</em> ошибиться сильно — у него на руках вся нужная информация.</p>
+          </div>
+        </section>
+
+        <!-- Section 3: Три обязательные части -->
+        <section class="card">
+          <div class="card-header">3. Три части, без которых PRD не работает</div>
+          <div class="card-body">
+            <p>Минимально жизнеспособный PRD — это всего три ответа:</p>
+
+            <div class="table-container" style="margin: 1rem 0;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Часть</th>
+                    <th>Вопрос, на который отвечает</th>
+                    <th>Пример</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>1. Что строим</strong></td>
+                    <td>В одной фразе — что это вообще</td>
+                    <td>«Сайт, где пользователь записывает доходы и расходы и видит баланс»</td>
+                  </tr>
+                  <tr>
+                    <td><strong>2. Из чего строим</strong></td>
+                    <td>Технический стек с версиями</td>
+                    <td>«Next.js 16, Tailwind 4, Supabase + <code>@supabase/ssr</code>, OpenAI gpt-4o-mini»</td>
+                  </tr>
+                  <tr>
+                    <td><strong>3. Какие функции</strong></td>
+                    <td>Что пользователь сможет делать</td>
+                    <td>«Видеть список транзакций; добавлять; редактировать; удалять; видеть баланс»</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="alert alert-success">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Если у вас есть эти три ответа</strong> — у вас уже есть рабочий PRD. Можно прогонять через Task Master. В уроке 2 разберём как сделать PRD ещё лучше (структура БД, этапы, исключения).
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Длина -->
+        <section class="card">
+          <div class="card-header">4. Сколько должно быть в PRD?</div>
+          <div class="card-body">
+            <p>Распространённая ошибка — писать диссертацию. Реальность:</p>
+
+            <ul style="line-height: 1.9;">
+              <li><strong>Меньше 1 страницы</strong> — обычно слишком мало. Многие важные решения не приняты, ИИ будет угадывать.</li>
+              <li><strong>1–2 страницы</strong> — оптимально для пет-проекта или MVP. Достаточно деталей, но ничего лишнего.</li>
+              <li><strong>3–4 страницы</strong> — нормально для среднего проекта (как Money Tracker).</li>
+              <li><strong>5+ страниц</strong> — почти всегда плохо. ИИ начинает «теряться», задачи получаются размытыми. Лучше разбить на несколько PRD по фичам.</li>
+            </ul>
+
+            <p>Сравните: наш <a href="../../06-backend-basics/PRD.md" target="_blank">PRD Money Tracker</a> — около 2 страниц. Этого хватило на 10 задач + подзадачи.</p>
+
+            <div class="alert alert-warning">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Антипаттерн:</strong> переносить в PRD вообще всё, что когда-то пришло в голову. PRD — это про текущую версию проекта, а не «вижн на 10 лет». Будущие фичи пишите в отдельный файл <code>ideas.md</code>.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section class="card">
+          <div class="card-header">Проверка знаний</div>
+          <div class="card-body">
+            <div class="quiz" data-quiz="bonus1">
+              <p><strong>Что произойдёт, если вы дадите Task Master PRD из одной фразы «сделай мне интернет-магазин»?</strong></p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-correct="false">Получите идеальный список задач — ИИ умный, всё угадает</div>
+                <div class="quiz-option" data-correct="true">Получите размытый список задач без конкретики — потом будет много переделок</div>
+                <div class="quiz-option" data-correct="false">Task Master откажется работать, попросит больше деталей</div>
+                <div class="quiz-option" data-correct="false">Получится готовый интернет-магазин за 5 минут</div>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="card">
+          <div class="card-header">Чек-лист урока</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="bonus1-analogy"></span>
+                <span class="checklist-text">Понимаю аналогию: PRD = чертёж дома, ИИ = строители</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="bonus1-why"></span>
+                <span class="checklist-text">Понимаю, почему без PRD Task Master выдаёт мусор</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="bonus1-three"></span>
+                <span class="checklist-text">Знаю три обязательные части PRD (что / из чего / какие функции)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="bonus1-length"></span>
+                <span class="checklist-text">Знаю оптимальную длину PRD: 1–2 страницы для пет-проекта</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <nav class="lesson-nav">
+          <a href="index.html" class="nav-arrow nav-arrow-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+            <div>
+              <div class="nav-arrow-label">Назад</div>
+              <div class="nav-arrow-title">Главная бонуса</div>
+            </div>
+          </a>
+
+          <button class="btn btn-primary mark-complete-btn" data-lesson="1">
+            Отметить урок пройденным
+          </button>
+
+          <a href="lesson-2.html" class="nav-arrow nav-arrow-next">
+            <div>
+              <div class="nav-arrow-label">Далее</div>
+              <div class="nav-arrow-title">Анатомия PRD</div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,6 15,12 9,18"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Бонус: Как писать PRD для Task Master | VibeCoding</title>
+  <script src="js/auth-check.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          VibeCoding
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <div class="progress-text">0 из 3 уроков</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">🎁 Бонусный модуль</div>
+        <a href="index.html" class="nav-item active">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+          </span>
+          Главная
+        </a>
+        <a href="lesson-1.html" class="nav-item" data-lesson="1"><span class="nav-item-number">1</span>Что такое PRD</a>
+        <a href="lesson-2.html" class="nav-item" data-lesson="2"><span class="nav-item-number">2</span>Анатомия PRD</a>
+        <a href="lesson-3.html" class="nav-item" data-lesson="3"><span class="nav-item-number">3</span>ИИ-интервью + Task Master</a>
+        <a href="../../index.html" class="nav-item exit-btn">
+          <span class="nav-item-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </span>
+          Вернуться к курсу
+        </a>
+      </nav>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <main class="main-content">
+      <header class="header">
+        <button class="mobile-menu-btn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="breadcrumb">
+          <a href="../../index.html">VibeCoding</a>
+          <span class="breadcrumb-separator">/</span>
+          <span>🎁 Бонус: PRD для Task Master</span>
+        </div>
+        <div class="header-actions">
+          <div class="mode-toggle" title="Переключить режим">
+            <div class="mode-toggle-switch"></div>
+            <span class="mode-toggle-label">Режим студента</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="hero">
+          <h1 class="hero-title">🎁 Бонус: Как писать PRD для Task Master</h1>
+          <p class="hero-subtitle">
+            В модулях 5 и 6 вы пользовались готовыми PRD (для MoodTracker и Money Tracker).<br>
+            Теперь научимся писать PRD <strong>для своего проекта</strong> — за 20–30 минут с помощью ИИ-интервью.
+          </p>
+        </section>
+
+        <div class="teacher-note">
+          <div class="teacher-note-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            Заметка для преподавателя
+          </div>
+          <div class="teacher-note-content">
+            <p><strong>Когда давать этот бонус:</strong> после модуля 5 (когда студенты познакомились с Task Master) и/или после модуля 6 (когда они уже видели готовый PRD на практике). Хорошо ложится между модулями 6 и 7 — у студентов уже есть рабочее приложение Money Tracker, теперь они хотят свой пет-проект.</p>
+            <p><strong>Длительность:</strong> ~1.5 часа (3 урока).</p>
+            <p><strong>Главная цель:</strong> к концу бонуса у каждого студента — собственный PRD (на проект, который он хочет сам), уже скормленный в Task Master и превращённый в список задач.</p>
+          </div>
+        </div>
+
+        <div class="alert alert-info">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+          </svg>
+          <div>
+            <strong>Что вы получите после этого бонуса:</strong>
+            <ul style="margin: 0.5rem 0 0 1rem;">
+              <li>Свой собственный PRD на проект, который вы хотите сделать</li>
+              <li>Понимание, что должно быть в PRD, а чего быть не должно</li>
+              <li>Промпт-шаблон для «ИИ-интервью» — claude.ai задаёт вам вопросы, вы отвечаете в свободной форме, а на выходе получаете готовый структурированный PRD</li>
+              <li>Конкретный список задач от Task Master по вашему проекту</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2 style="margin: 2rem 0 1rem;">Уроки бонуса</h2>
+
+        <div class="lesson-cards">
+          <a href="lesson-1.html" class="lesson-card">
+            <div class="lesson-card-number">1</div>
+            <h3 class="lesson-card-title">Что такое PRD и зачем он Task Master</h3>
+            <p class="lesson-card-desc">
+              PRD = техзадание самому себе. Почему без него Task Master выдаст мусор. Три обязательные части.
+            </p>
+            <div class="lesson-card-meta">
+              <span>25 мин</span>
+              <span>•</span>
+              <span>Теория + сравнения</span>
+            </div>
+          </a>
+
+          <a href="lesson-2.html" class="lesson-card">
+            <div class="lesson-card-number">2</div>
+            <h3 class="lesson-card-title">Анатомия хорошего PRD</h3>
+            <p class="lesson-card-desc">
+              Полный шаблон с разбором: о проекте, стек, функции, БД, этапы, чего НЕ делаем. Хорошие и плохие примеры.
+            </p>
+            <div class="lesson-card-meta">
+              <span>30 мин</span>
+              <span>•</span>
+              <span>Практика</span>
+            </div>
+          </a>
+
+          <a href="lesson-3.html" class="lesson-card">
+            <div class="lesson-card-number">3</div>
+            <h3 class="lesson-card-title">ИИ-интервью + парсим в Task Master</h3>
+            <p class="lesson-card-desc">
+              claude.ai становится бизнес-аналитиком и берёт у вас интервью. На выходе — готовый PRD за 20 минут. Прогон через task-master.
+            </p>
+            <div class="lesson-card-meta">
+              <span>30 мин</span>
+              <span>•</span>
+              <span>Финал</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="card" style="margin-top: 2rem;">
+          <div class="card-header">Что нужно к началу</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="prereq-module5"></span>
+                <span class="checklist-text">Пройден Модуль 5 (или хотя бы урок 5.4 — Task Master)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="prereq-taskmaster"></span>
+                <span class="checklist-text">Установлен <code>task-master-ai</code> (<code>task-master --version</code> работает)</span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="prereq-claudeai"></span>
+                <span class="checklist-text">Доступ к <a href="https://claude.ai" target="_blank">claude.ai</a> или <a href="https://chatgpt.com" target="_blank">chatgpt.com</a></span>
+              </li>
+              <li class="checklist-item">
+                <span class="checklist-checkbox" data-id="prereq-idea"></span>
+                <span class="checklist-text">Идея проекта (даже сырая) — что хочется построить</span>
+              </li>
+            </ul>
+
+            <div style="margin-top: 1rem;">
+              <a href="lesson-1.html" class="btn btn-primary">Начать бонус</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/glossary.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>
