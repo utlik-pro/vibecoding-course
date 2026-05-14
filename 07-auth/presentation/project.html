@@ -63,16 +63,31 @@
           <div class="lesson-meta">
             <span class="lesson-number">Итоговый проект</span>
           </div>
-          <h1 class="lesson-title">Защищённый Money Tracker</h1>
+          <h1 class="lesson-title">Защищённый Money Tracker — итоговый проект</h1>
+          <p style="font-size: 1.05rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            Money Tracker из модуля 6 + полноценная аутентификация: вход, регистрация, Social Login и RLS. Каждый пользователь видит только свои транзакции.
+          </p>
 
           <div class="lesson-objectives">
-            <h4>Цель проекта:</h4>
+            <h4>Что должно получиться:</h4>
             <ul>
-              <li>Добавить аутентификацию в Money Tracker из Модуля 6</li>
-              <li>Реализовать регистрацию и вход пользователей</li>
-              <li>Защитить данные — каждый видит только свои транзакции</li>
-              <li>Настроить RLS политики в базе данных</li>
+              <li>Страницы <code>/register</code> и <code>/login</code> работают (signUp + signInWithPassword)</li>
+              <li>Social Login — кнопки Google и GitHub</li>
+              <li>Защита роутов через <code>src/middleware.ts</code> на <code>@supabase/ssr</code></li>
+              <li>RLS-политики: чужие транзакции физически недоступны</li>
+              <li>Обновлённое приложение задеплоено на Vercel</li>
             </ul>
+          </div>
+        </div>
+
+        <!-- Task Master link -->
+        <div class="alert alert-info" style="border-left: 4px solid #8B5CF6; margin-bottom: 1rem;">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+          <div>
+            <strong>📋 По Task Master:</strong> финальная сборка — собираем воедино всё, что сделали по auth-задачам в уроках 7.3–7.8. Запустите <code>task-master list</code> — все auth-задачи должны быть <code>done</code> 🎉
           </div>
         </div>
 

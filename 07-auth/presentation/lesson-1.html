@@ -70,11 +70,43 @@
             <span class="lesson-number">Урок 7.1</span>
             <span class="lesson-duration">⏱ 15 минут</span>
           </div>
-          <h1 class="lesson-title">Что такое аутентификация?</h1>
+          <h1 class="lesson-title">Что такое аутентификация? (простыми словами)</h1>
           <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
-            Понимаем зачем нужен вход в систему и как это работает
+            <strong>Аутентификация</strong> — это «охранник на входе» в приложение: проверяет, что вы — это
+            вы, и пускает только к вашим данным. Добавим её в Money Tracker из модуля 6.
           </p>
         </div>
+
+        <!-- How we'll learn -->
+        <section class="card" style="border-left: 4px solid #8B5CF6; background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(139, 92, 246, 0.02) 100%);">
+          <div class="card-header" style="background: #8B5CF6; color: white;">📚 Как устроен весь этот модуль</div>
+          <div class="card-body">
+            <p><strong>Модуль 7 продолжает Money Tracker из модуля 6</strong> и работает по тому же принципу — учимся, пока строим:</p>
+
+            <ol style="line-height: 1.9;">
+              <li><strong>В этом уроке</strong> вы возьмёте готовый feature-PRD (описание фичи «аутентификация») и <em>добавите</em> его к плану Task Master из модуля 6 командой <code>parse-prd --append</code>. К задачам Money Tracker добавятся 8 новых — про вход, регистрацию и защиту.</li>
+              <li><strong>Уроки 7.3–7.8</strong> — поэтапная реализация этих задач. На каждом этапе:
+                <ul style="margin: 0.5rem 0;">
+                  <li>Cursor или Claude Code генерирует код по задаче из Task Master</li>
+                  <li><strong>Мы останавливаемся</strong> и разбираем: «вот это — сессия», «вот это — middleware», «вот это — RLS»</li>
+                  <li>Проверяем результат — переходим к следующей задаче</li>
+                </ul>
+              </li>
+              <li><strong>В конце</strong> — Money Tracker, где каждый пользователь видит только свои транзакции.</li>
+            </ol>
+
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <strong>Уроки 7.1 и 7.2 — теория</strong> (что такое аутентификация и как работает Supabase Auth). С урока 7.3 начинается код по задачам Task Master.
+              </div>
+            </div>
+          </div>
+        </section>
 
         <!-- Problem -->
         <section class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
@@ -308,6 +340,100 @@
             <div style="background: var(--surface); padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem; text-align: center;">
               <p style="margin: 0; font-size: 1.1rem;"><strong>Результат:</strong></p>
               <p style="margin: 0.5rem 0 0 0;">Каждый пользователь видит только СВОИ транзакции в Money Tracker!</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- PRD + Task Master Section -->
+        <section class="card" style="border: 2px solid #10B981;">
+          <div class="card-header" style="background: #10B981; color: white;">🚀 Стартуем — добавляем auth-задачи в Task Master</div>
+          <div class="card-body">
+            <p>В модуле 6 вы уже превратили PRD Money Tracker в задачи. Сейчас <strong>добавим к ним 8 новых задач</strong> — про аутентификацию. Старые задачи не сотрутся, план просто дополнится.</p>
+
+            <h4 style="margin-top: 1.5rem;">Шаг 1 — открыть проект Money Tracker</h4>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-block-lang">bash</span></div>
+              <pre><code>cd money-tracker
+
+# Проверяем, что задачи из модуля 6 на месте
+task-master list</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Шаг 2 — взять готовый feature-PRD</h4>
+            <p>Мы подготовили PRD фичи «аутентификация». Скачайте файл и положите его содержимое в <code>.taskmaster/docs/prd.txt</code> вашего проекта (заменив старый PRD).</p>
+
+            <p style="margin: 1rem 0;">
+              <a href="../PRD.md" download="PRD.md" class="btn btn-primary" style="background: #10B981; border-color: #10B981; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7,10 12,15 17,10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Скачать PRD.md
+              </a>
+            </p>
+
+            <h4 style="margin-top: 1.5rem;">Шаг 3 — добавить задачи через <code>--append</code></h4>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-block-lang">bash</span></div>
+              <pre><code>task-master parse-prd .taskmaster/docs/prd.txt --append</code></pre>
+            </div>
+
+            <p style="margin-top: 0.75rem;">Флаг <code>--append</code> — ключевой. Он <strong>добавляет</strong> новые задачи к существующим, а не стирает их. Без него вы потеряли бы план Money Tracker из модуля 6.</p>
+
+            <h4 style="margin-top: 1.5rem;">Что должно получиться</h4>
+            <p>К задачам Money Tracker добавятся примерно такие:</p>
+
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-block-lang">пример новых задач</span></div>
+              <pre><code>│ 11 │ Enable Email provider in Supabase dashboard   │ high   │
+│ 12 │ Verify @supabase/ssr clients (client/server)  │ high   │
+│ 13 │ Create middleware.ts — updateSession          │ high   │
+│ 14 │ Build /register page + signUp Server Action   │ high   │
+│ 15 │ Build /login page + signIn + sign-out button  │ high   │
+│ 16 │ Add Social Login (Google, GitHub) + callback  │ medium │
+│ 17 │ Protect transaction routes via middleware     │ high   │
+│ 18 │ Add user_id to transactions + RLS policies    │ high   │</code></pre>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Шаг 4 — раскрыть на подзадачи</h4>
+            <div class="code-block">
+              <div class="code-block-header"><span class="code-block-lang">bash</span></div>
+              <pre><code>task-master analyze-complexity
+task-master expand --all</code></pre>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+              <div>
+                <strong>Готово.</strong> С урока 7.3 идём по этим задачам. Номера у вас могут отличаться — ИИ генерирует их немного по-разному. Главное — темы и порядок.
+              </div>
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Связка «задача → урок»</h4>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Урок</th>
+                    <th>Что закрываем</th>
+                    <th>Что объясняем</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>7.2</strong></td><td>(теория)</td><td>Как работает Supabase Auth, сессии, токены</td></tr>
+                  <tr><td><strong>7.3</strong></td><td>Email-провайдер + <code>@supabase/ssr</code></td><td>Клиенты браузера и сервера</td></tr>
+                  <tr><td><strong>7.4</strong></td><td>Страница регистрации</td><td>Форма, <code>signUp</code>, zod-валидация</td></tr>
+                  <tr><td><strong>7.5</strong></td><td>Страница входа + выход</td><td><code>signInWithPassword</code>, сессии, <code>signOut</code></td></tr>
+                  <tr><td><strong>7.6</strong></td><td>Social Login</td><td>OAuth, callback-роут</td></tr>
+                  <tr><td><strong>7.7</strong></td><td>middleware + защита роутов</td><td><code>updateSession</code>, редиректы</td></tr>
+                  <tr><td><strong>7.8</strong></td><td><code>user_id</code> + RLS</td><td><code>getUser()</code>, политики безопасности</td></tr>
+                  <tr><td><strong>project</strong></td><td>Финальная сборка</td><td>Защищённый Money Tracker целиком</td></tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </section>

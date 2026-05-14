@@ -1,490 +1,238 @@
-# Модуль 7: Аутентификация с Clerk
+# Модуль 7: Аутентификация с Supabase Auth
 
-## Обзор модуля
+**Версия плана:** май 2026
+**Длительность:** ~3.5 часа (8 уроков + итоговый проект)
+**Уровень:** Начинающий — для людей без IT-опыта
+**Сквозной проект:** Money Tracker — добавляем вход, регистрацию и защиту данных
+**Стек:** Next.js 16, Supabase Auth + `@supabase/ssr`, middleware, RLS, Vercel
 
-**Продолжительность:** 2 дня (упрощенная версия)
+## Подход к обучению — task-based learning
 
-**Цель:** Научиться интегрировать готовую систему аутентификации Clerk в Next.js приложение. Этот модуль фокусируется на базовой настройке и использовании Clerk без сложных тем про middleware и синхронизацию с базой данных.
+Модуль построен так же, как модуль 6: не «теория ради теории», а
+поэтапная доработка реального приложения.
 
-**Важно:** Защищенные роуты через middleware и ручная синхронизация пользователей с БД — продвинутые темы, которые не обязательны для начального уровня. Clerk автоматически управляет пользователями, и этого достаточно для большинства проектов.
+1. В **уроке 7.1** студенты берут готовый feature-PRD из файла
+   [`PRD.md`](./PRD.md) в корне модуля и добавляют его к плану Task Master
+   командой `task-master parse-prd .taskmaster/docs/prd.txt --append`.
+2. Флаг `--append` **добавляет** auth-задачи к задачам Money Tracker из
+   модуля 6 — получается единый сквозной план.
+3. **Уроки 7.3–7.8** идут «по задачам»: на каждом уроке закрывается
+   одна-две задачи из плана Task Master.
+4. На каждом этапе разработки **мы останавливаемся** и объясняем теорию
+   в контексте: «вот это — сессия», «вот это — middleware», «вот это — RLS».
+
+## Связка «урок ↔ задача из Task Master»
+
+| Урок | Закрываем задачу(и) | Теория в контексте                       |
+| ---- | ------------------- | ---------------------------------------- |
+| 7.1  | (запуск PRD --append) | Что такое аутентификация, аналогия «пропуск» |
+| 7.2  | —                   | Как работает Supabase Auth, сессии, токены |
+| 7.3  | 1, 2                | Email-провайдер, `@supabase/ssr`, клиенты |
+| 7.4  | 4                   | Форма регистрации, `signUp`, zod-валидация |
+| 7.5  | 5                   | `signInWithPassword`, сессии, `signOut`   |
+| 7.6  | 6                   | OAuth, Social Login, callback-роут        |
+| 7.7  | 3, 7                | middleware `updateSession`, защита роутов |
+| 7.8  | 8                   | `getUser()`, `user_id`, RLS-политики      |
+| project | финальная сборка | Защищённый Money Tracker целиком          |
+
+## Что нового на май 2026
+
+- **`@supabase/ssr`** — единственный актуальный пакет. Старый
+  `@supabase/auth-helpers-nextjs` deprecated; функции
+  `createMiddlewareClient`, `createServerComponentClient`,
+  `createRouteHandlerClient` больше не используются.
+- **`createBrowserClient` / `createServerClient`** — два клиента из
+  `@supabase/ssr` (браузерный и серверный).
+- **middleware `updateSession`** — типовой паттерн обновления сессии
+  на каждом запросе. Тот же код, что в модуле 5 (урок 5.7).
+- **Новые ключи Supabase** — `sb_publishable_*` / `sb_secret_*`
+  (старые `anon`/`service_role` работают до конца 2026).
+- **RLS на `auth.uid()`** — настоящие политики безопасности вместо
+  «открыто всем» из модуля 6.
 
 ---
 
-## Урок 7.1: Введение в Clerk и базовая настройка
+## Урок 7.1: Что такое аутентификация?
 
-**Продолжительность:** 3 часа
+**Продолжительность:** 15 минут
 
 ### Цели урока:
-- Понять, что такое Clerk и почему он удобен
-- Зарегистрироваться в Clerk и создать приложение
-- Интегрировать Clerk в Next.js проект
-- Настроить базовую аутентификацию (email/password, social login)
+- Понять простыми словами, что такое аутентификация и зачем она нужна
+- Увидеть проблему на примере Money Tracker (сейчас все видят чужие данные)
+- Запустить feature-PRD через Task Master (`parse-prd --append`)
 
 ### Содержание:
-
-#### 1. Что такое Clerk? (30 мин)
-
-**Проблема аутентификации:**
-- Написание своей системы auth занимает недели
-- Нужно думать о безопасности, хешировании паролей, токенах
-- Сложная интеграция social login (Google, GitHub)
-- Управление сессиями и восстановление паролей
-
-**Clerk как решение:**
-- Готовая система аутентификации "из коробки"
-- Красивые UI компоненты для входа/регистрации
-- Автоматическая интеграция с Next.js
-- Social login в пару кликов
-- Бесплатный план для разработки
-
-**Альтернативы:**
-- NextAuth.js (более гибкий, но сложнее)
-- Supabase Auth (хорош, если уже используете Supabase)
-- Firebase Auth (Google экосистема)
-- Auth0 (enterprise решение)
-
-**Почему Clerk для начинающих:**
-✅ Самый простой в настройке
-✅ Отличная документация
-✅ Готовые компоненты React
-✅ Автоматическое управление состоянием
-✅ Бесплатный план до 10,000 пользователей
-
-#### 2. Регистрация и настройка Clerk (30 мин)
-
-**Шаг 1: Создание аккаунта**
-1. Перейдите на [clerk.com](https://clerk.com)
-2. Sign up (можно через GitHub)
-3. Create Application
-4. Выберите название проекта
-5. Выберите способы входа (Email, Google, GitHub)
-
-**Шаг 2: Получение API ключей**
-```env
-# .env.local
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
-CLERK_SECRET_KEY=sk_test_...
-```
-
-**Важно:**
-- Publishable key — можно использовать в клиентском коде
-- Secret key — только на сервере, никогда не коммитить!
-
-#### 3. Установка Clerk в Next.js проект (45 мин)
-
-**Установка пакета:**
-```bash
-npm install @clerk/nextjs
-```
-
-**Настройка layout.tsx:**
-```typescript
-// app/layout.tsx
-import { ClerkProvider } from '@clerk/nextjs'
-import './globals.css'
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <ClerkProvider>
-      <html lang="en">
-        <body>{children}</body>
-      </html>
-    </ClerkProvider>
-  )
-}
-```
-
-**Добавление компонентов аутентификации:**
-```typescript
-// app/page.tsx
-import { SignInButton, SignUpButton, UserButton, SignedIn, SignedOut } from '@clerk/nextjs'
-
-export default function Home() {
-  return (
-    <div>
-      <header>
-        <SignedOut>
-          <SignInButton mode="modal" />
-          <SignUpButton mode="modal" />
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-      </header>
-
-      <main>
-        <SignedOut>
-          <h1>Добро пожаловать! Пожалуйста, войдите.</h1>
-        </SignedOut>
-        <SignedIn>
-          <h1>Вы вошли в систему!</h1>
-        </SignedIn>
-      </main>
-    </div>
-  )
-}
-```
-
-**Создание страниц sign-in и sign-up:**
-```typescript
-// app/sign-in/[[...sign-in]]/page.tsx
-import { SignIn } from '@clerk/nextjs'
-
-export default function SignInPage() {
-  return (
-    <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem' }}>
-      <SignIn />
-    </div>
-  )
-}
-```
-
-```typescript
-// app/sign-up/[[...sign-up]]/page.tsx
-import { SignUp } from '@clerk/nextjs'
-
-export default function SignUpPage() {
-  return (
-    <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem' }}>
-      <SignUp />
-    </div>
-  )
-}
-```
-
-#### 4. Настройка Clerk Dashboard (45 мин)
-
-**Кастомизация UI:**
-- Перейдите в Clerk Dashboard → Customization
-- Выберите цветовую схему (светлую/темную)
-- Настройте логотип и брендинг
-- Измените тексты кнопок (опционально)
-
-**Настройка Social Login:**
-- Перейдите в Dashboard → User & Authentication → Social Connections
-- Включите Google:
-  1. Переключите тоггл Google
-  2. Clerk автоматически настроит для development
-  3. Для production нужно будет добавить свои Google OAuth credentials
-- Аналогично для GitHub, Discord и других
-
-**Настройка Email:**
-- Clerk автоматически отправляет verification emails
-- Magic links для входа без пароля (можно включить)
-- Кастомные email templates (платная фича)
-
-### Практическая работа:
-1. Создайте Clerk приложение
-2. Интегрируйте Clerk в ваш Next.js проект
-3. Добавьте компоненты SignIn/SignUp
-4. Настройте Google и GitHub OAuth
-5. Протестируйте регистрацию и вход
-
-### Домашнее задание:
-Добавьте аутентификацию во все основные страницы вашего приложения. Убедитесь, что после входа пользователь видит персонализированный контент.
+1. **Аналогия «пропуск в здание»** — аутентификация = охранник на входе
+2. **Проблема Money Tracker** — Вася и Маша видят транзакции друг друга
+3. **Аутентификация vs авторизация** — «кто ты» vs «что тебе можно»
+4. **Стартуем** — берём `PRD.md`, кладём в `.taskmaster/docs/prd.txt`,
+   запускаем `task-master parse-prd ... --append`, смотрим `task-master list`
 
 ---
 
-## Урок 7.2: Работа с данными пользователя и защита контента
+## Урок 7.2: Как работает Supabase Auth
 
-**Продолжительность:** 3 часа
+**Продолжительность:** 20 минут
 
 ### Цели урока:
-- Научиться получать данные текущего пользователя
-- Защитить страницы от неавторизованных пользователей
-- Создать приватные и публичные секции
-- Использовать Clerk в Server Components и API Routes
+- Понять, что Supabase Auth — это «готовая система входа из коробки»
+- Разобраться, что такое сессия и токен (простыми словами)
+- Изучить панель Authentication в дашборде Supabase
 
 ### Содержание:
-
-#### 1. Получение данных пользователя (45 мин)
-
-**В Client Components:**
-```typescript
-'use client'
-import { useUser } from '@clerk/nextjs'
-
-export default function ProfileClient() {
-  const { isLoaded, isSignedIn, user } = useUser()
-
-  if (!isLoaded) {
-    return <div>Загрузка...</div>
-  }
-
-  if (!isSignedIn) {
-    return <div>Пожалуйста, войдите</div>
-  }
-
-  return (
-    <div>
-      <h1>Привет, {user.firstName}!</h1>
-      <p>Email: {user.emailAddresses[0].emailAddress}</p>
-      <img src={user.imageUrl} alt="Avatar" />
-    </div>
-  )
-}
-```
-
-**В Server Components:**
-```typescript
-import { currentUser } from '@clerk/nextjs/server'
-
-export default async function ProfileServer() {
-  const user = await currentUser()
-
-  if (!user) {
-    return <div>Не авторизован</div>
-  }
-
-  return (
-    <div>
-      <h1>Привет, {user.firstName}!</h1>
-      <p>Email: {user.emailAddresses[0].emailAddress}</p>
-    </div>
-  )
-}
-```
-
-**Полезные поля user объекта:**
-```typescript
-user.id                                  // Уникальный ID
-user.firstName                           // Имя
-user.lastName                            // Фамилия
-user.emailAddresses[0].emailAddress     // Email
-user.imageUrl                            // Аватар
-user.createdAt                           // Дата регистрации
-```
-
-#### 2. Защита страниц (45 мин)
-
-**Метод 1: Проверка на клиенте (простой, но не самый безопасный):**
-```typescript
-'use client'
-import { useUser } from '@clerk/nextjs'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
-
-export default function ProtectedPage() {
-  const { isLoaded, isSignedIn } = useUser()
-  const router = useRouter()
-
-  useEffect(() => {
-    if (isLoaded && !isSignedIn) {
-      router.push('/sign-in')
-    }
-  }, [isLoaded, isSignedIn, router])
-
-  if (!isLoaded || !isSignedIn) {
-    return <div>Загрузка...</div>
-  }
-
-  return <div>Защищенный контент</div>
-}
-```
-
-**Метод 2: Проверка на сервере (рекомендуется):**
-```typescript
-import { auth } from '@clerk/nextjs/server'
-import { redirect } from 'next/navigation'
-
-export default async function ProtectedServerPage() {
-  const { userId } = await auth()
-
-  if (!userId) {
-    redirect('/sign-in')
-  }
-
-  return <div>Защищенный контент</div>
-}
-```
-
-**Защита API Routes:**
-```typescript
-// app/api/protected/route.ts
-import { auth } from '@clerk/nextjs/server'
-import { NextResponse } from 'next/server'
-
-export async function GET() {
-  const { userId } = await auth()
-
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
-  return NextResponse.json({
-    message: 'Секретные данные',
-    userId
-  })
-}
-```
-
-#### 3. Создание User Profile страницы (60 мин)
-
-**Страница профиля с формой:**
-```typescript
-'use client'
-import { useUser } from '@clerk/nextjs'
-import { useState } from 'react'
-
-export default function UserProfile() {
-  const { user } = useUser()
-  const [bio, setBio] = useState('')
-
-  const handleSave = async () => {
-    // Clerk позволяет сохранять кастомные данные
-    await user?.update({
-      unsafeMetadata: {
-        bio: bio
-      }
-    })
-    alert('Профиль обновлен!')
-  }
-
-  return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Мой профиль</h1>
-
-      <div className="mb-4">
-        <img
-          src={user?.imageUrl}
-          alt="Avatar"
-          className="w-24 h-24 rounded-full"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label className="block mb-2">Имя:</label>
-        <p className="text-xl">{user?.firstName} {user?.lastName}</p>
-      </div>
-
-      <div className="mb-4">
-        <label className="block mb-2">Email:</label>
-        <p>{user?.emailAddresses[0].emailAddress}</p>
-      </div>
-
-      <div className="mb-4">
-        <label className="block mb-2">Биография:</label>
-        <textarea
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-          className="w-full p-2 border rounded"
-          rows={4}
-          placeholder="Расскажите о себе..."
-        />
-      </div>
-
-      <button
-        onClick={handleSave}
-        className="bg-blue-500 text-white px-6 py-2 rounded"
-      >
-        Сохранить
-      </button>
-    </div>
-  )
-}
-```
-
-**Использование встроенного Clerk Profile:**
-```typescript
-// app/user-profile/[[...user-profile]]/page.tsx
-import { UserProfile } from '@clerk/nextjs'
-
-export default function UserProfilePage() {
-  return (
-    <div className="flex justify-center p-6">
-      <UserProfile />
-    </div>
-  )
-}
-```
-
-#### 4. Организация навигации с auth (30 мин)
-
-**Header компонент:**
-```typescript
-'use client'
-import { SignInButton, SignUpButton, UserButton, SignedIn, SignedOut } from '@clerk/nextjs'
-import Link from 'next/link'
-
-export default function Header() {
-  return (
-    <header className="bg-gray-800 text-white p-4">
-      <nav className="max-w-6xl mx-auto flex justify-between items-center">
-        <div className="flex gap-6">
-          <Link href="/" className="hover:underline">Главная</Link>
-          <SignedIn>
-            <Link href="/dashboard" className="hover:underline">Dashboard</Link>
-            <Link href="/user-profile" className="hover:underline">Профиль</Link>
-          </SignedIn>
-        </div>
-
-        <div className="flex gap-4 items-center">
-          <SignedOut>
-            <SignInButton mode="modal">
-              <button className="bg-blue-500 px-4 py-2 rounded">Вход</button>
-            </SignInButton>
-            <SignUpButton mode="modal">
-              <button className="bg-green-500 px-4 py-2 rounded">Регистрация</button>
-            </SignUpButton>
-          </SignedOut>
-
-          <SignedIn>
-            <UserButton
-              afterSignOutUrl="/"
-              appearance={{
-                elements: {
-                  avatarBox: "w-10 h-10"
-                }
-              }}
-            />
-          </SignedIn>
-        </div>
-      </nav>
-    </header>
-  )
-}
-```
-
-### Практическая работа:
-1. Создайте защищенную страницу /dashboard
-2. Добавьте страницу профиля пользователя
-3. Создайте API route, доступный только авторизованным пользователям
-4. Организуйте навигацию с учетом статуса аутентификации
-
-### Домашнее задание:
-Добавьте кастомные поля в профиль пользователя (например, дата рождения, город, интересы) используя `unsafeMetadata` в Clerk.
+1. **Supabase Auth = охранник, которого не нужно нанимать** — всё готово
+2. **Сессия** — «браслет в аквапарке»: один раз вошёл, дальше пускают везде
+3. **Способы входа** — Email+пароль, магик-линк, Social Login
+4. **Панель Authentication** — где смотреть пользователей, провайдеров, шаблоны
 
 ---
 
-## Заключение модуля
+## Урок 7.3: Настройка Supabase Auth
 
-### Что мы изучили:
-✅ Как интегрировать Clerk в Next.js
-✅ Настройка social login (Google, GitHub)
-✅ Получение данных пользователя на клиенте и сервере
-✅ Защита страниц и API routes
-✅ Создание профиля пользователя
-✅ Организация навигации с учетом auth
+**Продолжительность:** 25 минут
+**Task Master:** закрываем задачи 1 и 2
 
-### Что НЕ вошло в модуль (продвинутые темы):
-- Middleware для защиты роутов (Clerk делает это автоматически)
-- Ручная синхронизация пользователей с БД (Clerk автоматически управляет пользователями)
-- Webhooks для сложной интеграции
-- Кастомные JWT claims и metadata
-- Organization management (команды и роли)
-- Multi-factor authentication (MFA)
+### Цели урока:
+- Включить Email-провайдер в дашборде Supabase
+- Убедиться, что `@supabase/ssr` установлен
+- Проверить клиентов `client.ts` и `server.ts` (из модуля 5)
 
-**Для большинства проектов то, что мы изучили — достаточно!**
+### Содержание:
+1. Дашборд Supabase → Authentication → Providers → включить Email
+2. `npm install @supabase/ssr` (если ещё не стоит)
+3. `src/lib/supabase/client.ts` — `createBrowserClient`
+4. `src/lib/supabase/server.ts` — `createServerClient` + `await cookies()`
+5. Проверка: тестовый запрос `supabase.auth.getUser()`
 
-### Полезные ресурсы:
-- [Clerk Documentation](https://clerk.com/docs)
-- [Clerk + Next.js Quickstart](https://clerk.com/docs/quickstarts/nextjs)
-- [Clerk Examples](https://github.com/clerk/clerk-nextjs-examples)
-- [Clerk Community](https://clerk.com/community)
+---
 
-### Следующий модуль:
-В модуле 8 мы изучим работу с базой данных Supabase и научимся сохранять данные приложения.
+## Урок 7.4: Регистрация по Email
+
+**Продолжительность:** 30 минут
+**Task Master:** закрываем задачу 4
+
+### Цели урока:
+- Создать страницу `/register` с формой
+- Подключить `supabase.auth.signUp()`
+- Валидировать форму через zod, показать «Проверьте почту»
+
+### Содержание:
+1. Форма: email + пароль + подтверждение пароля
+2. zod-схема: пароль ≥ 8 символов, пароли совпадают
+3. Server Action `signUp` в `src/app/actions/auth.ts`
+4. Письмо подтверждения — что видит пользователь
+5. Обработка ошибок (email занят, слабый пароль)
+
+---
+
+## Урок 7.5: Вход в систему
+
+**Продолжительность:** 25 минут
+**Task Master:** закрываем задачу 5
+
+### Цели урока:
+- Создать страницу `/login`
+- Подключить `supabase.auth.signInWithPassword()`
+- Добавить кнопку «Выйти» (`signOut`)
+
+### Содержание:
+1. Сравнение: `signUp` (регистрация) vs `signInWithPassword` (вход)
+2. Форма входа + Server Action `signIn`
+3. Редирект на `/` после успеха
+4. Кнопка «Выйти» в шапке + `supabase.auth.signOut()`
+5. Понятные сообщения об ошибках
+
+---
+
+## Урок 7.6: Social Login (Google и GitHub)
+
+**Продолжительность:** 30 минут
+**Task Master:** закрываем задачу 6
+
+### Цели урока:
+- Добавить вход через Google и GitHub
+- Понять, что такое OAuth (аналогия «универсальный пропуск»)
+- Настроить callback-роут
+
+### Содержание:
+1. **OAuth** — «вход через Google» как универсальный пропуск
+2. Настройка провайдеров в дашборде Supabase
+3. Кнопки Social Login + `supabase.auth.signInWithOAuth()`
+4. Callback-роут `src/app/auth/callback/route.ts`
+5. Что происходит «за кулисами» при клике на кнопку Google
+
+---
+
+## Урок 7.7: Защита страниц
+
+**Продолжительность:** 30 минут
+**Task Master:** закрываем задачи 3 и 7
+
+### Цели урока:
+- Создать `src/middleware.ts` — обновление сессии на каждом запросе
+- Защитить страницы с транзакциями от незалогиненных
+- Понять разницу: middleware / Server Component / route handler
+
+### Содержание:
+1. **middleware** — «турникет на входе в офис», проверка на каждом запросе
+2. Паттерн `updateSession` через `createServerClient` (актуальный код 2026)
+3. Защита роутов: незалогиненный → редирект на `/login`
+4. Залогиненный на `/login` → редирект на `/`
+5. **Важно:** используем `@supabase/ssr`, а НЕ устаревший
+   `@supabase/auth-helpers-nextjs`
+
+---
+
+## Урок 7.8: Работа с пользователем
+
+**Продолжительность:** 25 минут
+**Task Master:** закрываем задачу 8
+
+### Цели урока:
+- Получать данные текущего пользователя через `getUser()`
+- Добавить `user_id` в таблицу `transactions`
+- Переписать RLS-политики на `auth.uid() = user_id`
+
+### Содержание:
+1. `supabase.auth.getUser()` — кто сейчас залогинен
+2. Добавляем колонку `user_id` (uuid) в `transactions`
+3. `user_id` берём из серверной сессии, НЕ из формы (безопасность!)
+4. RLS-политики: `SELECT/INSERT/UPDATE/DELETE` с `auth.uid() = user_id`
+5. Проверка: Вася больше не видит транзакции Маши
+
+---
+
+## Итоговый проект: Защищённый Money Tracker
+
+**Задание:** Money Tracker с полноценной аутентификацией.
+
+### Что должно быть готово:
+1. **Регистрация и вход** — страницы `/register` и `/login` работают
+2. **Social Login** — кнопки Google и GitHub
+3. **Защита роутов** — middleware редиректит незалогиненных на `/login`
+4. **RLS** — каждый пользователь видит только свои транзакции
+5. **Деплой** — обновлённое приложение на Vercel, env-переменные на месте
+
+### Критерии оценки (100 баллов):
+- 20 — Регистрация по email работает (signUp + подтверждение)
+- 20 — Вход и выход работают (signInWithPassword + signOut)
+- 15 — Social Login (Google или GitHub) подключён
+- 25 — Защита роутов через middleware (`@supabase/ssr`, не auth-helpers)
+- 20 — RLS-политики: чужие транзакции не видны
+
+---
+
+## Полезные ресурсы
+
+- [Supabase Auth — Server-Side (Next.js)](https://supabase.com/docs/guides/auth/server-side/nextjs)
+- [Supabase Auth — Social Login](https://supabase.com/docs/guides/auth/social-login)
+- [Supabase Row Level Security](https://supabase.com/docs/guides/database/postgres/row-level-security)
+- [Next.js 16 Middleware](https://nextjs.org/docs/app/building-your-application/routing/middleware)
+- [Task Master AI на npm](https://www.npmjs.com/package/task-master-ai)
+
+## Что получают студенты после модуля
+
+- Money Tracker с реальной аутентификацией — вход, регистрация, Social Login
+- Понимание, что такое сессия, middleware, RLS — на практике, не в теории
+- Auth-задачи, добавленные в общий план Task Master через `--append`
+- Привычку: `user_id` всегда из сессии, никогда из формы

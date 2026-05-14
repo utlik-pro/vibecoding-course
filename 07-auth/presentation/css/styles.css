@@ -543,7 +543,7 @@ code {
 }
 
 /* Inline code */
-p code, li code {
+p code, li code, td code, .alert div code, h4 code, summary code {
   background: rgba(59, 130, 246, 0.1);
   color: var(--primary-dark);
   padding: 0.125rem 0.375rem;

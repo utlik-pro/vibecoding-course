@@ -70,10 +70,21 @@
             <span class="lesson-number">Урок 7.7</span>
             <span class="lesson-duration">⏱ 30 минут</span>
           </div>
-          <h1 class="lesson-title">Защита страниц</h1>
+          <h1 class="lesson-title">Защита страниц — middleware и приватные роуты</h1>
           <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
-            Учимся защищать приватные страницы от неавторизованных пользователей
+            Учимся не пускать незалогиненных на страницы с личными данными. Аналогия — «турникет на входе в офис».
           </p>
+        </div>
+
+        <!-- Task Master link -->
+        <div class="alert alert-info" style="border-left: 4px solid #8B5CF6; margin-bottom: 1rem;">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+          <div>
+            <strong>📋 По Task Master:</strong> закрываем <strong>задачи 3 и 7</strong> — «Create middleware.ts (updateSession)» и «Protect transaction routes». Сначала <code>task-master show</code> по каждой, в конце — <code>set-status --status=done</code>.
+          </div>
         </div>
 
         <!-- VIP Room Analogy -->
@@ -194,59 +205,81 @@
 
         <!-- Middleware Code -->
         <section class="card">
-          <div class="card-header" style="background: #10B981; color: white;">Код: Создаём middleware.ts</div>
+          <div class="card-header" style="background: #10B981; color: white;">Код: Создаём src/middleware.ts</div>
           <div class="card-body">
-            <p>Создайте файл <code>middleware.ts</code> в <strong>корне проекта</strong> (рядом с package.json):</p>
+            <div class="alert alert-warning" style="margin-bottom: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div>
+                <strong>Май 2026 — важно:</strong> мы используем пакет <code>@supabase/ssr</code> (мы ставили его в модуле 5, урок 5.7). Старый <code>@supabase/auth-helpers-nextjs</code> с функциями <code>createMiddlewareClient</code>, <code>createServerComponentClient</code> — <strong>deprecated</strong>, в туториалах их больше не используют.
+              </div>
+            </div>
+
+            <p>Создайте файл <code>src/middleware.ts</code>. Он делает две вещи: <strong>обновляет сессию</strong> на каждом запросе и <strong>не пускает</strong> незалогиненных на приватные страницы.</p>
 
             <div class="code-block" style="margin: 1rem 0;">
               <div class="code-block-header">
-                <span class="code-block-lang">middleware.ts</span>
+                <span class="code-block-lang">src/middleware.ts</span>
               </div>
-              <pre><code>import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+              <pre><code>import { createServerClient } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
 
 // Эта функция выполняется ПЕРЕД каждым запросом
 export async function middleware(request: NextRequest) {
-  // Создаём response — это "ответ" который мы можем изменить
-  const res = NextResponse.next()
+  // response, который мы можем изменить
+  let response = NextResponse.next({ request })
 
-  // Создаём клиент Supabase для middleware
-  const supabase = createMiddlewareClient({ req: request, res })
+  // Клиент Supabase для middleware (через @supabase/ssr)
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll()
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) =>
+            request.cookies.set(name, value)
+          )
+          response = NextResponse.next({ request })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            response.cookies.set(name, value, options)
+          )
+        },
+      },
+    }
+  )
 
-  // Проверяем: есть ли сессия? (залогинен ли пользователь?)
-  const { data: { session } } = await supabase.auth.getSession()
+  // ВАЖНО: getUser() обновляет сессию И проверяет токен на сервере.
+  // getSession() так не умеет — поэтому в middleware всегда getUser().
+  const { data: { user } } = await supabase.auth.getUser()
 
-  // Получаем путь страницы, которую хочет открыть пользователь
   const path = request.nextUrl.pathname
 
   // Список приватных страниц (требуют входа)
   const privateRoutes = ['/dashboard', '/profile', '/settings', '/transactions']
-
-  // Проверяем: это приватная страница?
   const isPrivateRoute = privateRoutes.some(route => path.startsWith(route))
 
-  // Если страница приватная И пользователь НЕ залогинен
-  if (isPrivateRoute && !session) {
-    // Перенаправляем на страницу входа
+  // Приватная страница + не залогинен → на /login
+  if (isPrivateRoute && !user) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  // Бонус: если залогинен и идёт на /login — отправляем на dashboard
-  if (session && (path === '/login' || path === '/register')) {
+  // Залогинен и идёт на /login или /register → на /dashboard
+  if (user && (path === '/login' || path === '/register')) {
     return NextResponse.redirect(new URL('/dashboard', request.url))
   }
 
-  // Всё ок — пропускаем дальше
-  return res
+  return response
 }
 
-// Настройка: на каких путях запускать middleware
+// На каких путях запускать middleware
 export const config = {
-  matcher: [
-    // Запускаем на всех путях, кроме статики и API
-    '/((?!_next/static|_next/image|favicon.ico).*)',
-  ],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 }</code></pre>
             </div>
 
@@ -257,7 +290,7 @@ export const config = {
                 <line x1="12" y1="17" x2="12.01" y2="17"/>
               </svg>
               <div>
-                <strong>Важно!</strong> Файл должен называться именно <code>middleware.ts</code> и лежать в корне проекта. Next.js найдёт его автоматически.
+                <strong>Важно!</strong> Файл называется именно <code>middleware.ts</code> и лежит в папке <code>src/</code> (если у вас структура с <code>src/</code>). Next.js найдёт его автоматически.
               </div>
             </div>
           </div>
@@ -269,9 +302,9 @@ export const config = {
           <div class="card-body">
             <div class="term-grid" style="display: grid; gap: 1rem;">
               <div style="background: var(--surface); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--primary);">
-                <h4 style="margin: 0 0 0.5rem 0; color: var(--primary);">supabase.auth.getSession()</h4>
-                <p style="margin: 0;">Проверяет, есть ли активная сессия (залогинен ли пользователь)</p>
-                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">Если session = null — пользователь не залогинен</p>
+                <h4 style="margin: 0 0 0.5rem 0; color: var(--primary);">supabase.auth.getUser()</h4>
+                <p style="margin: 0;">Проверяет, кто сейчас залогинен — и заодно обновляет сессию</p>
+                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">Если user = null — пользователь не залогинен. На сервере всегда <code>getUser()</code>, а не <code>getSession()</code>: только <code>getUser()</code> по-настоящему проверяет токен.</p>
               </div>
 
               <div style="background: var(--surface); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent);">
@@ -301,18 +334,19 @@ export const config = {
           <div class="card-body">
             <p>Middleware — это первая линия защиты. Но иногда нужна проверка прямо в компоненте:</p>
 
+            <p>Используем серверный клиент <code>src/lib/supabase/server.ts</code>, который мы создали в модуле 5 (урок 5.7):</p>
+
             <div class="code-block" style="margin: 1rem 0;">
               <div class="code-block-header">
-                <span class="code-block-lang">app/dashboard/page.tsx</span>
+                <span class="code-block-lang">src/app/dashboard/page.tsx</span>
               </div>
-              <pre><code>import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+              <pre><code>import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 
 // Это Server Component — выполняется на сервере
 export default async function DashboardPage() {
-  // Создаём клиент Supabase для серверного компонента
-  const supabase = createServerComponentClient({ cookies })
+  // Серверный клиент Supabase (из @supabase/ssr)
+  const supabase = await createClient()
 
   // Получаем данные текущего пользователя
   const { data: { user } } = await supabase.auth.getUser()
@@ -332,6 +366,17 @@ export default async function DashboardPage() {
     &lt;/div&gt;
   )
 }</code></pre>
+            </div>
+
+            <div class="alert alert-info" style="margin-bottom: 1rem;">
+              <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div>
+                <code>@/lib/supabase/server</code> — это файл <code>src/lib/supabase/server.ts</code> с функцией <code>createClient()</code>, внутри которой <code>createServerClient</code> из <code>@supabase/ssr</code>. Один раз написали — переиспользуем везде.
+              </div>
             </div>
 
             <div class="alert alert-info">
@@ -360,15 +405,14 @@ export default async function DashboardPage() {
 
             <div class="code-block" style="margin: 1rem 0;">
               <div class="code-block-header">
-                <span class="code-block-lang">app/api/transactions/route.ts</span>
+                <span class="code-block-lang">src/app/api/transactions/route.ts</span>
               </div>
-              <pre><code>import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+              <pre><code>import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 
 // GET — получить транзакции пользователя
 export async function GET() {
-  const supabase = createRouteHandlerClient({ cookies })
+  const supabase = await createClient()
 
   // Проверяем авторизацию
   const { data: { user } } = await supabase.auth.getUser()
@@ -392,7 +436,7 @@ export async function GET() {
 
 // POST — создать новую транзакцию
 export async function POST(request: Request) {
-  const supabase = createRouteHandlerClient({ cookies })
+  const supabase = await createClient()
 
   // Проверяем авторизацию
   const { data: { user } } = await supabase.auth.getUser()
@@ -412,7 +456,7 @@ export async function POST(request: Request) {
     .from('transactions')
     .insert({
       ...body,
-      user_id: user.id  // Автоматически привязываем к пользователю!
+      user_id: user.id  // Берём id из сессии, НЕ из формы!
     })
     .select()
 
@@ -452,12 +496,11 @@ export async function POST(request: Request) {
                   <div class="code-block-header">
                     <span class="code-block-lang">app/dashboard/page.tsx</span>
                   </div>
-                  <pre><code>import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+                  <pre><code>import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 
 export default async function DashboardPage() {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {

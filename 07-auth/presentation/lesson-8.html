@@ -70,10 +70,21 @@
             <span class="lesson-number">Урок 7.8</span>
             <span class="lesson-duration">⏱ 25 минут</span>
           </div>
-          <h1 class="lesson-title">Работа с пользователем</h1>
+          <h1 class="lesson-title">Работа с пользователем — user_id и RLS</h1>
           <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 0.5rem;">
-            Получаем данные пользователя и связываем их с базой данных
+            Получаем текущего пользователя через <code>getUser()</code>, добавляем <code>user_id</code> в транзакции и настраиваем RLS — чтобы чужие записи были физически недоступны.
           </p>
+        </div>
+
+        <!-- Task Master link -->
+        <div class="alert alert-info" style="border-left: 4px solid #8B5CF6; margin-bottom: 1rem;">
+          <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+          <div>
+            <strong>📋 По Task Master:</strong> закрываем <strong>задачу 8</strong> — «Add user_id to transactions + RLS policies». Это финальная задача auth-плана. После неё <code>task-master list</code> — все auth-задачи <code>done</code>, осталась только сборка проекта.
+          </div>
         </div>
 
         <!-- Getting Current User -->
