@@ -49,7 +49,8 @@ const COURSE_CONFIG = {
         { email: 'vitalkov@gmail.com', name: 'Vitalkov', active: true },
         { email: 'oot2022@mail.ru', name: 'Хильман Наталья Викторовна', active: true },
         { email: 'il.latyshev@gmail.com', name: 'Латышев Илья Сергеевич', active: true },
-        { email: 'goodlife-fm@mail.ru', name: 'Сидоров Павел Петрович', active: true }
+        { email: 'goodlife-fm@mail.ru', name: 'Сидоров Павел Петрович', active: true },
+        { email: 'nmedvedeva312@gmail.com', name: 'Медведева Н.', active: true }
       ]
     },
     {
@@ -69,7 +70,6 @@ const COURSE_CONFIG = {
         { email: 'iharmarynin@gmail.com', name: 'Маринин Игорь Егорович', active: true },
         { email: 'Sergejsputalov@gmail.com', name: 'Шпуталов Сергей Витальевич', active: true },
         { email: 'rei.sheko@gmail.com', name: 'Шеко Андрей Иванович', active: true },
-        { email: 'nmedvedeva312@gmail.com', name: 'Медведева Н.', active: true },
         { email: 'kwazi@tut.by', name: 'Kwazi', active: true },
         { email: 'fvojtov@gmail.com', name: 'Vojtov F.', active: true },
         { email: 'ekrotik@gmail.com', name: 'Ekrotik', active: true }
